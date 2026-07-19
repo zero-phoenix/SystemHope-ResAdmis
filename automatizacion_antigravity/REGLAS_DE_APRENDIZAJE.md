@@ -23,9 +23,11 @@
 
 ## 📝 REGLAS ESTRICTAS DE ESTRUCTURA Y FORMATO (WORD)
 
-1. **Encabezado (Header):** Debe ir alineado a la derecha, en cursiva y negrita: `"SECRETARIA TÉCNICA DE LA COMISIÓN DE PROTECCIÓN AL CONSUMIDOR 1 SEDE CENTRAL"`.
-2. **Cuerpo de Metadatos (Tabla Inicial):** Los datos iniciales deben presentarse alineados en dos columnas: a la izquierda el campo (ej. `EXPEDIENTE :`, `DENUNCIANTE :`, etc.) y a la derecha el valor **en negrita**. La fecha va justo debajo de este bloque, alineada a la izquierda y sin negrita.
-3. **Títulos Principales:** Deben estar enumerados en romanos, alineados a la izquierda y en negrita (ej. **I. HECHOS**, **II. DE LA ADMISIÓN...**, etc.).
-4. **Citas y Notas al Pie:** Cada vez que se invoque una norma (como facultades, normas, artículos de sanciones o notificaciones), **DEBE** incluirse obligatoriamente la llamada a nota al pie en el texto, y la nota respectiva en el pie de página con el texto íntegro de la norma legal. Las notas al pie usan fuente **Arial Narrow tamaño 10**, con alineación **Justificada**.
-5. **Pie de Página (Footer):** Todas las páginas del documento deben incluir en la esquina inferior izquierda el código identificador `"M-CPC-01/03"`.
-6. **Fuentes Generales:** Todo el cuerpo del documento (donde no es pie de página) usa **Arial Narrow tamaño 11**, alineación **Justificada**.
+1. **Uso Obligatorio de Plantillas Base:** NUNCA se debe generar un documento Word desde cero. Para conservar las imágenes del encabezado (Logo Indecopi a la izquierda, Firma digital a la derecha) y los formatos nativos, se debe abrir un modelo existente (ej. `MODELO xxxx exp. ADM...docx`), vaciar su contenido corporal (manteniendo Headers y Footers intactos) y luego inyectar el nuevo texto.
+2. **Encabezado en Cuerpo (Header-Body):** La frase `"SECRETARIA TÉCNICA DE LA COMISIÓN DE PROTECCIÓN AL CONSUMIDOR 1 SEDE CENTRAL"` debe ir alineada a la derecha, en cursiva y negrita en la parte superior del documento (después del Header con imágenes).
+3. **Cuerpo de Metadatos (Tabla Inicial):** Los datos iniciales deben presentarse alineados en dos columnas: a la izquierda el campo (ej. `EXPEDIENTE :`, `DENUNCIANTE :`) y a la derecha el valor **en negrita**. La fecha va debajo de este bloque, alineada a la izquierda y sin negrita.
+4. **Títulos Principales:** Numerados en romanos, alineados a la izquierda y en negrita (ej. **I. HECHOS**, **II. DE LA ADMISIÓN...**).
+5. **Citas y Notas al Pie:** Siempre que se invoque una norma, debe insertarse una nota al pie real de Microsoft Word (Footnote). La fuente de las notas al pie es estrictamente **Arial Narrow tamaño 10**, alineación **Justificada**.
+6. **Pie de Página (Footer):** Todas las páginas del documento llevan el código `"M-CPC-01/03"`.
+7. **Fuentes Generales:** El cuerpo del documento usa **Arial Narrow tamaño 11**, alineación **Justificada**.
+8. **Nomenclatura del Archivo:** El nombre del archivo Word final SIEMPRE debe comenzar con el prefijo "ADM " seguido del número de expediente y la versión (ej. `ADM 0955-2026 v3.docx`).
