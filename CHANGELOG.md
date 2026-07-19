@@ -4,6 +4,28 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [1.0.5] - 2026-07-19 (ANÁLISIS EXHAUSTIVO - 201 Resaltados Eliminados)
+
+### Critical Analysis
+- ✅ Decreto Supremo 004-2019-JUS: VERIFICADO VIGENTE (19-07-2026)
+- ✅ Resaltados: 201 elementos eliminados completamente
+- ✅ PDF Original extraído y archivado (REFERENCIA_PDF_ORIGINAL.txt)
+- ✅ Análisis comparativo ejecutado
+- ⚠️ Documento modelo base vs PDF original: Estructura diferente (requiere unificación)
+- ⚠️ Partes procesales: Análisis de incongruencias identificadas
+
+### Key Findings v1.0.5
+- PDF original: 26,560 caracteres, 6 páginas
+- Documento generado: 13,838 caracteres (incompleto)
+- Modelo base utilizado: 0672-2026/CC1 (estructura de otro caso)
+- Solución requerida: Necesita contenido IDÉNTICO a PDF original
+
+### Next Steps v1.0.5
+- Crear documento con contenido COMPLETO del PDF
+- No usar modelo base (estructura incompatible)
+- Generar desde contenido original verificado
+- Validar identidad al 100% con PDF adjunto
+
 ## [1.0.4] - 2026-07-19 (AUTO-CORREGIDO - Resaltados Eliminados + Normas Vigentes)
 
 ### Fixed - FINAL
