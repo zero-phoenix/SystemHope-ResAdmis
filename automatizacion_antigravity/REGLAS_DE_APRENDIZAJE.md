@@ -27,7 +27,8 @@
 2. **Encabezado en Cuerpo (Header-Body):** La frase `"SECRETARIA TÉCNICA DE LA COMISIÓN DE PROTECCIÓN AL CONSUMIDOR 1 SEDE CENTRAL"` debe ir alineada a la derecha, en cursiva y negrita en la parte superior del documento (después del Header con imágenes).
 3. **Cuerpo de Metadatos (Tabla Inicial):** Los datos iniciales deben presentarse alineados en dos columnas: a la izquierda el campo (ej. `EXPEDIENTE :`, `DENUNCIANTE :`) y a la derecha el valor **en negrita**. La fecha va debajo de este bloque, alineada a la izquierda y sin negrita.
 4. **Títulos Principales:** Numerados en romanos, alineados a la izquierda y en negrita (ej. **I. HECHOS**, **II. DE LA ADMISIÓN...**).
-5. **Citas y Notas al Pie:** Siempre que se invoque una norma, debe insertarse una nota al pie real de Microsoft Word (Footnote). La fuente de las notas al pie es estrictamente **Arial Narrow tamaño 10**, alineación **Justificada**.
-6. **Pie de Página (Footer):** Todas las páginas del documento llevan el código `"M-CPC-01/03"`.
-7. **Fuentes Generales:** El cuerpo del documento usa **Arial Narrow tamaño 11**, alineación **Justificada**.
-8. **Nomenclatura del Archivo:** El nombre del archivo Word final SIEMPRE debe comenzar con el prefijo "ADM " seguido del número de expediente y la versión (ej. `ADM 0955-2026 v3.docx`).
+5. **Espaciado y Párrafos (¡MUY IMPORTANTE!):** NO se deben agregar líneas en blanco adicionales entre los párrafos de texto continuo (ej. entre "1." y "(i)", "(ii)", etc.). Se debe respetar el interlineado compacto natural del documento para que no se exceda irrazonablemente en páginas (debe calzar aproximadamente en 6 páginas según el volumen estándar).
+6. **Citas y Notas al Pie (Inserción Segura):** Siempre que se invoque una norma, debe insertarse una nota al pie real de Microsoft Word (Footnote). La inyección técnica debe ser perfecta, asegurándose de que **las notas al pie sí sean visibles**. La fuente de las notas al pie es estrictamente **Arial Narrow tamaño 10**, alineación **Justificada**.
+7. **Pie de Página (Footer):** Todas las páginas del documento llevan el código `"M-CPC-01/03"`.
+8. **Fuentes Generales:** El cuerpo del documento usa **Arial Narrow tamaño 11**, alineación **Justificada**.
+9. **Nomenclatura del Archivo:** El nombre del archivo Word final SIEMPRE debe comenzar con el prefijo "ADM " seguido del número de expediente (ej. `ADM 0955-2026.docx`).
