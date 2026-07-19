@@ -32,3 +32,4 @@
 7. **Pie de Página (Footer):** Todas las páginas del documento llevan el código `"M-CPC-01/03"`.
 8. **Fuentes Generales:** El cuerpo del documento usa **Arial Narrow tamaño 11**, alineación **Justificada**.
 9. **Nomenclatura del Archivo:** El nombre del archivo Word final SIEMPRE debe comenzar con el prefijo "ADM " seguido del número de expediente (ej. `ADM 0955-2026.docx`).
+10. **Ruta de Guardado (¡Estricto!):** Todas las versiones de las resoluciones admisorias deben guardarse EXCLUSIVAMENTE en la ruta `D:\BETTER CALL DAVID\ResAdmi\productos (resoluciones) elaborada por google antigravity`. NUNCA deben guardarse dentro de la subcarpeta `cedulas de notificacion de los productos (resoluciones)`.
