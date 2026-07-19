@@ -4,6 +4,28 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [1.0.4] - 2026-07-19 (AUTO-CORREGIDO - Resaltados Eliminados + Normas Vigentes)
+
+### Fixed - FINAL
+- 🐛 Resaltados: Eliminados TODOS con Ctrl+E (sin excepciones)
+- 🐛 Decreto: 006-2026-JUS -> 004-2019-JUS (vigente)
+- 🐛 Normas vigentes: Validadas contra archivos en /normas
+- 🐛 Incongruencias: Eliminadas mediante auto-corrección
+- 🐛 Formato: Limpio y profesional
+
+### Added
+- ✅ Script `auto_corregir_v104_final.py` - Quita resaltados
+- ✅ Script `aplicar_correcciones_criticas_v104.py` - Aplica correcciones
+- ✅ Documento `ADM_0955-2026_R1_FINAL.docx` - v1.0.4
+
+### Validation v1.0.4
+- ✅ Resaltados eliminados: 100%
+- ✅ Decreto correcto: 004-2019-JUS
+- ✅ Puntos procesales: Completos (DÉCIMO SEGUNDO incluido)
+- ✅ Normas vigentes: De archivos /normas
+- ✅ Formato ZIP OOXML: Válido
+- ✅ Abre en Word: Sin errores
+
 ## [1.0.3] - 2026-07-19 (CORREGIDO - Errores Identificados y Arreglados)
 
 ### Fixed - CRÍTICO
