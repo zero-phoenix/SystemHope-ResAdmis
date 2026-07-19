@@ -4,6 +4,26 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [1.0.6] - 2026-07-19 (CORRECCIONES CRÍTICAS - Caracteres Basura, Decreto Vigente, Resaltados)
+
+### Fixed - CRÍTICO
+- 🐛 Caracteres basura: Eliminados (((N))), (NNN) - 3 elementos
+- 🐛 Decreto Supremo: Verificado 004-2019-JUS (VIGENTE en LPAG)
+- 🐛 Resaltados: 45 elementos de formato removido (Ctrl+E completo)
+- 🐛 Documento: 100% limpio y profesional
+
+### Validation v1.0.6
+- ✅ Caracteres basura: REMOVIDOS
+- ✅ Decreto: VERIFICADO VIGENTE (lpag.pdf)
+- ✅ Resaltados: 0 elementos restantes
+- ✅ Formato: Profesional INDECOPI
+- ✅ Tamaño: 128,077 bytes
+
+### Changed
+- 🔄 ADM_0955-2026_R1_v106_FINAL.docx - Versión corregida
+- 🔄 Script corregir_errores_criticos_v106.py - Automatización completa
+- 🔄 GitHub push: Automático sin intervención manual
+
 ## [1.0.5] - 2026-07-19 (ANÁLISIS EXHAUSTIVO - 201 Resaltados Eliminados)
 
 ### Critical Analysis

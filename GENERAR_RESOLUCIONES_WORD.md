@@ -161,9 +161,97 @@ documento.docx (125-150 KB con imágenes)
 
 ---
 
+---
+
+## 🔍 VALIDACIÓN CRÍTICA (v1.0.6) - NUEVA
+
+### 1. Eliminar Caracteres Basura
+**Problema:** Caracteres como `(((N)))`, `(NNN)` se cuelan durante edición
+
+**Script automático:**
+```python
+import re
+from docx import Document
+
+doc = Document('ADM_0955-2026_R1.docx')
+
+for paragraph in doc.paragraphs:
+    for run in paragraph.runs:
+        run.text = re.sub(r'\(\(\([A-Z0-9]*\)\)\)', '', run.text)
+        run.text = re.sub(r'\([A-Z]{3}\)', '', run.text)
+
+doc.save('ADM_0955-2026_R1_LIMPIO.docx')
+```
+
+### 2. Verificar Decreto Supremo Vigente
+**Ubicación:** `D:\BETTER CALL DAVID\ResAdmi\normas\`
+
+**Archivos de referencia:**
+- `lpag.pdf` - Ley del Procedimiento Administrativo General
+- `codigo proteccion consumidor.pdf` - Ley 29571
+
+**Validar antes de generar:**
+```python
+# En documento: Decreto Supremo 004-2019-JUS ✅ VIGENTE
+# NO usar: Decreto Supremo 006-2026 (DEROGADO)
+```
+
+### 3. Eliminar Todos los Resaltados (Ctrl+E)
+**Problema:** Resaltados de color persisten pese a limpieza
+
+**Script extremo:**
+```python
+from docx import Document
+from docx.oxml.ns import qn
+
+doc = Document('ADM_0955-2026_R1.docx')
+contador = 0
+
+# Párrafos
+for paragraph in doc.paragraphs:
+    pPr = paragraph._element.get_or_add_pPr()
+    for elem in list(pPr):
+        if 'shd' in str(elem.tag).lower():
+            pPr.remove(elem)
+            contador += 1
+
+    # Runs
+    for run in paragraph.runs:
+        rPr = run._element.get_or_add_rPr()
+        for elem in list(rPr):
+            tag_str = str(elem.tag).lower()
+            if any(x in tag_str for x in ['color', 'shd', 'highlight']):
+                rPr.remove(elem)
+                contador += 1
+
+# Tablas
+for table in doc.tables:
+    for row in table.rows:
+        for cell in row.cells:
+            tcPr = cell._element.get_or_add_tcPr()
+            for elem in list(tcPr):
+                if 'shd' in str(elem.tag).lower():
+                    tcPr.remove(elem)
+                    contador += 1
+
+print(f"Resaltados removidos: {contador}")
+doc.save('ADM_0955-2026_R1_LIMPIO.docx')
+```
+
+### 4. Validación Final
+**Checklist antes de producción:**
+- [ ] Sin caracteres basura `(((N)))`, `(NNN)`
+- [ ] Decreto Supremo: 004-2019-JUS (verificado vigente)
+- [ ] Sin resaltados de color (Ctrl+E ejecutado)
+- [ ] Abre en Word sin errores
+- [ ] Estructura INDECOPI completa
+- [ ] Firma y datos correctos
+
+---
+
 **Última actualización:** 19 de julio de 2026  
-**Versión:** 1.0.2 - Usando modelos base (CORRECCIÓN VISUAL)  
-**Estado:** 🟢 PRODUCCIÓN - Imágenes y colores preservados
+**Versión:** 1.0.6 - Validación crítica (caracteres basura, decreto vigente, resaltados)  
+**Estado:** 🟢 PRODUCCIÓN - Validado y limpio
 
 ---
 
