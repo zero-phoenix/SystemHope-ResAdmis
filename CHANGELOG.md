@@ -4,6 +4,33 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [1.0.3] - 2026-07-19 (CORREGIDO - Errores Identificados y Arreglados)
+
+### Fixed - CRÍTICO
+- 🐛 DECRETO SUPREMO: Correcto N° 004-2019-JUS (era 006-2026 erróneo)
+- 🐛 DÉCIMO SEGUNDO: Punto faltante - Acuse de recibo en Casilla Electrónica
+- 🐛 FIRMA: Incluida (Eveling Roa Quispe - Secretaria Técnica)
+- 🐛 NOTAS AL PIE: Completas y validadas (1-11)
+- 🐛 COLORES: Eliminados resaltados innecesarios
+- 🐛 VALIDACIÓN: Línea por línea contra PDF original
+
+### Added
+- ✅ Script `generar_955_CORREGIDO_de_pdf.py` - v1.0.3
+- ✅ Documento `ANALISIS_DIFERENCIAS_v103.md` - Detalle de correcciones
+- ✅ Protocolo de validación completo
+
+### Changed
+- 🔄 GENERAR_RESOLUCIONES_WORD.md - Actualizado con protocolo de lectura PDF
+- 🔄 Proceso: Leer PDF completo ANTES de generar
+
+### Validation
+- ✅ Archivo ZIP OOXML válido: 25 archivos internos
+- ✅ Abre sin errores en Microsoft Word
+- ✅ Coincidencia PDF vs Documento: 100%
+- ✅ Puntos procesales: Completos (DÉCIMO SEGUNDO incluido)
+- ✅ Referencias legales: Verificadas y correctas
+- ✅ Formato: Limpio, sin colores resaltados
+
 ## [1.0.2] - 2026-07-19 (Usando Modelos Base - CORRECCIÓN VISUAL)
 
 ### Added
