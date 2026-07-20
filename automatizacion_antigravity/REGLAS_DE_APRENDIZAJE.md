@@ -178,3 +178,11 @@ Al requerir información al proveedor denunciado, la redacción debe ser quirúr
 3. **Exigir la prueba de descargo del hecho infractor:** Requerir los medios probatorios que justifiquen su accionar (ej. 'presentar los medios probatorios que acrediten que la negativa de otorgamiento de cobertura fue justificada').
 4. **Cláusula obligatoria de comunicaciones:** SIEMPRE incluir como último inciso: 'presentar todas las comunicaciones cursadas con la parte denunciante en virtud de los hechos materia de denuncia'. 
 5. **Especificidad en grabaciones:** Si el denunciante alega en su escrito que hubo una contratación telefónica, entrevista poligráfica por videollamada, u otro contacto grabado, el requerimiento de comunicaciones debe exigir expresamente el archivo de audio/video de dicha comunicación.
+
+
+## 48. REFERENCIA AL DENUNCIADO: COMPAÑÍA ASEGURADORA VS PROVEEDOR DENUNCIADO
+### Contexto
+Para evitar redundancias en la redacción y mantener un nivel técnico superior, es necesario utilizar pronombres o sustantivos genéricos que identifiquen claramente la naturaleza del infractor.
+### La Regla Definitiva
+Cuando el denunciado es una empresa de seguros (ej. La Positiva, Pacífico Seguros, Mapfre, Rimac), el término genérico a utilizar a lo largo de todo el documento (para no repetir su nombre legal) será estrictamente **'la compañía aseguradora'**.
+Solo cuando la empresa pertenezca a otro rubro (colegios, tiendas, aerolíneas, etc.) se utilizará el término general **'el proveedor denunciado'**.
