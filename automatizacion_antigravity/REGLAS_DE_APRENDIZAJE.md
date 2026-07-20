@@ -371,3 +371,12 @@ NUNCA confíes en heredar estilos de la plantilla vía código.
 1. Al inyectar el texto base del JSON, se deben eliminar todos los espacios y tabs manuales al inicio de cada línea usando `line.lstrip(" \t")`, para luego concatenar con un ÚNICO `\t` maestro y saltos de párrafo `\r`.
 2. Al formatear los párrafos resultantes vía COM (`win32com`), TODO texto inyectado en la etapa final debe ser **formateado explícitamente**. Se debe declarar `p.Range.Font.Bold = False` para limpiar la herencia de estilos antes de aplicar la lógica de negritas.
 3. La evaluación para aplicar `Bold = True` a leyes debe evaluar todo el párrafo y no estar restringida a las primeras palabras de un string no higienizado.
+
+73. FORMATO EXPLÍCITO Y LIMPIEZA DE TABS EN NOTAS AL PIE
+Contexto:
+El texto inyectado en las notas al pie generaba doble-tabulaciones y espacios residuales, arruinando la sangría francesa. Además, la herencia de negritas ("Bold") no funcionaba si la palabra clave (ej. "Artículo") no estaba exactamente al principio del párrafo debido a estos espacios/tabs fantasmas, o si el documento arrastraba estilos invisibles.
+La Regla Definitiva:
+NUNCA confíes en heredar estilos de la plantilla vía código.
+1. Al inyectar el texto base del JSON, se deben eliminar todos los espacios y tabs manuales al inicio de cada línea usando `line.lstrip(" \t")`, para luego concatenar con un ÚNICO `\t` maestro y saltos de párrafo `\r`.
+2. Al formatear los párrafos resultantes vía COM (`win32com`), TODO texto inyectado en la etapa final debe ser **formateado explícitamente**. Se debe declarar `p.Range.Font.Bold = False` para limpiar la herencia de estilos antes de aplicar la lógica de negritas.
+3. La evaluación para aplicar `Bold = True` a leyes debe evaluar todo el párrafo y no estar restringida a las primeras palabras de un string no higienizado.
