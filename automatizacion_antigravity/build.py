@@ -1,4 +1,3 @@
-import re
 from pathlib import Path
 from typing import Dict
 
@@ -50,7 +49,6 @@ def remove_numbering(paragraph):
 
 
 def add_run(paragraph, text, bold=False):
-    text = re.sub(r"__F\d*__", "", text)
     run = paragraph.add_run(text)
     run.bold = bold
     clean_run(run)

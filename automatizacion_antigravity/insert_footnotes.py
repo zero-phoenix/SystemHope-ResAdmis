@@ -15,6 +15,7 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
             find = rng.Find
             find.Text = marker
             if find.Execute():
+                rng.Text = ""
                 document.Footnotes.Add(rng, Text=str(note))
         document.SaveAs(str(output_path))
     finally:
