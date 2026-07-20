@@ -261,3 +261,9 @@ Contexto
 Las notas al pie aparecían vacías (sin texto) porque se pasaba un argumento nombrado (`Text=...`) que el puente COM ignora o malinterpreta.
 La Regla Definitiva
 Para agregar notas al pie por COM se deben pasar los argumentos de forma posicional estricta. Ejemplo correcto: `document.Footnotes.Add(rng, "", str(note))` en lugar de usar `Text=...`.
+
+62. PROHIBICIÓN ABSOLUTA DE MARKDOWN Y SALTOS DE PÁRRAFO DUROS EN NOTAS AL PIE
+Contexto
+En las notas al pie, usar asteriscos (`**`) para negritas resultaba en la impresión literal de los asteriscos, arruinando la objetividad del documento. Asimismo, los saltos de línea con `\n` rompían el estilo "Footnote Text" nativo de Word en las líneas subsecuentes (volviéndose letra grande o desfasada).
+La Regla Definitiva
+JAMÁS usar asteriscos u otro markdown en las cadenas de texto del JSON destinadas a MS Word. Adicionalmente, si una nota al pie requiere varias líneas, se debe utilizar EXCLUSIVAMENTE el salto de línea suave (`\u000b` o `\x0b`) en vez de `\n` para evitar que Word cree nuevos párrafos y destruya la tipografía Arial Narrow tamaño 8.
