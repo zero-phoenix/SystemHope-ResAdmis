@@ -267,3 +267,21 @@ Contexto
 En las notas al pie, usar asteriscos (`**`) para negritas resultaba en la impresión literal de los asteriscos, arruinando la objetividad del documento. Asimismo, los saltos de línea con `\n` rompían el estilo "Footnote Text" nativo de Word en las líneas subsecuentes (volviéndose letra grande o desfasada).
 La Regla Definitiva
 JAMÁS usar asteriscos u otro markdown en las cadenas de texto del JSON destinadas a MS Word. Adicionalmente, si una nota al pie requiere varias líneas, se debe utilizar EXCLUSIVAMENTE el salto de línea suave (`\u000b` o `\x0b`) en vez de `\n` para evitar que Word cree nuevos párrafos y destruya la tipografía Arial Narrow tamaño 8.
+
+63. FORZADO DE ESTILO TIPOGRÁFICO EN NOTAS AL PIE
+Contexto
+Word 365 y la inserción COM (`Footnotes.Add`) a menudo insertan texto con fuentes predeterminadas como "Aptos 10", destrozando la uniformidad con el estilo original de "Arial Narrow 8 Justificado".
+La Regla Definitiva
+Es OBLIGATORIO que `insert_footnotes.py` itere sobre todas las notas al pie del documento final (`document.Footnotes`) y fuerce explícitamente la fuente (`Arial Narrow`), el tamaño (`8`) y la alineación justificada (`Alignment = 3`), sin confiar ciegamente en el estilo heredado de la plantilla.
+
+64. MODIFICACIÓN A LA REGLA 62: NO USAR SALTOS SUAVES EN TEXTO JUSTIFICADO
+Contexto
+Se había intentado usar `\x0b` (soft line break) en las notas al pie para mantener el estilo original. Sin embargo, dado que los pies de página están JUSTIFICADOS, un salto de línea suave provoca que Word estire las palabras de forma grotesca para abarcar todo el ancho del párrafo (espacios gigantes entre palabras).
+La Regla Definitiva
+En el JSON, las notas al pie de múltiples párrafos DEBEN utilizar saltos de párrafo reales (`\n`). Para evitar la pérdida del formato, la aplicación obligatoria de la Regla 63 (bucle COM forzando `Arial Narrow 8` a todo `document.Footnotes`) es suficiente para mantener el formato en todos los sub-párrafos sin causar estiramientos indeseados.
+
+65. RESPETAR LOS PÁRRAFOS Y NOTAS RESIDENTES DE LA PLANTILLA
+Contexto
+Se inyectó el párrafo "En tanto la denuncia reúne..." y su correspondiente nota al pie en el JSON, ignorando que la plantilla ya traía ese párrafo de base. Esto causó duplicidad del párrafo y de la nota (Nota 5 inyectada vs Nota 6 residente).
+La Regla Definitiva
+Antes de rellenar `imputaciones_analisis`, se debe constatar qué párrafos de conclusión ("En tanto la denuncia...") ya habitan la plantilla. La automatización NO DEBE inyectar párrafos redundantes que ya existan en la estructura base del Word.
