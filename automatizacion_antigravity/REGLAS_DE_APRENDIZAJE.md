@@ -142,3 +142,27 @@ La sección de HECHOS no es un resumen libre ni una interpretación deductiva de
 3. **Espejo del escrito:** Si el escrito de denuncia detalla los documentos exactos que presentó al proveedor en su reclamo previo, lístalos tal cual (ej. 'entregando el acta de defunción, el atestado policial y la documentación adicional exigida').
 4. **No inventar ni anticipar defensas:** En la narración de hechos, relata el rechazo del proveedor tal como lo sufre el denunciante ('denegó el reconocimiento y pago de la cobertura solicitados'). No extraigas proactivamente los argumentos técnicos del proveedor desde sus cartas de rechazo (ej. 'alegando que no era ocupante sino que iba en moto') a menos que el denunciante base su relato expresamente en rebatir eso. Cíñete al escrito de denuncia.
 5. **Formalidad en montos:** Escribir los conceptos formalmente (ej. 'cuatro (4) Unidades Impositivas Tributarias' en lugar de '4 UIT').
+
+
+## 44. FORMATO DE PÁRRAFO ÚNICO PARA IMPUTACIÓN ÚNICA
+### Contexto
+Cuando se admite a trámite por un solo hecho infractor, no se deben usar listas ni incisos `(i)`.
+### La Regla Definitiva
+Si hay una sola presunta infracción, el artículo PRIMERO de la Resolución de la Secretaría Técnica debe redactarse de corrido en un solo párrafo. Ejemplo:
+> PRIMERO: admitir a trámite la denuncia del [fecha] interpuesta por [Denunciante] contra [Denunciado], por presunta infracción a los artículos 18° y 19°..., en tanto [hecho infractor].
+
+
+## 45. REDACCIÓN DEL HECHO INFRACTOR (ESPECIFICIDAD Y NO REDUNDANCIA)
+### Contexto
+La imputación debe ser precisa, elegante y evitar repeticiones innecesarias en el mismo párrafo.
+### La Regla Definitiva
+1. **Evitar redundancia:** Si ya se mencionó el nombre completo del denunciado al inicio del párrafo (ej. La Positiva Seguros y Reaseguros S.A.A.), referirse a él a continuación de forma genérica (ej. 'la compañía aseguradora', 'el banco') en lugar de repetir su nombre legal.
+2. **Especificidad Extrema:** Detallar exactamente el producto, número de póliza/contrato y los conceptos reclamados. No basta con 'cobertura del SOAT'; debe ser 'la cobertura de fallecimiento y gastos de sepelio de la Póliza 140733548 del Seguro Obligatorio de Accidente de Tránsito'.
+3. **Neutralidad:** Usar lenguaje condicional neutro ('se habría negado a otorgar') y evitar pre-calificar la conducta ('habría denegado de manera injustificada').
+
+
+## 46. TRATAMIENTO DE REPRESENTANTES DE PERSONAS NATURALES
+### Contexto
+Es común confundir al representante legal con el titular de los derechos (denunciante).
+### La Regla Definitiva
+Si el denunciante es una Persona Natural pero presenta su escrito a través de un representante, **NUNCA** se menciona al representante en el texto de la resolución (ni en Hechos, ni en Análisis, ni en el Resolutivo). Todos los actos se atribuyen directamente al denunciante titular. Solo se menciona explícitamente a un representante cuando el denunciante es una Persona Jurídica.
