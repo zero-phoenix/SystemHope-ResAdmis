@@ -1,3 +1,4 @@
+import re
 import sys
 from pathlib import Path
 
@@ -27,10 +28,31 @@ def main(argv=None):
     if not footer_ok:
         failures.append("footer no contiene M-CPC-01/03")
     body = "\n".join(p.text for p in doc.paragraphs)
-    dummy_ok = not any(x in body for x in ("MEDALITH", "xx de abril", "La señora Medina", "0672-2026", "__F", "{{"))
+    dummy_literals = (
+        "MEDALITH",
+        "xx de abril",
+        "La señora Medina",
+        "0672-2026",
+        "__F",
+        "{{",
+        "Asencios",
+        "Mapfre",
+        "Comité de Administración del Fondo de Asistencia",
+        "Oswaldo Chamorro",
+        "poligráfica",
+        "1000001429",
+        "2101-1031084",
+        "30150448",
+        "CRT-854049",
+        "1364266",
+    )
+    dummy_patterns = (r"\(\(\(", r"\(N+\)", r"x{3,}", r"\dx{2,}", r"20\dx")
+    dummy_matches = [item for item in dummy_literals if item in body]
+    dummy_matches.extend(pattern for pattern in dummy_patterns if re.search(pattern, body))
+    dummy_ok = not dummy_matches
     print(f"{'OK' if dummy_ok else 'FALLA'}: no quedan textos dummy")
     if not dummy_ok:
-        failures.append("quedan textos dummy o marcadores")
+        failures.append("quedan textos dummy o marcadores: " + ", ".join(dummy_matches))
     roman_ok = any(
         (p.text.strip().startswith(("I.", "II.", "III.", "IV.", "V."))
          or p.text.strip().startswith(("PRIMERO:", "SEGUNDO:", "TERCERO:", "CUARTO:", "QUINTO:")))
