@@ -66,12 +66,23 @@ def _remove(paragraph):
         parent.remove(paragraph._element)
 
 
+import copy
+import re
+
+def _clone_paragraph_before(paragraph):
+    new_p = paragraph.insert_paragraph_before(style=paragraph.style)
+    new_p._p.get_or_add_pPr()
+    paragraph._p.get_or_add_pPr()
+    new_p._p.replace(new_p._p.pPr, copy.deepcopy(paragraph._p.pPr))
+    return new_p
+
+def _strip_manual_enumerator(text):
+    return re.sub(r'^(\([a-zivx]+\)|[0-9]+\.)[\t\s]+', '', text)
+
 def _set_list_paragraph(paragraph, text):
     paragraph.text = ""
-    remove_numbering(paragraph)
-    paragraph.paragraph_format.left_indent = Inches(0.5)
-    paragraph.paragraph_format.first_line_indent = Inches(-0.5)
-    paragraph.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
+    if paragraph._p.get_or_add_pPr().find(qn("w:numPr")) is not None:
+        text = _strip_manual_enumerator(text)
     add_run(paragraph, text)
 
 
@@ -133,7 +144,7 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             found.add("INTRO_HECHOS")
         elif mode == "hechos_list" and text.startswith(ANCHORS["hechos_dummy"]):
             for hecho in caso["hechos"]:
-                new_paragraph = paragraph.insert_paragraph_before()
+                new_paragraph = _clone_paragraph_before(paragraph)
                 _set_list_paragraph(new_paragraph, hecho)
             _remove(paragraph)
             found.add("BLOQUE_HECHOS")
@@ -141,8 +152,6 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             _remove(paragraph)
         elif mode == "hechos_list" and text.startswith(ANCHORS["medida_dummy"]):
             _set_list_paragraph(paragraph, caso["medida_correctiva"])
-            paragraph.paragraph_format.left_indent = Inches(0)
-            paragraph.paragraph_format.first_line_indent = Inches(0)
             found.add("MEDIDA_CORRECTIVA")
         elif text == ANCHORS["analisis"]:
             mode = "analisis"
@@ -168,17 +177,20 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             found.add("PRIMERO")
         elif mode == "resuelve" and text.startswith("DÉCIMO"):
             label = text.split(":", 1)[0]
-            notificaciones = caso.get("notificaciones")
-            if notificaciones is not None and notif_index < len(notificaciones):
+            notificaciones = caso.get("notificaciones", [])
+            if notif_index < len(notificaciones):
                 _replace(paragraph, f"{label}: ", True)
                 add_run(paragraph, notificaciones[notif_index])
                 notif_index += 1
-            elif notificaciones is not None:
+            else:
                 _remove(paragraph)
         elif mode == "resuelve" and text.startswith("Presunta infracción"):
-            if resolution_index < len(caso["imputaciones_res"]):
-                _set_list_paragraph(paragraph, caso["imputaciones_res"][resolution_index])
-                resolution_index += 1
+            if resolution_index == 0:
+                for imp in caso["imputaciones_res"]:
+                    new_paragraph = _clone_paragraph_before(paragraph)
+                    _set_list_paragraph(new_paragraph, imp)
+                _remove(paragraph)
+                resolution_index = len(caso["imputaciones_res"])
                 found.add("BLOQUE_RES")
             else:
                 _remove(paragraph)
