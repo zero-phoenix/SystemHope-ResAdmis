@@ -138,8 +138,18 @@ def _forzar_sangrias_metadata(doc):
 
 
 def _limpiar_resaltados(doc):
-    """Elimina resaltados/backgrounds residuales."""
+    """Elimina resaltados/backgrounds residuales y corrige errores gramaticales obvios."""
     for paragraph in doc.paragraphs:
+        # Corrección gramatical: palabras duplicadas consecutivas (ej. 'la la')
+        # Buscamos en el texto del párrafo completo
+        text = paragraph.text
+        if text:
+            import re
+            # Reemplaza palabras duplicadas, case-insensitive
+            new_text = re.sub(r'\b([A-Za-záéíóúÁÉÍÓÚñÑ]+)\s+\1\b', r'\1', text, flags=re.IGNORECASE)
+            if new_text != text:
+                paragraph.text = new_text
+                
         pPr = paragraph._element.get_or_add_pPr()
         for elem in list(pPr):
             if 'shd' in str(elem.tag).lower():
@@ -201,12 +211,31 @@ def aplicar_reglas_base_win32com(doc_com, tipo="CC1"):
         doc_com: Word.Document (COM object)
         tipo: "CC1" o "PS1"
     """
+    _corregir_gramatica_win32com(doc_com)
     _forzar_fuente_win32com(doc_com)
     _forzar_espaciado_win32com(doc_com)
     _forzar_notas_pie_win32com(doc_com)
     _forzar_footer_win32com(doc_com)
     _forzar_iniciales_win32com(doc_com)
 
+def _corregir_gramatica_win32com(doc_com):
+    """Corrige errores gramaticales como palabras duplicadas usando Find."""
+    import re
+    # Buscamos palabras duplicadas como "la la"
+    for paragraph in doc_com.Paragraphs:
+        try:
+            text = paragraph.Range.Text.strip()
+            if not text:
+                continue
+            # Regex para encontrar duplicados (ej: "la la ")
+            duplicados = re.findall(r'\b([a-zA-ZáéíóúÁÉÍÓÚñÑ]+)\s+\1\b', text, re.IGNORECASE)
+            for palabra in set(duplicados):
+                # Buscamos la secuencia completa duplicada
+                find_text = f"{palabra} {palabra}"
+                find = paragraph.Range.Find
+                find.Execute(FindText=find_text, ReplaceWith=palabra, Replace=2, MatchCase=False, MatchWholeWord=True)
+        except:
+            pass
 
 def _forzar_fuente_win32com(doc_com):
     """Fuerza Arial Narrow 11 en todo el cuerpo."""
@@ -221,12 +250,21 @@ def _forzar_fuente_win32com(doc_com):
 
 def _forzar_espaciado_win32com(doc_com):
     """Fuerza spacing 0 y line spacing 1.0."""
+    import re
+    patron_viñeta = re.compile(r'^\([ivx]+\)', re.IGNORECASE)
+    
     for paragraph in doc_com.Paragraphs:
         try:
             pf = paragraph.Format
             pf.SpaceBefore = 0
-            pf.SpaceAfter = 0
+            # Si es una viñeta de hechos, damos un pequeño respiro (6pt) para que no estén "muy unidos"
+            text = paragraph.Range.Text.strip()
+            if patron_viñeta.match(text):
+                pf.SpaceAfter = 6
+            else:
+                pf.SpaceAfter = 0
             pf.LineSpacingRule = 0  # wdLineSpaceSingle
+            pf.Alignment = 3 # Justificado
         except:
             pass
 

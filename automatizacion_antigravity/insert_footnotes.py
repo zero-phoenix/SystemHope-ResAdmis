@@ -122,6 +122,10 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
                             rng_bold.End = p.Range.Start + match.end()
                             rng_bold.Font.Bold = True
             
+        # Llamamos a nuestra rutina de limpieza en la etapa final
+        from aplicar_reglas_base import aplicar_reglas_base_win32com
+        aplicar_reglas_base_win32com(document)
+            
         document.SaveAs(str(output_path))
     finally:
         document.Close()
