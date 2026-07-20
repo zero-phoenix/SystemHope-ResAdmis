@@ -248,3 +248,12 @@ Se cometió un error grave al redactar un admisorio de la Comisión de Protecci�
    - Pie 1 (Denuncia): `Denuncia remitida a esta Comisión mediante DOCUMENTO DE TRASLADO N°...` (extraer de la Res 1).
    - Pie 2 (Código): `Publicado el 2 de setiembre del 2010 en el Diario Oficial El Peruano, vigente desde el 2 de octubre del 2010 y modificado por Decreto Legislativo 1308.`
    - Pie 3 (Facultades de la Secretaría Técnica): `LEY N° 29571, CÓDIGO DE PROTECCIÓN Y DEFENSA DEL CONSUMIDOR, publicado el 2 de setiembre de 2010 y modificado por Decreto Legislativo N° 1308. Artículo 105.- Autoridad competente.`
+
+
+## 55. REGLA SUPREMA DE ARQUITECTURA DE CÓDIGO Y FORMATO ESTRICTO (SPACING Y FUENTES)
+### Contexto
+Al cambiar de librería a win32com para soportar pies de página complejos, se abandonó la arquitectura modular de funciones (ej. `add_paragraph`, `add_run`) que garantizaba el control absoluto del espaciado (SpaceAfter=0, LineSpacing=1.0) y tipografía, resultando en un documento visualmente deformado por los estilos por defecto de Word.
+### La Regla Definitiva
+1. **Nunca abandonar la arquitectura modular de control de formato:** Toda generación de documentos, independientemente de la librería usada (`python-docx` o `win32com`), DEBE usar funciones encapsuladas que fuercen estrictamente `SpaceBefore=0`, `SpaceAfter=0` (0 puntos) y `LineSpacing=1.0` (Sencillo) para cada párrafo.
+2. **Identidad Visual Intacta:** El no forzar estos parámetros hace que Word aplique sus estilos por defecto (ej. 8pt de espacio posterior), destruyendo el formato compacto y técnico requerido.
+3. **Aplicación Universal:** Esta regla subsume y protege a todas las reglas anteriores (como la Regla 53 de no dejar líneas en blanco), ya que asegura que a nivel de metadatos del párrafo no existan espacios fantasma.
