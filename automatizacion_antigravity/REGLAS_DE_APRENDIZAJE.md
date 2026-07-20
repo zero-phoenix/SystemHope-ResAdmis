@@ -319,3 +319,17 @@ Cuando un resolutivo (ej. `TERCERO`) contenga listas separadas por `\n`:
 3. Debe esperar a toparse con el primer ítem dummy de la plantilla (ej. el párrafo que empieza por `(i)`).
 4. Usará ese primer ítem dummy para clonar su estilo perfecto por cada ítem en memoria, inyectándolos uno por uno.
 5. Finalmente, el motor debe **eliminar/purgar** todos los ítems residuales de la plantilla que empiecen por un enumerador romano para no dejar duplicados sucios al final de la resolución.
+
+68. FORMATO ESTRICTO EN NOTAS AL PIE Y LEYES
+Contexto:
+El estilo técnico exige que las notas al pie tengan sangría francesa (Hanging Indent) perfectamente alineada, y que los títulos de leyes y artículos se resalten en negrita de forma automática.
+La Regla Definitiva:
+1. En `insert_footnotes.py`, toda nota al pie debe recibir `p.Format.LeftIndent = 567` y `p.Format.FirstLineIndent = -567` (para lograr el bloque de 1cm con sangría francesa), además de `Alignment = 3` (justificado).
+2. Todo párrafo dentro de una nota al pie que inicie con "LEY " o "Artículo " DEBE ponerse automáticamente en negrita (`p.Range.Font.Bold = True`).
+3. Esto garantiza que las referencias legales destaquen armónicamente dentro del texto de tamaño 8pt.
+
+69. TAMAÑO PROTEGIDO PARA INICIALES (LGP/JCQ)
+Contexto:
+El proceso global de formateo en `build.py` iteraba sobre cada run aplicando 11pt, lo cual destruía las iniciales finales del revisor/proyectista (que deben ser 8pt).
+La Regla Definitiva:
+En la función que limpia o formatea los runs globales (ej. `clean_run`), se DEBE detectar si el texto corresponde al formato de iniciales usando Regex (`^[A-Z]{2,4}/[A-Z]{2,4}$`). Si hace match, se debe blindar forzando `run.font.size = Pt(8)`. NUNCA sobreescribir el tamaño de las iniciales a 11pt.

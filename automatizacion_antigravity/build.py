@@ -26,7 +26,11 @@ ANCHORS = {
 
 def clean_run(run):
     run.font.name = "Arial Narrow"
-    run.font.size = Pt(11)
+    # Protect initials size
+    if run.text and re.match(r"^[A-Z]{2,4}/[A-Z]{2,4}$", run.text.strip()):
+        run.font.size = Pt(8)
+    else:
+        run.font.size = Pt(11)
     run.font.highlight_color = None
     run.font.color.rgb = RGBColor(0, 0, 0)
     run._element.get_or_add_rPr().get_or_add_rFonts().set(qn("w:eastAsia"), "Arial Narrow")

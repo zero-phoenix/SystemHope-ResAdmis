@@ -28,7 +28,15 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
             fn = document.Footnotes(i)
             fn.Range.Font.Name = "Arial Narrow"
             fn.Range.Font.Size = 8
-            fn.Range.ParagraphFormat.Alignment = 3  # wdAlignParagraphJustify
+            
+            for p in fn.Range.Paragraphs:
+                p.Format.LeftIndent = 567  # 1 cm
+                p.Format.FirstLineIndent = -567  # Hanging indent
+                p.Format.Alignment = 3  # wdAlignParagraphJustify
+                
+                text = p.Range.Text.strip()
+                if text.startswith("LEY ") or text.startswith("Artículo "):
+                    p.Range.Font.Bold = True
             
         document.SaveAs(str(output_path))
     finally:
