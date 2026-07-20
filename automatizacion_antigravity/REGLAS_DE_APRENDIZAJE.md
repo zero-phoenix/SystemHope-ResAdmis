@@ -257,3 +257,17 @@ Al cambiar de librería a win32com para soportar pies de página complejos, se a
 1. **Nunca abandonar la arquitectura modular de control de formato:** Toda generación de documentos, independientemente de la librería usada (`python-docx` o `win32com`), DEBE usar funciones encapsuladas que fuercen estrictamente `SpaceBefore=0`, `SpaceAfter=0` (0 puntos) y `LineSpacing=1.0` (Sencillo) para cada párrafo.
 2. **Identidad Visual Intacta:** El no forzar estos parámetros hace que Word aplique sus estilos por defecto (ej. 8pt de espacio posterior), destruyendo el formato compacto y técnico requerido.
 3. **Aplicación Universal:** Esta regla subsume y protege a todas las reglas anteriores (como la Regla 53 de no dejar líneas en blanco), ya que asegura que a nivel de metadatos del párrafo no existan espacios fantasma.
+
+
+## 55. MEMORIA TOTAL: FORMATO ESTRICTO CC1, ARIAL NARROW Y BOILERPLATE COMPLETO
+### Contexto
+Se olvidaron reglas críticas de formato previamente aprendidas, como el uso de la fuente Arial Narrow, tamaños específicos, sangrías jerárquicas y la inserción del 'boilerplate' (textos estándar) completo de la CC1.
+### La Regla Definitiva
+1. **Tipografía Inquebrantable:** TODO el documento debe usar **Arial Narrow 11**, excepto las notas al pie que usan **Arial Narrow 8**, y las iniciales finales (ej. LGP/JCQ) que también usan **Arial Narrow 8**.
+2. **Nesting Escalonado (Sangrías):**
+   - Los romanos (I., II.) van al margen (0 cm).
+   - Los numerales (1., 2.) van al margen (0 cm), el texto a 1 cm.
+   - Los incisos (i), (ii) dentro de HECHOS van a 1 cm, el texto a 2 cm.
+   - Los incisos en la parte RESOLUTIVA van alineados con el margen (0 cm), el texto a 1 cm.
+3. **Soft Returns Inteligentes en Notas al Pie:** Cuando una nota al pie tenga múltiples párrafos o líneas, NUNCA usar un Enter normal (`\n`) porque rompe la nota, ni un Soft Return solo (`\x0b`) porque causa estiramiento justificado. Se debe usar **Tabulador + Soft Return (`\t\x0b`)** para mantener el formato bloque impecable.
+4. **Boilerplate Completo CC1:** Todo admisorio de la CC1 debe contener íntegramente las secciones estándar: `III. REQUERIMIENTO DE INFORMACIÓN` (parte considerativa) y `IV. RESOLUCIÓN DE LA SECRETARÍA TÉCNICA` (parte resolutiva). La resolución debe incluir desde el PRIMERO hasta el DÉCIMO PRIMERO (traslado, requerimiento MYPE, información sobre multas, atenuantes, conciliación, desistimiento, y casillas electrónicas), junto con todas sus respectivas notas al pie legales (Artículos 18, 19, 110, 114, 115, 116, 112 del Código, y 24, 29 del DL 807).
