@@ -234,3 +234,17 @@ Los incisos listados en el requerimiento (ej. TERCERO) no deben estar separados 
 - **Sin separaciones excesivas:** Nunca insertar líneas en blanco entre los numerales (i), (ii), (iii), (iv) y (v) en el apartado donde se listan los requerimientos al proveedor denunciado.
 - **El enlace final 'y,':** En caso de haber cinco incisos (hasta el v que es MYPE), el enlace 'y,' se coloca en el inciso (iii) previo a solicitar el domicilio procesal (iv). Ej: '(iii) consignar el Número de Registro Único de Contribuyentes (RUC); y,'
 - **Tildes estrictas en el proveedor:** Asegurarse SIEMPRE de colocar las tildes en los nombres de las empresas dentro de la resolutiva, ej. 'Pacífico Compañía...'.
+
+
+## 54. ESTRUCTURA Y FORMATO ESTRICTO PARA ADMISORIOS DE LA COMISIÓN (CC1) VERSUS ORPS (PS1)
+### Contexto
+Se cometió un error grave al redactar un admisorio de la Comisión de Protección al Consumidor 1 (CC1) utilizando la estructura de un Órgano Resolutivo de Procedimientos Sumarísimos (ORPS), y se omitieron las abreviaturas en el encabezado y los pies de página obligatorios.
+### La Regla Definitiva
+1. **Identificación de la Autoridad:** SIEMPRE guiarse por la Resolución 1 (el requerimiento previo) para determinar si el caso es CC1 o PS1. Nunca confiarse ciegamente en el cargo de ingreso, ya que puede tener errores de derivación.
+2. **Encabezado CC1:** Debe decir `SECRETARÍA TÉCNICA DE LA / COMISIÓN DE PROTECCIÓN AL CONSUMIDOR 1 / SEDE CENTRAL` alineado a la derecha.
+3. **Bloque de Datos (CC1):** Las abreviaturas de las partes se definen en el mismo encabezado entre paréntesis. Ej: `DENUNCIANTE : EFRAÍN CORONEL QUISPE (SEÑOR CORONEL)`. `DENUNCIADO : LA POSITIVA SEGUROS Y REASEGUROS S.A.A. (LA POSITIVA)`. La materia debe ser `ADMISIÓN A TRÁMITE / REQUERIMIENTO DE INFORMACIÓN`.
+4. **Estructura del Cuerpo (CC1):** NO usar VISTOS ni CONSIDERANDO. Se debe estructurar con números romanos y arábigos: `I. HECHOS`, `1. Mediante la denuncia... señalando lo siguiente:`, `(i)... (ii)...`, `2. El señor X solicitó...`, `II. DE LA ADMISIÓN A TRÁMITE DE LA DENUNCIA`, `3. La Secretaría Técnica... considera que el hecho...`
+5. **Pies de Página Obligatorios en la primera página (CC1):** 
+   - Pie 1 (Denuncia): `Denuncia remitida a esta Comisión mediante DOCUMENTO DE TRASLADO N°...` (extraer de la Res 1).
+   - Pie 2 (Código): `Publicado el 2 de setiembre del 2010 en el Diario Oficial El Peruano, vigente desde el 2 de octubre del 2010 y modificado por Decreto Legislativo 1308.`
+   - Pie 3 (Facultades de la Secretaría Técnica): `LEY N° 29571, CÓDIGO DE PROTECCIÓN Y DEFENSA DEL CONSUMIDOR, publicado el 2 de setiembre de 2010 y modificado por Decreto Legislativo N° 1308. Artículo 105.- Autoridad competente.`
