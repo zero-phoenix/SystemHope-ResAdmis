@@ -195,3 +195,11 @@ Esta regla rige el estilo de redacción microscópico y la formulación técnica
 3. **Secuencia Cronológica Completa:** No se debe omitir ningún hito relevante narrado en la denuncia. Si el denunciante señala que acudió a una audiencia de conciliación previa en Indecopi (ej. SBC) y no hubo acuerdo, esto debe redactarse como un inciso independiente (usualmente el último de los hechos).
 4. **Verbos Rectores en Medidas Correctivas:** Al redactar lo solicitado como medida correctiva, después de la frase 'cumpla con', se deben usar verbos en infinitivo para cada acción exigida. Ej: 'cumpla con **realizar** la resolución total... y, consecuentemente, **otorgar** la devolución...'.
 5. **Precisión Jurídica:** Se debe depurar el lenguaje del consumidor hacia términos jurídicos exactos. Por ejemplo, si el denunciante pide la 'cancelación' de un contrato por un incumplimiento, el término correcto a usar es 'resolución'. Asimismo, los aportes son 'aportes del pago de primas' y se solicita el 'reembolso de costos y costas'.
+
+
+## 50. REGLA SUPREMA: IMPUTACIÓN ÚNICA POR HECHO (MÉTODOS ENGAÑOSOS VS IDONEIDAD)
+Esta regla es inviolable y corrige un error grave de tipificación:
+1. **Prohibición de Doble Imputación:** NUNCA se deben imputar dos presuntas infracciones distintas (ej. falta de idoneidad y falta de deber de información) sobre un mismo y único hecho denunciado.
+2. **Tipificación Específica para Contrataciones Engañosas:** Cuando el hecho consista en que el proveedor, al momento de la contratación, ofreció verbalmente o promocionó un servicio con ciertas condiciones favorables (ej. sin plazo mínimo, sin penalidades) pero el contrato real difiere de ello imponiendo obligaciones no pactadas, la tipificación correcta y ÚNICA es:
+   - **'presunta infracción al deber de protección contra los métodos comerciales agresivos o engañosos, tipificado en literal b) del artículo 58 del Código'**.
+3. **Ortografía y Tildación:** Cuidar escrupulosamente las tildes obligatorias en nombres propios, términos jurídicos y palabras esdrújulas (ej. Pacífico, Código, artículo, compañía, póliza, etc.).
