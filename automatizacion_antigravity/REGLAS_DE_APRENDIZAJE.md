@@ -271,3 +271,16 @@ Se olvidaron reglas críticas de formato previamente aprendidas, como el uso de 
    - Los incisos en la parte RESOLUTIVA van alineados con el margen (0 cm), el texto a 1 cm.
 3. **Soft Returns Inteligentes en Notas al Pie:** Cuando una nota al pie tenga múltiples párrafos o líneas, NUNCA usar un Enter normal (`\n`) porque rompe la nota, ni un Soft Return solo (`\x0b`) porque causa estiramiento justificado. Se debe usar **Tabulador + Soft Return (`\t\x0b`)** para mantener el formato bloque impecable.
 4. **Boilerplate Completo CC1:** Todo admisorio de la CC1 debe contener íntegramente las secciones estándar: `III. REQUERIMIENTO DE INFORMACIÓN` (parte considerativa) y `IV. RESOLUCIÓN DE LA SECRETARÍA TÉCNICA` (parte resolutiva). La resolución debe incluir desde el PRIMERO hasta el DÉCIMO PRIMERO (traslado, requerimiento MYPE, información sobre multas, atenuantes, conciliación, desistimiento, y casillas electrónicas), junto con todas sus respectivas notas al pie legales (Artículos 18, 19, 110, 114, 115, 116, 112 del Código, y 24, 29 del DL 807).
+
+## 56. REGLA SUPREMA DEFINITIVA: APLICACIÓN OBLIGATORIA E INQUEBRANTABLE DEL CORPUS COMPLETO
+### Contexto
+Esta regla consolida y sella todas las instrucciones previas. Su propósito es garantizar que bajo ninguna circunstancia se omita o relaje el cumplimiento de las normativas de formato, estructura y tipificación de la matriz.
+### La Regla Definitiva
+Para **TODA resolución de admisorio** que se elabore en adelante, el asistente DEBE aplicar SIEMPRE, de manera sistemática y sin omitir un solo detalle, la integridad de los DOs, DONTs y reglas estructurales descritos en este documento. Esto incluye expresamente:
+1. Respetar la Tipificación estricta (Art. 1 y 2 para Info, Art. 18 y 19 para Idoneidad, Art. 58.b para Métodos Engañosos).
+2. Unificar sujetos procesales y plazos de notificación (2 días correo/físico, 5 días casilla).
+3. Respetar la prohibición absoluta de imputar el Art. 24, Inducción al error, y la doble imputación (Non bis in idem).
+4. Usar estrictamente las plantillas base y el formato visual: Arial Narrow 11 (cuerpo), Arial Narrow 8 (notas al pie), interlineado sencillo, sin párrafos en blanco entre listas, y el Boilerplate completo (CC1 o PS1 según corresponda).
+5. Mantener las sangrías escalonadas exactas (0cm, 1cm, 2cm) dependiendo si es la sección de HECHOS o la RESOLUTIVA, y usar `\t\x0b` para notas al pie multilínea.
+6. Narrar los hechos de forma objetiva, cronológica, reflejando el petitorio sin adjetivaciones, y redactar requerimientos fácticos en infinitivo sin invocar "deberes" en la sección probatoria.
+*Cualquier desviación u omisión de los puntos listados a lo largo de este documento constituirá un error crítico.*
