@@ -5,6 +5,9 @@ from docx import Document
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.oxml.ns import qn
 from docx.shared import Inches, Pt, RGBColor
+from docx.text.paragraph import Paragraph
+import copy
+import re
 
 from config import TEMPLATE_PATH
 
@@ -42,6 +45,16 @@ def clean_paragraph_shading(paragraph):
             ppr.remove(element)
 
 
+def _strip_manual_enumerator(text):
+    return re.sub(r"^(?:\([ivxIVX]+\)|[0-9]+[\.\)])\s*", "", text)
+
+
+def _clone_paragraph_before(paragraph):
+    new_p_element = copy.deepcopy(paragraph._element)
+    paragraph._element.addprevious(new_p_element)
+    return Paragraph(new_p_element, paragraph._parent)
+
+
 def remove_numbering(paragraph):
     numpr = paragraph._element.get_or_add_pPr().find(qn("w:numPr"))
     if numpr is not None:
@@ -68,11 +81,7 @@ def _remove(paragraph):
 
 def _set_list_paragraph(paragraph, text):
     paragraph.text = ""
-    remove_numbering(paragraph)
-    paragraph.paragraph_format.left_indent = Inches(0.5)
-    paragraph.paragraph_format.first_line_indent = Inches(-0.5)
-    paragraph.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
-    add_run(paragraph, text)
+    add_run(paragraph, _strip_manual_enumerator(text))
 
 
 def _default_resolutivos(caso):
@@ -122,7 +131,6 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             found.add("DENUNCIADO")
         elif text.startswith("Lima,") and ANCHORS["fecha"] in text:
             _replace(paragraph, caso["fecha_res"])
-            paragraph.paragraph_format.alignment = WD_ALIGN_PARAGRAPH.RIGHT
             found.add("FECHA")
         elif text == ANCHORS["hechos"]:
             mode = "hechos"
@@ -133,7 +141,7 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             found.add("INTRO_HECHOS")
         elif mode == "hechos_list" and text.startswith(ANCHORS["hechos_dummy"]):
             for hecho in caso["hechos"]:
-                new_paragraph = paragraph.insert_paragraph_before()
+                new_paragraph = _clone_paragraph_before(paragraph)
                 _set_list_paragraph(new_paragraph, hecho)
             _remove(paragraph)
             found.add("BLOQUE_HECHOS")
@@ -141,8 +149,6 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             _remove(paragraph)
         elif mode == "hechos_list" and text.startswith(ANCHORS["medida_dummy"]):
             _set_list_paragraph(paragraph, caso["medida_correctiva"])
-            paragraph.paragraph_format.left_indent = Inches(0)
-            paragraph.paragraph_format.first_line_indent = Inches(0)
             found.add("MEDIDA_CORRECTIVA")
         elif text == ANCHORS["analisis"]:
             mode = "analisis"
@@ -176,12 +182,13 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             elif notificaciones is not None:
                 _remove(paragraph)
         elif mode == "resuelve" and text.startswith("Presunta infracción"):
-            if resolution_index < len(caso["imputaciones_res"]):
-                _set_list_paragraph(paragraph, caso["imputaciones_res"][resolution_index])
-                resolution_index += 1
+            if "BLOQUE_RES" not in found:
+                for imp in caso["imputaciones_res"]:
+                    new_p = _clone_paragraph_before(paragraph)
+                    _set_list_paragraph(new_p, imp)
+                resolution_index = len(caso["imputaciones_res"])
                 found.add("BLOQUE_RES")
-            else:
-                _remove(paragraph)
+            _remove(paragraph)
         elif mode == "resuelve" and text.startswith(("SEGUNDO:", "TERCERO:", "CUARTO:", "QUINTO:")):
             roman = text.split(":", 1)[0]
             _replace(paragraph, f"{roman}: ", True)
