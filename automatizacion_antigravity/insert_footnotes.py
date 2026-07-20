@@ -20,6 +20,14 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
                 rng.Text = ""
                 # win32com requires positional args: Range, Reference, Text
                 document.Footnotes.Add(rng, "", str(note))
+        
+        # Enforce strict formatting for all footnotes
+        for i in range(1, document.Footnotes.Count + 1):
+            fn = document.Footnotes(i)
+            fn.Range.Font.Name = "Arial Narrow"
+            fn.Range.Font.Size = 8
+            fn.Range.ParagraphFormat.Alignment = 3  # wdAlignParagraphJustify
+            
         document.SaveAs(str(output_path))
     finally:
         document.Close()
