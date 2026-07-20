@@ -107,3 +107,11 @@ En resoluciones de Indecopi, **la sangría de los incisos varía dependiendo de 
 2. **HECHOS:** Aplica `left_indent = Inches(0.79)` (2cm) y `first_line_indent = Inches(-0.39)` (-1cm). 
 3. **RESOLUCIÓN (PRIMERO, SEGUNDO, TERCERO...):** Aplica `left_indent = Inches(0.39)` (1cm) y `first_line_indent = Inches(-0.39)` (-1cm). 
 4. **Verificación Visual:** En la sección resolutiva, la viñeta `(i)` o `(v)` debe quedar alineada casi al ras del margen izquierdo (0 cm), justo debajo de la palabra "PRIMERO:" o "TERCERO:".
+
+## 36. SIEMPRE EXIGIR LA ACREDITACIÓN MYPE A TODOS LOS PROVEEDORES
+### Contexto
+En el requerimiento de información al denunciado (usualmente en el TERCERO), existe un inciso que pide al proveedor presentar documentos que acrediten su condición de micro o pequeña empresa.
+
+### La Regla Definitiva
+1. **NUNCA elimines este inciso**, sin importar cuán grande sea la empresa denunciada (por ejemplo, Bancos, Aseguradoras, Telecomunicaciones). 
+2. A todos los proveedores denunciados se les debe requerir esta información formalmente para que la Comisión pueda meritar la documentación conforme al artículo 110° del Código.
