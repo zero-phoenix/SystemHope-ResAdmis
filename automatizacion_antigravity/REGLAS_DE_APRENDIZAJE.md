@@ -214,3 +214,14 @@ Cuando se impute 'presunta infracción al deber de protección contra los métod
 - **Texto literal b):** 'El cambio de la información originalmente proporcionada al consumidor al momento de celebrarse la contratación, sin el consentimiento expreso e informado del consumidor.'
 - Queda ESTRICTAMENTE PROHIBIDO citar como literal b) del Art. 58 el texto 'Obligar al consumidor a asumir prestaciones que no ha pactado...', ya que ese texto pertenece al literal b) del Artículo 56 (Métodos coercitivos).
 - Se debe mantener las tildes precisas (Código, Capítulo, Definición) y usar exactamente la estructura de la sumilla 'LEY 29571, CÓDIGO DE PROTECCIÓN Y DEFENSA DEL CONSUMIDOR, publicado el 2 de setiembre de 2010 y modificado por Decreto Legislativo N° 1308'.
+
+
+## 52. REQUERIMIENTO DE INFORMACIÓN: FORMATO DE PÁRRAFO ÚNICO, VERBOS EN INFINITIVO Y HECHOS FÁCTICOS SIN MENCIÓN A DEBERES
+### Contexto
+El apartado de requerimiento de información debe ser lo más técnico posible, enfocado estrictamente en la evidencia física o documental relacionada al hecho denunciado, sin calificar legalmente el pedido mediante la mención a 'deberes'.
+### La Regla Definitiva
+- **Un solo denunciado:** Cuando solo hay una empresa denunciada, NO se debe separar en una nueva línea con subrayado (ej. 'A Pacífico: (i)...'). Debe continuarse en el mismo párrafo de forma fluida: '...cumpla con lo siguiente: (i) presentar...'.
+- **Verbos en infinitivo:** Todos los requerimientos probatorios deben empezar con verbos en infinitivo (ej. presentar, exhibir), NUNCA en subjuntivo (ej. presente, exhiba).
+- **Prohibición de mencionar deberes normativos:** NUNCA se debe solicitar información mencionando los deberes normativos (ej. 'medios probatorios que acrediten haber cumplido con su deber de información').
+- **Requerimiento estrictamente fáctico:** El pedido debe atarse únicamente al hecho controvertido. Por ejemplo, en vez de mencionar el deber, solicitar 'medios probatorios que acrediten que no cambió la información originalmente proporcionada al consumidor al momento de celebrarse la contratación de la Póliza...'.
+- **Extracción de la imagen:** Deben usarse los requerimientos idénticos a los señalados en la plantilla del usuario para el caso análogo, sin inventar pedidos de audios/videos si no están en su plantilla específica para este tipo de escenarios de pólizas.
