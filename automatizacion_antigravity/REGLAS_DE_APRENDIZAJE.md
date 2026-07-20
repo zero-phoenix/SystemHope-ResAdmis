@@ -131,3 +131,14 @@ Al aplicar la regla del salto de línea (`\t\x0b`) en notas al pie, **nunca** de
 ## 42. TAMAÑO DE INICIALES AL FINAL DEL DOCUMENTO
 ### La Regla Definitiva
 Las iniciales del proyectista y revisor (ejemplo: `LGP/JCQ`) ubicadas al final de la resolución, siempre deben ir en **tamaño 8**, no en tamaño 11.
+
+
+## 43. REDACCIÓN DE HECHOS: OBJETIVA, TÉCNICA Y COMO ESPEJO DE LA DENUNCIA
+### Contexto
+La sección de HECHOS no es un resumen libre ni una interpretación deductiva de los anexos. Debe reflejar técnica y objetivamente lo que el denunciante plasmó en su escrito de denuncia.
+### La Regla Definitiva
+1. **Tono frío y objetivo:** NUNCA usar adverbios o adjetivos emocionales (ej. 'lamentablemente falleció'). Limitarse a los hechos concretos: 'ocasionó el fallecimiento'.
+2. **Precisión documental:** Extraer del escrito de denuncia y mencionar explícitamente los números de pólizas, contratos, y los medios probatorios exactos con los que el denunciante acredita su dicho (ej. 'hecho documentado mediante el acta de defunción y el atestado policial correspondientes').
+3. **Espejo del escrito:** Si el escrito de denuncia detalla los documentos exactos que presentó al proveedor en su reclamo previo, lístalos tal cual (ej. 'entregando el acta de defunción, el atestado policial y la documentación adicional exigida').
+4. **No inventar ni anticipar defensas:** En la narración de hechos, relata el rechazo del proveedor tal como lo sufre el denunciante ('denegó el reconocimiento y pago de la cobertura solicitados'). No extraigas proactivamente los argumentos técnicos del proveedor desde sus cartas de rechazo (ej. 'alegando que no era ocupante sino que iba en moto') a menos que el denunciante base su relato expresamente en rebatir eso. Cíñete al escrito de denuncia.
+5. **Formalidad en montos:** Escribir los conceptos formalmente (ej. 'cuatro (4) Unidades Impositivas Tributarias' en lugar de '4 UIT').
