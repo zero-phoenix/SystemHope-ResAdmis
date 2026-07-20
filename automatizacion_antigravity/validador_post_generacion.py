@@ -188,8 +188,12 @@ class ValidadorPostGeneracion:
     def _check_boilerplate(self):
         print("\n--- 4. BOILERPLATE CC1 (Regla 54: secciones III y IV) ---")
         text_completo = "\n".join([p.text for p in self.doc.paragraphs])
+        # Normalizar tabs y espacios para la busqueda
+        text_completo_normalizado = text_completo.replace("\t", " ").replace("  ", " ")
         for seccion in BOLERPLATE_CC1:
-            if seccion in text_completo:
+            # Buscar tanto con tab como con espacio
+            encontrado = seccion in text_completo or seccion in text_completo_normalizado
+            if encontrado:
                 self._check_pass(f"Secci\u00f3n '{seccion}' presente")
             else:
                 self._check_fail(f"Secci\u00f3n faltante: '{seccion}'")
@@ -339,11 +343,11 @@ class ValidadorPostGeneracion:
                 print(f"    - {v}")
         
         if not errores and not warnings:
-            print(f"\n  \u2714 DOCUMENTO CUMPLE CON TODAS LAS REGLAS CC1")
+            print(f"\n  [OK] DOCUMENTO CUMPLE CON TODAS LAS REGLAS CC1")
         elif not errores:
-            print(f"\n  \u26a0 DOCUMENTO V\u00c1LIDO con {len(warnings)} advertencias menores")
+            print(f"\n  [WARN] DOCUMENTO VALIDO con {len(warnings)} advertencias menores")
         else:
-            print(f"\n  \u2716 DOCUMENTO NO V\u00c1LIDO - {len(errores)} errores cr\u00edticos")
+            print(f"\n  [FAIL] DOCUMENTO NO VALIDO - {len(errores)} errores criticos")
         
         print(f"{'='*70}\n")
 
