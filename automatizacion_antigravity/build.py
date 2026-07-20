@@ -189,10 +189,27 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
                 found.add("BLOQUE_RES")
             _remove(paragraph)
         elif mode == "resuelve" and text.startswith(("SEGUNDO:", "TERCERO:", "CUARTO:", "QUINTO:")):
+            if caso.get("__in_tercero"):
+                caso["__in_tercero"] = False
+                
             roman = text.split(":", 1)[0]
             _replace(paragraph, f"{roman}: ", True)
-            add_run(paragraph, resolution_text[roman])
+            
+            parts = resolution_text.get(roman, "").split("\n")
+            add_run(paragraph, parts[0])
             found.add(roman)
+            
+            if roman == "TERCERO" and len(parts) > 1:
+                caso["__pendientes_TERCERO"] = parts[1:]
+                caso["__in_tercero"] = True
+                
+        elif mode == "resuelve" and caso.get("__in_tercero") and text.startswith("("):
+            if caso.get("__pendientes_TERCERO"):
+                for req in caso["__pendientes_TERCERO"]:
+                    new_p = _clone_paragraph_before(paragraph)
+                    _set_list_paragraph(new_p, req)
+                caso["__pendientes_TERCERO"] = []
+            _remove(paragraph)
 
     missing = {"EXPEDIENTE", "DENUNCIANTE", "DENUNCIADO", "FECHA", "HECHOS", "BLOQUE_HECHOS",
                "ANALISIS", "BLOQUE_ANALISIS", "RESUELVE", "PRIMERO", "SEGUNDO", "TERCERO",
