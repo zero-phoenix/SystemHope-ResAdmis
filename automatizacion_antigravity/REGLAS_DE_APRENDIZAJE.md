@@ -186,3 +186,12 @@ Para evitar redundancias en la redacción y mantener un nivel técnico superior,
 ### La Regla Definitiva
 Cuando el denunciado es una empresa de seguros (ej. La Positiva, Pacífico Seguros, Mapfre, Rimac), el término genérico a utilizar a lo largo de todo el documento (para no repetir su nombre legal) será estrictamente **'la compañía aseguradora'**.
 Solo cuando la empresa pertenezca a otro rubro (colegios, tiendas, aerolíneas, etc.) se utilizará el término general **'el proveedor denunciado'**.
+
+
+## 49. REDACCIÓN TÉCNICA Y ESTRUCTURACIÓN LÓGICA DE HECHOS Y PETITORIO
+Esta regla rige el estilo de redacción microscópico y la formulación técnica de la resolución:
+1. **Evitar Marcas Comerciales (Aplicativos):** Para mantener la formalidad técnica, se deben omitir los nombres comerciales de los aplicativos en la medida de lo posible. Por ejemplo, en lugar de decir 'ZOOM', usar 'plataforma virtual de videoconferencia'.
+2. **Definición Rigurosa de Términos:** Queda estrictamente prohibido usar fórmulas perezosas como 'la referida póliza' o 'el citado contrato' en los párrafos subsiguientes o en las medidas correctivas. Se debe definir el término anticipadamente usando '(en adelante, Seguro de Vida)' o similar, y emplear EXCLUSIVAMENTE ese término definido en el resto de la resolución.
+3. **Secuencia Cronológica Completa:** No se debe omitir ningún hito relevante narrado en la denuncia. Si el denunciante señala que acudió a una audiencia de conciliación previa en Indecopi (ej. SBC) y no hubo acuerdo, esto debe redactarse como un inciso independiente (usualmente el último de los hechos).
+4. **Verbos Rectores en Medidas Correctivas:** Al redactar lo solicitado como medida correctiva, después de la frase 'cumpla con', se deben usar verbos en infinitivo para cada acción exigida. Ej: 'cumpla con **realizar** la resolución total... y, consecuentemente, **otorgar** la devolución...'.
+5. **Precisión Jurídica:** Se debe depurar el lenguaje del consumidor hacia términos jurídicos exactos. Por ejemplo, si el denunciante pide la 'cancelación' de un contrato por un incumplimiento, el término correcto a usar es 'resolución'. Asimismo, los aportes son 'aportes del pago de primas' y se solicita el 'reembolso de costos y costas'.
