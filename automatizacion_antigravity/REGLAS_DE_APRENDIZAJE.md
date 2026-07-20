@@ -203,3 +203,14 @@ Esta regla es inviolable y corrige un error grave de tipificación:
 2. **Tipificación Específica para Contrataciones Engañosas:** Cuando el hecho consista en que el proveedor, al momento de la contratación, ofreció verbalmente o promocionó un servicio con ciertas condiciones favorables (ej. sin plazo mínimo, sin penalidades) pero el contrato real difiere de ello imponiendo obligaciones no pactadas, la tipificación correcta y ÚNICA es:
    - **'presunta infracción al deber de protección contra los métodos comerciales agresivos o engañosos, tipificado en literal b) del artículo 58 del Código'**.
 3. **Ortografía y Tildación:** Cuidar escrupulosamente las tildes obligatorias en nombres propios, términos jurídicos y palabras esdrújulas (ej. Pacífico, Código, artículo, compañía, póliza, etc.).
+
+
+## 51. PRECISIÓN ESTRICTA AL INVOCAR EL ARTÍCULO 58 DEL CÓDIGO (NO CONFUNDIR CON ART. 56)
+### Contexto
+Es un error gravísimo confundir el contenido de los literales del artículo 56 (Métodos coercitivos) con el artículo 58 (Métodos agresivos o engañosos) del Código, ya que ambos tienen un literal b).
+### La Regla Definitiva
+Cuando se impute 'presunta infracción al deber de protección contra los métodos comerciales agresivos o engañosos, tipificado en literal b) del artículo 58 del Código' por modificar lo ofrecido inicialmente, el contenido de la nota al pie debe ser ESTRICTAMENTE el siguiente:
+- **Artículo:** Artículo 58.- Definición y alcances
+- **Texto literal b):** 'El cambio de la información originalmente proporcionada al consumidor al momento de celebrarse la contratación, sin el consentimiento expreso e informado del consumidor.'
+- Queda ESTRICTAMENTE PROHIBIDO citar como literal b) del Art. 58 el texto 'Obligar al consumidor a asumir prestaciones que no ha pactado...', ya que ese texto pertenece al literal b) del Artículo 56 (Métodos coercitivos).
+- Se debe mantener las tildes precisas (Código, Capítulo, Definición) y usar exactamente la estructura de la sumilla 'LEY 29571, CÓDIGO DE PROTECCIÓN Y DEFENSA DEL CONSUMIDOR, publicado el 2 de setiembre de 2010 y modificado por Decreto Legislativo N° 1308'.
