@@ -31,8 +31,10 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
             fn.Range.Font.Size = 8
             
             for p in fn.Range.Paragraphs:
-                p.Format.LeftIndent = 567  # 1 cm
-                p.Format.FirstLineIndent = -567  # Hanging indent
+                # In VBA, indents are measured in points, not twips!
+                # 1 cm = 28.35 points
+                p.Format.LeftIndent = 28.35
+                p.Format.FirstLineIndent = -28.35
                 p.Format.Alignment = 3  # wdAlignParagraphJustify
                 
                 text = p.Range.Text.strip()

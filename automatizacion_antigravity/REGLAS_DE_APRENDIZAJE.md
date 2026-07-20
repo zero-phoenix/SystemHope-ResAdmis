@@ -350,3 +350,15 @@ La Regla Definitiva:
 a) Mutaciones en `python-docx`: Siempre clonar usando `copy.deepcopy` en el XML (`_element`) y re-envolver, pero con cuidado de limpiar tags específicos (`w:shd`, `w:highlight`) a nivel XML puro (`OxmlElement`).
 b) Límites de `python-docx`: Nunca intentar procesar Notas al Pie, Macros o campos complejos con `python-docx`. Delegar siempre a `win32com` en un script secundario.
 c) Intervención de estilos con `win32com`: Al inyectar texto vía COM, Word asume estilos por defecto (Normal). TODO texto inyectado debe ser formateado explícitamente (Fuente, Tamaño, Alineación, Sangrías) mediante el objeto `Range.Format`.
+
+72. METRÍCAS DE DISTANCIA EN VBA (POINTS VS TWIPS)
+Contexto:
+El documento generado colapsó catastróficamente (pasó de 7 páginas a 159 páginas). La causa fue haber inyectado el valor `567` en `p.Format.LeftIndent` vía la API `win32com` de Word.
+La Regla Definitiva:
+En el XML interno de Word (`python-docx`), las distancias se miden en **twips** (donde 1 cm = 567 twips). SIN EMBARGO, en la API COM (`win32com` / VBA), las distancias se miden en **puntos (points)**. 
+- 1 pulgada = 72 puntos.
+- 1 centímetro = 28.35 puntos.
+Al pasar `567` a VBA, Word interpretó 567 puntos (casi 20 centímetros), empujando todo el texto fuera del margen de la hoja, reduciendo el ancho de columna a cero y generando 159 páginas de texto desbordado.
+NUNCA utilices valores twips (ej. 567) en la API `win32com`. Para lograr un centímetro de sangría francesa vía COM, la instrucción correcta es ineludiblemente:
+`p.Format.LeftIndent = 28.35`
+`p.Format.FirstLineIndent = -28.35`
