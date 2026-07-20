@@ -83,7 +83,6 @@ def _set_list_paragraph(paragraph, text):
     paragraph.text = ""
     add_run(paragraph, _strip_manual_enumerator(text))
 
-
 def _default_resolutivos(caso):
     denunciado = caso["denunciado"]
     fecha = caso["fecha_denuncia"]
@@ -174,12 +173,12 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             found.add("PRIMERO")
         elif mode == "resuelve" and text.startswith("DÉCIMO"):
             label = text.split(":", 1)[0]
-            notificaciones = caso.get("notificaciones")
-            if notificaciones is not None and notif_index < len(notificaciones):
+            notificaciones = caso.get("notificaciones", [])
+            if notif_index < len(notificaciones):
                 _replace(paragraph, f"{label}: ", True)
                 add_run(paragraph, notificaciones[notif_index])
                 notif_index += 1
-            elif notificaciones is not None:
+            else:
                 _remove(paragraph)
         elif mode == "resuelve" and text.startswith("Presunta infracción"):
             if "BLOQUE_RES" not in found:

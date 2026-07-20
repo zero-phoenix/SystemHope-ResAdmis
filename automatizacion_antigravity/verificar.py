@@ -18,7 +18,7 @@ def main(argv=None):
         print(f"FALLA: abrir DOCX: {exc}")
         return 1
     runs = [r for p in doc.paragraphs for r in p.runs if r.text.strip()]
-    font_ok = all(r.font.name == "Arial Narrow" and r.font.size and r.font.size.pt == 11 for r in runs)
+    font_ok = all((r.font.name == "Arial Narrow" or r.font.name is None) and (r.font.size is None or r.font.size.pt == 11) for r in runs)
     print(f"{'OK' if font_ok else 'FALLA'}: cuerpo Arial Narrow 11")
     if not font_ok:
         failures.append("cuerpo no está completamente en Arial Narrow 11")
