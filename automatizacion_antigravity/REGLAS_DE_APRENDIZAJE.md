@@ -115,3 +115,19 @@ En el requerimiento de información al denunciado (usualmente en el TERCERO), ex
 ### La Regla Definitiva
 1. **NUNCA elimines este inciso**, sin importar cuán grande sea la empresa denunciada (por ejemplo, Bancos, Aseguradoras, Telecomunicaciones). 
 2. A todos los proveedores denunciados se les debe requerir esta información formalmente para que la Comisión pueda meritar la documentación conforme al artículo 110° del Código.
+
+
+## 40. EXCEPCIÓN DE SUCESIÓN INTESTADA EN CASOS DE SOAT
+### Contexto
+Cuando se trata de seguros SOAT por fallecimiento, la ley ya establece quiénes son los beneficiarios directos.
+### La Regla Definitiva
+1. En denuncias sobre cobertura de SOAT por fallecimiento, **NO** es necesario que la Sucesión Intestada sea la denunciante. El beneficiario (por ejemplo, los padres) se presenta a título personal como denunciante.
+2. Cuando en otros casos *sí* corresponda usar una sucesión, siempre debe denominarse formalmente como **'Sucesión Intestada'**, quedando estrictamente prohibido usar el término abreviado 'la Sucesión'.
+
+## 41. NO CORTAR NOTAS AL PIE A LA MITAD DE UNA ORACIÓN
+### La Regla Definitiva
+Al aplicar la regla del salto de línea (`\t\x0b`) en notas al pie, **nunca** debes usarlo para cortar arbitrariamente una oración (por ejemplo, después de una coma). El texto de un solo párrafo debe fluir y hacer *word wrap* naturalmente. Solo usa el salto forzado para separar bloques de texto o artículos distintos dentro de una misma nota al pie.
+
+## 42. TAMAÑO DE INICIALES AL FINAL DEL DOCUMENTO
+### La Regla Definitiva
+Las iniciales del proyectista y revisor (ejemplo: `LGP/JCQ`) ubicadas al final de la resolución, siempre deben ir en **tamaño 8**, no en tamaño 11.
