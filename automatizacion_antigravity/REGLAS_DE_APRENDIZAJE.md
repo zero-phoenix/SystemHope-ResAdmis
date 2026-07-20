@@ -166,3 +166,15 @@ La imputación debe ser precisa, elegante y evitar repeticiones innecesarias en 
 Es común confundir al representante legal con el titular de los derechos (denunciante).
 ### La Regla Definitiva
 Si el denunciante es una Persona Natural pero presenta su escrito a través de un representante, **NUNCA** se menciona al representante en el texto de la resolución (ni en Hechos, ni en Análisis, ni en el Resolutivo). Todos los actos se atribuyen directamente al denunciante titular. Solo se menciona explícitamente a un representante cuando el denunciante es una Persona Jurídica.
+
+
+## 47. REQUERIMIENTOS DE INFORMACIÓN ESPECÍFICOS Y ESTRATÉGICOS (NO GENÉRICOS)
+### Contexto
+La sección de Requerimiento de Información (tanto en el numeral de la parte considerativa como en el artículo resolutivo respectivo, usualmente QUINTO) tiene como fin acopiar las pruebas exactas para resolver el caso. Fórmulas genéricas como 'presentar un informe detallado' son insuficientes y evidencian falta de análisis.
+### La Regla Definitiva
+Al requerir información al proveedor denunciado, la redacción debe ser quirúrgica y apuntar a los hechos controvertidos:
+1. **Evitar redundancia del nombre:** Referirse al denunciado como 'el proveedor denunciado' (si el nombre ya es obvio por el contexto).
+2. **Exigir el contrato base:** Requerir siempre el documento que sustenta la relación de consumo de manera específica (ej. 'presentar una copia completa, legible y debidamente suscrita de la Póliza 140733548 del Seguro Obligatorio de Accidente de Tránsito').
+3. **Exigir la prueba de descargo del hecho infractor:** Requerir los medios probatorios que justifiquen su accionar (ej. 'presentar los medios probatorios que acrediten que la negativa de otorgamiento de cobertura fue justificada').
+4. **Cláusula obligatoria de comunicaciones:** SIEMPRE incluir como último inciso: 'presentar todas las comunicaciones cursadas con la parte denunciante en virtud de los hechos materia de denuncia'. 
+5. **Especificidad en grabaciones:** Si el denunciante alega en su escrito que hubo una contratación telefónica, entrevista poligráfica por videollamada, u otro contacto grabado, el requerimiento de comunicaciones debe exigir expresamente el archivo de audio/video de dicha comunicación.
