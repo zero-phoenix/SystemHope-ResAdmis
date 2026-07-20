@@ -333,3 +333,20 @@ Contexto:
 El proceso global de formateo en `build.py` iteraba sobre cada run aplicando 11pt, lo cual destruía las iniciales finales del revisor/proyectista (que deben ser 8pt).
 La Regla Definitiva:
 En la función que limpia o formatea los runs globales (ej. `clean_run`), se DEBE detectar si el texto corresponde al formato de iniciales usando Regex (`^[A-Z]{2,4}/[A-Z]{2,4}$`). Si hace match, se debe blindar forzando `run.font.size = Pt(8)`. NUNCA sobreescribir el tamaño de las iniciales a 11pt.
+
+70. EL SECRETO DEL HANGING INDENT EN WORD (SANGRÍA FRANCESA)
+Contexto:
+Al aplicar sangría francesa (LeftIndent = 1cm, FirstLineIndent = -1cm) en notas al pie usando `win32com`, se generaba un vacío (gap) enorme al final de la página y el texto desaparecía.
+La Regla Definitiva:
+En MS Word, para que un texto respete la sangría francesa (Hanging Indent) sin romperse visualmente ni causar saltos de página erráticos, **TODO PÁRRAFO DEBE INICIAR CON UN CARÁCTER TABULADOR (`\t`) DESPUÉS DEL NÚMERO DE REFERENCIA**.
+En `insert_footnotes.py`, el texto a insertar debe procesarse así:
+`safe_note = "\t" + str(note).replace("\n", "\r\t")`
+Esto asegura que la primera línea (después del superíndice) tenga un Tab, y que cada salto de línea (párrafo nuevo dentro de la nota) también inicie con un Tab. NUNCA se debe aplicar FirstLineIndent negativo sin inyectar caracteres Tab.
+
+71. META-ANÁLISIS DE ROBUSTEZ DEL MOTOR DE COMPILACIÓN
+Contexto:
+Para evitar la fragilidad del código en iteraciones futuras, se establece la filosofía de desarrollo del motor `build.py` y dependencias.
+La Regla Definitiva:
+a) Mutaciones en `python-docx`: Siempre clonar usando `copy.deepcopy` en el XML (`_element`) y re-envolver, pero con cuidado de limpiar tags específicos (`w:shd`, `w:highlight`) a nivel XML puro (`OxmlElement`).
+b) Límites de `python-docx`: Nunca intentar procesar Notas al Pie, Macros o campos complejos con `python-docx`. Delegar siempre a `win32com` en un script secundario.
+c) Intervención de estilos con `win32com`: Al inyectar texto vía COM, Word asume estilos por defecto (Normal). TODO texto inyectado debe ser formateado explícitamente (Fuente, Tamaño, Alineación, Sangrías) mediante el objeto `Range.Format`.

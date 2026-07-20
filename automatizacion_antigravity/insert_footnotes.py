@@ -19,8 +19,9 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
             if find.Execute():
                 rng.Text = ""
                 # win32com requires positional args: Range, Reference, Text
-                # Use \r instead of \n to force true paragraph breaks in Word
-                safe_note = str(note).replace("\n", "\r")
+                # Use \r\t instead of \n to force true paragraph breaks AND insert a tab for the hanging indent
+                # We also prepend a \t so the first line has a tab after the footnote reference
+                safe_note = "\t" + str(note).replace("\n", "\r\t")
                 document.Footnotes.Add(rng, "", safe_note)
         
         # Enforce strict formatting for all footnotes
