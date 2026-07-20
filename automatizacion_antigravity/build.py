@@ -135,7 +135,7 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             mode = "hechos"
             found.add("HECHOS")
         elif mode == "hechos" and text.startswith("Mediante el escrito"):
-            _replace(paragraph, f"Mediante el escrito de denuncia del {caso['fecha_denuncia']}, {caso['intro_denuncia']} señalando lo siguiente:")
+            _replace(paragraph, f"Mediante el escrito del {caso['fecha_denuncia']}, {caso['intro_denuncia']} señalando lo siguiente:")
             mode = "hechos_list"
             found.add("INTRO_HECHOS")
         elif mode == "hechos_list" and text.startswith(ANCHORS["hechos_dummy"]):

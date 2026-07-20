@@ -10,13 +10,16 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
     word.Visible = False
     document = word.Documents.Open(str(input_path))
     try:
+        # Remove all highlighting (Control+E equivalent)
+        document.Content.HighlightColorIndex = 0
         for marker, note in footnotes_dict.items():
             rng = document.Content
             find = rng.Find
             find.Text = marker
             if find.Execute():
                 rng.Text = ""
-                document.Footnotes.Add(rng, Text=str(note))
+                # win32com requires positional args: Range, Reference, Text
+                document.Footnotes.Add(rng, "", str(note))
         document.SaveAs(str(output_path))
     finally:
         document.Close()

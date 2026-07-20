@@ -249,3 +249,15 @@ Contexto
 Cuando solo se está imputando una presunta infracción a un proveedor.
 La Regla Definitiva
 El punto PRIMERO NUNCA debe contener un bloque introductorio seguido de viñetas. Debe redactarse fluidamente de corrido. Ejemplo: "PRIMERO: admitir a trámite la denuncia del [fecha] interpuesta por [Denunciante] contra [Denunciado], por presunta infracción a los artículos [x], en tanto la compañía aseguradora se habría negado a otorgar..."
+
+60. CONTROL DE FORMATO NATIVO (ELIMINACIÓN DE RESALTADOS)
+Contexto
+En las plantillas Word maestras a veces existen textos o viñetas resaltados en verde (como marcadores de posición) que ensucian el documento final.
+La Regla Definitiva
+El script `insert_footnotes.py` o el procesador final DEBE aplicar `document.Content.HighlightColorIndex = 0` a todo el documento para erradicar cualquier resaltado residual simulando un "Ctrl+E" -> "Sin Color".
+
+61. INSERCIÓN CORRECTA DE NOTAS AL PIE VÍA WIN32COM
+Contexto
+Las notas al pie aparecían vacías (sin texto) porque se pasaba un argumento nombrado (`Text=...`) que el puente COM ignora o malinterpreta.
+La Regla Definitiva
+Para agregar notas al pie por COM se deben pasar los argumentos de forma posicional estricta. Ejemplo correcto: `document.Footnotes.Add(rng, "", str(note))` en lugar de usar `Text=...`.
