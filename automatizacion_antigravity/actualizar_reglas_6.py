@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-reglas_path = Path("automatizacion_antigravity/REGLAS_DE_APRENDIZAJE.md")
+reglas_path = Path("REGLAS_DE_APRENDIZAJE.md")
 
 nuevas_reglas_6 = """
 66. USO OBLIGATORIO DE `\\r` PARA SALTOS DE PÁRRAFO DUROS EN WIN32COM
