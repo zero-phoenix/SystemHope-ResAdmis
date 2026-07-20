@@ -18,10 +18,11 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
             find.Text = marker
             if find.Execute():
                 rng.Text = ""
-                # win32com requires positional args: Range, Reference, Text
-                # Use \r\t instead of \n to force true paragraph breaks AND insert a tab for the hanging indent
-                # We also prepend a \t so the first line has a tab after the footnote reference
-                safe_note = "\t" + str(note).replace("\n", "\r\t")
+                # Clean up any manual spaces/tabs in the JSON to guarantee uniform alignment
+                lines = str(note).split("\n")
+                clean_lines = ["\t" + line.lstrip(" \t") for line in lines]
+                # Use \r to separate paragraphs in Word COM
+                safe_note = "\r".join(clean_lines)
                 document.Footnotes.Add(rng, "", safe_note)
         
         # Enforce strict formatting for all footnotes
@@ -38,7 +39,15 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
                 p.Format.Alignment = 3  # wdAlignParagraphJustify
                 
                 text = p.Range.Text.strip()
-                if text.startswith("LEY ") or text.startswith("Artículo "):
+                # We format the entire paragraph to NOT be bold initially, to clear any inherited styles
+                p.Range.Font.Bold = False
+                
+                # Check if paragraph contains "LEY ", "Artículo ", or "DECRETO " anywhere to apply bolding.
+                # In the user's example, "LEY 29571..." is bold, and "Artículo 110.-..." is bold,
+                # but the following text "El órgano resolutivo puede sancionar..." is not bold.
+                if text.startswith("LEY ") or text.startswith("Artículo ") or text.startswith("DECRETO ") or text.startswith("TEXTO ÚNICO ORDENADO"):
+                    # The rule is that the *title* of the law or article is bolded.
+                    # Since these titles usually take up the whole paragraph in our JSON, we bold the whole paragraph.
                     p.Range.Font.Bold = True
             
         document.SaveAs(str(output_path))
