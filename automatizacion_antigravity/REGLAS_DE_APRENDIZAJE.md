@@ -225,3 +225,12 @@ El apartado de requerimiento de información debe ser lo más técnico posible, 
 - **Prohibición de mencionar deberes normativos:** NUNCA se debe solicitar información mencionando los deberes normativos (ej. 'medios probatorios que acrediten haber cumplido con su deber de información').
 - **Requerimiento estrictamente fáctico:** El pedido debe atarse únicamente al hecho controvertido. Por ejemplo, en vez de mencionar el deber, solicitar 'medios probatorios que acrediten que no cambió la información originalmente proporcionada al consumidor al momento de celebrarse la contratación de la Póliza...'.
 - **Extracción de la imagen:** Deben usarse los requerimientos idénticos a los señalados en la plantilla del usuario para el caso análogo, sin inventar pedidos de audios/videos si no están en su plantilla específica para este tipo de escenarios de pólizas.
+
+
+## 53. FORMATO COMPACTO DE LOS REQUERIMIENTOS EN LA PARTE RESOLUTIVA (SIN LÍNEAS EN BLANCO)
+### Contexto
+Los incisos listados en el requerimiento (ej. TERCERO) no deben estar separados por saltos de línea (párrafos en blanco). Deben ir uno debajo del otro de manera compacta para reflejar el formato estricto y limpio del modelo.
+### La Regla Definitiva
+- **Sin separaciones excesivas:** Nunca insertar líneas en blanco entre los numerales (i), (ii), (iii), (iv) y (v) en el apartado donde se listan los requerimientos al proveedor denunciado.
+- **El enlace final 'y,':** En caso de haber cinco incisos (hasta el v que es MYPE), el enlace 'y,' se coloca en el inciso (iii) previo a solicitar el domicilio procesal (iv). Ej: '(iii) consignar el Número de Registro Único de Contribuyentes (RUC); y,'
+- **Tildes estrictas en el proveedor:** Asegurarse SIEMPRE de colocar las tildes en los nombres de las empresas dentro de la resolutiva, ej. 'Pacífico Compañía...'.
