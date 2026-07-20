@@ -105,7 +105,7 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
                         clean_run(run)
 
     found = set()
-    analysis_index = resolution_index = 0
+    analysis_index = resolution_index = notif_index = 0
     mode = "header"
     resolution_text = _default_resolutivos(caso)
     resolution_text.update(caso.get("resolutivos", {}))
@@ -166,6 +166,15 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             _replace(paragraph, "PRIMERO: ", True)
             add_run(paragraph, resolution_text["PRIMERO"])
             found.add("PRIMERO")
+        elif mode == "resuelve" and text.startswith("DÉCIMO"):
+            label = text.split(":", 1)[0]
+            notificaciones = caso.get("notificaciones")
+            if notificaciones is not None and notif_index < len(notificaciones):
+                _replace(paragraph, f"{label}: ", True)
+                add_run(paragraph, notificaciones[notif_index])
+                notif_index += 1
+            elif notificaciones is not None:
+                _remove(paragraph)
         elif mode == "resuelve" and text.startswith("Presunta infracción"):
             if resolution_index < len(caso["imputaciones_res"]):
                 _set_list_paragraph(paragraph, caso["imputaciones_res"][resolution_index])
@@ -186,6 +195,8 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
         missing.add(f"ANALISIS ({analysis_index}/{len(caso['imputaciones_analisis'])})")
     if resolution_index != len(caso["imputaciones_res"]):
         missing.add(f"IMPUTACIONES_RES ({resolution_index}/{len(caso['imputaciones_res'])})")
+    if "notificaciones" in caso and notif_index != len(caso["notificaciones"]):
+        missing.add(f"NOTIFICACIONES ({notif_index}/{len(caso['notificaciones'])})")
     if missing:
         raise RuntimeError("No se pudieron reemplazar las secciones obligatorias: " + ", ".join(sorted(missing)))
     if output_path is None:
