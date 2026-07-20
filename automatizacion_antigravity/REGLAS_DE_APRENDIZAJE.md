@@ -90,8 +90,20 @@
 37. **Formato de Notas al Pie (Alineación y Espaciado):** Las notas al pie deben tener una alineación de **sangría francesa** (Hanging Indent) perfecta. El número de la nota debe estar alineado al margen izquierdo (LeftIndent=1cm, FirstLineIndent=-1cm), seguido de una tabulación explícita (`\t`) antes del texto. Todas las líneas del párrafo de la nota deben alinearse exactamente a 1 cm. Además, debe existir un espacio en blanco (SpaceAfter = 10pt) entre cada nota al pie para separar visualmente las referencias.
 38. **Alineación Multi-línea en Notas al Pie (Anti-Stretching / Soft Returns):** Para evitar que los párrafos internos pierdan la sangría francesa, se DEBEN usar saltos de línea manuales (`\x0b`). SIN EMBARGO, como la nota al pie está justificada, un salto manual estirará horriblemente las palabras de esa línea. Para evitar este estiramiento (Error de Justificación), OBLIGATORIAMENTE se debe insertar una tabulación antes del salto de línea (`\t\x0b`). El tabulador absorbe el espacio sobrante y mantiene las palabras juntas sin alterar el bloque visual.
 39. **Actualización Normativa LPAG:** En el cuerpo del texto y en las notas al pie, la referencia al TUO de la Ley del Procedimiento Administrativo General (LPAG) debe estar actualizada al año del expediente (2026): **Decreto Supremo N° 006-2026-JUS**, publicado el **30 de abril de 2026**. (Reemplaza a la versión derogada 004-2019-JUS).
-40. **Alineación Jerárquica (Nesting Escalonado):** El cuerpo del documento debe respetar una sangría escalonada estricta para reflejar jerarquía visual. Cada nivel se desplaza 1 cm a la derecha:
-    - **Nivel 1 (Romanos ej. I. HECHOS):** Número a 0 cm, texto a 1 cm.
-    - **Nivel 2 (Numerales ej. 1., 2.):** Número a 1 cm, texto a 2 cm.
-    - **Nivel 3 (Viñetas ej. (i), (ii)):** Viñeta a 2 cm, texto a 3 cm.
-    - **Resolutivos (ej. PRIMERO:):** Todo el párrafo a 0 cm (sin sangría francesa).
+
+---
+
+## 39. NUNCA EXTRAPOLAR SANGRIAS DE NUMERACIONES A TODO EL DOCUMENTO
+### Contexto
+Al automatizar los modelos, es tentador aplicar un único valor de sangría (`left_indent` y `hanging_indent`) a todos los sub-numerales (por ejemplo, los incisos `(i)`, `(ii)`, `(iii)`) independientemente de en qué parte del documento se encuentren.
+
+### El Error (Extrapolación de estilo)
+En resoluciones de Indecopi, **la sangría de los incisos varía dependiendo de la sección lógica**:
+- **En la sección HECHOS:** Los incisos `(i)`, `(ii)`, etc., están anidados bajo un número (ej: `1. Mediante la denuncia...`). Por lo tanto, tienen mayor sangría. (Típicamente: `left_indent = 2 cm`, `hanging_indent = 1 cm`. La viñeta comienza a 1 cm del margen y el texto a 2 cm).
+- **En la sección RESOLUCIÓN (PRIMERO, TERCERO, etc.):** Los incisos `(i)`, `(ii)` NO están anidados bajo un numeral arábigo, sino directamente bajo la palabra "PRIMERO:" o "TERCERO:". Por lo tanto, **tienen menor sangría**. (Típicamente: `left_indent = 1 cm`, `hanging_indent = 1 cm`. La viñeta comienza a 0 cm del margen y el texto a 1 cm).
+
+### La Regla Definitiva
+1. **Analiza el contexto estructural:** Al aplicar estilos de viñetas, distingue siempre si estás en el bloque de `HECHOS` o en los bloques resolutivos (`PRIMERO`, `TERCERO`).
+2. **HECHOS:** Aplica `left_indent = Inches(0.79)` (2cm) y `first_line_indent = Inches(-0.39)` (-1cm). 
+3. **RESOLUCIÓN (PRIMERO, SEGUNDO, TERCERO...):** Aplica `left_indent = Inches(0.39)` (1cm) y `first_line_indent = Inches(-0.39)` (-1cm). 
+4. **Verificación Visual:** En la sección resolutiva, la viñeta `(i)` o `(v)` debe quedar alineada casi al ras del margen izquierdo (0 cm), justo debajo de la palabra "PRIMERO:" o "TERCERO:".
