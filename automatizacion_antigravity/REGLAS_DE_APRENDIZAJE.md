@@ -231,3 +231,21 @@ Respetar la prohibición absoluta de imputar el Art. 24, Inducción al error, y 
 Usar estrictamente las plantillas base y el formato visual: Arial Narrow 11 (cuerpo), Arial Narrow 8 (notas al pie), interlineado sencillo, sin párrafos en blanco entre listas, y el Boilerplate completo (CC1 o PS1 según corresponda).
 Mantener las sangrías escalonadas exactas (0cm, 1cm, 2cm) dependiendo si es la sección de HECHOS o la RESOLUTIVA, y usar \t\x0b para notas al pie multilínea.
 Narrar los hechos de forma objetiva, cronológica, reflejando el petitorio sin adjetivaciones, y redactar requerimientos fácticos en infinitivo sin invocar "deberes" en la sección probatoria. Cualquier desviación u omisión de los puntos listados a lo largo de este documento constituirá un error crítico.
+
+57. REGLA SUPREMA DE NOMENCLATURA SOAT Y OTORGAMIENTO
+Contexto
+El usuario exige estricta precisión técnica para casos de SOAT.
+La Regla Definitiva
+Cuando se trate de SOAT, usar "(en adelante, SOAT)" de inmediato en los Hechos. Además, nunca usar la frase "pagar la cobertura" aislada, sino "otorgar la cobertura de fallecimiento y gastos de sepelio del SOAT".
+
+58. REQUERIMIENTOS IN-LINE PARA UN SOLO PROVEEDOR (SECCIÓN III Y RESOLUTIVO QUINTO)
+Contexto
+Para ahorrar espacio y mantener la estructura limpia, cuando solo se requiere información a un denunciado.
+La Regla Definitiva
+NO usar listas verticales numeradas con (i), (ii), (iii) que generen nuevos párrafos. Se deben agrupar todos los requerimientos en un solo párrafo continuo de manera 'in-line', separados por punto y coma. Ejemplo: "...cumpla con lo siguiente: (i) presentar una copia...; (ii) presentar los medios...; y, (iii) presentar todas las comunicaciones...".
+
+59. RESOLUTIVO "PRIMERO" EN PÁRRAFO ÚNICO (CERO VIÑETAS)
+Contexto
+Cuando solo se está imputando una presunta infracción a un proveedor.
+La Regla Definitiva
+El punto PRIMERO NUNCA debe contener un bloque introductorio seguido de viñetas. Debe redactarse fluidamente de corrido. Ejemplo: "PRIMERO: admitir a trámite la denuncia del [fecha] interpuesta por [Denunciante] contra [Denunciado], por presunta infracción a los artículos [x], en tanto la compañía aseguradora se habría negado a otorgar..."
