@@ -4,35 +4,8 @@ from docx import Document
 from docx.shared import Pt, Inches
 from docx.enum.text import WD_ALIGN_PARAGRAPH
 from docx.enum.text import WD_TAB_ALIGNMENT
-
-def add_paragraph(doc, text, bold=False, align=WD_ALIGN_PARAGRAPH.JUSTIFY, italic=False, underline=False, left_indent=None, hanging_indent=None):
-    p = doc.add_paragraph()
-    p.alignment = align
-    pf = p.paragraph_format
-    if left_indent is not None:
-        pf.left_indent = left_indent
-    if hanging_indent is not None:
-        pf.first_line_indent = hanging_indent
-    pf.space_before = Pt(0)
-    pf.space_after = Pt(0)
-    pf.line_spacing = 1.0
-    
-    run = p.add_run(text)
-    run.font.name = 'Arial'
-    run.font.size = Pt(11)
-    run.bold = bold
-    run.italic = italic
-    run.underline = underline
-    return p
-
-def add_run(p, text, bold=False, italic=False, underline=False):
-    run = p.add_run(text)
-    run.font.name = 'Arial'
-    run.font.size = Pt(11)
-    run.bold = bold
-    run.italic = italic
-    run.underline = underline
-    return run
+from formato_nucleo import add_paragraph, add_run, add_blank, add_meta
+from aplicar_reglas_base import aplicar_reglas_base
 
 def main():
     template_path = os.path.abspath(r"D:\BETTER CALL DAVID\ResAdmi\Modelos al 30-06-26\MODELO xxxx exp. ADM ver. David 1 DDO,  VARIAS IMPUTACIONES.docx")
@@ -46,62 +19,36 @@ def main():
         
     style = doc.styles['Normal']
     font = style.font
-    font.name = 'Arial'
+    font.name = 'Arial Narrow'
     font.size = Pt(11)
 
-    # Header
+    # Header (Regla 55: encabezado CC1)
+    add_header_txt = ("SECRETAR\u00cdA T\u00c9CNICA DE LA\n"
+                      "COMISI\u00d3N DE PROTECCI\u00d3N AL CONSUMIDOR 1\n"
+                      "SEDE CENTRAL")
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.RIGHT
     pf = p.paragraph_format
     pf.space_after = Pt(0)
     pf.space_before = Pt(0)
-    run = p.add_run("SECRETARIA TÉCNICA DE LA\nCOMISIÓN DE PROTECCIÓN AL CONSUMIDOR 1\nSEDE CENTRAL")
+    run = p.add_run(add_header_txt)
     run.font.name = 'Arial Narrow'
     run.font.size = Pt(11)
     run.bold = True
     run.italic = True
     
-    doc.add_paragraph() # One blank line
-    doc.paragraphs[-1].paragraph_format.space_after = Pt(0)
+    add_blank(doc)
 
-    # Metadata block with tabs and hanging indent instead of table
-    # Template uses left indent 1.48 inches (1350645) and first line indent -1.48 inches
-    indent_metadata = Inches(1.48)
-    hanging_metadata = Inches(-1.48)
-    
-    def add_meta(field, value):
-        p = doc.add_paragraph()
-        pf = p.paragraph_format
-        pf.left_indent = indent_metadata
-        pf.first_line_indent = hanging_metadata
-        pf.space_before = Pt(0)
-        pf.space_after = Pt(0)
-        pf.line_spacing = 1.0
-        # Add tab stop
-        tab_stops = pf.tab_stops
-        tab_stops.add_tab_stop(indent_metadata, WD_TAB_ALIGNMENT.LEFT)
-        
-        # Field
-        run_f = p.add_run(field)
-        run_f.font.name = 'Arial'
-        run_f.font.size = Pt(11)
-        run_f.bold = False
-        
-        # Value
-        run_v = p.add_run(value)
-        run_v.font.name = 'Arial'
-        run_v.font.size = Pt(11)
-        run_v.bold = True
+    # Metadata (Regla 54: sangr\u00eda colgante 1.48")
+    add_meta(doc, "EXPEDIENTE\t:\t", "0955-2026/CC1")
+    add_meta(doc, "DENUNCIANTE\t:\t", "EUFEMIA ESTEFA MART\u00cdNEZ MORENO DE ROMERO (SE\u00d1ORA MART\u00cdNEZ)")
+    add_meta(doc, "DENUNCIADO\t:\t", "INTERSEGURO COMPA\u00d1\u00cdA DE SEGUROS S.A. (INTERSEGURO)")
+    add_meta(doc, "MATERIAS\t:\t", "ADMISI\u00d3N A TR\u00c1MITE\n\t\tREQUERIMIENTO DE INFORMACI\u00d3N")
+    add_meta(doc, "RESOLUCI\u00d3N\t:\t", "1")
 
-    add_meta("EXPEDIENTE\t:\t", "0955-2026/CC1")
-    add_meta("DENUNCIANTE\t:\t", "EUFEMIA ESTEFA MARTÍNEZ MORENO DE ROMERO (SEÑORA MARTÍNEZ)")
-    add_meta("DENUNCIADO\t:\t", "INTERSEGURO COMPAÑÍA DE SEGUROS S.A. (INTERSEGURO)")
-    add_meta("MATERIAS\t:\t", "ADMISIÓN A TRÁMITE\n\t\tREQUERIMIENTO DE INFORMACIÓN")
-    add_meta("RESOLUCIÓN\t:\t", "1")
-
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     add_paragraph(doc, "Lima, 20 de abril de 2026", align=WD_ALIGN_PARAGRAPH.LEFT)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     # Roman numeral indent: Left indent 0.39 inches, first line -0.39 inches
     roman_indent = Inches(0.39)
@@ -116,46 +63,46 @@ def main():
     list_hanging = Inches(-0.39)
     
     add_paragraph(doc, "I.\tHECHOS", bold=True, align=WD_ALIGN_PARAGRAPH.JUSTIFY, left_indent=roman_indent, hanging_indent=roman_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "1.\tMediante el escrito del 19 de marzo de 2026, la señora Martínez denunció a Interseguro por presuntas infracciones a la Ley N°29571, Código de Protección y Defensa del Consumidor (en adelante, Código)__F1__, señalando lo siguiente:", left_indent=num_indent, hanging_indent=num_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "(i)\tEl 10 de setiembre de 2024, inició la vigencia del Seguro de Vida – Póliza N°1760006823 (en adelante, Seguro de Vida), adquirido por su hijo de iniciales L.M.R. (en adelante, asegurado), en el cual se le consignó en calidad de única beneficiaria.", left_indent=list_indent, hanging_indent=list_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "(ii)\tEl 23 de marzo de 2025, el asegurado perdió la vida en circunstancias vinculadas a su abandono en la vía pública por parte del conductor de un vehículo de transporte público no identificado, sin que se haya determinado la identidad del responsable ni del vehículo involucrado.", left_indent=list_indent, hanging_indent=list_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "(iii)\tEl 24 de abril de 2025, se emitió el Informe Policial N°562-2025-REG.POL-LIMA/DIVPOL-CHO-DEPINCRI-CHOSICA, en el cual se dejó constancia de las circunstancias del fallecimiento del asegurado, incluyendo su abandono en la vía pública y la falta de identificación del responsable.", left_indent=list_indent, hanging_indent=list_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "(iv)\tPosteriormente, conforme a las pericias y al certificado de necropsia, se determinó que el asegurado se encontraba bajo los efectos del alcohol al momento de su fallecimiento, estableciéndose como causa de muerte un paro cardíaco asociado a edema cerebral y daño pulmonar severo por asfixia, sin haberse precisado la causa inicial del deceso.", left_indent=list_indent, hanging_indent=list_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "(v)\tEl 8 de septiembre de 2025, Interseguro emitió la carta N°GOT-SIN-90852-2025, mediante la cual comunicó la denegatoria de su solicitud de cobertura del Seguro de Vida, señalando que el fallecimiento del asegurado se encontraba comprendido dentro de un supuesto de exclusión por estado de ebriedad, motivo por el cual le rechazó el pago del monto asegurado en su calidad de única beneficiaria.", left_indent=list_indent, hanging_indent=list_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "2.\tLa señora Martínez solicitó, en calidad de medida correctiva, que Interseguro cumpla con otorgar la cobertura del Seguro de Desgravamen y otorgar el pago de los daños y perjuicios ocasionados. Asimismo, no requirió de manera expresa el reembolso de costos y costas del presente procedimiento.", left_indent=num_indent, hanging_indent=num_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "II.\tDE LA ADMISIÓN A TRÁMITE DE LA DENUNCIA", bold=True, align=WD_ALIGN_PARAGRAPH.JUSTIFY, left_indent=roman_indent, hanging_indent=roman_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "3.\tLa Secretaría Técnica de la Comisión de Protección al Consumidor N°1 (en adelante, la Secretaría Técnica), en ejercicio de sus facultades__F2__, considera que el hecho denunciado, consistente en que la compañía aseguradora habría negado injustificadamente al denunciante, mediante la carta N°GOT-SIN-90852-2025, la cobertura de la Póliza N°1760006823 del Seguro de Vida; involucraría una presunta afectación a sus expectativas, quien no habría encontrado una correspondencia entre lo que esperaba recibir de parte del proveedor y lo que realmente recibió. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de idoneidad, tipificado en los artículos 18° y 19° del Código__F3__.", left_indent=num_indent, hanging_indent=num_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "4.\tEn tanto la denuncia reúne los requisitos establecidos por la norma citada, corresponde admitirla a trámite__F4__.", left_indent=num_indent, hanging_indent=num_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "III.\tREQUERIMIENTO DE INFORMACIÓN", bold=True, align=WD_ALIGN_PARAGRAPH.JUSTIFY, left_indent=roman_indent, hanging_indent=roman_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "5.\tA efectos de tener mayores elementos que sirvan para la resolución definitiva del presente caso, la Secretaría Técnica, en ejercicio de las facultades que la ley le confiere, conviene requerir a la compañía aseguradora que, en un plazo no mayor de cinco (5) días hábiles contado a partir del día siguiente de la notificación de la presente resolución, cumpla con lo siguiente: (i) presentar una copia completa, legible y debidamente suscrita de la Póliza N°1760006823 - Seguro de Vida, así como el cargo de remisión de la póliza; (ii) presentar los medios probatorios que acrediten que la negativa de otorgamiento de cobertura fue justificada; y, (iii) presentar todas las comunicaciones cursadas con la parte denunciante en virtud de los hechos materia de denuncia.", left_indent=num_indent, hanging_indent=num_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "IV.\tRESOLUCIÓN DE LA SECRETARÍA TÉCNICA", bold=True, align=WD_ALIGN_PARAGRAPH.JUSTIFY, left_indent=roman_indent, hanging_indent=roman_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -163,7 +110,7 @@ def main():
     p.paragraph_format.space_after = Pt(0)
     add_run(p, "PRIMERO: ", bold=True)
     add_run(p, "admitir a trámite la denuncia del 19 de marzo de 2026 interpuesta por la señora Eufemia Estefa Martínez Moreno de Romero contra Interseguro Compañía de Seguros S.A., por la presunta infracción a los artículos 18° y 19° de la Ley N° 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría negado injustificadamente al denunciante, mediante la carta N°GOT-SIN-90852-2025, la cobertura de la Póliza N°1760006823 del Seguro de Vida.")
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -171,7 +118,7 @@ def main():
     p.paragraph_format.space_after = Pt(0)
     add_run(p, "SEGUNDO: ", bold=True)
     add_run(p, "tener por ofrecidos los medios probatorios presentados en el escrito de denuncia del 19 de marzo de 2026.")
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -179,18 +126,18 @@ def main():
     p.paragraph_format.space_after = Pt(0)
     add_run(p, "TERCERO: ", bold=True)
     add_run(p, "requerir a Interseguro Compañía de Seguros S.A. que cumpla con lo siguiente:")
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     add_paragraph(doc, "(i)\tpresentar documentos que acrediten su inscripción en los Registros Públicos o una declaración jurada que indique que cuenta con dicha inscripción;", left_indent=list_indent, hanging_indent=list_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     add_paragraph(doc, "(ii)\tpresentar copia simple de las facultades de representación de su representante legal en el presente procedimiento o la declaración jurada que indique que cuenta con dichas facultades y que estas se encuentran vigentes;", left_indent=list_indent, hanging_indent=list_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     add_paragraph(doc, "(iii)\tconsignar el Número de Registro Único de Contribuyentes (RUC); y,", left_indent=list_indent, hanging_indent=list_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     add_paragraph(doc, "(iv)\tfijar domicilio procesal para el procedimiento, de conformidad con el numeral 1 del artículo 442° del Código Procesal Civil. Para ello podrá señalar domicilio físico o una dirección electrónica a la que pueda remitirse las notificaciones;", left_indent=list_indent, hanging_indent=list_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     add_paragraph(doc, "(v)\ten caso califique como micro empresa o pequeña empresa, presentar los documentos que acrediten su volumen de ventas o ingresos brutos percibidos el año anterior relativo a todas sus actividades económicas y el número de trabajadores con el que cuenta__F5__. Ello, a fin de que la Comisión pueda meritar dicha documentación, conforme lo establece el artículo 110° del Código__F6__.", left_indent=list_indent, hanging_indent=list_hanging)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -198,7 +145,7 @@ def main():
     p.paragraph_format.space_after = Pt(0)
     add_run(p, "CUARTO: ", bold=True)
     add_run(p, "correr traslado de la denuncia interpuesta el 19 de marzo de 2026, a Interseguro Compañía de Seguros S.A., para que, de conformidad con lo dispuesto por el artículo 26° de la Ley sobre Facultades, Normas y Organización del Indecopi, aprobada por Decreto Legislativo 807, presente sus descargos en un plazo no mayor de cinco (5) días hábiles contados desde la notificación.")
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -206,7 +153,7 @@ def main():
     p.paragraph_format.space_after = Pt(0)
     add_run(p, "QUINTO: ", bold=True)
     add_run(p, "requerir que, en un plazo no mayor de cinco (5) días hábiles contado a partir del día siguiente de la notificación de la presente resolución, el proveedor denunciado cumpla con: (i) presentar una copia completa, legible y debidamente suscrita de la Póliza N°1760006823 del Seguro de Vida, así como el cargo de remisión de la póliza; (ii) presentar los medios probatorios que acrediten que la negativa de otorgamiento de cobertura fue justificada; y, (iii) presentar todas las comunicaciones cursadas con la parte denunciante en virtud de los hechos materia de denuncia.")
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -218,7 +165,7 @@ def main():
     from docx.shared import RGBColor
     link.font.color.rgb = RGBColor(0, 0, 255) # Blue link
     add_run(p, ", cuyo acceso tiene vigencia hasta el 3 de junio de 2026; dejándose a salvo su derecho de solicitar una nueva habilitación del link después de vencido el plazo señalado.")
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -226,7 +173,7 @@ def main():
     p.paragraph_format.space_after = Pt(0)
     add_run(p, "SÉTIMO: ", bold=True)
     add_run(p, "informar a las partes que el artículo 110° de la Ley N° 29571, Código de Protección y Defensa del Consumidor__F7__, faculta a la Comisión a calificar las infracciones de la referida norma como leves, graves o muy graves e imponer sanciones que van desde una amonestación hasta una multa por un máximo de 450 Unidades Impositivas Tributarias, sin perjuicio de las medidas correctivas, reparadoras y complementarias, que puedan ordenarse de acuerdo a lo estipulado en los artículos 114°, 115° y 116° de la referida norma__F8__. Asimismo, se consideran circunstancias atenuantes para la graduación de la sanción, el allanamiento de la denuncia o el reconocimiento de las pretensiones en ella contenidas, de acuerdo con el artículo 112° del Código__F9__.")
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -234,7 +181,7 @@ def main():
     p.paragraph_format.space_after = Pt(0)
     add_run(p, "OCTAVO: ", bold=True)
     add_run(p, "informar a las partes que conforme a lo establecido en el artículo 39° de la Ley sobre Facultades, Normas y Organización del Indecopi, aprobada por Decreto Legislativo 807, los gastos por los peritajes realizados, actuación de pruebas, inspecciones y otros derivados de la tramitación del proceso serán de cargo de la parte que solicita la prueba, salvo pacto en contrario. En todos los casos, la resolución final determinará si los gastos deben ser asumidos por alguna de las partes, o reembolsados a la otra parte o al Indecopi, según sea el caso, de manera adicional a la sanción que haya podido imponerse.")
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -243,7 +190,7 @@ def main():
     add_run(p, "NOVENO: ", bold=True)
     add_run(p, "comunicar a las partes que, de acuerdo a lo señalado por el artículo 29° del Decreto Legislativo N° 807__F10__, hasta antes de la emisión de la Resolución Final tienen la posibilidad de solicitar una audiencia de conciliación. En caso deleguen a favor de una tercera persona su actuación en la diligencia programada, ésta deberá presentar un poder especial con firma legalizada ante Notario Público, ")
     add_run(p, "donde conste expresamente su facultad para asistir y conciliar en su representación. Ello bajo apercibimiento de no realizar la audiencia de conciliación y levantar el acta de inasistencia correspondiente.", underline=True)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -251,7 +198,7 @@ def main():
     p.paragraph_format.space_after = Pt(0)
     add_run(p, "DÉCIMO: ", bold=True)
     add_run(p, "poner en conocimiento de las partes que, antes de la emisión de la Resolución Final, tienen la posibilidad de formular su desistimiento o presentar el acuerdo arribado mediante la conciliación, mediación, transacción o cualquier otro que, de forma indubitable, deje constancia que se ha solucionado la controversia materia de denuncia.")
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -259,7 +206,7 @@ def main():
     p.paragraph_format.space_after = Pt(0)
     add_run(p, "DÉCIMO PRIMERO: ", bold=True)
     add_run(p, "requerir a la señora Eufemia Estefa Martínez Moreno de Romero para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba la notificación en su bandeja de correo electrónico, efectúe la confirmación de recepción de la notificación remitida por este despacho a su correo electrónico, de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo N° 004-2019-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle conforme al numeral 1 del artículo 20° del citado cuerpo normativo__F11__.")
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
     
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.JUSTIFY
@@ -268,15 +215,25 @@ def main():
     add_run(p, "DÉCIMO SEGUNDO: ", bold=True)
     add_run(p, "requerir a Interseguro Compañía de Seguros S.A. para que efectúe el acuse de recibo mediante la confirmación de recepción de la notificación remitida por este despacho a su Casilla Electrónica, dentro de los cinco (5) primeros días hábiles siguientes a la fecha en que recibe la notificación.")
     
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
-    doc.add_paragraph().paragraph_format.space_after = Pt(0)
+    add_blank(doc)
+    add_blank(doc)
     p = doc.add_paragraph()
     p.alignment = WD_ALIGN_PARAGRAPH.CENTER
     p.paragraph_format.space_before = Pt(0)
     p.paragraph_format.space_after = Pt(0)
     add_run(p, "Firmado digitalmente por\nEVELING ROA QUISPE\nSecretaria Técnica\nComisión de Protección al Consumidor N°1", bold=True)
     
-    add_paragraph(doc, "LGP/JCQ", align=WD_ALIGN_PARAGRAPH.LEFT)
+    from formato_nucleo import TAMANO_INICIALES
+    p_ini = doc.add_paragraph()
+    p_ini.alignment = WD_ALIGN_PARAGRAPH.LEFT
+    p_ini.paragraph_format.space_before = Pt(0)
+    p_ini.paragraph_format.space_after = Pt(0)
+    r_ini = p_ini.add_run("LGP/JCQ")
+    r_ini.font.name = "Arial Narrow"
+    r_ini.font.size = TAMANO_INICIALES
+    
+    # Aplicar reglas base CC1 antes de guardar
+    aplicar_reglas_base(doc)
     
     temp_path = os.path.abspath(r"D:\BETTER CALL DAVID\ResAdmi\temp_v7.docx")
     doc.save(temp_path)
@@ -326,9 +283,10 @@ def main():
                 insert_rng.Font.Bold = is_bold
                 insert_rng.Collapse(0) # wdCollapseEnd = 0
                 
+    from formato_nucleo import FUENTE_NOTAS, TAMANO_NOTAS
     for fn in doc_com.Footnotes:
-        fn.Range.Font.Name = "Arial"
-        fn.Range.Font.Size = 8.0
+        fn.Range.Font.Name = FUENTE_NOTAS
+        fn.Range.Font.Size = TAMANO_NOTAS.pt
         fn.Range.ParagraphFormat.Alignment = 3 # justify
 
     out_dir = os.path.abspath(r"D:\BETTER CALL DAVID\ResAdmi\productos (resoluciones) elaborada por google antigravity")

@@ -13,9 +13,17 @@ import sys
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 
 from docx import Document
-from docx.shared import Pt, Inches
-from docx.enum.text import WD_ALIGN_PARAGRAPH, WD_TAB_ALIGNMENT
+from docx.shared import Pt
+from docx.enum.text import WD_ALIGN_PARAGRAPH
 from aplicar_reglas_base import aplicar_reglas_base
+from formato_nucleo import (
+    add_paragraph, add_run, add_blank, add_meta, add_header,
+    ROMAN_INDENT, ROMAN_HANGING, NUM_INDENT, NUM_HANGING,
+    LIST_INDENT, LIST_HANGING, RESOL_LIST_INDENT,
+    META_INDENT, META_HANGING,
+    FUENTE_CUERPO, TAMANO_CUERPO, TAMANO_INICIALES,
+    SPACE_BEFORE, SPACE_AFTER, LINE_SPACING,
+)
 
 
 # ============================================================
@@ -48,94 +56,6 @@ EXP_ORIGEN = "000998-2026/PS1"
 # Resolucion 1
 FECHA_RESOLUCION1 = "23 de junio de 2026"
 FECHA_SUBSANACION_EFECTIVA = "26 de junio de 2026"
-
-# ============================================================
-# FUNCIONES AUXILIARES
-# ============================================================
-
-def add_paragraph(doc, text, bold=False, align=WD_ALIGN_PARAGRAPH.JUSTIFY,
-                  italic=False, underline=False, left_indent=None,
-                  hanging_indent=None, font_name="Arial Narrow", font_size=Pt(11)):
-    p = doc.add_paragraph()
-    p.alignment = align
-    pf = p.paragraph_format
-    if left_indent is not None:
-        pf.left_indent = left_indent
-    if hanging_indent is not None:
-        pf.first_line_indent = hanging_indent
-    if left_indent is not None:
-        tab_stops = pf.tab_stops
-        tab_stops.add_tab_stop(left_indent, WD_TAB_ALIGNMENT.LEFT)
-    pf.space_before = Pt(0)
-    pf.space_after = Pt(0)
-    pf.line_spacing = 1.0
-
-    run = p.add_run(text)
-    run.font.name = font_name
-    run.font.size = font_size
-    run.bold = bold
-    run.italic = italic
-    run.underline = underline
-    return p
-
-
-def add_run(p, text, bold=False, italic=False, underline=False,
-            font_name="Arial Narrow", font_size=Pt(11)):
-    run = p.add_run(text)
-    run.font.name = font_name
-    run.font.size = font_size
-    run.bold = bold
-    run.italic = italic
-    run.underline = underline
-    return run
-
-
-def add_blank(doc):
-    p = doc.add_paragraph()
-    pf = p.paragraph_format
-    pf.space_before = Pt(0)
-    pf.space_after = Pt(0)
-    pf.line_spacing = 1.0
-    return p
-
-
-# ============================================================
-# SANGRÍAS (Reglas 39, 54, 55)
-# ============================================================
-ROMAN_INDENT = Inches(0.39)
-ROMAN_HANGING = Inches(-0.39)
-NUM_INDENT = Inches(0.39)
-NUM_HANGING = Inches(-0.39)
-LIST_INDENT = Inches(0.79)
-LIST_HANGING = Inches(-0.39)
-RESOL_LIST_INDENT = Inches(0.39)  # En resolutiva la viñeta va a 0cm, texto a 1cm
-
-# Metadata
-META_INDENT = Inches(1.48)
-META_HANGING = Inches(-1.48)
-
-
-def add_meta(doc, field, value):
-    p = doc.add_paragraph()
-    pf = p.paragraph_format
-    pf.left_indent = META_INDENT
-    pf.first_line_indent = META_HANGING
-    pf.space_before = Pt(0)
-    pf.space_after = Pt(0)
-    pf.line_spacing = 1.0
-    tab_stops = pf.tab_stops
-    tab_stops.add_tab_stop(META_INDENT, WD_TAB_ALIGNMENT.LEFT)
-
-    run_f = p.add_run(field)
-    run_f.font.name = "Arial Narrow"
-    run_f.font.size = Pt(11)
-    run_f.bold = True
-
-    run_v = p.add_run(value)
-    run_v.font.name = "Arial Narrow"
-    run_v.font.size = Pt(11)
-    run_v.bold = True
-
 
 # ============================================================
 # GENERACIÓN PRINCIPAL
@@ -580,15 +500,15 @@ def generar():
         "Comisi\u00f3n de Protecci\u00f3n al Consumidor N\u00b01",
         bold=True)
 
-    # Iniciales tamaño 8
+    # Iniciales (Regla 48: tamaño 8)
     p_iniciales = doc.add_paragraph()
     p_iniciales.alignment = WD_ALIGN_PARAGRAPH.LEFT
     p_iniciales.paragraph_format.space_before = Pt(0)
     p_iniciales.paragraph_format.space_after = Pt(0)
     p_iniciales.paragraph_format.line_spacing = 1.0
     r = p_iniciales.add_run("LGP/JCQ")
-    r.font.name = "Arial Narrow"
-    r.font.size = Pt(8)
+    r.font.name = FUENTE_CUERPO
+    r.font.size = TAMANO_INICIALES
 
     # ============================================================
     # GUARDAR TEMPORAL
