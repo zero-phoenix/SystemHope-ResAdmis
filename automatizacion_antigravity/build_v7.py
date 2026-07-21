@@ -302,6 +302,17 @@ def main():
     doc_com.Close()
     word.Quit()
     print("Success V7")
+    
+    # Validar contra el validador universal
+    try:
+        from validador_universal import validar_documento
+        valido, violaciones = validar_documento(out_path)
+        if valido:
+            print("\n\u2714 DOCUMENTO V\u00c1LIDO - Todas las reglas cumplidas")
+        else:
+            print("\n\u26a0 Documento con advertencias de formato")
+    except Exception as e:
+        print(f"  Validador no disponible: {e}")
 
 if __name__ == '__main__':
     main()

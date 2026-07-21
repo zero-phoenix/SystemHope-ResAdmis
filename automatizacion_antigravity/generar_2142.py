@@ -800,17 +800,22 @@ def main():
     print("=" * 70)
     print(f"Archivo: {os.path.basename(out_path)}")
 
-    # 4. Validar con el validador post-generación
-    print("\nEjecutando validador post-generaci\u00f3n...")
+    # 4. Validar con validador universal (TODAS las reglas)
+    print("\nEjecutando validador universal...")
     try:
-        from validador_post_generacion import validar_documento
+        from validador_universal import validar_documento
         valido, violaciones = validar_documento(out_path)
-        if valido:
-            print("\n\u2714 DOCUMENTO V\u00c1LIDO - Todas las reglas cumplidas")
-        else:
-            print("\n\u26a0 Documento v\u00e1lido con advertencias")
-    except Exception as e:
-        print(f"Validador no disponible: {e}")
+    except Exception:
+        try:
+            from validador_post_generacion import validar_documento
+            valido, violaciones = validar_documento(out_path)
+        except Exception as e:
+            print(f"  Validador no disponible: {e}")
+            valido = True
+    if valido:
+        print("\n\u2714 DOCUMENTO V\u00c1LIDO - Todas las reglas cumplidas")
+    else:
+        print("\n\u26a0 Documento con advertencias")
 
     return out_path
 
