@@ -158,6 +158,9 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             for hecho in caso["hechos"]:
                 new_paragraph = _clone_paragraph_before(paragraph)
                 _set_list_paragraph(new_paragraph, hecho)
+                from docx.oxml import OxmlElement
+                empty_p = OxmlElement('w:p')
+                paragraph._element.addprevious(empty_p)
             _remove(paragraph)
             found.add("BLOQUE_HECHOS")
         elif mode == "hechos_list" and text.startswith("El 5 de abril"):
@@ -173,9 +176,6 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
                 _replace(paragraph, caso["imputaciones_analisis"][analysis_index])
                 analysis_index += 1
                 found.add("BLOQUE_ANALISIS")
-                
-                # Remove following empty paragraph for used items
-                _remove_next_empty_p(paragraph)
             else:
                 # Remove following empty paragraph for discarded items
                 _remove_next_empty_p(paragraph)
@@ -206,6 +206,9 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
                 for imp in caso["imputaciones_res"]:
                     new_p = _clone_paragraph_before(paragraph)
                     _set_list_paragraph(new_p, imp)
+                    from docx.oxml import OxmlElement
+                    empty_p = OxmlElement('w:p')
+                    paragraph._element.addprevious(empty_p)
                 resolution_index = len(caso["imputaciones_res"])
                 found.add("BLOQUE_RES")
             
