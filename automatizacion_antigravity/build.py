@@ -242,6 +242,23 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
                     _set_list_paragraph(new_p, req)
                 caso["__pendientes_TERCERO"] = []
             _remove(paragraph)
+        elif text.startswith("Firmado digitalmente por"):
+            from docx.text.paragraph import Paragraph
+            prev = paragraph._element.getprevious()
+            while prev is not None:
+                next_prev = prev.getprevious()
+                if prev.tag.endswith('}p'):
+                    prev_p = Paragraph(prev, paragraph._parent)
+                    if not prev_p.text.strip():
+                        _remove(prev_p)
+                    else:
+                        break
+                prev = next_prev
+            
+            from docx.oxml import OxmlElement
+            for _ in range(3):
+                empty_p = OxmlElement('w:p')
+                paragraph._element.addprevious(empty_p)
 
     missing = {"EXPEDIENTE", "DENUNCIANTE", "DENUNCIADO", "FECHA", "HECHOS", "BLOQUE_HECHOS",
                "ANALISIS", "BLOQUE_ANALISIS", "RESUELVE", "PRIMERO", "SEGUNDO", "TERCERO",
