@@ -204,8 +204,8 @@ def _forzar_pie_pagina(doc):
 
 def aplicar_reglas_base_win32com(doc_com, tipo="CC1"):
     """
-    Versi\u00f3n para win32com (Word COM API).
-    Aplica formato directamente a trav\u00e9s de la API de Word.
+    Versión para win32com (Word COM API).
+    Aplica formato directamente a través de la API de Word.
     
     Args:
         doc_com: Word.Document (COM object)
@@ -217,6 +217,7 @@ def aplicar_reglas_base_win32com(doc_com, tipo="CC1"):
     _forzar_notas_pie_win32com(doc_com)
     _forzar_footer_win32com(doc_com)
     _forzar_iniciales_win32com(doc_com)
+    _forzar_centrado_firma_win32com(doc_com)
 
 def _corregir_gramatica_win32com(doc_com):
     """Corrige errores gramaticales como palabras duplicadas usando Find."""
@@ -295,15 +296,36 @@ def _forzar_footer_win32com(doc_com):
 
 
 def _forzar_iniciales_win32com(doc_com):
-    """Fuerza tama\u00f1o 8 en iniciales al final del documento."""
+    """Fuerza tamaño 8 en iniciales al final del documento y las alinea a la izquierda."""
+    import re
     patron_iniciales = re.compile(r'^[A-Z]{2,4}/[A-Z]{2,4}$')
     try:
         for paragraph in doc_com.Paragraphs:
             text = paragraph.Range.Text.strip()
             if patron_iniciales.match(text):
                 paragraph.Range.Font.Size = 8
+                paragraph.Format.Alignment = 0  # wdAlignParagraphLeft
     except:
         pass
+
+def _forzar_centrado_firma_win32com(doc_com):
+    """Centra el bloque de firma digital al final del documento."""
+    import re
+    try:
+        in_signature = False
+        for paragraph in doc_com.Paragraphs:
+            text_upper = paragraph.Range.Text.strip().upper()
+            if "FIRMADO DIGITALMENTE POR" in text_upper:
+                in_signature = True
+            
+            if in_signature:
+                if re.match(r"^[A-Z]{2,4}/[A-Z]{2,4}$", text_upper):
+                    in_signature = False
+                    paragraph.Format.Alignment = 0  # wdAlignParagraphLeft
+                else:
+                    paragraph.Format.Alignment = 1  # wdAlignParagraphCenter
+    except Exception as e:
+        print(f"Error centrando firma: {e}")
 
 
 # ============================================================
