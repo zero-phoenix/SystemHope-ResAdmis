@@ -163,6 +163,12 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
                 analysis_index += 1
                 found.add("BLOQUE_ANALISIS")
             else:
+                from docx.text.paragraph import Paragraph
+                nxt = paragraph._element.getnext()
+                if nxt is not None and nxt.tag.endswith('p'):
+                    nxt_p = Paragraph(nxt, paragraph._parent)
+                    if not nxt_p.text.strip():
+                        _remove(nxt_p)
                 _remove(paragraph)
         elif mode == "analisis" and text.startswith("En tanto la denuncia"):
             mode = "req"
@@ -192,6 +198,15 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
                     _set_list_paragraph(new_p, imp)
                 resolution_index = len(caso["imputaciones_res"])
                 found.add("BLOQUE_RES")
+            
+            # Remove any immediately following empty paragraph
+            from docx.text.paragraph import Paragraph
+            nxt = paragraph._element.getnext()
+            if nxt is not None and nxt.tag.endswith('p'):
+                nxt_p = Paragraph(nxt, paragraph._parent)
+                if not nxt_p.text.strip():
+                    _remove(nxt_p)
+            
             _remove(paragraph)
         elif mode == "resuelve" and text.startswith(("SEGUNDO:", "TERCERO:", "CUARTO:", "QUINTO:")):
             if caso.get("__in_tercero"):
