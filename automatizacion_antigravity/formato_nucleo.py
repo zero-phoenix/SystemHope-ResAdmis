@@ -191,12 +191,15 @@ def add_header(doc, texto=None):
     run.italic = True
     return p
 
+import re
+
 def aplicar_formato_final(doc):
     """
     Aplica las correcciones finales de formato al documento:
-    1. Centra la firma digital.
+    1. Centra la firma digital (aunque este en varios parrafos).
     2. Elimina espaciados innecesarios.
     """
+    in_signature = False
     for p in doc.paragraphs:
         pf = p.paragraph_format
         
@@ -207,7 +210,14 @@ def aplicar_formato_final(doc):
         if pf.space_after is not None and pf.space_after > Pt(0):
             pf.space_after = Pt(0)
             
-        # Centrar la firma si existe
-        text_upper = p.text.upper()
-        if "FIRMADO DIGITALMENTE POR" in text_upper and "EVELING" in text_upper:
-            p.alignment = WD_ALIGN_PARAGRAPH.CENTER
+        text_upper = p.text.upper().strip()
+        
+        if "FIRMADO DIGITALMENTE POR" in text_upper:
+            in_signature = True
+            
+        if in_signature:
+            if re.match(r"^[A-Z]{2,4}/[A-Z]{2,4}$", text_upper):
+                in_signature = False
+                p.alignment = WD_ALIGN_PARAGRAPH.LEFT
+            else:
+                p.alignment = WD_ALIGN_PARAGRAPH.CENTER
