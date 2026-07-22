@@ -83,6 +83,17 @@ def _remove(paragraph):
     if parent is not None:
         parent.remove(paragraph._element)
 
+def _remove_next_empty_p(paragraph):
+    """Elimina el siguiente párrafo si está vacío, ignorando bookmarks intermedios."""
+    from docx.text.paragraph import Paragraph
+    nxt = paragraph._element.getnext()
+    while nxt is not None and not nxt.tag.endswith('}p'):
+        nxt = nxt.getnext()
+    if nxt is not None and nxt.tag.endswith('}p'):
+        nxt_p = Paragraph(nxt, paragraph._parent)
+        if not nxt_p.text.strip():
+            _remove(nxt_p)
+
 
 def _set_list_paragraph(paragraph, text):
     paragraph.text = ""
@@ -164,20 +175,10 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
                 found.add("BLOQUE_ANALISIS")
                 
                 # Remove following empty paragraph for used items
-                from docx.text.paragraph import Paragraph
-                nxt = paragraph._element.getnext()
-                if nxt is not None and nxt.tag.endswith('p'):
-                    nxt_p = Paragraph(nxt, paragraph._parent)
-                    if not nxt_p.text.strip():
-                        _remove(nxt_p)
+                _remove_next_empty_p(paragraph)
             else:
                 # Remove following empty paragraph for discarded items
-                from docx.text.paragraph import Paragraph
-                nxt = paragraph._element.getnext()
-                if nxt is not None and nxt.tag.endswith('p'):
-                    nxt_p = Paragraph(nxt, paragraph._parent)
-                    if not nxt_p.text.strip():
-                        _remove(nxt_p)
+                _remove_next_empty_p(paragraph)
                 _remove(paragraph)
         elif mode == "analisis" and text.startswith("En tanto la denuncia"):
             mode = "req"
@@ -209,12 +210,7 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
                 found.add("BLOQUE_RES")
             
             # Remove any immediately following empty paragraph
-            from docx.text.paragraph import Paragraph
-            nxt = paragraph._element.getnext()
-            if nxt is not None and nxt.tag.endswith('p'):
-                nxt_p = Paragraph(nxt, paragraph._parent)
-                if not nxt_p.text.strip():
-                    _remove(nxt_p)
+            _remove_next_empty_p(paragraph)
             
             _remove(paragraph)
         elif mode == "resuelve" and text.startswith(("SEGUNDO:", "TERCERO:", "CUARTO:", "QUINTO:")):
