@@ -65,6 +65,7 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
             fn.Range.Font.Name = "Arial Narrow"
             fn.Range.Font.Size = 8
             
+            paragraphs_count = fn.Range.Paragraphs.Count
             for j, p in enumerate(fn.Range.Paragraphs):
                 # Remove any list formatting just in case
                 p.Range.ListFormat.RemoveNumbers()
@@ -98,6 +99,11 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
                     p.Format.FirstLineIndent = 0
                     
                 p.Format.Alignment = 3  # wdAlignParagraphJustify
+                
+                if j == paragraphs_count - 1:
+                    p.Format.SpaceAfter = 10
+                else:
+                    p.Format.SpaceAfter = 0
                 
                 import re
                 text = p.Range.Text
