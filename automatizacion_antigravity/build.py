@@ -162,7 +162,16 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
                 _replace(paragraph, caso["imputaciones_analisis"][analysis_index])
                 analysis_index += 1
                 found.add("BLOQUE_ANALISIS")
+                
+                # Remove following empty paragraph for used items
+                from docx.text.paragraph import Paragraph
+                nxt = paragraph._element.getnext()
+                if nxt is not None and nxt.tag.endswith('p'):
+                    nxt_p = Paragraph(nxt, paragraph._parent)
+                    if not nxt_p.text.strip():
+                        _remove(nxt_p)
             else:
+                # Remove following empty paragraph for discarded items
                 from docx.text.paragraph import Paragraph
                 nxt = paragraph._element.getnext()
                 if nxt is not None and nxt.tag.endswith('p'):
