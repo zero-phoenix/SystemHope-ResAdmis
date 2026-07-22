@@ -190,3 +190,24 @@ def add_header(doc, texto=None):
     run.bold = True
     run.italic = True
     return p
+
+def aplicar_formato_final(doc):
+    """
+    Aplica las correcciones finales de formato al documento:
+    1. Centra la firma digital.
+    2. Elimina espaciados innecesarios.
+    """
+    for p in doc.paragraphs:
+        pf = p.paragraph_format
+        
+        # Eliminar espaciado innecesario si no es necesario (Regla 55)
+        # Limitamos space_before a 0 y space_after a 0
+        if pf.space_before is not None:
+            pf.space_before = Pt(0)
+        if pf.space_after is not None and pf.space_after > Pt(0):
+            pf.space_after = Pt(0)
+            
+        # Centrar la firma si existe
+        text_upper = p.text.upper()
+        if "FIRMADO DIGITALMENTE POR" in text_upper and "EVELING" in text_upper:
+            p.alignment = WD_ALIGN_PARAGRAPH.CENTER

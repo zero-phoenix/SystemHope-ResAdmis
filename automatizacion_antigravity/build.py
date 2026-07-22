@@ -10,6 +10,7 @@ import copy
 import re
 
 from config import TEMPLATE_PATH
+from formato_nucleo import aplicar_formato_final
 
 ANCHORS = {
     "expediente": "0672-2026/CC1",
@@ -230,5 +231,6 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
         raise ValueError("output_path es obligatorio")
     output_path = Path(output_path)
     output_path.parent.mkdir(parents=True, exist_ok=True)
+    aplicar_formato_final(doc)
     doc.save(output_path)
     return output_path
