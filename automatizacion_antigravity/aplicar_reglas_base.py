@@ -290,7 +290,7 @@ def _forzar_footer_win32com(doc_com):
             footer.Range.Text = FOOTER_TEXT
             footer.Range.Font.Name = FUENTE_CUERPO
             footer.Range.Font.Size = 9
-            footer.Range.ParagraphFormat.Alignment = 1  # center
+            footer.Range.ParagraphFormat.Alignment = 0  # left
     except:
         pass
 
