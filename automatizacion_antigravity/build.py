@@ -155,15 +155,19 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             mode = "hechos_list"
             found.add("INTRO_HECHOS")
         elif mode == "hechos_list" and text.startswith(ANCHORS["hechos_dummy"]):
-            for hecho in caso["hechos"]:
+            for i, hecho in enumerate(caso["hechos"]):
                 new_paragraph = _clone_paragraph_before(paragraph)
                 _set_list_paragraph(new_paragraph, hecho)
-                from docx.oxml import OxmlElement
-                empty_p = OxmlElement('w:p')
-                paragraph._element.addprevious(empty_p)
+                # Only add empty paragraph if it's NOT the last item
+                # The last item will use the template's empty paragraph as spacing
+                if i < len(caso["hechos"]) - 1:
+                    from docx.oxml import OxmlElement
+                    empty_p = OxmlElement('w:p')
+                    paragraph._element.addprevious(empty_p)
             _remove(paragraph)
             found.add("BLOQUE_HECHOS")
         elif mode == "hechos_list" and text.startswith("El 5 de abril"):
+            _remove_next_empty_p(paragraph)
             _remove(paragraph)
         elif mode == "hechos_list" and text.startswith(ANCHORS["medida_dummy"]):
             _set_list_paragraph(paragraph, caso["medida_correctiva"])
