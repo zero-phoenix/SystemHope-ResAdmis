@@ -50,6 +50,12 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
                     match = re.match(r'^([a-zA-Z0-9]+)([.)]) ', clean)
                     if match:
                         clean = f"{match.group(1)}\u2024 {clean[match.end():]}"
+                    
+                    # Regla: despues de mencionar el articulo y su numero lo demas debe estar en minuscula
+                    def lower_art_repl(m):
+                        return m.group(1) + m.group(2).lower()
+                    clean = re.sub(r'^(Art.culo\s+\d+?[A-Z]*\.?-\s+)([A-Z])', lower_art_repl, clean, flags=re.IGNORECASE)
+                    
                     lines.append(clean)
                 
                 # Prepend \t ONLY to the first line, so the footnote marker jumps to the hanging indent
