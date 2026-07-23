@@ -26,7 +26,7 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
                 # Clean up any manual spaces/tabs in the JSON to guarantee uniform alignment
                 import re
                 lines = []
-                note_text = str(note).replace("\\n", "\n").strip()
+                note_text = str(note).replace("\\n", "\n").replace("**", "").strip()
                 for line in note_text.split("\n"):
                     clean = line.lstrip(" \t")
                     # ====================================================================
