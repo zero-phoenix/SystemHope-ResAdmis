@@ -325,6 +325,23 @@ def _forzar_notas_pie_win32com(doc_com):
             fn.Range.Font.Name = FUENTE_NOTAS
             fn.Range.Font.Size = 8
             fn.Range.ParagraphFormat.Alignment = 3  # justify
+            
+            # Asegurar que el marcador en el cuerpo no sea negrita y sea Arial Narrow
+            try:
+                fn.Reference.Font.Name = FUENTE_NOTAS
+                fn.Reference.Font.Bold = False
+            except:
+                pass
+            
+            # Asegurar que el marcador en el área de notas no sea negrita y sea Arial Narrow
+            try:
+                p = fn.Range.Paragraphs(1)
+                if p.Range.Characters.Count > 0:
+                    c = p.Range.Characters(1)
+                    c.Font.Name = FUENTE_NOTAS
+                    c.Font.Bold = False
+            except:
+                pass
     except:
         pass
 
