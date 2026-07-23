@@ -212,6 +212,7 @@ def aplicar_reglas_base_win32com(doc_com, tipo="CC1"):
         tipo: "CC1" o "PS1"
     """
     _corregir_gramatica_win32com(doc_com)
+    _limpiar_n_leyes_win32com(doc_com)
     _forzar_fuente_win32com(doc_com)
     _forzar_espaciado_win32com(doc_com)
     _forzar_notas_pie_win32com(doc_com)
@@ -235,6 +236,38 @@ def _corregir_gramatica_win32com(doc_com):
                 find_text = f"{palabra} {palabra}"
                 find = paragraph.Range.Find
                 find.Execute(FindText=find_text, ReplaceWith=palabra, Replace=2, MatchCase=False, MatchWholeWord=True)
+        except:
+            pass
+
+def _limpiar_n_leyes_win32com(doc_com):
+    """
+    Busca ocurrencias literales como 'Decreto Legislativo N ', 'Ley N ', etc.
+    y las reemplaza eliminando la 'N ', 'N° ', etc., asegurando que el
+    documento y sus notas al pie (incluso los predefinidos en plantilla) queden limpios.
+    """
+    import re
+    ranges = [doc_com.Content]
+    try:
+        for fn in doc_com.Footnotes:
+            ranges.append(fn.Range)
+    except:
+        pass
+    
+    for rng in ranges:
+        try:
+            text = rng.Text
+            if not text:
+                continue
+            matches = re.finditer(r'(?i)\b(Ley|Decreto Legislativo)\s+N(?:[^\d\s]+)?\s+', text)
+            unique_matches = set(m.group(0) for m in matches)
+            for exact_text in unique_matches:
+                match = re.match(r'(?i)\b(Ley|Decreto Legislativo)', exact_text)
+                if match:
+                    replacement = match.group(1) + ' '
+                    find = rng.Find
+                    find.ClearFormatting()
+                    find.Replacement.ClearFormatting()
+                    find.Execute(exact_text, False, False, False, False, False, True, 1, False, replacement, 2)
         except:
             pass
 
