@@ -136,6 +136,10 @@ def preprocess_caso(caso):
         if isinstance(value, str):
             value = value.replace('Rímac Seguros', 'Rímac').replace('Rimac Seguros', 'Rimac').replace('RA-mac Seguros', 'Rímac').replace('RÍMAC SEGUROS', 'RÍMAC')
             value = re.sub(r'(?i)\b(Ley|Decreto Legislativo)\s+N(?:[^\d\s]+)?\s+', r'\1 ', value)
+            
+            if key == "intro_denuncia":
+                value = re.sub(r'^(El|La|Los|Las|Un|Una)\b', lambda m: m.group(1).lower(), value)
+                
             if key == "medida_correctiva":
                 value = re.sub(r'(?i)\bla aseguradora\b', abbreviation, value)
                 value = re.sub(r'(?i)\bla compañ[ií]a aseguradora\b', abbreviation, value)
