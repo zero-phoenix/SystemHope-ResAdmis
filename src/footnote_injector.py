@@ -1,0 +1,198 @@
+"""Inyección de notas al pie nativas vía win32com (Reglas R-27, R-68 a R-75).
+
+Este módulo SOLO funciona en Windows con Microsoft Word instalado. Aplica:
+
+- R-68: argumentos posicionales ``document.Footnotes.Add(rng, "", texto)``.
+- R-70: fuerza Arial Narrow 8 y justificado en todas las notas.
+- R-72: usa PUNTOS (28.35) no twips.
+- R-73: limpia tabs/spaces heredados; Bold=False antes de aplicar lógica.
+- R-74: hanging indent + Bold automático en párrafos que empiecen con "LEY " o "Artículo ".
+- R-75: prepend ``\\t`` y reemplaza ``\\n`` por ``\\r\\t``.
+- R-62: elimina resaltados residuales (HighlightColorIndex = 0).
+- R-66: usa ``\\r`` para saltos de párrafo duros.
+
+El flujo es: ``python-docx`` (en ``builder.py``) escribe el cuerpo y marca con
+marcadores especiales dónde van las notas; luego este módulo abre Word vía COM,
+reemplaza los marcadores por notas reales y aplica formato.
+"""
+
+from __future__ import annotations
+
+import re
+import sys
+from pathlib import Path
+from typing import Any
+
+# Marcador que builder.py inserta en el cuerpo para indicar "nota al pie aquí".
+# Formato:  [[FN:Texto de la nota...]]
+MARCADOR_NOTA = re.compile(r"\[\[FN:(.*?)\]\]", re.DOTALL)
+
+
+def _requiere_windows() -> None:
+    if sys.platform != "win32":
+        raise RuntimeError(
+            "La inyección de notas al pie nativas requiere Microsoft Word en Windows. "
+            "En Linux/Mac se conserva el marcador como texto (editable manualmente)."
+        )
+
+
+def procesar_notas(ruta_docx: str | Path, visible: bool = False) -> dict[str, Any]:
+    """Abre el .docx con Word, reemplaza marcadores [[FN:...]] por notas reales.
+
+    Retorna un dict con: ``notas_insertadas``, ``errores``, ``resaltados_limpiados``.
+    """
+    _requiere_windows()
+    try:
+        import win32com.client  # type: ignore
+        import pywintypes  # type: ignore # noqa: F401
+    except ImportError as exc:
+        raise RuntimeError(
+            "pywin32 no está instalado. Ejecuta: pip install pywin32"
+        ) from exc
+
+    ruta_abs = str(Path(ruta_docx).resolve())
+    word = None
+    doc = None
+    stats = {"notas_insertadas": 0, "errores": [], "resaltados_limpiados": False}
+
+    try:
+        word = win32com.client.DispatchEx("Word.Application")
+        word.Visible = visible
+        word.DisplayAlerts = 0  # wdAlertsNone
+        doc = word.Documents.Open(ruta_abs)
+
+        # 1. Extraer lista de notas del contenido del cuerpo
+        contenido = doc.Content.Text
+        notas_texto: list[str] = []
+        for m in MARCADOR_NOTA.finditer(contenido):
+            texto = m.group(1).strip()
+            # R-75: prepend \t y reemplaza \n por \r\t
+            texto = _sanitizar_nota(texto)
+            notas_texto.append(texto)
+
+        # 2. Reemplazo robusto: iteramos por cada marcador EXACTO (texto completo).
+        # Esto evita el problema de la sintaxis wildcard de Word.
+        # Para cada nota, buscamos literalmente el marcador completo y lo
+        # reemplazamos por una inserción de Footnote.
+        for nota_saneada in notas_texto:
+            # Reconstruir el marcador original (sin sanitizar) para buscarlo tal cual
+            # El texto en el doc es [[FN:TEXTO_ORIGINAL]]; nosotros guardamos la versión saneada.
+            # Buscamos con wildcard pero escapando correctamente.
+            ok = _reemplazar_primer_marcador(doc, nota_saneada)
+            if ok:
+                stats["notas_insertadas"] += 1
+            else:
+                stats["errores"].append(f"No se encontró marcador para nota.")
+
+        # 2. Formatear TODAS las notas al pie (R-70, R-74)
+        _formatear_notas(doc)
+
+        # 3. R-62: limpiar resaltados globales
+        try:
+            doc.Content.HighlightColorIndex = 0  # wdNoHighlight
+            stats["resaltados_limpiados"] = True
+        except Exception as exc:  # pragma: no cover
+            stats["errores"].append(f"Limpiando resaltados: {exc}")
+
+        doc.Save()
+    finally:
+        if doc is not None:
+            try:
+                doc.Close(SaveChanges=-1)  # wdSaveChanges
+            except Exception:  # pragma: no cover
+                pass
+        if word is not None:
+            try:
+                word.Quit()
+            except Exception:  # pragma: no cover
+                pass
+
+    return stats
+
+
+def _reemplazar_primer_marcador(doc: Any, texto_nota_saneado: str) -> bool:
+    """Busca el primer marcador ``[[FN:...]]`` en el cuerpo y lo reemplaza por
+    una nota al pie nativa. Retorna True si tuvo éxito.
+
+    Estrategia robusta: usa ``Find.Execute`` con búsqueda literal (sin wildcards)
+    de la cadena ``[[FN:``, luego expande el rango manualmente hasta ``]]``.
+    """
+    find = doc.Content.Find
+    find.ClearFormatting()
+    find.Text = "[[FN:"
+    find.Forward = True
+    find.Wrap = 0  # wdFindStop
+    find.MatchWildcards = False
+    find.MatchCase = False
+
+    if not find.Execute():
+        return False
+
+    # find.Parent es el Range donde se encontró "[[FN:"
+    rng = find.Parent
+    # Extender el rango hasta encontrar "]]"
+    fin_doc = doc.Content.End
+    rng_ext = doc.Range(rng.End, min(rng.End + 4000, fin_doc))  # ventana amplia pero acotada
+    txt_ventana = rng_ext.Text or ""
+    pos_fin = txt_ventana.find("]]")
+    if pos_fin == -1:
+        return False
+    # rng.End se mueve al final del marcador completo
+    rng.End = rng.End + pos_fin + 2
+
+    try:
+        rng.Text = ""  # elimina el marcador; rng colapsa al punto
+        doc.Footnotes.Add(rng, "", texto_nota_saneado)
+        return True
+    except Exception:
+        return False
+
+
+def _sanitizar_nota(texto: str) -> str:
+    """R-73: limpia espacios/tabs heredados; R-75: prepend \\t; R-66: \\r duro."""
+    # Eliminar espacios/tabs al inicio de cada línea, dejar UN solo \t maestro.
+    lineas = [ln.lstrip(" \t") for ln in texto.splitlines()]
+    texto_limpio = "\r".join(lineas)
+    # R-75: que cada salto de párrafo interno también empiece con tab
+    texto_limpio = texto_limpio.replace("\r", "\r\t")
+    # R-75: el primer carácter debe ser \t
+    if not texto_limpio.startswith("\t"):
+        texto_limpio = "\t" + texto_limpio
+    # Sanitizar residuales: dobles tabs
+    texto_limpio = re.sub(r"\t{2,}", "\t", texto_limpio)
+    return texto_limpio
+
+
+def _formatear_notas(doc: Any) -> None:
+    """Aplica Arial Narrow 8, justificado, hanging indent y Bold a leyes."""
+    try:
+        footnotes = doc.Footnotes
+    except Exception:  # pragma: no cover
+        return
+
+    for i in range(1, footnotes.Count + 1):
+        try:
+            fn = footnotes(i)
+            rango = fn.Range
+            fmt = rango.Format
+            # R-70: forzar tipografía
+            rango.Font.Name = "Arial Narrow"
+            rango.Font.Size = 8
+            fmt.Alignment = 3  # wdAlignParagraphJustify
+            # R-72: PUNTOS no twips. 1 cm = 28.35 pt.
+            fmt.LeftIndent = 28.35
+            fmt.FirstLineIndent = -28.35
+            # R-73: limpiar herencia de Bold antes de aplicar lógica
+            rango.Font.Bold = False
+
+            # R-74: poner en Bold los párrafos que inicien con "LEY " o "Artículo "
+            for j in range(1, rango.Paragraphs.Count + 1):
+                try:
+                    par = rango.Paragraphs(j)
+                    txt = par.Range.Text.lstrip(" \t").strip()
+                    if txt.startswith(("LEY ", "Ley ", "ARTÍCULO ", "Artículo ", "Articulo ")):
+                        par.Range.Font.Bold = True
+                except Exception:  # pragma: no cover
+                    continue
+        except Exception:  # pragma: no cover
+            continue
