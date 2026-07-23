@@ -149,7 +149,7 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
                         p.Range.Font.Bold = True
                     else:
                         # It contains the text of the article. Bold ONLY the "Artículo XX.-" prefix!
-                        match = re.search(r'^(?:[\x00-\x20]*)Art.culo\s+\d+?(?:[.-]+)?', text, re.IGNORECASE)
+                        match = re.search(r'^(?:[\x00-\x20]*)Art.culo\s+\d+(?:[°ºa-zA-Z]+)?(?:[.-]+)?', text, re.IGNORECASE)
                         if match:
                             rng_bold = p.Range.Duplicate
                             rng_bold.End = p.Range.Start + match.end()
