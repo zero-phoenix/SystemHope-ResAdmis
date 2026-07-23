@@ -225,10 +225,10 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             _replace(paragraph, f"EXPEDIENTE\t:\t{caso['expediente']}", True)
             found.add("EXPEDIENTE")
         elif "DENUNCIANTE" in text and ANCHORS["denunciante"] in text:
-            _replace(paragraph, f"DENUNCIANTE\t:\t{caso['denunciante']}", True)
+            _replace(paragraph, f"DENUNCIANTE\t:\t{caso['denunciante'].upper()}", True)
             found.add("DENUNCIANTE")
         elif "DENUNCIADO" in text and ANCHORS["denunciado"] in text:
-            _replace(paragraph, f"DENUNCIADO\t:\t{caso['denunciado']}", True)
+            _replace(paragraph, f"DENUNCIADO\t:\t{caso['denunciado'].upper()}", True)
             found.add("DENUNCIADO")
         elif text.startswith("Lima,") and ANCHORS["fecha"] in text:
             _replace(paragraph, caso["fecha_res"])
