@@ -308,6 +308,10 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             _remove(paragraph)
         elif mode == "resuelve" and text.startswith(("SEGUNDO:", "TERCERO:", "CUARTO:", "QUINTO:", "SEXTO:", "SÉTIMO:", "SÉPTIMO:")):
             roman = text.split(":", 1)[0]
+            if roman not in resolution_text:
+                found.add(roman)
+                continue
+            
             _replace(paragraph, f"{roman}: ", True)
             
             # The text might be multi-line in JSON
