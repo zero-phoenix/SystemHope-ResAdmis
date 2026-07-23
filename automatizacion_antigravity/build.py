@@ -141,7 +141,7 @@ def preprocess_caso(caso):
                 value = re.sub(r'(?i)\bla aseguradora\b', abbreviation, value)
                 value = re.sub(r'(?i)\bla compañ[ií]a aseguradora\b', abbreviation, value)
             else:
-                value = re.sub(r'(?i)\bla aseguradora\b', 'la compañía aseguradora', value)
+                value = re.sub(r'(?i)\bla aseguradora\b', lambda m: 'La compañía aseguradora' if m.group(0)[0].isupper() else 'la compañía aseguradora', value)
             if key == "req_info" and "presentar todas las comunicaciones cursadas" not in value.lower():
                 roman_numerals = ['i', 'ii', 'iii', 'iv', 'v', 'vi', 'vii', 'viii', 'ix', 'x']
                 matches = list(re.finditer(r'\(([ivx]+)\)', value))
@@ -169,7 +169,7 @@ def preprocess_caso(caso):
                         item = re.sub(r'(?i)\bla aseguradora\b', abbreviation, item)
                         item = re.sub(r'(?i)\bla compañ[ií]a aseguradora\b', abbreviation, item)
                     else:
-                        item = re.sub(r'(?i)\bla aseguradora\b', 'la compañía aseguradora', item)
+                        item = re.sub(r'(?i)\bla aseguradora\b', lambda m: 'La compañía aseguradora' if m.group(0)[0].isupper() else 'la compañía aseguradora', item)
                 new_list.append(item)
             caso[key] = new_list
         elif isinstance(value, dict):
