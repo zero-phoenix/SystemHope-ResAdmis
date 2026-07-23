@@ -255,9 +255,24 @@ def _limpiar_n_leyes_win32com(doc_com):
     
     for rng in ranges:
         try:
+            # Primero: erradicar globalmente el simbolo de grados '°' (U+00B0)
+            find = rng.Find
+            find.ClearFormatting()
+            find.Replacement.ClearFormatting()
+            # Reemplazar "N°" por "N"
+            find.Execute("N\u00B0", False, False, False, False, False, True, 1, False, "N", 2)
+            # Reemplazar "N °" por "N"
+            find.Execute("N \u00B0", False, False, False, False, False, True, 1, False, "N", 2)
+            # Reemplazar "n°" por "n"
+            find.Execute("n\u00B0", False, False, False, False, False, True, 1, False, "n", 2)
+            # Reemplazar cualquier "°" restante por vacio
+            find.Execute("\u00B0", False, False, False, False, False, True, 1, False, "", 2)
+            
             text = rng.Text
             if not text:
                 continue
+            
+            # Segundo: limpiar "Ley N" y "Decreto Legislativo N"
             matches = re.finditer(r'(?i)\b(Ley|Decreto Legislativo)\s+N(?:[^\d\s]+)?\s+', text)
             unique_matches = set(m.group(0) for m in matches)
             for exact_text in unique_matches:
