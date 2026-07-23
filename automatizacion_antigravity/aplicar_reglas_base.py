@@ -259,6 +259,20 @@ def _limpiar_n_leyes_win32com(doc_com):
             find.ClearFormatting()
             find.Replacement.ClearFormatting()
             
+            # Primero: erradicar globalmente el simbolo de grados '°' (U+00B0) y 'N°'
+            # Reemplazar "N° " por ""
+            find.Execute("N\u00B0 ", False, False, False, False, False, True, 1, False, "", 2)
+            # Reemplazar "N ° " por ""
+            find.Execute("N \u00B0 ", False, False, False, False, False, True, 1, False, "", 2)
+            # Reemplazar "n° " por ""
+            find.Execute("n\u00B0 ", False, False, False, False, False, True, 1, False, "", 2)
+            # Reemplazar "N°" (sin espacio final) por ""
+            find.Execute("N\u00B0", False, False, False, False, False, True, 1, False, "", 2)
+            # Reemplazar cualquier "°" restante por vacio
+            find.Execute("\u00B0", False, False, False, False, False, True, 1, False, "", 2)
+            # Limpiar dobles espacios que hayan quedado
+            find.Execute("  ", False, False, False, False, False, True, 1, False, " ", 2)
+            
             text = rng.Text
             if not text:
                 continue
