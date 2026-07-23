@@ -129,6 +129,14 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
                 # We format the entire paragraph to NOT be bold initially, to clear any inherited styles
                 p.Range.Font.Bold = False
                 
+                # If the paragraph inherits superscript from the footnote marker, strip it so the text is not tiny
+                if p.Range.Font.Superscript:
+                    # We strip superscript from everything after the first character (which is the marker)
+                    rng_text = p.Range.Duplicate
+                    if j == 0 and rng_text.Characters.Count > 1:
+                        rng_text.Start = rng_text.Start + 1
+                    rng_text.Font.Superscript = False
+                
                 # Footnote first line starts with \x02 (Footnote reference) and potentially spaces/tabs.
                 clean_text = re.sub(r'^[\x00-\x20]+', '', text)
                 
