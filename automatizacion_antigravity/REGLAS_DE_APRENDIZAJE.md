@@ -372,11 +372,8 @@ NUNCA confíes en heredar estilos de la plantilla vía código.
 2. Al formatear los párrafos resultantes vía COM (`win32com`), TODO texto inyectado en la etapa final debe ser **formateado explícitamente**. Se debe declarar `p.Range.Font.Bold = False` para limpiar la herencia de estilos antes de aplicar la lógica de negritas.
 3. La evaluación para aplicar `Bold = True` a leyes debe evaluar todo el párrafo y no estar restringida a las primeras palabras de un string no higienizado.
 
-73. FORMATO EXPLÍCITO Y LIMPIEZA DE TABS EN NOTAS AL PIE
+74. MAYÚSCULAS EN PARTES RESOLUTIVAS
 Contexto:
-El texto inyectado en las notas al pie generaba doble-tabulaciones y espacios residuales, arruinando la sangría francesa. Además, la herencia de negritas ("Bold") no funcionaba si la palabra clave (ej. "Artículo") no estaba exactamente al principio del párrafo debido a estos espacios/tabs fantasmas, o si el documento arrastraba estilos invisibles.
+En la redacción de las partes resolutivas (ej. PRIMERO, SEGUNDO, CUARTO, etc.), el nombre de las partes (denunciante y denunciado) se inyectaba enteramente en mayúsculas (ej. "LA POSITIVA SEGUROS Y REASEGUROS S.A.A. (LA POSITIVA)"), lo cual es incorrecto para el texto narrativo.
 La Regla Definitiva:
-NUNCA confíes en heredar estilos de la plantilla vía código.
-1. Al inyectar el texto base del JSON, se deben eliminar todos los espacios y tabs manuales al inicio de cada línea usando `line.lstrip(" \t")`, para luego concatenar con un ÚNICO `\t` maestro y saltos de párrafo `\r`.
-2. Al formatear los párrafos resultantes vía COM (`win32com`), TODO texto inyectado en la etapa final debe ser **formateado explícitamente**. Se debe declarar `p.Range.Font.Bold = False` para limpiar la herencia de estilos antes de aplicar la lógica de negritas.
-3. La evaluación para aplicar `Bold = True` a leyes debe evaluar todo el párrafo y no estar restringida a las primeras palabras de un string no higienizado.
+NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del texto de los puntos resolutivos. Solo se deben usar mayúsculas para la letra inicial de los nombres propios o siglas, aplicando "Title Case" o formato de título (ej. "La Positiva Seguros y Reaseguros S.A.A." y no "LA POSITIVA SEGUROS Y REASEGUROS S.A.A."). Las mayúsculas sostenidas solo se permiten estrictamente en el bloque de metadatos iniciales (encabezado del documento).
