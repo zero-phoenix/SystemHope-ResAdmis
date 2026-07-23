@@ -26,7 +26,8 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
                 # Clean up any manual spaces/tabs in the JSON to guarantee uniform alignment
                 import re
                 lines = []
-                for line in str(note).split("\n"):
+                note_text = str(note).replace("\\n", "\n").strip()
+                for line in note_text.split("\n"):
                     clean = line.lstrip(" \t")
                     # ====================================================================
                     # REGLA ABSOLUTA PARA EVITAR EL AUTOFORMATO DE WORD EN LISTAS (PIES DE PÁGINA)
@@ -62,29 +63,39 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
         # Enforce strict formatting for all footnotes
         for i in range(1, document.Footnotes.Count + 1):
             fn = document.Footnotes(i)
+            
+            # Remove trailing whitespaces/newlines from the footnote text itself
+            while fn.Range.Characters.Count > 0 and fn.Range.Characters.Last.Text in ['\r', '\n', ' ', '\t']:
+                old_count = fn.Range.Characters.Count
+                fn.Range.Characters.Last.Delete()
+                if fn.Range.Characters.Count == old_count:
+                    break # Delete failed silently
+            
             fn.Range.Font.Name = "Arial Narrow"
             fn.Range.Font.Size = 8
             
             paragraphs_count = fn.Range.Paragraphs.Count
             for j, p in enumerate(fn.Range.Paragraphs):
+                try:
+                    p.Style = "Texto nota pie"
+                except Exception:
+                    pass
+
                 # Remove any list formatting just in case
                 p.Range.ListFormat.RemoveNumbers()
-                
-                print(f"DEBUG {j} AFTER REMOVENUMBERS: {repr(p.Range.Text[:40])}")
                 
                 # Eradicate any leading tabs or spaces Word might have mysteriously inherited
                 import re
                 text = p.Range.Text
                 if j > 0:
-                    clean_start = re.sub(r'^[\x00-\x20]+', '', text)
+                    clean_start = re.sub(r'^[ \t]+', '', text)
                     if clean_start != text:
                         diff = len(text) - len(clean_start)
                         rng_del = p.Range.Duplicate
                         rng_del.End = rng_del.Start + diff
                         rng_del.Text = ""
+                        text = p.Range.Text
                         
-                print(f"DEBUG {j} AFTER CLEAN: {repr(p.Range.Text[:40])}")
-                
                 # In VBA, indents are measured in points, not twips! 1 cm = 28.35 points
                 if j == 0:
                     # First paragraph has the footnote marker
@@ -99,6 +110,8 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
                     p.Format.FirstLineIndent = 0
                     
                 p.Format.Alignment = 3  # wdAlignParagraphJustify
+                p.Format.LineSpacingRule = 0  # Single
+                p.Format.SpaceBefore = 0
                 
                 if j == paragraphs_count - 1:
                     p.Format.SpaceAfter = 10
@@ -113,16 +126,16 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
                 # Footnote first line starts with \x02 (Footnote reference) and potentially spaces/tabs.
                 clean_text = re.sub(r'^[\x00-\x20]+', '', text)
                 
-                if clean_text.startswith("LEY ") or clean_text.startswith("DECRETO ") or clean_text.startswith("TEXTO ÚNICO ORDENADO"):
+                if re.match(r'^(?:LEY|DECRETO|TEXTO)\b', clean_text, re.IGNORECASE):
                     p.Range.Font.Bold = True
-                elif clean_text.startswith("Artículo "):
+                elif re.match(r'^Art.culo\s+', clean_text, re.IGNORECASE):
                     clean_for_end = clean_text.strip()
                     # If it's short or doesn't end with a period, it's just a title, bold the whole paragraph
                     if len(clean_for_end) < 100 or not clean_for_end.endswith("."):
                         p.Range.Font.Bold = True
                     else:
                         # It contains the text of the article. Bold ONLY the "Artículo XX.-" prefix!
-                        match = re.search(r'^(?:[\x00-\x20]*)Artículo\s+\d+(?:[.-]+)?', text)
+                        match = re.search(r'^(?:[\x00-\x20]*)Art.culo\s+\d+?(?:[.-]+)?', text, re.IGNORECASE)
                         if match:
                             rng_bold = p.Range.Duplicate
                             rng_bold.End = p.Range.Start + match.end()

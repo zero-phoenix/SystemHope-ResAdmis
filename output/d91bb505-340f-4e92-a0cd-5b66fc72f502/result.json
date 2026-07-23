@@ -1,0 +1,41 @@
+{
+  "expediente": "2190-2026/CC1",
+  "denunciante": "CARLOS ALBERTO RAMIREZ PEREZ",
+  "denunciados": [
+    {
+      "razon_social": "MAPFRE PERU COMPAÑIA DE SEGUROS Y REASEGUROS",
+      "abreviatura": "MAPFRE",
+      "rubro": "aseguradora"
+    }
+  ],
+  "resolucion_numero": 1,
+  "hechos": [
+    {
+      "numeral": "1",
+      "texto": "El 10 de enero de 2026, el denunciante sufrió un accidente vehicular y solicitó la cobertura de su póliza a MAPFRE PERÚ."
+    },
+    {
+      "numeral": "2",
+      "texto": "Mediante carta de rechazo, la aseguradora denegó la cobertura alegando que el conductor se encontraba en presunto estado de ebriedad, sin adjuntar el examen de alcoholemia correspondiente."
+    }
+  ],
+  "admision": [
+    {
+      "numeral": "3",
+      "texto": "Corresponde admitir a trámite la denuncia interpuesta contra MAPFRE PERU COMPAÑIA DE SEGUROS Y REASEGUROS, por presunta infracción a los artículos 18° y 19° de la Ley N° 29571, Código de Protección y Defensa del Consumidor, toda vez que se habría negado injustificadamente a otorgar la cobertura del seguro vehicular, lo que involucraría una presunta afectación a sus expectativas."
+    }
+  ],
+  "requerimientos": [
+    {
+      "encabezado": "A MAPFRE PERU COMPAÑIA DE SEGUROS Y REASEGUROS:",
+      "items": [
+        "(i) Remitir copia de la póliza de seguro vehicular contratada por el denunciante.",
+        "(ii) Remitir copia del informe completo del siniestro y la prueba de alcoholemia en la que sustentan el rechazo de cobertura."
+      ]
+    }
+  ],
+  "resolutivo": {
+    "primero": "ADMITIR a trámite la denuncia interpuesta por el señor CARLOS ALBERTO RAMIREZ PEREZ contra MAPFRE PERU COMPAÑIA DE SEGUROS Y REASEGUROS, por presunta infracción a los artículos 18° y 19° de la Ley N° 29571, Código de Protección y Defensa del Consumidor.",
+    "segundo": "REQUERIR a MAPFRE PERU COMPAÑIA DE SEGUROS Y REASEGUROS que, en un plazo no mayor de cinco (5) días hábiles, cumpla con remitir la información detallada en el numeral III de la presente resolución."
+  }
+}

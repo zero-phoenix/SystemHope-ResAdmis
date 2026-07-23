@@ -1,0 +1,19 @@
+{
+  "expediente": "2190-2026/CC1",
+  "denunciante": "CARLOS ALBERTO RAMIREZ PEREZ",
+  "denunciados": [
+    {
+      "razon_social": "MAPFRE PERU COMPAÑIA DE SEGUROS Y REASEGUROS",
+      "abreviatura": "MAPFRE",
+      "rubro": "aseguradora"
+    }
+  ],
+  "resolucion_numero": 1,
+  "documento_traslado": {
+    "numero": "Escrito N° 1",
+    "fecha": "12/03/2026",
+    "recepcion": "12/03/2026"
+  },
+  "descripcion_hechos": "El denunciante manifiesta que contrató el seguro vehicular póliza N° 123456 con MAPFRE. El 10/01/2026 sufrió un accidente y la aseguradora se negó a otorgar la cobertura, alegando estado de ebriedad, sin presentar las pruebas de alcoholemia correspondientes. Adjuntó partes policiales y correos cruzados con la aseguradora.",
+  "instrucciones_extra": ""
+}
