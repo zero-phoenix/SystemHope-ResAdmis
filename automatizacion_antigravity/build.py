@@ -189,7 +189,7 @@ def _default_resolutivos(caso):
         "SEGUNDO": f"tener por ofrecidos los medios probatorios presentados en el escrito de denuncia del {fecha}.",
         "TERCERO": f"requerir a {denunciado} que cumpla con lo siguiente:",
         "CUARTO": f"correr traslado de la denuncia interpuesta el {fecha} a {denunciado}, para que, de conformidad con lo dispuesto por el artículo 26 de la Ley sobre Facultades, Normas y Organización del Indecopi, aprobada por Decreto Legislativo 807, presente sus descargos en un plazo no mayor de cinco (5) días hábiles contados desde la notificación.",
-        "QUINTO": f"requerir que, en un plazo no mayor de cinco (5) días hábiles contado a partir del día siguiente de la notificación de la presente resolución, el proveedor denunciado cumpla con lo siguiente: {caso.get('req_info', '')}",
+        "QUINTO": f"{caso.get('req_info', '')}",
     }
 
 
@@ -289,6 +289,9 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             else:
                 _remove(paragraph)
         elif mode == "resuelve" and text.startswith("Presunta infracción"):
+            import copy
+            if "global_list_p_xml" not in caso:
+                caso["global_list_p_xml"] = copy.deepcopy(paragraph._element)
             if "BLOQUE_RES" not in found:
                 for imp in caso["imputaciones_res"]:
                     new_p = _clone_paragraph_before(paragraph)
@@ -303,28 +306,38 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
             _remove_next_empty_p(paragraph)
             
             _remove(paragraph)
-        elif mode == "resuelve" and text.startswith(("SEGUNDO:", "TERCERO:", "CUARTO:", "QUINTO:")):
-            if caso.get("__in_tercero"):
-                caso["__in_tercero"] = False
-                
+        elif mode == "resuelve" and text.startswith(("SEGUNDO:", "TERCERO:", "CUARTO:", "QUINTO:", "SEXTO:", "SÉTIMO:", "SÉPTIMO:")):
             roman = text.split(":", 1)[0]
             _replace(paragraph, f"{roman}: ", True)
             
-            parts = resolution_text.get(roman, "").split("\n")
+            # The text might be multi-line in JSON
+            parts = resolution_text.get(roman, "").split("\\n")
             add_run(paragraph, parts[0])
             found.add(roman)
             
-            if roman == "TERCERO" and len(parts) > 1:
-                caso["__pendientes_TERCERO"] = parts[1:]
-                caso["__in_tercero"] = True
+            # If there are sub-items, insert them as new paragraphs
+            if len(parts) > 1:
+                # We need a template paragraph for lists. We will clone paragraph and change its style.
+                # Since we stored global_list_p_xml from BLOQUE_RES, we can insert it.
+                from docx.oxml import OxmlElement
+                import copy
+                from docx.text.paragraph import Paragraph
                 
-        elif mode == "resuelve" and caso.get("__in_tercero") and text.startswith("("):
-            if caso.get("__pendientes_TERCERO"):
-                for req in caso["__pendientes_TERCERO"]:
-                    new_p = _clone_paragraph_before(paragraph)
-                    _set_list_paragraph(new_p, req)
-                caso["__pendientes_TERCERO"] = []
-            _remove(paragraph)
+                # Insert parts in reverse order or just move the paragraph pointer
+                for req in parts[1:]:
+                    if "global_list_p_xml" in caso:
+                        new_xml = copy.deepcopy(caso["global_list_p_xml"])
+                        paragraph._element.addnext(new_xml)
+                        new_p = Paragraph(new_xml, paragraph._parent)
+                        _set_list_paragraph(new_p, req)
+                        # move the paragraph pointer so they stay in order
+                        paragraph = new_p
+                    else:
+                        # Fallback if no template is found
+                        new_p = _clone_paragraph_before(paragraph)
+                        _set_list_paragraph(new_p, req)
+                        paragraph._element.addnext(new_p._element)
+                        paragraph = new_p
         elif text.startswith("Firmado digitalmente por"):
             from docx.text.paragraph import Paragraph
             prev = paragraph._element.getprevious()
