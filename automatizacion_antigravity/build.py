@@ -135,7 +135,6 @@ def preprocess_caso(caso):
     for key, value in caso.items():
         if isinstance(value, str):
             value = value.replace('Rímac Seguros', 'Rímac').replace('Rimac Seguros', 'Rimac').replace('RA-mac Seguros', 'Rímac').replace('RÍMAC SEGUROS', 'RÍMAC')
-            value = value.replace('N° ', '').replace('N°', '').replace('°', '')
             value = re.sub(r'(?i)\b(Ley|Decreto Legislativo)\s+N(?:[^\d\s]+)?\s+', r'\1 ', value)
             if key == "medida_correctiva":
                 value = re.sub(r'(?i)\bla aseguradora\b', abbreviation, value)
@@ -163,7 +162,6 @@ def preprocess_caso(caso):
             for item in value:
                 if isinstance(item, str):
                     item = item.replace('Rímac Seguros', 'Rímac').replace('Rimac Seguros', 'Rimac').replace('RA-mac Seguros', 'Rímac').replace('RÍMAC SEGUROS', 'RÍMAC')
-                    item = item.replace('N° ', '').replace('N°', '').replace('°', '')
                     item = re.sub(r'(?i)\b(Ley|Decreto Legislativo)\s+N(?:[^\d\s]+)?\s+', r'\1 ', item)
                     if key == "medida_correctiva":
                         item = re.sub(r'(?i)\bla aseguradora\b', abbreviation, item)
@@ -177,7 +175,6 @@ def preprocess_caso(caso):
             for k, v in value.items():
                 if isinstance(v, str):
                     v = v.replace('Rímac Seguros', 'Rímac').replace('Rimac Seguros', 'Rimac').replace('RA-mac Seguros', 'Rímac').replace('RÍMAC SEGUROS', 'RÍMAC')
-                    v = v.replace('N° ', '').replace('N°', '').replace('°', '')
                     v = re.sub(r'(?i)\b(Ley|Decreto Legislativo)\s+N(?:[^\d\s]+)?\s+', r'\1 ', v)
                 new_dict[k] = v
             caso[key] = new_dict
