@@ -119,24 +119,12 @@ def _insert_footnotes_internal(input_path, output_path, footnotes_dict, win32com
                 import re
                 text = p.Range.Text
                 if j > 0:
-<<<<<<< HEAD
-                    clean_start = re.sub(r'^[ \t]+', '', text)
-                    if clean_start != text:
-                        diff = len(text) - len(clean_start)
-                        rng_del = p.Range.Duplicate
-                        rng_del.End = rng_del.Start + diff
-                        rng_del.Text = ""
-                        text = p.Range.Text
-                        
-=======
                     match = re.match(r"^[\s\t]+", text)
                     if match:
                         diff = len(match.group(0))
                         rng_del = p.Range.Duplicate
                         rng_del.End = rng_del.Start + diff
                         rng_del.Text = ""
-                
->>>>>>> 3307ada (Update Resolutivo QUINTO to avoid generic references)
                 # In VBA, indents are measured in points, not twips! 1 cm = 28.35 points
                 if j == 0:
                     # First paragraph has the footnote marker
