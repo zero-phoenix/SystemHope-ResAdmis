@@ -262,11 +262,14 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
         elif text == ANCHORS["analisis"]:
             mode = "analisis"
             found.add("ANALISIS")
-        elif mode == "analisis" and (text.startswith("La Secretaría Técnica") or text.startswith("Así también") or text.startswith("Asimismo") or text.startswith("Además")):
-            if analysis_index < len(caso["imputaciones_analisis"]):
-                _replace(paragraph, caso["imputaciones_analisis"][analysis_index])
-                analysis_index += 1
+        elif mode == "analisis" and (text.startswith("La Secretaría Técnica") or text.startswith("Así también") or text.startswith("Asimismo") or text.startswith("Además") or text.startswith("Aunado") or text.startswith("Finalmente")):
+            if analysis_index == 0:
+                for text_val in caso["imputaciones_analisis"]:
+                    new_p = _clone_paragraph_before(paragraph)
+                    _replace(new_p, text_val)
+                    analysis_index += 1
                 found.add("BLOQUE_ANALISIS")
+                _remove(paragraph)
             else:
                 # Remove following empty paragraph for discarded items
                 _remove_next_empty_p(paragraph)
@@ -274,7 +277,23 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
         elif mode == "analisis" and text.startswith("En tanto la denuncia"):
             mode = "req"
         elif mode == "req" and text.startswith("A efectos de tener mayores elementos"):
-            _replace(paragraph, caso["req_info"])
+            req_data = caso.get("req_info", [""])
+            if isinstance(req_data, str):
+                req_data = [req_data]
+            
+            for req_text in req_data:
+                new_p = _clone_paragraph_before(paragraph)
+                new_p.text = ""
+                # Underline text before the first colon if it starts with "A" or "Al"
+                if ":" in req_text and (req_text.startswith("A ") or req_text.startswith("Al ")):
+                    prefix, rest = req_text.split(":", 1)
+                    run_prefix = add_run(new_p, prefix + ":")
+                    run_prefix.underline = True
+                    add_run(new_p, rest)
+                else:
+                    add_run(new_p, req_text)
+                    
+            _remove(paragraph)
             found.add("REQ_INFO")
         elif text == ANCHORS["resuelve"]:
             mode = "resuelve"

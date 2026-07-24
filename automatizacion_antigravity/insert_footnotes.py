@@ -1,13 +1,38 @@
-def insert_footnotes(input_path, output_path, footnotes_dict):
+import time
+
+def insert_footnotes(input_path, output_path, footnotes_dict, max_retries=3):
     try:
         import win32com.client
+        import pythoncom
     except ImportError:
         print("Word/win32com no disponible: se omite inserción de notas al pie (ejecutar en la PC del usuario con Word)")
         return False
-    if not footnotes_dict:
-        return True
-    word = win32com.client.Dispatch("Word.Application")
+        
+    for attempt in range(max_retries):
+        try:
+            return _insert_footnotes_internal(input_path, output_path, footnotes_dict, win32com, pythoncom)
+        except Exception as e:
+            import traceback
+            print(f"Error COM en el intento {attempt+1}: {e}")
+            traceback.print_exc()
+            import os
+            os.system('taskkill /F /IM winword.exe >nul 2>&1')
+            time.sleep(2)
+            if attempt == max_retries - 1:
+                return False
+            print(f"Reintentando (intento {attempt+2}/{max_retries})...")
+
+def _insert_footnotes_internal(input_path, output_path, footnotes_dict, win32com, pythoncom):
+    pythoncom.CoInitialize()
+    word = win32com.client.DispatchEx("Word.Application")
     word.Visible = False
+    
+    # CRITICAL MAX OPTIMIZATION: Disable all background operations that cause "Call was rejected by callee"
+    word.DisplayAlerts = False
+    word.ScreenUpdating = False
+    word.Options.CheckSpellingAsYouType = False
+    word.Options.CheckGrammarAsYouType = False
+    word.Options.Pagination = False
     
     # CRITICAL: Disable AutoFormat to prevent Word from converting "a.", "1.", etc. into Lists
     word.Options.AutoFormatAsYouTypeApplyBulletedLists = False
@@ -94,6 +119,7 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
                 import re
                 text = p.Range.Text
                 if j > 0:
+<<<<<<< HEAD
                     clean_start = re.sub(r'^[ \t]+', '', text)
                     if clean_start != text:
                         diff = len(text) - len(clean_start)
@@ -102,6 +128,15 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
                         rng_del.Text = ""
                         text = p.Range.Text
                         
+=======
+                    match = re.match(r"^[\s\t]+", text)
+                    if match:
+                        diff = len(match.group(0))
+                        rng_del = p.Range.Duplicate
+                        rng_del.End = rng_del.Start + diff
+                        rng_del.Text = ""
+                
+>>>>>>> 3307ada (Update Resolutivo QUINTO to avoid generic references)
                 # In VBA, indents are measured in points, not twips! 1 cm = 28.35 points
                 if j == 0:
                     # First paragraph has the footnote marker
@@ -159,8 +194,16 @@ def insert_footnotes(input_path, output_path, footnotes_dict):
         from aplicar_reglas_base import aplicar_reglas_base_win32com
         aplicar_reglas_base_win32com(document)
             
+        # Restore optimizations just in case
+        word.ScreenUpdating = True
         document.SaveAs(str(output_path))
     finally:
-        document.Close()
-        word.Quit()
+        try:
+            document.Close()
+        except:
+            pass
+        try:
+            word.Quit()
+        except:
+            pass
     return True

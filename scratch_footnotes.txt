@@ -1,0 +1,3 @@
+Footnote 1: 'This is note 1'
+Footnote 2: 'This is note 2'
+Footnote 3: ''

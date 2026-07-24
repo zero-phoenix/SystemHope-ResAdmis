@@ -10,6 +10,14 @@ from config import PRODUCTOS_DIR
 from insert_footnotes import insert_footnotes
 from docx import Document
 
+def _aplicar_estilo_redaccion(caso):
+    if "medida_correctiva" in caso:
+        mc = caso["medida_correctiva"]
+        if "costos y costas" not in mc.lower() and "costas y costos" not in mc.lower():
+            if not mc.endswith("."):
+                mc += "."
+            mc += " Asimismo, no requirió de manera expresa el reembolso de costos y costas del presente procedimiento."
+            caso["medida_correctiva"] = mc
 
 def _remove_footnote_markers(path):
     doc = Document(path)
@@ -35,6 +43,9 @@ def main(argv=None):
         print(f"No existe el caso: {case_path}", file=sys.stderr)
         return 2
     caso = json.loads(case_path.read_text(encoding="utf-8"))
+    
+    _aplicar_estilo_redaccion(caso)
+    
     output_path = PRODUCTOS_DIR / f"ADM {caso['expediente'].replace('/', '-')}.docx"
     build(caso, output_path=output_path)
     inserted = insert_footnotes(output_path, output_path, caso.get("footnotes", {}))
