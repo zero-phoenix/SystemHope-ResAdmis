@@ -1,0 +1,37 @@
+name: Generar Resoluciones y Release
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  generate-and-release:
+    # Utilizamos un runner auto-alojado (tu computadora) y que sea Windows
+    runs-on: [self-hosted, windows]
+
+    steps:
+      - name: Checkout del código
+        uses: actions/checkout@v4
+
+      - name: Instalar uv (si no está instalado)
+        run: |
+          if (!(Get-Command uv -ErrorAction SilentlyContinue)) {
+            Invoke-WebRequest -Uri https://astral.sh/uv/install.ps1 -OutFile install_uv.ps1
+            powershell -ExecutionPolicy ByPass -File install_uv.ps1
+          }
+
+      - name: Ejecutar script de generación (generar.py)
+        run: |
+          uv run --with pywin32 --with python-docx python automatizacion_antigravity/generar.py
+
+      - name: Crear Release de GitHub
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          $fecha = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
+          $tag = "v1.0.0-$fecha"
+          $title = "Resoluciones Generadas $fecha"
+          
+          # Creamos el release y subimos todos los archivos .docx de la carpeta actual
+          gh release create $tag *.docx --title $title --notes "Resoluciones generadas automáticamente tras el último push."
