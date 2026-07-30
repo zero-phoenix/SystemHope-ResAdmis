@@ -7,7 +7,6 @@ on:
 
 jobs:
   generate-and-release:
-    # Utilizamos un runner auto-alojado (tu computadora) y que sea Windows
     runs-on: [self-hosted, windows]
 
     steps:
@@ -24,14 +23,17 @@ jobs:
       - name: Ejecutar script de generación (generar.py)
         run: |
           uv run --with pywin32 --with python-docx python automatizacion_antigravity/generar.py
+          
+      - name: Mover Word generado al Escritorio
+        run: |
+          if (Test-Path "*.docx") {
+            Copy-Item *.docx "$env:USERPROFILE\Desktop\" -Force
+            Write-Output "Documentos movidos al Escritorio local."
+          }
 
       - name: Crear Release de GitHub
-        env:
-          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: |
-          $fecha = Get-Date -Format "yyyy-MM-dd_HH-mm-ss"
-          $tag = "v1.0.0-$fecha"
-          $title = "Resoluciones Generadas $fecha"
-          
-          # Creamos el release y subimos todos los archivos .docx de la carpeta actual
-          gh release create $tag *.docx --title $title --notes "Resoluciones generadas automáticamente tras el último push."
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: v1.0.${{ github.run_number }}
+          name: Actualización de Código v1.0.${{ github.run_number }}
+          body: Nueva versión del código de automatización desplegada.
