@@ -12,6 +12,9 @@ jobs:
       contents: write
 
     steps:
+      - name: Habilitar long paths en Git (Windows)
+        run: git config --global core.longpaths true
+
       - name: Checkout del código
         uses: actions/checkout@v4
 
