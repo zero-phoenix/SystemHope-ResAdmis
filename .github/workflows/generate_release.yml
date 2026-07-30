@@ -20,16 +20,7 @@ jobs:
             powershell -ExecutionPolicy ByPass -File install_uv.ps1
           }
 
-      - name: Ejecutar script de generación (generar.py)
-        run: |
-          uv run --with pywin32 --with python-docx python automatizacion_antigravity/generar.py
-          
-      - name: Mover Word generado al Escritorio
-        run: |
-          if (Test-Path "*.docx") {
-            Copy-Item *.docx "$env:USERPROFILE\Desktop\" -Force
-            Write-Output "Documentos movidos al Escritorio local."
-          }
+
 
       - name: Crear Release de GitHub
         uses: softprops/action-gh-release@v2
