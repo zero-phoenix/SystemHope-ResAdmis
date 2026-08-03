@@ -28,7 +28,7 @@ def _insert_footnotes_internal(input_path, output_path, footnotes_dict, win32com
     word.Visible = False
     
     # CRITICAL MAX OPTIMIZATION: Disable all background operations that cause "Call was rejected by callee"
-    word.DisplayAlerts = False
+    word.DisplayAlerts = 0
     word.ScreenUpdating = False
     word.Options.CheckSpellingAsYouType = False
     word.Options.CheckGrammarAsYouType = False
@@ -42,6 +42,17 @@ def _insert_footnotes_internal(input_path, output_path, footnotes_dict, win32com
     try:
         # Remove all highlighting (Control+E equivalent)
         document.Content.HighlightColorIndex = 0
+        for section in document.Sections:
+            for header in section.Headers:
+                if header.Exists:
+                    header.Range.HighlightColorIndex = 0
+            for footer in section.Footers:
+                if footer.Exists:
+                    footer.Range.HighlightColorIndex = 0
+                    for p in footer.Range.Paragraphs:
+                        p.Format.TabStops.ClearAll()
+                        p.Format.TabStops.Add(Position=212.6, Alignment=1) # wdAlignTabCenter = 1
+                        p.Format.TabStops.Add(Position=425.2, Alignment=2) # wdAlignTabRight = 2
         for marker, note in footnotes_dict.items():
             rng = document.Content
             find = rng.Find
@@ -106,77 +117,82 @@ def _insert_footnotes_internal(input_path, output_path, footnotes_dict, win32com
             fn.Range.Font.Size = 8
             
             paragraphs_count = fn.Range.Paragraphs.Count
-            for j, p in enumerate(fn.Range.Paragraphs):
+            for j in range(1, paragraphs_count + 1):
                 try:
-                    p.Style = "Texto nota pie"
-                except Exception:
-                    pass
-
-                # Remove any list formatting just in case
-                p.Range.ListFormat.RemoveNumbers()
-                
-                # Eradicate any leading tabs or spaces Word might have mysteriously inherited
-                import re
-                text = p.Range.Text
-                if j > 0:
-                    match = re.match(r"^[\s\t]+", text)
-                    if match:
-                        diff = len(match.group(0))
-                        rng_del = p.Range.Duplicate
-                        rng_del.End = rng_del.Start + diff
-                        rng_del.Text = ""
-                # In VBA, indents are measured in points, not twips! 1 cm = 28.35 points
-                if j == 0:
-                    # First paragraph has the footnote marker
-                    p.Format.LeftIndent = 28.35
-                    p.Format.FirstLineIndent = -28.35
-                    # Need a tab to jump from marker to 1cm
-                    p.Format.TabStops.ClearAll()
-                    p.Format.TabStops.Add(Position=28.35, Alignment=0)
-                else:
-                    # Subsequent paragraphs don't have a marker, just indent the whole block to 1cm
-                    p.Format.LeftIndent = 28.35
-                    p.Format.FirstLineIndent = 0
+                    p = fn.Range.Paragraphs(j)
+                    try:
+                        p.Style = "Texto nota pie"
+                    except Exception:
+                        pass
                     
-                p.Format.Alignment = 3  # wdAlignParagraphJustify
-                p.Format.LineSpacingRule = 0  # Single
-                p.Format.SpaceBefore = 0
-                
-                if j == paragraphs_count - 1:
-                    p.Format.SpaceAfter = 10
-                else:
-                    p.Format.SpaceAfter = 0
-                
-                import re
-                text = p.Range.Text
-                # We format the entire paragraph to NOT be bold initially, to clear any inherited styles
-                p.Range.Font.Bold = False
-                
-                # If the paragraph inherits superscript from the footnote marker, strip it so the text is not tiny
-                if p.Range.Font.Superscript:
-                    # We strip superscript from everything after the first character (which is the marker)
-                    rng_text = p.Range.Duplicate
-                    if j == 0 and rng_text.Characters.Count > 1:
-                        rng_text.Start = rng_text.Start + 1
-                    rng_text.Font.Superscript = False
-                
-                # Footnote first line starts with \x02 (Footnote reference) and potentially spaces/tabs.
-                clean_text = re.sub(r'^[\x00-\x20]+', '', text)
-                
-                if re.match(r'^(?:LEY|DECRETO|TEXTO)\b', clean_text, re.IGNORECASE):
-                    p.Range.Font.Bold = True
-                elif re.match(r'^Art.culo\s+', clean_text, re.IGNORECASE):
-                    clean_for_end = clean_text.strip()
-                    # If it's short or doesn't end with a period, it's just a title, bold the whole paragraph
-                    if len(clean_for_end) < 100 or not clean_for_end.endswith("."):
-                        p.Range.Font.Bold = True
-                    else:
-                        # It contains the text of the article. Bold ONLY the "Artículo XX.-" prefix!
-                        match = re.search(r'^(?:[\x00-\x20]*)Art.culo\s+\d+(?:[°ºa-zA-Z]+)?(?:[.-]+)?', text, re.IGNORECASE)
+                    # Remove any list formatting just in case
+                    p.Range.ListFormat.RemoveNumbers()
+                    
+                    # Eradicate any leading tabs or spaces Word might have mysteriously inherited
+                    import re
+                    text = p.Range.Text
+                    if (j - 1) > 0:
+                        match = re.match(r"^[\s\t]+", text)
                         if match:
-                            rng_bold = p.Range.Duplicate
-                            rng_bold.End = p.Range.Start + match.end()
-                            rng_bold.Font.Bold = True
+                            diff = len(match.group(0))
+                            rng_del = p.Range.Duplicate
+                            rng_del.End = rng_del.Start + diff
+                            rng_del.Text = ""
+                    # In VBA, indents are measured in points, not twips! 1 cm = 28.35 points
+                    if (j - 1) == 0:
+                        # First paragraph has the footnote marker
+                        p.Format.LeftIndent = 28.35
+                        p.Format.FirstLineIndent = -28.35
+                        # Need a tab to jump from marker to 1cm
+                        p.Format.TabStops.ClearAll()
+                        p.Format.TabStops.Add(Position=28.35, Alignment=0)
+                    else:
+                        # Subsequent paragraphs don't have a marker, just indent the whole block to 1cm
+                        p.Format.LeftIndent = 28.35
+                        p.Format.FirstLineIndent = 0
+                        
+                    p.Format.Alignment = 3  # wdAlignParagraphJustify
+                    p.Format.LineSpacingRule = 0  # Single
+                    p.Format.SpaceBefore = 0
+                    
+                    if (j - 1) == paragraphs_count - 1:
+                        p.Format.SpaceAfter = 10
+                    else:
+                        p.Format.SpaceAfter = 0
+                    
+                    import re
+                    text = p.Range.Text
+                    # We format the entire paragraph to NOT be bold initially, to clear any inherited styles
+                    p.Range.Font.Bold = False
+                    
+                    # If the paragraph inherits superscript from the footnote marker, strip it so the text is not tiny
+                    if p.Range.Font.Superscript:
+                        # We strip superscript from everything after the first character (which is the marker)
+                        rng_text = p.Range.Duplicate
+                        if (j - 1) == 0 and rng_text.Characters.Count > 1:
+                            rng_text.Start = rng_text.Start + 1
+                        rng_text.Font.Superscript = False
+                    
+                    # Footnote first line starts with \x02 (Footnote reference) and potentially spaces/tabs.
+                    clean_text = re.sub(r'^[\x00-\x20]+', '', text)
+                    
+                    if re.match(r'^(?:LEY|DECRETO|TEXTO)\b', clean_text, re.IGNORECASE):
+                        p.Range.Font.Bold = True
+                    elif re.match(r'^Art.culo\s+', clean_text, re.IGNORECASE):
+                        clean_for_end = clean_text.strip()
+                        # If it's short or doesn't end with a period, it's just a title, bold the whole paragraph
+                        if len(clean_for_end) < 100 or not clean_for_end.endswith("."):
+                            p.Range.Font.Bold = True
+                        else:
+                            # It contains the text of the article. Bold ONLY the "Artículo XX.-" prefix!
+                            match = re.search(r'^(?:[\x00-\x20]*)Art.culo\s+\d+(?:[°ºa-zA-Z]+)?(?:[.-]+)?', text, re.IGNORECASE)
+                            if match:
+                                rng_bold = p.Range.Duplicate
+                                rng_bold.End = p.Range.Start + match.end()
+                                rng_bold.Font.Bold = True
+                except pythoncom.com_error as com_err:
+                    print(f"Error COM iterando en el párrafo {j}: {com_err}")
+                    pass
             
         # Llamamos a nuestra rutina de limpieza en la etapa final
         from aplicar_reglas_base import aplicar_reglas_base_win32com
@@ -187,11 +203,14 @@ def _insert_footnotes_internal(input_path, output_path, footnotes_dict, win32com
         document.SaveAs(str(output_path))
     finally:
         try:
-            document.Close()
+            # Fase Liberación de Memoria (K_COM_FREE)
+            document.Close(SaveChanges=True)
         except:
             pass
         try:
             word.Quit()
         except:
             pass
+        # Pausa para purga IUnknown y liberación de Handles
+        time.sleep(1)
     return True

@@ -182,6 +182,24 @@ def preprocess_caso(caso):
                     v = re.sub(r'(?i)\b(Ley|Decreto Legislativo)\s+N(?:[^\d\s]+)?\s+', r'\1 ', v)
                 new_dict[k] = v
             caso[key] = new_dict
+            
+    # D_FORMAT: Inyección de prefijos obligatorios
+    for key in ["imputaciones_res", "imputaciones_analisis"]:
+        if key in caso and isinstance(caso[key], list):
+            for i in range(len(caso[key])):
+                txt = caso[key][i]
+                if isinstance(txt, str):
+                    if not txt.lower().startswith("presunta infracción"):
+                        # Inyectar prefijo obligatorio si no está
+                        caso[key][i] = "Presunta infracción al deber de idoneidad, en la medida que " + txt[0].lower() + txt[1:]
+    
+    # D_FORMAT / H_BUILD: Unificación dinámica de sujetos procesales en requerimiento DÉCIMO con Alias __F_NOTIF__
+    denunciante_fmt = format_resolutiva_name(caso.get("denunciante", ""))
+    denunciado_fmt = format_resolutiva_name(caso.get("denunciado", ""))
+    # Unificamos ambas partes en una sola línea de notificación
+    notif_line = f"notificar la presente resolución a {denunciante_fmt} y a {denunciado_fmt} mediante sus respectivas casillas electrónicas[[FN:__F_NOTIF__]]."
+    caso["notificaciones"] = [notif_line]
+    
     return caso
 
 def _default_resolutivos(caso):
@@ -401,3 +419,11 @@ def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = N
     aplicar_formato_final(doc)
     doc.save(output_path)
     return output_path
+
+if __name__ == '__main__':
+    import sys, json
+    from pathlib import Path
+    with open(sys.argv[1], 'r', encoding='utf-8') as f:
+        caso = json.load(f)
+    out_path = sys.argv[2] if len(sys.argv) > 2 else None
+    build(caso, output_path=out_path)
