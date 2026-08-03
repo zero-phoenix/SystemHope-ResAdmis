@@ -42,17 +42,41 @@ def _insert_footnotes_internal(input_path, output_path, footnotes_dict, win32com
     try:
         # Remove all highlighting (Control+E equivalent)
         document.Content.HighlightColorIndex = 0
+        document.Content.Shading.BackgroundPatternColor = -16777216
+
         for section in document.Sections:
             for header in section.Headers:
                 if header.Exists:
                     header.Range.HighlightColorIndex = 0
+                    header.Range.Shading.BackgroundPatternColor = -16777216
             for footer in section.Footers:
                 if footer.Exists:
                     footer.Range.HighlightColorIndex = 0
+                    footer.Range.Shading.BackgroundPatternColor = -16777216
                     for p in footer.Range.Paragraphs:
                         p.Format.TabStops.ClearAll()
                         p.Format.TabStops.Add(Position=212.6, Alignment=1) # wdAlignTabCenter = 1
                         p.Format.TabStops.Add(Position=425.2, Alignment=2) # wdAlignTabRight = 2
+                        
+                        # Add page number if not present
+                        if 'M-CPC-01/03' in p.Range.Text and p.Range.Fields.Count == 0:
+                            # Insert a tab, then the page number field
+                            rng = p.Range.Duplicate
+                            rng.Collapse(0) # Collapse to end
+                            if len(p.Range.Text.strip()) > 0:
+                                # We have text, let's insert a tab and page number
+                                insert_rng = p.Range.Duplicate
+                                insert_rng.Start = insert_rng.End - 1
+                                insert_rng.Text = '\t'
+                                insert_rng.Collapse(0)
+                                document.Fields.Add(Range=insert_rng, Type=33) # wdFieldPage = 33
+        
+        # Enforce shading removal on footnotes specifically
+        for i in range(1, document.Footnotes.Count + 1):
+            fn = document.Footnotes(i)
+            fn.Range.HighlightColorIndex = 0
+            fn.Range.Shading.BackgroundPatternColor = -16777216
+            fn.Range.Shading.Texture = 0 # wdTextureNone
         for marker, note in footnotes_dict.items():
             rng = document.Content
             find = rng.Find
@@ -214,3 +238,9 @@ def _insert_footnotes_internal(input_path, output_path, footnotes_dict, win32com
         # Pausa para purga IUnknown y liberación de Handles
         time.sleep(1)
     return True
+
+if __name__ == '__main__':
+    import sys
+    out_path = sys.argv[1] if len(sys.argv) > 1 else None
+    if out_path:
+        insert_footnotes(out_path, out_path, {})
