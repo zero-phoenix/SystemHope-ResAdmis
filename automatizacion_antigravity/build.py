@@ -216,6 +216,13 @@ def _default_resolutivos(caso):
 
 
 def build(caso: Dict, template_path: Path = TEMPLATE_PATH, output_path: Path = None) -> Path:
+    from config import TEMPLATE_DIR
+    if template_path == TEMPLATE_PATH:
+        num_ddos = len(caso.get("denunciados", []))
+        if num_ddos > 1:
+            template_path = TEMPLATE_DIR / "MODELO_2_DDOS.docx"
+        else:
+            template_path = TEMPLATE_DIR / "MODELO_1_DDO.docx"
     caso = preprocess_caso(caso)
     template_path = Path(template_path)
     if not template_path.exists():

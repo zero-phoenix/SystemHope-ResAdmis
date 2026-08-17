@@ -291,3 +291,11 @@ Consulta [CHANGELOG.md](CHANGELOG.md) para el roadmap completo.
 
 **Última actualización:** 19 de Julio de 2026  
 **Versión:** 1.0.0
+
+## 🚀 Actualización V1000: Modelos Dinámicos
+
+El sistema ahora integra nativamente dos modelos de resoluciones admisorias:
+1. **MODELO_1_DDO.docx:** Modelo optimizado para casos con un solo proveedor denunciado.
+2. **MODELO_2_DDOS.docx:** Modelo optimizado para casos con dos o más proveedores denunciados (pluralización, división de requerimientos probatorios).
+
+El orquestador de *Google Antigravity* analiza dinámicamente el AST JSON y enruta al modelo adecuado sin intervención humana.
