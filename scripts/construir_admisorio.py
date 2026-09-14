@@ -44,6 +44,7 @@ son sensibles a que el texto este partido en varios `run`.
 from __future__ import annotations
 
 import argparse
+import difflib
 import json
 import re
 import sys
@@ -54,7 +55,10 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 
 RE_PARRAFO = re.compile(r"<w:p\b[^>]*>.*?</w:p>", re.S)
-RE_TEXTO = re.compile(r"(<w:t[^>]*>)(.*?)(</w:t>)", re.S)
+RE_TEXTO = re.compile(r"(<w:t(?:\s[^>]*)?>)(.*?)(</w:t>)", re.S)
+# Ojo: `<w:t[^>]*>` tambien captura `<w:tab>` y `<w:tabs>`, y entonces el "texto"
+# del parrafo se llena de XML crudo. Costo medido: 14 reemplazos del Exp. 3122-2026
+# declarados inexistentes cuando si estaban.
 RE_FALTA = re.compile(r"\[FALTA:[^\]]*\]")
 
 # Aseguradoras, bancos y corredores del corpus. Si en el documento final aparece
@@ -118,11 +122,22 @@ def reescribir_parrafo(parrafo: str, nuevo: str) -> str:
     return RE_TEXTO.sub(_sub, parrafo)
 
 
+def por_longitud(reemplazos: dict[str, str]) -> list[tuple[str, str]]:
+    """De mas larga a mas corta.
+
+    Sin esto el orden lo decide el JSON y los solapamientos se vuelven un azar:
+    si `108059` se aplica antes que la frase que lo contiene, la frase ya no
+    encaja; si se aplica despues, es la frase la que se llevo el numero. Con el
+    orden fijo, la regla es una sola y explicable: **manda la mas especifica**.
+    """
+    return sorted(reemplazos.items(), key=lambda kv: -len(kv[0]))
+
+
 def aplicar(xml: str, reemplazos: dict[str, str]) -> tuple[str, dict[str, int]]:
     hechos: dict[str, int] = {}
 
     # 1) Lo que este contiguo se sustituye directo: es lo barato y lo mas comun.
-    for viejo, nuevo in reemplazos.items():
+    for viejo, nuevo in por_longitud(reemplazos):
         n = xml.count(viejo)
         if n:
             xml = xml.replace(viejo, nuevo)
@@ -188,17 +203,42 @@ def auditar_residuos(
     partes: list[str],
     duros_plantilla: set[str] | None = None,
     conservar: list[str] | None = None,
+    parrafos_plantilla: list[str] | None = None,
 ) -> list[str]:
     fallos: list[str] = []
 
-    no_aplicados = [v for v in reemplazos if v not in hechos]
-    for v in no_aplicados:
-        fallos.append(
-            "el reemplazo '%s' no encontro nada: o sobra o el texto difiere" % v[:70]
-        )
-
+    # Una clave puede no haberse aplicado porque OTRA mas larga ya se llevo ese
+    # texto. Eso no es un fallo: es el solapamiento resolviendose como debe, y
+    # reportarlo como fallo hacia iterar al redactor sobre un problema inexistente
+    # (medido en el Exp. 3122-2026: 11 de 19 «fallos» eran de esta clase).
+    aplicados = [v for v in reemplazos if v in hechos]
     for v in reemplazos:
-        if v and v in texto:
+        if v in hechos:
+            continue
+        mayor = next((a for a in aplicados if v in a and a != v), None)
+        if mayor:
+            continue  # consumido por un reemplazo mas especifico
+        aviso = (
+            "el reemplazo '%s' no encontro nada en la plantilla: el texto difiere"
+            % v[:80]
+        )
+        # Decir solo «no encontro nada» obliga a adivinar. Se ensena el parrafo de
+        # la plantilla que mas se le parece: con eso el mapa se corrige de una vez
+        # en lugar de a base de intentos.
+        cercanos = difflib.get_close_matches(
+            v, parrafos_plantilla or [], n=1, cutoff=0.5
+        )
+        if cercanos:
+            aviso += "\n           la plantilla dice: '%s'" % cercanos[0][:150]
+        else:
+            aviso += " (construye el mapa con inspeccionar_docx.py, no de memoria)"
+        fallos.append(aviso)
+
+    for v, n in reemplazos.items():
+        # Si la clave forma parte de su propio reemplazo (p. ej. «Secretaria
+        # Tecnica» -> «Secretaria Tecnica (e)») seguira presente por definicion y
+        # no es residuo.
+        if v and v in texto and v not in n:
             fallos.append("quedo texto del caso de origen sin sustituir: '%s'" % v[:70])
 
     m = re.search(r"TPL_(\d{3,4})_(\d{4})", plantilla.name)
@@ -262,6 +302,13 @@ def construir(mapa: dict) -> int:
         nombres = z.namelist()
         datos = {n: z.read(n) for n in nombres}
     duros_plantilla = datos_duros(texto_plano(datos))
+    parrafos_plantilla = [
+        texto_parrafo(m.group(0)).strip()
+        for m in RE_PARRAFO.finditer(
+            datos["word/document.xml"].decode("utf-8", "replace")
+        )
+    ]
+    parrafos_plantilla = [t for t in parrafos_plantilla if len(t) > 20]
 
     objetivo = [
         n
@@ -296,6 +343,7 @@ def construir(mapa: dict) -> int:
         partes,
         duros_plantilla,
         mapa.get("conservar", []),
+        parrafos_plantilla,
     )
     print("AUDITORIA DE RESIDUOS DEL CASO DE ORIGEN")
     print("-" * 78)

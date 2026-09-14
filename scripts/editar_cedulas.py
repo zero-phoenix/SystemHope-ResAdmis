@@ -43,7 +43,10 @@ MESES = (
 )
 RE_FECHA = re.compile(r"\d{1,2} de (?:%s) de \d{4}" % MESES, re.I)
 RE_PARRAFO = re.compile(r"<w:p\b[^>]*>.*?</w:p>", re.S)
-RE_TEXTO = re.compile(r"(<w:t[^>]*>)(.*?)(</w:t>)", re.S)
+RE_TEXTO = re.compile(r"(<w:t(?:\s[^>]*)?>)(.*?)(</w:t>)", re.S)
+# Ojo: `<w:t[^>]*>` tambien captura `<w:tab>` y `<w:tabs>`, y entonces el "texto"
+# del parrafo se llena de XML crudo. Costo medido: 14 reemplazos del Exp. 3122-2026
+# declarados inexistentes cuando si estaban.
 RE_CARGO = re.compile(r"^secretar[ií]a? t[eé]cnica\s*$", re.I)
 # La cedula escribe el ordinal con la ordinal masculina (Nº), no con el
 # simbolo de grado (N°). Se aceptan ambos, y tambien 'N.' o 'N' a secas.

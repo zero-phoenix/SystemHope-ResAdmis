@@ -31,7 +31,7 @@ for sf in sample_files:
                 for r in runs:
                     if 'footnoteReference' in r:
                         break
-                    t = re.findall(r'<w:t[^>]*>(.*?)</w:t>', r)
+                    t = re.findall(r'<w:t(?:\s[^>]*)?>(.*?)</w:t>', r)
                     if t:
                         words_before.append("".join(t))
                 
