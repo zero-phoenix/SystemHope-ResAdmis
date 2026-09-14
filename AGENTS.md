@@ -3,7 +3,8 @@
 
 > **AUTORIDAD:** Indecopi Comisión de Protección al Consumidor  1 (CC1)  
 > **NORMA MARCO:** Decreto Supremo 006-2026-JUS  
-> **PROTOCOLO VISUAL:** ESTRICTO CERO OCR. Inspección exclusiva mediante Google Lens / Visión Multimodal.  
+> **PROTOCOLO DE LECTURA:** cero OCR óptico. Primero `scripts/extraer_expediente.py`: las páginas con capa de texto se leen literales (no es OCR, es el texto embebido); Google Lens / Visión Multimodal **solo** en las páginas que el triaje marque sin texto.  
+> **PROTOCOLO DE ENTREGA:** `scripts/verificar_admisorio.py` debe decir `APTO`. Sin esa salida, el admisorio no está entregado.  
 > **REPOSITORIO:** https://github.com/zero-phoenix/SystemHope-ResAdmis
 
 ---

@@ -1,0 +1,49 @@
+name: Guardia de Admisorios
+
+# Segunda capa de la guardia. El hook de pre-commit actua en la maquina del
+# agente y se puede saltar con --no-verify; esto no. Revisa lo que cada push
+# **anade**, de modo que el material ya presente no bloquea el pipeline: esa
+# limpieza es una decision del instructor, no de CI.
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+  workflow_dispatch:
+
+jobs:
+  guardia:
+    name: Fuga de expediente y admisorios no aptos
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Determinar el rango que anade este push
+        id: rango
+        run: |
+          if [ "${{ github.event_name }}" = "pull_request" ]; then
+            echo "valor=${{ github.event.pull_request.base.sha }}..${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          elif [ -n "${{ github.event.before }}" ] && git cat-file -e "${{ github.event.before }}^{commit}" 2>/dev/null; then
+            echo "valor=${{ github.event.before }}..${{ github.sha }}" >> "$GITHUB_OUTPUT"
+          else
+            echo "valor=HEAD~1..HEAD" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Guardia de puerta
+        run: python scripts/guardia_admisorio.py --rango "${{ steps.rango.outputs.valor }}"
+
+      - name: Recordatorio sobre material ya publicado
+        if: always()
+        run: |
+          encontrados=$(git ls-files 'casos_de_prueba/*' | grep -Ei '\.(docx|pdf|doc)$' || true)
+          if [ -n "$encontrados" ]; then
+            echo "::warning::Hay material de expediente ya versionado en casos_de_prueba/."
+            echo "$encontrados" | while read -r f; do echo "::warning file=$f::Publicado en un repositorio publico. Quitarlo requiere reescribir el historial (git filter-repo o BFG) y force-push; hasta entonces se considera comprometido."; done
+          fi

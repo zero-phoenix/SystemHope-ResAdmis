@@ -1,7 +1,8 @@
 # Cursor Rules - ResAdmis INDECOPI CC1
-# NORMATIVA: Decreto Supremo 006-2026-JUS | PROTOCOLO: CERO OCR (Solo Google Lens)
+# NORMATIVA: Decreto Supremo 006-2026-JUS | LECTURA: triaje primero, vision solo en paginas sin capa de texto
 
-1. Jamás uses OCR para leer expedientes o denuncias. Utiliza Google Lens / Visión Multimodal.
+0. ORDEN DE TRABAJO OBLIGATORIO (R-113 a R-115). Antes de leer nada ejecuta `python scripts/extraer_expediente.py <carpeta_del_expediente>`. Ese triaje dice que paginas tienen capa de texto y cuales no. NO empieces a redactar sin haberlo corrido.
+1. Jamás uses OCR óptico sobre una imagen. Pero **leer la capa de texto embebida de un PDF nativo NO es OCR**: es el carácter tal como fue escrito, y es más fiel que mirarlo. Google Lens / Visión Multimodal se reserva **exclusivamente** para las páginas que el triaje marque como SIN capa de texto (escaneadas o manuscritas). Gastar visión en una página con texto es el error que convierte un admisorio de minutos en uno de horas.
 2. La norma del TUO LPAG siempre es el Decreto Supremo 006-2026-JUS. Nunca 004-2019-JUS.
 3. Prohibido imputar por 'inducción a error' (Art. 3). Usa Arts. 1.1.b y 2 de Ley 29571.
 4. En imputaciones de cargos usa condicional 'habría'. En antecedentes usa pasado indicativo.
@@ -12,3 +13,6 @@
 9. Firma según Denunciado (R-103): Si el denunciado es RÍMAC, NUNCA firma la titular; firma obligatoriamente LUISA ANALÍ SILVA MALPARTIDA (Secretaria Técnica Ad Hoc, refrendo LSQ/DCQ). Demás casos: EVELING ROA QUISPE (Secretaria Técnica).
 10. Isomorfismo y Verificación (R-97, R-108, R-109): Imputaciones y Requerimiento de información deben ser idénticos palabra por palabra entre considerativa y resolutiva.
 11. Protocolo de Verificación Obligatorio: Ejecutar siempre `python scripts/verificar_admisorio.py <admisorio.docx>` y obtener APTO (0 falsadores) antes de entregar.
+10. Para inspeccionar o comparar un .docx usa UNA sola llamada: `python scripts/inspeccionar_docx.py <archivo>` (o `--resumen`, o `--diff <control>`). Prohibido pedir el documento parrafo por parrafo con llamadas sucesivas.
+11. Antes de entregar: `python scripts/verificar_admisorio.py <generado.docx>` debe decir APTO, y pegas la salida literal en tu informe. Sin eso, el admisorio no esta entregado.
+12. NUNCA commitees un documento de expediente real. El repositorio es publico. La guardia (`scripts/guardia_admisorio.py`) bloquea el commit y CI vuelve a bloquearlo.

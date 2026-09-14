@@ -1,0 +1,6 @@
+#!/bin/sh
+# Guardia de puerta de SystemHope-ResAdmis.
+# Instalar con: python scripts/instalar_hooks.py
+# Bloquea el commit si entra material de expediente al repositorio publico
+# o si un admisorio no pasa verificar_admisorio.py (R-109).
+python scripts/guardia_admisorio.py --staged || exit 1
