@@ -151,4 +151,8 @@ Se entrega con `APTO`, pegando la salida literal.
 - **Velocidad con calidad:** un admisorio son **cinco pasos y ≤ 12 llamadas** (F3 a F5 de
   `docs/PLAN_VELOCIDAD_SIN_COLGARSE.md`). Prohibido releer lo ya leído o abrir las 630
   plantillas a mano: la base se elige por índice en una llamada.
+- **Cwd y scorecard (F8, F9, F13):** todo comando corre desde la raíz del repositorio, con
+  el primer paso `python scripts/extraer_expediente.py <carpeta>` en absoluto. Prohibido
+  buscar scripts del repositorio con `-Recurse` fuera de él. Antes de entregar,
+  `python scripts/auditar_trayectoria.py --caso <n>` debe dar 0 operaciones evitables.
 
