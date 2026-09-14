@@ -119,3 +119,85 @@ Puntos de control que el supervisor mide, en orden:
    (R-105), anclas (R-106), membrete (R-107), espejos (R-108), modo verbal (R-110).
 6. **Entrega:** `verificar_admisorio.py` con salida literal `APTO` y `guardia_admisorio.py`
    sin fuga. Sin PDF.
+
+---
+
+## 7. Autopsia medida de la trayectoria (Expediente 3054-2026, 14/09/2026)
+
+Fuente: `python scripts/auditar_trayectoria.py --caso 3054`, que lee la base de
+conversaciones del agente en solo lectura. No es una impresion: es el conteo de lo que
+hizo, paso por paso.
+
+| Metrica | Medido | Objetivo |
+|---|---:|---:|
+| Llamadas a herramienta | **108** (y subiendo) | **<= 12** |
+| Vision sobre paginas CON capa de texto | **20** | **0** |
+| Relecturas del mismo archivo | **17** (`denuncia_3054_text.txt`: 8) | **0** |
+| Busquedas recursivas de `C:\Users` | **4** | **0** |
+| Espera activa (polls de mas) | **15** | **0** |
+| **Desperdicio total** | **56+ operaciones evitables** | **0** |
+
+Desglose de donde se va el trabajo (censo de herramientas): `run_command` 50,
+`manage_task` 28, `view_file` 28, `write_to_file` 2.
+
+### El hallazgo que ordena todos los demas: el Cwd equivocado
+
+36 comandos corrieron en `C:\Users\D\_ConfigIA\.resadmi` (carpeta practicamente vacia) y
+27 en el repositorio. Desde el Cwd equivocado no existen ni `plantillas_maestras` ni
+`verificar_admisorio.py`, y el agente reacciono asi:
+
+1. **Renderizo las 21 paginas a PNG y las miro con vision** aunque el triaje oficial
+   (`extraer_expediente.py`) habria dicho que **las 21 tienen capa de texto** y que
+   correspondian **0 pasadas de vision**.
+2. **Releyo su propio volcado de texto en tramos crecientes desde el offset 0**
+   (0-180, 0-360, 0-540, 0-746...), 8 veces el mismo archivo.
+3. **Buscó `verificar_admisorio.py` recorriendo todo `C:\Users\D` con `-Recurse`**, el
+   peor comando disponible: un script del propio repositorio buscado a ciegas en todo el
+   perfil de usuario.
+4. **Espera activa**: 28 `manage_task` para consultar el estado de tareas asincronicas
+   que ya tenia resueltas.
+
+Ninguna de estas operaciones produce una linea del admisorio. Todas nacen de no haber
+ejecutado el primer paso de R-115.
+
+## 8. Frentes nuevos (F8 a F13)
+
+- **F8 — Punto de entrada unico y absoluto.** El primer comando del caso es siempre
+  `python scripts/extraer_expediente.py <carpeta>` **desde la raiz del repositorio**, con
+  rutas absolutas. Su salida (paginas con texto / sin texto, dossier anclado) es la unica
+  fuente para decidir vision.
+  - *Metrica:* 1 llamada, 0 visiones cuando el triaje dice 0.
+  - *Falsador:* una pagina con capa de texto mirada con vision.
+
+- **F9 — Contrato de Cwd.** Todo comando corre con Cwd = raiz del repositorio. Prohibido
+  operar desde otro directorio o buscar archivos del repositorio fuera de el.
+  - *Metrica:* 0 comandos con Cwd ajeno al repositorio.
+  - *Falsador:* un `Cwd` distinto de la raiz, o un `-Recurse` sobre `C:\Users`.
+
+- **F10 — Lectura unica.** Un archivo se lee **una** vez, entero o en el tramo que haga
+  falta; prohibido releerlo con offsets crecientes desde 0.
+  - *Metrica:* 0 relecturas.
+  - *Falsador:* el mismo archivo abierto dos veces en la misma tarea.
+
+- **F11 — Sin espera activa.** Las tareas asincronicas se esperan con el resultado, no se
+  consultan en bucle. Prohibido mas de un `manage_task` por tarea.
+  - *Metrica:* 0 polls de mas.
+  - *Falsador:* dos consultas de estado para la misma tarea.
+
+- **F12 — Aislamiento por caso.** Una conversacion por expediente, abierta con el
+  `_ORDEN_DE_TRABAJO.md` del caso y cerrada al entregar. La conversacion auditada acumula
+  **1526 pasos** y su `brain` conserva el plan del caso anterior: asi se contamina un
+  admisorio con otro.
+  - *Metrica:* 1 caso por conversacion; 0 datos de un expediente en otro.
+  - *Falsador:* dos numeros de expediente distintos en la misma conversacion.
+
+- **F13 — Scorecard obligatorio antes de entregar.** `python scripts/auditar_trayectoria.py
+  --caso <n>` debe mostrar 0 en las cinco columnas de desperdicio. Se entrega junto con la
+  salida de `verificar_admisorio.py`.
+
+## 9. Instrumento de supervision
+
+`scripts/auditar_trayectoria.py` (solo lectura) reconstruye la secuencia real del agente
+desde su base de conversaciones y cuenta vision, relecturas, Cwd ajeno, busquedas
+recursivas y espera activa. Da un veredicto por regla y un total de desperdicio. Es el
+mismo instrumento que se usara para supervisar la cola de admisorios uno por uno.
