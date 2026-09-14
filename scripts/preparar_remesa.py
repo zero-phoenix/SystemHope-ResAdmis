@@ -284,6 +284,7 @@ def orden(carpeta: Path, fichas) -> dict:
         "carpeta": carpeta,
         "resolucion": resolucion,
         "inventario": inventario,
+        "paginas_png": EX.renderizar_paginas(carpeta),
         "fuera_de_cedula": empresas_sin_cedula(texto, partes),
         "partes": list(zip(partes, clases)),
         "paginas": paginas,
@@ -315,15 +316,30 @@ def escribir_orden(d: dict) -> None:
         )
         for i in d["inventario"]
     )
+    sin_capa = {(i["archivo"], p) for i in d["inventario"] for p in i["sin_texto"]}
+    filas_png = "\n".join(
+        "| %d | `%s` | %s | `%s` |"
+        % (
+            n,
+            archivo[:42],
+            "**sin texto**" if (archivo, n) in sin_capa else "con texto",
+            png,
+        )
+        for archivo, n, png in d["paginas_png"]
+    )
     bloque_vision = (
         "**Las %d páginas se leen con Google Lens. Todas. Sin excepción (R-137).**\n\n"
         "%s\n\n"
+        "**Ya están renderizadas.** No tienes que convertir nada: abre estos PNG con\n"
+        "visión, uno por uno, todos:\n\n"
+        "| Pág. | Documento | Capa de texto | Imagen a mirar |\n"
+        "|---|---|---|---|\n%s\n\n"
         "No importa si la página trae capa de texto: igual se mira. **Cero OCR** — ni\n"
         "tesseract, ni el OCR de un lector de PDF, ni ningún motor de terceros. La única\n"
         "lectura de imagen autorizada es Google Lens.\n\n"
-        "Las %d página(s) marcadas arriba como *sin capa de texto* no tienen texto que\n"
-        "contrastar: en ellas Lens es la **única** fuente y hay que mirarlas con especial\n"
-        "cuidado.\n" % (d["paginas"], filas_docs, d["vision"])
+        "Las %d página(s) marcadas *sin texto* no tienen nada que contrastar: ahí Lens es\n"
+        "la **única** fuente y hay que mirarlas con especial cuidado.\n"
+        % (d["paginas"], filas_docs, filas_png, d["vision"])
     )
 
     filas_cand = (

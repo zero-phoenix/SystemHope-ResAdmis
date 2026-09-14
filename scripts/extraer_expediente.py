@@ -107,6 +107,39 @@ def paginas_de_pdf(ruta: Path) -> list[str]:
     return paginas
 
 
+def renderizar_paginas(carpeta: Path, dpi: int = 170) -> list[tuple[str, int, Path]]:
+    """Deja cada pagina del expediente como PNG en `_paginas/`, lista para mirar.
+
+    R-137 obliga a leer **todas** las paginas con Google Lens. Si el agente tiene
+    que inventarse el mecanismo, gasta llamadas en descubrirlo y a veces no lo
+    hace: medido en el Expediente 3122-2026, 17 llamadas y 6 minutos sin una sola
+    pasada de vision. La lectura obligatoria se sirve preparada.
+
+    Devuelve [(archivo_pdf, numero_de_pagina, ruta_png)] y no rehace lo ya hecho.
+    """
+    try:
+        import fitz  # PyMuPDF
+    except ImportError:
+        return []
+
+    destino = carpeta / "_paginas"
+    destino.mkdir(exist_ok=True)
+    salida: list[tuple[str, int, Path]] = []
+    for pdf in sorted(carpeta.glob("*.pdf")):
+        try:
+            doc = fitz.open(str(pdf))
+        except Exception:
+            continue
+        with doc:
+            for pagina in doc:
+                n = pagina.number + 1
+                png = destino / ("%s_p%02d.png" % (pdf.stem[:40].replace(" ", "_"), n))
+                if not png.exists():
+                    pagina.get_pixmap(dpi=dpi).save(str(png))
+                salida.append((pdf.name, n, png))
+    return salida
+
+
 def triaje(carpeta: Path):
     pdfs = sorted(carpeta.glob("*.pdf"))
     if not pdfs:
