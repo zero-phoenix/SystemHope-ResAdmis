@@ -126,16 +126,30 @@
   - Cuando la nota al pie contenga listas numeradas, se utiliza el carácter **One Dot Leader (`\u2024`, U+2024)** en vez del punto regular (`.`) tras el número, para impedir que el motor de Microsoft Word aplique auto-sangrado de listas desconfigurando el margen.
 
 ### 5.4. Bloque de Firma Digital (Última Página)
-- **Centrado:**
+
+> **La firma NO es una constante.** Depende del proveedor denunciado (regla R-103).
+> Codificarla como valor fijo fue la causa raiz del error detectado en el Expediente 2662-2026.
+
+- **Matriz de firma:**
+
+  | Proveedor denunciado | Firmante | Cargo | Iniciales |
+  |---|---|---|---|
+  | Rímac Seguros y Reaseguros S.A. | `LUISA ANALÍ SILVA MALPARTIDA` | `Secretaria Técnica Ad Hoc` | `LSQ/DCQ` |
+  | Cualquier otro proveedor | `EVELING ROA QUISPE` | `Secretaria Técnica` | según especialista instructor |
+
+- **Centrado, cuatro líneas:**
   ```text
   Firmado digitalmente por
-  EVELING ROA QUISPE
-  Secretaria Técnica
-  Comisión de Protección al Consumidor N°1
+  [FIRMANTE según la matriz]
+  [CARGO según la matriz]
+  Comisión de Protección al Consumidor 1
   ```
 - **Iniciales de Control de Calidad:**
-  - Alineadas al margen izquierdo en la misma línea o inmediatamente previa a la firma: `LGP/JCQ` (Especialista Legal / Asistente).
+  - Alineadas al margen izquierdo, línea inmediatamente posterior al bloque de firma.
+  - Toman el valor de la matriz. El valor `LGP/JCQ` que figuraba aquí **no aparece en ningún
+    documento de control verificado**; se retira hasta que exista evidencia que lo sustente.
   - Tamaño: `8.0 pt Arial Narrow`.
+- **Verificación:** `scripts/verificar_admisorio.py` falsa automáticamente este bloque (prueba R-103).
 
 ---
 

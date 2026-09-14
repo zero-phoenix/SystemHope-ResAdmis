@@ -414,10 +414,31 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
 
 ## 77. MASTER PHOENYX: INVARIANTES POPPERIANAS DE IDENTIDAD PROCESAL, NOTIFICACIÓN COMPARTIDA Y SIMETRÍA CONSIDERATIVA-RESOLUTIVA (R-96 A R-102)
 
-- R-96: **DENOMINACIÓN DE PARTES PROCESALES EN LA CONSIDERATIVA:**
-  - **Persona natural:** En la primera mención del considerando introductorio se escribe el nombre completo con fórmula de cortesía: `el señor [Nombre Completo]` o `la señora [Nombre Completo]`. A partir de dicha mención y en todos los hechos subsiguientes, se usa obligatoriamente `el señor [Primer Apellido]` o `la señora [Primer Apellido]`. Queda terminantemente prohibido utilizar las frases 'el denunciante' o 'la denunciante' dentro del relato fáctico.
-  - **Sucesión Intestada:** Se denominará obligatoriamente `la Sucesión Intestada de [Nombre del Causante]`. A la persona fallecida se la mencionará exclusivamente como `la/el causante de la Sucesión Intestada`, quedando prohibido llamarla 'el difunto', 'el occiso' o 'el fallecido'.
-  - **Personas jurídicas:** Razón social completa en la primera mención definiendo el alias formal entre paréntesis: `Rímac Seguros y Reaseguros S.A. (en adelante, Rímac)`, `Banco de Crédito del Perú S.A. (en adelante, el Banco)`, `Pacífico Compañía de Seguros y Reaseguros S.A. (en adelante, Pacífico)`. En todos los párrafos y considerandos subsiguientes es obligatorio el uso exclusivo del alias definido (`Rímac`, `Pacífico`, `el Banco`).
+- R-96: **DENOMINACION DE PARTES POR ZONA DEL DOCUMENTO (REESCRITA — v2):**
+  - *Estado epistemico:* la version 1 de esta regla (prohibicion absoluta de `el denunciante`
+    y uso exclusivo del alias en todo el documento) **fue falsada** por el documento de control
+    `ADM 2662-2026 R3 RIMAC - LSQok.docx`, corregido por el instructor el 14/09/2026, que usa
+    `el denunciante` en la considerativa y la razon social completa en la resolutiva. Se sustituye
+    por una regla por zonas. Corroboracion: n=1 documento de control; **pendiente de contraste
+    contra el corpus completo** (ver R-109).
+  - **Zona 1 — Encabezado (`EXPEDIENTE`/`DENUNCIANTE`/`DENUNCIADO`):** nombre completo en
+    mayusculas y alias entre parentesis: `DENUNCIANTE: CESAR AUGUSTO FLORES SILVERA (SEÑOR FLORES)`,
+    `DENUNCIADO: RIMAC SEGUROS Y REASEGUROS S.A. (RIMAC)`. Todo el bloque en negrita (R-104).
+  - **Zona 2 — Numeral 1 de Hechos:** `el señor [Nombre Completo]` y razon social completa con
+    definicion del alias. A partir de aqui rige el alias.
+  - **Zona 3 — Incisos de Hechos:** `el señor [Primer Apellido]` y alias del proveedor (`Rimac`).
+    Se admite `el denunciante` como sujeto anaforico. Prohibido `la denunciada` para el proveedor.
+  - **Zona 4 — Nucleo factico de la imputacion (considerativa Seccion II y articulos PRIMERO/SEGUNDO):**
+    el proveedor se designa por su **categoria** (`la compañia aseguradora`, `el banco`) y el
+    consumidor como `el denunciante`. Prohibido el alias corto en esta zona, porque el texto debe
+    resistir la lectura aislada del articulo resolutivo.
+  - **Zona 5 — Articulos resolutivos de mandato (TERCERO en adelante):** **razon social completa**,
+    nunca el alias. `requerir a Rimac Seguros y Reaseguros S.A.`, no `requerir a Rimac`.
+  - **Sucesion Intestada:** `la Sucesion Intestada de [Causante]`; a la persona fallecida,
+    `la/el causante de la Sucesion Intestada`. Prohibido 'el difunto', 'el occiso', 'el finado',
+    'el fallecido'.
+  - *Falsador:* un admisorio que use el alias corto dentro de un articulo resolutivo de mandato,
+    o la razon social completa dentro de un inciso de hechos, refuta la regla o el documento.
 - R-97: **TEOREMA DE SIMETRÍA Y CONGRUENCIA TEXTUAL (CONSIDERATIVA VS RESOLUTIVA):**
   - El núcleo fáctico de la imputación debe ser **idéntico palabra por palabra** entre la Sección II (De la Admisión a Trámite) y los artículos de imputación en la Sección RESUELVE (`PRIMERO:`, `SEGUNDO:`).
   - En Considerativa (Sección II): `...considera que el hecho denunciado, consistente en que [NÚCLEO FÁCTICO], involucraría una presunta afectación a sus expectativas... Por consiguiente, corresponde calificar el hecho... como una presunta infracción al [NORMA].`
@@ -429,7 +450,7 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
 - R-99: **DUALIDAD DE REQUERIMIENTOS AL PROVEEDOR EN LA PARTE RESOLUTIVA:**
   - Todo admisorio debe articular dos tipos de requerimiento al proveedor:
     1. *Requerimiento Administrativo-Estructural (Artículo TERCERO):* Plazo improrrogable de 5 días hábiles para acreditar inscripción en Registros Públicos, vigencia de poder de representante legal, número de RUC, fijación de domicilio procesal y acreditación de condición MYPE (Art. 110 del Código).
-    2. *Requerimiento Probatorio Específico de la Controversia (Artículo CUARTO o SEXTO):* Redactado en **párrafo único con sub-incisos en infinitivo `(a)`, `(b)`, `(c)`, `(d)`** (máximo 4 viñetas) exigiendo póliza matriz, certificado, grabaciones de voz, estado de cuenta y cartas de respuesta al reclamo.
+    2. *Requerimiento Probatorio Específico de la Controversia (Artículo CUARTO o SEXTO):* Redactado en **párrafo único con sub-incisos en numeracion romana minuscula en linea `(i)`, `(ii)`, `(iii)`, `(iv)`**, verbo en infinitivo, separados por `;` y con `y,` antes del ultimo (**corregido**: la version 1 exigia letras `(a)-(d)`, notacion que **no aparece** en el documento de control ni en los modelos institucionales revisados) exigiendo póliza matriz, certificado, grabaciones de voz, estado de cuenta y cartas de respuesta al reclamo.
 - R-100: **ANCLAJE Y FÓRMULA DE TRASLADO DE OTRO ÓRGANO (NOTA AL PIE PÁGINA 1):**
   - En casos donde la denuncia proceda de otro órgano resolutivo (ORPS 1, ORPS 2, CC2, sedes regionales u oficinas desconcentradas), se inserta un superíndice de nota al pie sobre la palabra `denuncia` o `escrito` en el numeral 1 de Hechos: `Mediante la denuncia¹ del [fecha]...`
   - La nota al pie número 1 debe contener obligatoriamente la fórmula: `Denuncia remitida a esta Comisión mediante [TIPO_DOC] [NÚMERO] de fecha [FECHA_EMISIÓN], [recibida/recepcionada] el [FECHA_RECEPCIÓN].`
@@ -438,4 +459,96 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
 - R-102: **FACULTAD DE CONCILIACIÓN PREVIA Y APERCIBIMIENTO DE INASISTENCIA (ART. 29 D.LEG. 807):**
   - Debe incorporarse un artículo resolutivo que informe a las partes su derecho a solicitar audiencia de conciliación antes de la resolución final, con apercibimiento expreso de tener por no realizada la audiencia y levantar acta de inasistencia si el representante no cuenta con poder especial con firma legalizada ante Notario Público.
 
+## 78. MASTER PHOENYX: INVARIANTES DERIVADAS DEL DOCUMENTO DE CONTROL ADM 2662-2026 R3 (R-103 A R-110)
+
+> Origen: comparacion milimetrica, parrafo por parrafo y a nivel OOXML, entre la version generada
+> por el motor (`RES_02_2662-2026_CC1_ADMISORIO.docx`) y la version corregida por el instructor
+> (`ADM 2662-2026 R3 RIMAC - LSQok.docx`), el 14/09/2026. Cada regla se enuncia junto con su
+> **falsador**: el hecho observable que la refutaria. Ninguna regla se da por corroborada sin haber
+> corrido `scripts/verificar_admisorio.py` sobre el documento.
+
+- R-103: **FIRMA VARIABLE SEGUN EL PROVEEDOR DENUNCIADO (MANDATO DEL INSTRUCTOR, NO INDUCCION):**
+  - **Mandato vigente desde el 14/09/2026:** cuando el proveedor denunciado es
+    **Rimac Seguros y Reaseguros S.A.**, la resolucion **no** la firma la Secretaria Tecnica titular.
+    Firma: `Firmado digitalmente por / LUISA ANALI SILVA MALPARTIDA / Secretaria Tecnica Ad Hoc /
+    Comision de Proteccion al Consumidor 1`, con iniciales de control `LSQ/DCQ`.
+  - En los demas casos firma la Secretaria Tecnica titular (`EVELING ROA QUISPE`, `Secretaria Tecnica`).
+  - **Advertencia epistemica — el corpus NO corrobora este mandato.** Medicion reproducible sobre
+    `plantillas_maestras/` (n=630) el 14/09/2026:
+
+    | Plantillas con Rimac como denunciado | 143 |
+    |---|---|
+    | firmadas Ad Hoc | **3** (04–05/08/2026) |
+    | firmadas por la titular | **140** (15/04/2025 – 21/08/2026) |
+
+    La hipotesis de rescate temporal ("rige desde agosto de 2026") tambien queda **falsada**: hay
+    plantillas con Rimac firmadas por la titular el 07, 12 y 21 de agosto de 2026, posteriores a las
+    tres ad hoc. El criterio real **no es** la sola presencia de Rimac como denunciado.
+  - **Por tanto esta regla se aplica por mandato de autoridad, no por induccion del corpus.** Queda
+    abierta la pregunta al instructor: cual es el hecho que dispara la designacion ad hoc
+    (¿abstencion de la titular por conflicto de interes, art. 99 del TUO de la LPAG? ¿designacion por
+    resolucion de la Comision para expedientes determinados? ¿materia o sede?). Hasta que se responda,
+    el motor aplica el mandato literal y **no** reescribe retroactivamente las 140 plantillas.
+  - *Causa raiz del error del Expediente 2662-2026:* `docs/MEMORIA_ESTILO_VISUAL_PAGINAS.md` codificaba
+    la firma como valor fijo `EVELING ROA QUISPE`. El motor cumplio el repositorio; **el repositorio
+    estaba mal**. Corregido con una matriz de firma en esa misma seccion.
+  - *Falsador:* un admisorio contra Rimac emitido despues del 14/09/2026 firmado por la titular.
+
+- R-104: **INTEGRIDAD TIPOGRAFICA DEL ENCABEZADO Y DE LOS ORDINALES:**
+  - Las cuatro lineas del encabezado (`EXPEDIENTE`, `DENUNCIANTE`, `DENUNCIADO`, `MATERIAS`,
+    `RESOLUCION`) van integramente en **negrita**.
+  - **Todos** los rotulos ordinales de la parte resolutiva (`PRIMERO:` a `DECIMO:`) van en negrita,
+    sin excepcion. Una resolucion con los cinco primeros en redonda y los cinco ultimos en negrita
+    delata que el generador escribio los articulos por dos caminos distintos.
+  - *Falsador:* un solo rotulo ordinal sin `<w:b/>` en su run.
+
+- R-105: **PROHIBICION DE PARRAFOS NUMERADOS VACIOS Y DE SECCION ANUNCIADA SIN CONTENIDO:**
+  - Ningun parrafo con `numPr` activo puede quedar sin texto: Word le pinta igual su numero o viñeta
+    y la resolucion sale con incisos huerfanos.
+  - Ninguna seccion puede anunciar contenido que luego no formula. `cumpla con lo siguiente:` seguido
+    de nada es un vicio de motivacion, no un defecto estetico.
+  - *Falsador:* `numPr` presente y `w:t` vacio; o un `lo siguiente:` sin `(i)` posterior.
+
+- R-106: **ANCLAS DE NOTA AL PIE OBLIGATORIAS:**
+  - Toda nota definida en `footnotes.xml` con texto debe tener su `footnoteReference` en el cuerpo.
+    Las notas de la tipificacion (articulos 18 y 19 del Codigo) y la del articulo 20 del TUO de la
+    LPAG en el articulo de confirmacion de recepcion son obligatorias.
+  - *Falsador:* una nota con contenido y sin ancla, o un ancla sin nota.
+
+- R-107: **ESTRUCTURA DE SECCION DEL MODELO INSTITUCIONAL (SEIS REFERENCIAS):**
+  - El `sectPr` del modelo declara **seis** referencias: `header` y `footer` en `even`, `default` y
+    `first`. Un generador que emita solo `default` ha reconstruido la seccion en vez de heredarla
+    del modelo, y el membrete y el codigo `M-CPC-01/03` quedan con alcance distinto al institucional.
+  - *Falsador:* `len(headerReference + footerReference) != 6`.
+
+- R-108: **SEGUNDO ISOMORFISMO: REQUERIMIENTO DE INFORMACION (CONSIDERATIVA) <-> ARTICULO RESOLUTIVO:**
+  - El parrafo `REQUERIMIENTO DE INFORMACION` de la considerativa y el articulo resolutivo que lo
+    ordena (`QUINTO` en el documento de control) contienen **la misma lista de incisos, palabra por
+    palabra**. Solo cambia el sujeto: la considerativa nombra al proveedor por su categoria
+    (`la compañia aseguradora`), el articulo resolutivo usa `el proveedor denunciado`.
+  - Este isomorfismo es independiente del de R-97 y **no estaba registrado**: R-99 describia la
+    dualidad de requerimientos sin advertir que el probatorio tambien se escribe dos veces.
+  - *Falsador:* un inciso presente en una zona y ausente en la otra.
+
+- R-109: **PROTOCOLO DE FALSACION PREVIO A LA ENTREGA (OBLIGATORIO):**
+  - Ningun admisorio se entrega ni se declara terminado sin haber corrido:
+    `python scripts/verificar_admisorio.py <archivo.docx>` y obtenido `APTO`.
+  - El resultado se reporta al instructor **con su salida literal**, incluidos los fallos. Un informe
+    de entrega sin la salida del verificador es un informe no verificado.
+  - Toda regla de este archivo que no tenga prueba automatizada debe declararse como tal al reportar.
+  - *Falsador:* una entrega declarada conforme cuyo `verificar_admisorio.py` devuelve `NO APTO`.
+
+- R-110: **MODO VERBAL Y ATRIBUCION EN LOS INCISOS DE HECHOS:**
+  - La conducta del proveedor se enuncia **siempre** bajo atribucion al denunciante
+    (`Indico que...`, `Señalo que...`, `Preciso que...`, `Manifesto que...`) o en modo potencial
+    (`habria retenido`, `habria reconocido`). Nunca en indicativo asertivo.
+  - **Correccion de un error propagado:** el analisis entregado al instructor el 13/09/2026 afirmaba
+    que el condicional `habria` estaba **prohibido** en los hechos. Es **falso**: el documento de
+    control lo usa (`Rimac habria intentado llegar a un acuerdo`, `el conductor asegurado habria
+    reconocido su responsabilidad`). Ademas, esa supuesta prohibicion nunca fue escrita en este
+    archivo: se enuncio en conversacion y no existia como regla. **Lo no commiteado no existe.**
+  - Los hechos referidos al propio denunciante (`El 9 de mayo de 2023, notifico la Carta Notarial...`)
+    si van en indicativo: el sujeto es el, no el proveedor.
+  - *Falsador:* un inciso de hechos donde el proveedor sea sujeto de un verbo en indicativo pasado
+    sin verbo de atribucion en el mismo inciso.
 
