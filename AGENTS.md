@@ -3,7 +3,7 @@
 
 > **AUTORIDAD:** Indecopi Comisión de Protección al Consumidor  1 (CC1)  
 > **NORMA MARCO:** Decreto Supremo 006-2026-JUS  
-> **PROTOCOLO DE LECTURA:** cero OCR óptico. Primero `scripts/extraer_expediente.py`: las páginas con capa de texto se leen literales (no es OCR, es el texto embebido); Google Lens / Visión Multimodal **solo** en las páginas que el triaje marque sin texto.  
+> **PROTOCOLO DE LECTURA (R-137):** cero OCR, **Google Lens en todas las páginas**, tengan o no capa de texto. `scripts/extraer_expediente.py` va primero, pero no para ahorrar lectura: da el número real de páginas (R-136), el dossier anclado y el texto embebido, que sirve de **contraste**. Si el volcado y lo que Lens ve discrepan, **manda Lens**.  
 > **PROTOCOLO DE ENTREGA:** `scripts/verificar_admisorio.py` debe decir `APTO`. Sin esa salida, el admisorio no está entregado.  
 > **REPOSITORIO:** https://github.com/zero-phoenix/SystemHope-ResAdmis
 
@@ -19,8 +19,9 @@ para buscar una regla concreta, no se leen enteros antes de empezar.
 
 1. `python scripts/admisorio.py preparar <carpeta> [--contiene "frase"] [--rama X]`
    — paro si el caso esta cerrado, aviso si hay Word huerfano, triaje con dossier
-   anclado, presupuesto de vision y candidatas de plantilla. **Todo en una llamada.**
-2. Vision multimodal **solo** en las paginas que el triaje liste sin capa de texto.
+   anclado, inventario de paginas y candidatas de plantilla. **Todo en una llamada.**
+2. **Google Lens en todas las paginas del expediente** (R-137), con o sin capa de
+   texto. Cero OCR. El volcado de texto es contraste, no reemplazo.
 3. Redaccion sobre la plantilla elegida. Si hay control:
    `python scripts/inspeccionar_docx.py <generado> --diff <control>`.
 4. `python scripts/admisorio.py entregar <generado> [--caso <n>]` — verificador,
@@ -40,7 +41,7 @@ datos ya estan hechos y no hay que rehacerlos.
 ---
 
 ## 1. REGLAS NO NEGOCIABLES (AXIOMAS POPPERIANOS)
-1. **PROHIBICIÓN ESTRICTA DE OCR:** Jamás transcribir denuncias con OCR clásico ni extractores que rompan coordenadas o inventen datos. Se analiza la imagen de la denuncia escaneada con Google Lens o modelos de visión directa.
+1. **PROHIBICIÓN ESTRICTA DE OCR (R-137):** Jamás transcribir denuncias con OCR clásico ni extractores que rompan coordenadas o inventen datos. **Toda** página de **todo** PDF del expediente se analiza con Google Lens / visión directa, esté escaneada o no, tenga capa de texto o no. No existe la excepción del «PDF nativo».
 2. **TUO LPAG ACTUALIZADO:** Siempre citar el **Decreto Supremo 006-2026-JUS**. Prohibida cualquier mención al D.S. 004-2019-JUS.
 3. **PROHIBICIÓN DE 'INDUCCIÓN A ERROR':** Nunca imputar por el Artículo 3° ni emplear la frase 'inducción a error'. Todas las fallas de información se canalizan por los Artículos 1°, numeral 1, literal b) y 2° del Código de Protección y Defensa del Consumidor.
 4. **TIEMPOS VERBALES OBLIGATORIOS:**
@@ -124,9 +125,10 @@ El repositorio contiene **605 plantillas Word (.docx) depuradas** en `plantillas
 ```
 python scripts/extraer_expediente.py <carpeta_del_expediente>
 ```
-Devuelve que paginas tienen capa de texto (se leen literales) y cuales requieren vision
-multimodal (solo esas). Incluye un dossier de fechas, montos, placas, correos y cartas
-notariales anclado a la pagina de origen.
+Devuelve el numero real de paginas de cada PDF (R-136), cuales tienen capa de texto y
+cuales no, y un dossier de fechas, montos, placas, correos y cartas notariales anclado a
+la pagina de origen. **No decide que se lee con vision: todas las paginas van a Google
+Lens (R-137).** El texto embebido es el contraste de esa lectura.
 
 **El volcado puede corromper acentos y cifras (R-126):** en el Expediente 3054-2026 la
 fecha del escrito «17 de agosto de 2026» salió como «1274 de agosto de 2026». Verifica
@@ -181,9 +183,12 @@ Se entrega con `APTO`, pegando la salida literal.
   operaciones evitables en el scorecard.
 - **Fecha única de la remesa (R-128):** todos los admisorios llevan
   `Lima, 14 de setiembre de 2026`, sin importar las fechas de las cédulas.
-- **Cédulas de la carpeta (R-129):** de ellas se toman las partes procesales y el
-  domicilio procesal; sus fechas se ignoran; la vía de notificación es la que la cédula
-  indique. Se copia además el refrendo del control o de la cédula.
+- **Cédulas de la carpeta (R-129, R-138):** las partes procesales son **exactamente** las
+  que la cédula notifica, con **una sola vía** cada una; de ella salen también el
+  domicilio procesal y el número de resolución. Sus fechas se ignoran (R-128). Que el
+  escrito mencione a otra empresa no la convierte en parte: es contexto del relato. No
+  hay nada que elevar, la cédula ya lo resolvió. Se copia además el refrendo del control
+  o de la cédula.
 - **Subsunción, hechos y escrito: los del control (R-130, R-131, R-132).** Cada conducta
   del control conserva su artículo (arts. 56 b), 47 e), 88.1 incluidos); los hechos van en
   narración directa con el alias del encabezado; la fecha del escrito es la del control y

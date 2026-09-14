@@ -419,6 +419,8 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
 - R-93: **ESTRUCTURA DE IMPUTACIONES RESOLUTIVAS (PRIMERO):** Cada imputación debe ser de **una sola oración**, sin palabras en negrita, invocando la fórmula: `(i) Presunta infracción a... de la Ley 29571... en tanto [Nombre Proveedor] habría/no habría [conducta concreta]...` individualizando fechas exactas y pólizas.
 - R-94: **REQUERIMIENTOS EN PÁRRAFO ÚNICO (MÁXIMO 4 ÍTEMS):** La parte considerativa y resolutiva de requerimientos se condensa en un solo párrafo con máximo cuatro (4) viñetas `(i)`, `(ii)`... en infinitivo, guardando simetría estricta con la infracción principal controvertida.
 - R-95: **MANDATO CERO-OCR (VISIÓN MULTIMODAL EXCLUSIVA):** En escritos escaneados o manuscritos, queda prohibido el uso de OCR tradicional. El procesamiento se ejecuta exclusivamente con Visión Multimodal / Google Lens para garantizar cero alucinaciones en fechas, números y montos.
+  - **AMPLIADA POR R-137 (14/09/2026):** ya no rige solo para escaneados o manuscritos.
+    **Todas** las páginas se leen con Google Lens, tengan o no capa de texto.
 
 ## 77. MASTER PHOENYX: INVARIANTES POPPERIANAS DE IDENTIDAD PROCESAL, NOTIFICACIÓN COMPARTIDA Y SIMETRÍA CONSIDERATIVA-RESOLUTIVA (R-96 A R-102)
 
@@ -576,12 +578,15 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
 
 - R-113: **TRIAJE ANTES DE VISION. LA VISION ES PARA LO ESCANEADO, NO PARA TODO:**
   - Antes de abrir un expediente se ejecuta `python scripts/extraer_expediente.py <carpeta>`.
-  - Las paginas **con capa de texto** se leen literalmente: es mas fiel que mirarlas, porque el
-    caracter esta escrito, no interpretado. Las paginas **sin capa de texto** se listan por numero
-    y solo esas van a vision multimodal. R-95 conserva intacto su alcance: escaneado o manuscrito.
-  - *Medicion:* las 18 paginas del Expediente 2723-2026 tienen capa de texto. Extraerlas cuesta
-    **1,1 s** y **cero** pasadas de vision. Mirarlas una por una es gastar 18 pasadas en leer algo
-    que ya estaba escrito.
+  - **DEROGADO EN SU CRITERIO DE AHORRO POR R-137 (14/09/2026).** Lo que sigue se
+    conserva como registro de lo que se creyo y por que dejo de valer: se sostenia que
+    las paginas con capa de texto no necesitaban vision porque «el caracter esta
+    escrito, no interpretado». La medicion posterior lo refuto: el volcado pierde
+    tildes y corrompe caracteres (R-126), y la capa de texto no muestra sellos, firmas
+    ni anexos manuscritos. Hoy **todas** las paginas van a Google Lens y el volcado
+    queda como contraste.
+  - *Lo que si conserva su valor:* el triaje sigue siendo el primer paso, porque da el
+    numero real de paginas (R-136) y el dossier anclado. Cuesta **1,1 s**.
   - El script devuelve ademas un dossier con cada fecha, monto, placa, correo y carta notarial
     **anclados a la pagina de la que salieron**, que es lo que hace verificable la cita (R-112).
   - *Falsador:* una pasada de vision sobre una pagina que el triaje marco como 'con texto'.
@@ -831,4 +836,44 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
     o un expediente con paginas escaneadas que el triaje reporte con 0 visiones.
   - *Por que importa mas que la velocidad:* este defecto no hacia lento al agente, lo
     hacia **redactar sin fuente**. Un escrito invisible es la via mas corta a inventar.
+
+## 84. LECTURA VISUAL UNIVERSAL Y PARTES DE LA CEDULA (R-137 A R-138)
+
+> Mandato del instructor del 14/09/2026, al entregar la remesa de 13 expedientes.
+> **R-137 amplia el alcance de R-95 y deroga la excepcion de los PDF nativos.**
+
+- R-137: **CERO OCR. GOOGLE LENS EN TODAS LAS PAGINAS, SIEMPRE:**
+  - **Todas** las paginas de **todos** los PDF del expediente se leen con la vision
+    **Google Lens de Antigravity**: escaneadas y no escaneadas, con capa de texto y
+    sin ella. No hay excepcion por «PDF nativo».
+  - **Prohibido el OCR** en cualquier forma: ni tesseract, ni el OCR de un lector de
+    PDF, ni ningun motor de reconocimiento optico de terceros. La unica lectura de
+    imagen autorizada es Google Lens.
+  - El texto embebido que extrae `extraer_expediente.py` **no sustituye** esa lectura:
+    es **contraste**. Esta medido que el volcado pierde tildes y corrompe caracteres
+    («1274 de agosto» por «17 de agosto de 2026»; «MART?N» por «MARTIN») — R-126.
+    **Ante discrepancia entre el volcado y lo que ve Lens, manda Lens.**
+  - *Por que, y no es capricho:* la capa de texto de un PDF es lo que el generador
+    dijo que puso, no necesariamente lo que la pagina muestra; y la unica forma de
+    detectar sellos, firmas, anexos manuscritos, tachaduras y numeros de foja es
+    mirar la pagina. Una lectura que no se puede contrastar con la imagen no es
+    verificable.
+  - *Alcance sobre la eficiencia:* la velocidad **no se busca recortando lectura**.
+    Se busca no releyendo, no repitiendo el triaje, no consultando tareas en bucle y
+    agrupando comandos (R-134). Leer menos paginas nunca es una optimizacion valida.
+  - *Falsador:* una pagina del expediente que no fue leida con Google Lens; el uso de
+    cualquier motor OCR; o un dato del admisorio tomado del volcado de texto que
+    contradiga lo que muestra la imagen.
+
+- R-138: **LAS PARTES PROCESALES SON, EXACTAMENTE, LAS DE LA CEDULA:**
+  - La cedula de notificacion de la carpeta **fija** quienes son las partes, su
+    denominacion y su **unica** via de notificacion. No se anade ninguna parte que la
+    cedula no notifique, ni se omite ninguna que si notifique.
+  - Que el escrito de denuncia **mencione** a otra empresa (el banco donde se pago la
+    prima, el corredor que intermedio, la entidad que financio) **no la convierte en
+    parte**. Es contexto del relato, no sujeto del procedimiento.
+  - Esto **cierra** el asunto: no se eleva, no se consulta, no se «resuelve contra el
+    petitorio». La cedula ya lo resolvio.
+  - *Falsador:* un admisorio con una parte que la cedula no notifica, una parte de la
+    cedula ausente del admisorio, o una parte notificada por dos vias.
 

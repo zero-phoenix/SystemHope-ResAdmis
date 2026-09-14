@@ -1,21 +1,25 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Triaje de expediente: texto exacto donde lo hay, vision solo donde hace falta.
+"""Triaje de expediente: inventario de paginas y dossier anclado para contrastar.
 
 Uso:
     python scripts/extraer_expediente.py <carpeta_del_expediente> [--volcar]
 
-R-95 manda vision multimodal para escritos **escaneados o manuscritos**. No manda
-gastar vision en PDF nativos, que llevan el texto exacto embebido: leerlo es mas
-fiel que mirarlo, porque no hay lectura que alucinar.
+**Mandato del instructor (14/09/2026), R-137: cero OCR, Google Lens siempre.**
+Todas las paginas del expediente se leen con la vision Google Lens de Antigravity,
+tengan o no capa de texto. Este script **no sustituye** esa lectura: la prepara.
 
-Este script decide pagina por pagina:
-  - pagina CON capa de texto  -> se extrae literal (determinista, coste ~0)
-  - pagina SIN capa de texto  -> se marca para vision, con su numero exacto
+Que aporta, entonces:
+  - el **numero real de paginas** de cada PDF (estructura, no texto): sin el, un
+    documento escaneado se daba por vacio (R-136);
+  - que paginas tienen capa de texto y cuales no, como dato de contexto;
+  - el **texto embebido**, que sirve de **contraste** contra lo que lea Lens, no de
+    reemplazo: esta medido que el volcado pierde tildes y corrompe caracteres
+    («1274 de agosto» por «17 de agosto», «MART?N» por «MARTIN») (R-126);
+  - un dossier de fechas, cartas notariales, montos, placas, correos y
+    resoluciones previas, cada dato anclado a la pagina de la que salio.
 
-Ademas arma un dossier de los datos que el admisorio necesita citar sin error
-(fechas, cartas notariales, montos, placas, correos, resoluciones previas),
-cada uno anclado a la pagina de la que salio, para que sea verificable.
+Ante discrepancia entre el volcado y lo que ve Lens, **manda Lens**.
 
 Codigo de salida: 0 siempre; el valor esta en el informe.
 """
@@ -150,15 +154,15 @@ def informe(carpeta: Path, volcar: bool) -> None:
         return
 
     total = sum(i["paginas"] for i in inventario)
-    vision = sum(len(i["sin_texto"]) for i in inventario)
+    sin_capa = sum(len(i["sin_texto"]) for i in inventario)
     print("=" * 78)
     print("TRIAJE DE EXPEDIENTE  %s" % carpeta)
     print("=" * 78)
     for i in inventario:
         estado = (
-            "texto completo"
+            "con capa de texto (sirve de contraste)"
             if not i["sin_texto"]
-            else "vision en p. %s" % i["sin_texto"]
+            else "sin capa de texto en p. %s" % i["sin_texto"]
         )
         print(
             "  %-46s %2d pag  %6d car  %s"
@@ -166,12 +170,13 @@ def informe(carpeta: Path, volcar: bool) -> None:
         )
     print()
     print("  Paginas totales ................ %d" % total)
-    print("  Resueltas por capa de texto .... %d" % (total - vision))
-    print("  Requieren vision multimodal .... %d" % vision)
-    if vision == 0:
-        print("  --> Cero pasadas de vision. R-95 no aplica: no hay pagina escaneada.")
-    else:
-        print("  --> Aplicar vision SOLO a las paginas listadas arriba (R-95).")
+    print("  Con capa de texto (contraste) .. %d" % (total - sin_capa))
+    print("  Sin capa de texto .............. %d" % sin_capa)
+    print("  PAGINAS A LEER CON GOOGLE LENS . %d  (todas, R-137)" % total)
+    print("  --> Cero OCR. Todas las paginas se leen con Google Lens, tengan o no")
+    print("      capa de texto. El volcado de texto es CONTRASTE, no reemplazo:")
+    print("      esta medido que pierde tildes y corrompe caracteres (R-126).")
+    print("      Ante discrepancia entre el volcado y lo que ve Lens, manda Lens.")
     print()
 
     print("DOSSIER VERIFICABLE (cada dato con la pagina de la que salio)")

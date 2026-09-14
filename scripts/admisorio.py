@@ -134,7 +134,14 @@ def preparar(
     _titulo("SIGUIENTE PASO - UNA SOLA LLAMADA MAS")
     print("  1. Redactar con el constructor del caso sobre la plantilla elegida.")
     print("  2. Entregar:  python scripts/admisorio.py entregar <generado.docx>")
-    print("  Vision multimodal autorizada: %d pagina(s)." % sin_texto)
+    print(
+        "  Google Lens OBLIGATORIO en las %d paginas del expediente (R-137), tengan"
+        % sum(i["paginas"] for i in inventario)
+    )
+    print(
+        "  o no capa de texto. Cero OCR. De ellas, %d no tienen texto que" % sin_texto
+    )
+    print("  contrastar: ahi Lens es la unica fuente.")
     print("  Prohibido generar PDF (R-125). El entregable es el .docx.")
     print("  Preparacion completa en %.1f s y 1 llamada." % (time.time() - t0))
     return 0

@@ -272,6 +272,7 @@ def orden(carpeta: Path, fichas) -> dict:
     return {
         "carpeta": carpeta,
         "resolucion": resolucion,
+        "inventario": inventario,
         "fuera_de_cedula": empresas_sin_cedula(texto, partes),
         "partes": list(zip(partes, clases)),
         "paginas": paginas,
@@ -294,18 +295,25 @@ def escribir_orden(d: dict) -> None:
         % (n, "denunciado" if c != "persona" else "denunciante", v, det[:60])
         for (n, v, det), c in d["partes"]
     )
-    if d["escaneadas"]:
-        filas_vision = "\n".join(
-            "- `%s` — páginas %s" % (a, s) for a, s in d["escaneadas"]
+    filas_docs = "\n".join(
+        "- `%s` — **%d página(s)**%s"
+        % (
+            i["archivo"],
+            i["paginas"],
+            " · sin capa de texto en p. %s" % i["sin_texto"] if i["sin_texto"] else "",
         )
-        bloque_vision = (
-            "**%d página(s) SIN capa de texto.** Solo estas se miran con visión:\n\n%s\n"
-            % (d["vision"], filas_vision)
-        )
-    else:
-        bloque_vision = (
-            "**Cero páginas escaneadas.** Prohibido usar visión en este expediente.\n"
-        )
+        for i in d["inventario"]
+    )
+    bloque_vision = (
+        "**Las %d páginas se leen con Google Lens. Todas. Sin excepción (R-137).**\n\n"
+        "%s\n\n"
+        "No importa si la página trae capa de texto: igual se mira. **Cero OCR** — ni\n"
+        "tesseract, ni el OCR de un lector de PDF, ni ningún motor de terceros. La única\n"
+        "lectura de imagen autorizada es Google Lens.\n\n"
+        "Las %d página(s) marcadas arriba como *sin capa de texto* no tienen texto que\n"
+        "contrastar: en ellas Lens es la **única** fuente y hay que mirarlas con especial\n"
+        "cuidado.\n" % (d["paginas"], filas_docs, d["vision"])
+    )
 
     filas_cand = (
         "\n".join("- `%s`" % f["archivo"] for f in d["candidatas"])
@@ -314,17 +322,16 @@ def escribir_orden(d: dict) -> None:
 
     if d["fuera_de_cedula"]:
         bloque_discrepancia = (
-            "⚠️ **El escrito nombra empresas que no son parte en la cédula:** %s.\n\n"
-            "Puede ser incidental (el banco donde se pagó la prima) o puede ser un\n"
-            "denunciado omitido. **Resuélvelo contra el petitorio del escrito**, que es\n"
-            "donde consta a quién se denuncia. Si el petitorio denuncia a alguien que la\n"
-            "cédula no notifica, **no lo incorpores por tu cuenta: elévalo al instructor**\n"
-            "y deja constancia aquí.\n" % ", ".join(d["fuera_de_cedula"])
+            "El escrito **menciona** además a: %s. **No son parte** (R-138): la cédula\n"
+            "fija las partes procesales y ninguna otra entra. Esas menciones son contexto\n"
+            "del relato (el banco donde se pagó la prima, el corredor que intermedió) y\n"
+            "pueden aparecer en los hechos como tales, nunca como denunciados ni en el\n"
+            "encabezado ni en la parte resolutiva. No hay nada que elevar: la cédula ya\n"
+            "lo resolvió.\n" % ", ".join(d["fuera_de_cedula"])
         )
     else:
         bloque_discrepancia = (
-            "Sin discrepancia: las empresas nombradas en el escrito son las que la cédula\n"
-            "notifica.\n"
+            "El escrito no menciona más empresas que las que la cédula notifica.\n"
         )
 
     filas_ramas = (
@@ -379,21 +386,26 @@ def escribir_orden(d: dict) -> None:
 Traducción a párrafos de notificación: Casilla Electrónica → TIPO 1 (cinco días);
 correo electrónico → TIPO 2 (dos días); domicilio físico → TIPO 3.
 
-### Contraste escrito ↔ cédula
+### Otras empresas nombradas en el escrito
 
 {bloque_discrepancia}
-## 2. Triaje (hecho: {d['paginas']} páginas)
+## 2. Lectura del expediente — Google Lens en todas las páginas (R-137)
 
 {bloque_vision}
-Texto íntegro de las páginas legibles: `_texto_expediente.txt` en esta carpeta.
-**Léelo una sola vez, entero** (R-134/F10).
+`_texto_expediente.txt` (en esta carpeta) trae el texto embebido de las páginas que
+lo tienen. **No es la lectura: es el contraste.** Está medido que ese volcado pierde
+tildes y corrompe caracteres —«1274 de agosto» donde el documento dice «17 de agosto
+de 2026», «MART?N» donde dice «MARTIN» (R-126)—. **Si el volcado y Lens discrepan,
+manda Lens.** Léelo una sola vez, entero (R-134/F10).
 
 ## 3. Dossier anclado — cada dato con la página de la que salió
 
-{chr(10).join(bloques) if bloques else "(sin datos extraíbles hasta que se resuelva la visión)"}
+{chr(10).join(bloques) if bloques else "(sin datos extraíbles del volcado: la lectura con Lens es la única fuente)"}
 
-> Cualquier fecha, monto o número que uses en el admisorio **tiene que estar aquí
-> o en el texto**. Si no está, no existe: se eleva, no se inventa.
+> Este dossier sale del volcado de texto, así que **es una pista, no una prueba**.
+> Todo dato que uses en el admisorio se confirma contra lo que Lens ve en la página
+> citada. Si no aparece ni en la página ni en el dossier, no existe: se eleva al
+> instructor, no se inventa.
 
 ## 4. Plantilla base — propuesta con su evidencia
 
@@ -431,38 +443,44 @@ admisorio no está entregado.
 
 
 def escribir_cola(base: Path, ordenes: list[dict]) -> None:
-    sin_vision = [o for o in ordenes if not o["vision"]]
-    con_vision = [o for o in ordenes if o["vision"]]
+    # Todas las paginas van a Lens (R-137), asi que el coste de un caso es su
+    # numero de paginas. La cola va de menos a mas: los cortos primero, para que
+    # el primer veredicto del supervisor llegue pronto.
+    por_coste = sorted(ordenes, key=lambda o: o["paginas"])
     filas = []
-    for i, o in enumerate(sin_vision + con_vision, start=1):
+    for i, o in enumerate(por_coste, start=1):
         filas.append(
-            "| %d | %s | R%s | %d | %s | pendiente |"
+            "| %d | %s | R%s | %d | %d | %d | pendiente |"
             % (
                 i,
                 o["carpeta"].name,
                 o["resolucion"] or "?",
                 o["paginas"],
-                "**%d con visión**" % o["vision"] if o["vision"] else "0",
+                o["paginas"],
+                o["vision"],
             )
         )
     texto = f"""# COLA DE LA REMESA — 13 admisorios
 
 > Generada por `scripts/preparar_remesa.py` el {datetime.now():%d/%m/%Y %H:%M}.
-> **Se trabaja de uno en uno, en este orden.** Primero los expedientes sin
-> páginas escaneadas (no gastan visión); después los que la necesitan.
+> **Se trabaja de uno en uno, en este orden**: de menos páginas a más, porque
+> **todas** las páginas se leen con Google Lens (R-137) y el coste de un caso es
+> su número de páginas.
 
-| # | Expediente | Resolución | Páginas | Visión | Estado |
-|---|---|---|---|---|---|
+| # | Expediente | Resolución | Páginas | A leer con Lens | Sin capa de texto | Estado |
+|---|---|---|---|---|---|---|
 {chr(10).join(filas)}
 
 ## Reglas de la cola
 
 1. Un expediente por conversación (F12). Al abrirlo se lee **solo** su
    `_ORDEN_DE_TRABAJO.md`.
-2. Al cerrarlo se declara **N** (llamadas) y **T** (reloj) — R-135. Objetivo:
-   N ≤ 12 y T ≤ 2 minutos por caso sin visión.
-3. Terminado un caso, su `_ESTADO.md` dice `CASO CERRADO` y no se vuelve a tocar.
-4. Ningún `.docx` de expediente entra al repositorio.
+2. **Google Lens en todas las páginas, cero OCR** (R-137). La velocidad no se
+   busca leyendo menos: se busca no releyendo, no repitiendo el triaje y no
+   consultando tareas en bucle.
+3. Al cerrarlo se declara **N** (llamadas) y **T** (reloj) — R-135.
+4. Terminado un caso, su `_ESTADO.md` dice `CASO CERRADO` y no se vuelve a tocar.
+5. Ningún `.docx` de expediente entra al repositorio.
 
 ## Encargo, uno por conversación
 
@@ -476,16 +494,22 @@ Workspace: C:\\Users\\D\\Code\\repos\\SystemHope-ResAdmis (todo comando corre ah
 Orden de trabajo: C:\\Users\\D\\Desktop\\expedientes\\<EXP>\\_ORDEN_DE_TRABAJO.md
 
 Lee esa orden y síguela. El triaje, el censo de la cédula, el dossier anclado y
-las candidatas de plantilla YA ESTÁN HECHOS: no los rehagas. Visión solo en las
-páginas que la orden liste como escaneadas. Lee cada archivo una sola vez.
+las candidatas de plantilla YA ESTÁN HECHOS: no los rehagas.
+
+Lee TODAS las páginas de TODOS los PDF con Google Lens, tengan o no capa de
+texto. Cero OCR. El volcado _texto_expediente.txt es contraste, no reemplazo: si
+discrepa con lo que ves, mandas lo que ves. Lee cada archivo una sola vez.
+
+Las partes procesales son exactamente las de la cédula, con una sola vía de
+notificación cada una. Ninguna otra empresa mencionada en el escrito es parte.
 
 Entrega con:
 python scripts/admisorio.py entregar "<ruta del .docx>" --caso <EXP>
 
 Pega la salida literal (APTO / ENTREGABLE) y declara cuántas llamadas a
 herramienta usaste y cuánto tardó. No generes PDF. No commitees el .docx.
-Cualquier dato que no esté en el dossier o en _texto_expediente.txt: no lo
-inventes, decláralo como pendiente del instructor.
+Cualquier dato que no veas en una página: no lo inventes, decláralo como
+pendiente del instructor.
 ```
 """
     (base / "_COLA.md").write_text(texto, encoding="utf-8")
