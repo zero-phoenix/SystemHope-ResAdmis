@@ -412,3 +412,30 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
 - R-94: **REQUERIMIENTOS EN PÁRRAFO ÚNICO (MÁXIMO 4 ÍTEMS):** La parte considerativa y resolutiva de requerimientos se condensa en un solo párrafo con máximo cuatro (4) viñetas `(i)`, `(ii)`... en infinitivo, guardando simetría estricta con la infracción principal controvertida.
 - R-95: **MANDATO CERO-OCR (VISIÓN MULTIMODAL EXCLUSIVA):** En escritos escaneados o manuscritos, queda prohibido el uso de OCR tradicional. El procesamiento se ejecuta exclusivamente con Visión Multimodal / Google Lens para garantizar cero alucinaciones en fechas, números y montos.
 
+## 77. MASTER PHOENYX: INVARIANTES POPPERIANAS DE IDENTIDAD PROCESAL, NOTIFICACIÓN COMPARTIDA Y SIMETRÍA CONSIDERATIVA-RESOLUTIVA (R-96 A R-102)
+
+- R-96: **DENOMINACIÓN DE PARTES PROCESALES EN LA CONSIDERATIVA:**
+  - **Persona natural:** En la primera mención del considerando introductorio se escribe el nombre completo con fórmula de cortesía: `el señor [Nombre Completo]` o `la señora [Nombre Completo]`. A partir de dicha mención y en todos los hechos subsiguientes, se usa obligatoriamente `el señor [Primer Apellido]` o `la señora [Primer Apellido]`. Queda terminantemente prohibido utilizar las frases 'el denunciante' o 'la denunciante' dentro del relato fáctico.
+  - **Sucesión Intestada:** Se denominará obligatoriamente `la Sucesión Intestada de [Nombre del Causante]`. A la persona fallecida se la mencionará exclusivamente como `la/el causante de la Sucesión Intestada`, quedando prohibido llamarla 'el difunto', 'el occiso' o 'el fallecido'.
+  - **Personas jurídicas:** Razón social completa en la primera mención definiendo el alias formal entre paréntesis: `Rímac Seguros y Reaseguros S.A. (en adelante, Rímac)`, `Banco de Crédito del Perú S.A. (en adelante, el Banco)`, `Pacífico Compañía de Seguros y Reaseguros S.A. (en adelante, Pacífico)`. En todos los párrafos y considerandos subsiguientes es obligatorio el uso exclusivo del alias definido (`Rímac`, `Pacífico`, `el Banco`).
+- R-97: **TEOREMA DE SIMETRÍA Y CONGRUENCIA TEXTUAL (CONSIDERATIVA VS RESOLUTIVA):**
+  - El núcleo fáctico de la imputación debe ser **idéntico palabra por palabra** entre la Sección II (De la Admisión a Trámite) y los artículos de imputación en la Sección RESUELVE (`PRIMERO:`, `SEGUNDO:`).
+  - En Considerativa (Sección II): `...considera que el hecho denunciado, consistente en que [NÚCLEO FÁCTICO], involucraría una presunta afectación a sus expectativas... Por consiguiente, corresponde calificar el hecho... como una presunta infracción al [NORMA].`
+  - En Resolutiva (`PRIMERO:` / `SEGUNDO:`): `Presunta infracción a los artículos [NORMA] de la Ley 29571... en tanto [PROVEEDOR] [NÚCLEO FÁCTICO].`
+  - La alteración de una sola palabra rompe la congruencia procesal exigida por el artículo 10° del TUO de la LPAG y vicia de nulidad el acto administrativo.
+- R-98: **REGLA DE DOMICILIO COMPARTIDO Y NOTIFICACIÓN CONJUNTA EN PÁRRAFO ÚNICO:**
+  - Cuando dos o más partes procesales compartan el mismo domicilio físico, casilla electrónica o correo electrónico (v. gr., denunciante y denunciado notificados por correo, co-denunciantes con domicilio/correo común, o dos entidades del mismo grupo financiero con Casilla Electrónica), **se les debe agrupar obligatoriamente en un único artículo resolutivo consolidado**, en estricta aplicación del principio de economía y celeridad procesal.
+  - Se redacta en plural concordado: `requerir a [Parte 1] y a [Parte 2] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciban la notificación en sus bandejas de correo electrónico, efectúen la confirmación de recepción... de conformidad con el segundo párrafo del numeral 4 del artículo 20 del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarles conforme al numeral 1 del artículo 20 del citado cuerpo normativo.`
+- R-99: **DUALIDAD DE REQUERIMIENTOS AL PROVEEDOR EN LA PARTE RESOLUTIVA:**
+  - Todo admisorio debe articular dos tipos de requerimiento al proveedor:
+    1. *Requerimiento Administrativo-Estructural (Artículo TERCERO):* Plazo improrrogable de 5 días hábiles para acreditar inscripción en Registros Públicos, vigencia de poder de representante legal, número de RUC, fijación de domicilio procesal y acreditación de condición MYPE (Art. 110 del Código).
+    2. *Requerimiento Probatorio Específico de la Controversia (Artículo CUARTO o SEXTO):* Redactado en **párrafo único con sub-incisos en infinitivo `(a)`, `(b)`, `(c)`, `(d)`** (máximo 4 viñetas) exigiendo póliza matriz, certificado, grabaciones de voz, estado de cuenta y cartas de respuesta al reclamo.
+- R-100: **ANCLAJE Y FÓRMULA DE TRASLADO DE OTRO ÓRGANO (NOTA AL PIE PÁGINA 1):**
+  - En casos donde la denuncia proceda de otro órgano resolutivo (ORPS 1, ORPS 2, CC2, sedes regionales u oficinas desconcentradas), se inserta un superíndice de nota al pie sobre la palabra `denuncia` o `escrito` en el numeral 1 de Hechos: `Mediante la denuncia¹ del [fecha]...`
+  - La nota al pie número 1 debe contener obligatoriamente la fórmula: `Denuncia remitida a esta Comisión mediante [TIPO_DOC] [NÚMERO] de fecha [FECHA_EMISIÓN], [recibida/recepcionada] el [FECHA_RECEPCIÓN].`
+- R-101: **INFORMACIÓN OBLIGATORIA SOBRE GRADUACIÓN DE SANCIONES Y ATENUANTES (ARTS. 110 Y 112):**
+  - Debe incorporarse un artículo resolutivo específico que informe a las partes sobre la escala sancionadora (hasta 450 UIT) y la consideración del allanamiento o reconocimiento de pretensiones como circunstancia atenuante.
+- R-102: **FACULTAD DE CONCILIACIÓN PREVIA Y APERCIBIMIENTO DE INASISTENCIA (ART. 29 D.LEG. 807):**
+  - Debe incorporarse un artículo resolutivo que informe a las partes su derecho a solicitar audiencia de conciliación antes de la resolución final, con apercibimiento expreso de tener por no realizada la audiencia y levantar acta de inasistencia si el representante no cuenta con poder especial con firma legalizada ante Notario Público.
+
+

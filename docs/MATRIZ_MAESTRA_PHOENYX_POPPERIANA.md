@@ -196,3 +196,37 @@ El agente procesa cada escrito mediante **Visión Multimodal Pura (Google Lens /
 - **Mandato Estricto:** Todo número de tarjeta de crédito o número de crédito bancario (hipotecario, vehicular, personal, mype, etc.) debe tener sus dígitos centrales enmascarados por confidencialidad.
 - **Ejemplo Oficial:** "el credito hipotecario 123xxxxxx879", "crédito mype 102xxxxxx172", "tarjeta 455xxxxxx545".
 - **EXCEPCIÓN NO NEGOCIABLE:** Las **pólizas y certificados de seguro NUNCA se censuran**; su numeración se consigna íntegra y completa.
+
+---
+
+## 6. Invariantes de Identidad Procesal, Notificación Compartida y Simetría Considerativa-Resolutiva (R-96 a R-102)
+
+### R-96: Denominación de Partes Procesales en la Considerativa
+- **Persona natural:** Nombre completo en el primer considerando (`el señor [Nombre] [Apellidos]` o `la señora [Nombre] [Apellidos]`) y a partir de allí exclusivamente `el señor [Primer Apellido]` o `la señora [Primer Apellido]`. Prohibido 'el denunciante' o 'la denunciante' en hechos y considerandos.
+- **Sucesión Intestada:** Obligatorio `la Sucesión Intestada de [Nombre]`. Al fallecido se le denomina `la/el causante de la Sucesión Intestada`. Prohibido 'el difunto' o 'el occiso'.
+- **Personas jurídicas:** Razón social completa en la primera mención fijando el alias institucional: `Rímac Seguros y Reaseguros S.A. (en adelante, Rímac)`, `Banco de Crédito del Perú S.A. (en adelante, el Banco)`, `Pacífico Compañía de Seguros y Reaseguros S.A. (en adelante, Pacífico)`. En lo sucesivo, uso exclusivo del alias.
+
+### R-97: Teorema de Simetría y Congruencia Textual (Espejo Verbatim)
+- El núcleo fáctico de la imputación debe ser **idéntico palabra por palabra** entre la Sección II (De la Admisión a Trámite) y la Sección RESUELVE (`PRIMERO:`, `SEGUNDO:`).
+- En Considerativa (Sección II): `...considera que el hecho denunciado, consistente en que [NÚCLEO FÁCTICO], involucraría una presunta afectación... Por consiguiente, corresponde calificar el hecho... como una presunta infracción al [NORMA].`
+- En Resolutiva (`PRIMERO:` / `SEGUNDO:`): `Presunta infracción a los artículos [NORMA] de la Ley 29571... en tanto [PROVEEDOR] [NÚCLEO FÁCTICO].`
+- Cualquier discrepancia rompe el principio de congruencia procesal (Art. 10 del TUO LPAG) y vicia el acto.
+
+### R-98: Regla de Domicilio Compartido y Notificación Conjunta en Párrafo Único
+- Cuando dos o más partes compartan el mismo domicilio o canal de notificación (correo electrónico, domicilio físico común, o dos empresas del mismo grupo con Casilla Electrónica), **se les debe agrupar obligatoriamente en un único artículo resolutivo consolidado**.
+- Redacción en plural concordado: `requerir a [Parte 1] y a [Parte 2] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciban la notificación en sus bandejas de correo electrónico, efectúen la confirmación de recepción... de conformidad con el segundo párrafo del numeral 4 del artículo 20 del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarles conforme al numeral 1 del artículo 20 del citado cuerpo normativo.`
+
+### R-99: Dualidad de Requerimientos al Proveedor en la Resolutiva
+1. *Requerimiento Administrativo-Estructural (Artículo TERCERO):* 5 días hábiles para acreditar Registros Públicos, poderes vigentes, RUC, domicilio procesal y condición MYPE (Art. 110 del Código).
+2. *Requerimiento Probatorio Específico (Artículo CUARTO/SEXTO):* Redactado en **párrafo único con sub-incisos en infinitivo `(a)`, `(b)`, `(c)`, `(d)`** (máx. 4 viñetas) exigiendo póliza, certificados, grabaciones, cartas y estados de cuenta.
+
+### R-100: Anclaje y Fórmula de Traslado desde Otro Órgano (Nota al Pie Página 1)
+- Cuando el expediente provenga de otro órgano (ORPS, CC2, sedes regionales), se coloca un superíndice de nota al pie sobre la palabra `denuncia` o `escrito` en el numeral 1 de Hechos: `Mediante la denuncia¹ del [fecha]...`
+- Fórmula de nota al pie: `Denuncia remitida a esta Comisión mediante [TIPO_DOC] [NÚMERO] de fecha [FECHA_EMISIÓN], [recibida/recepcionada] el [FECHA_RECEPCIÓN].`
+
+### R-101: Escala de Sanciones y Atenuantes (Arts. 110 y 112)
+- Artículo resolutivo obligatorio informando sobre la escala de hasta 450 UIT y la consideración del allanamiento/reconocimiento como atenuante.
+
+### R-102: Audiencia de Conciliación y Poder Notarial (Art. 29 D.Leg. 807)
+- Artículo resolutivo obligatorio informando sobre la facultad de solicitar conciliación antes de la resolución final, con apercibimiento de inasistencia si no se cuenta con poder con firma legalizada ante Notario Público.
+
