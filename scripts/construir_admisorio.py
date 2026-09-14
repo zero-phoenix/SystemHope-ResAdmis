@@ -161,12 +161,33 @@ def texto_plano(datos: dict[str, bytes]) -> str:
     return " ".join(trozos)
 
 
+MESES = (
+    "enero|febrero|marzo|abril|mayo|junio|julio|agosto|"
+    "setiembre|septiembre|octubre|noviembre|diciembre"
+)
+RE_FECHA = re.compile(r"\d{1,2} de (?:%s) de \d{4}" % MESES, re.I)
+RE_MONTO = re.compile(r"(?:US\$|S/)\s?[\d][\d\s.,]{2,}\d")
+RE_CIFRA = re.compile(r"\b\d{6,}\b")  # polizas, siniestros, RUC, certificados
+
+
+def datos_duros(texto: str) -> set[str]:
+    """Fechas, montos y numeros largos: lo que un admisorio no puede heredar."""
+    duros: set[str] = set()
+    for patron in (RE_FECHA, RE_MONTO, RE_CIFRA):
+        duros.update(
+            re.sub(r"\s+", " ", m.group(0)).strip() for m in patron.finditer(texto)
+        )
+    return duros
+
+
 def auditar_residuos(
     texto: str,
     reemplazos: dict[str, str],
     hechos: dict[str, int],
     plantilla: Path,
     partes: list[str],
+    duros_plantilla: set[str] | None = None,
+    conservar: list[str] | None = None,
 ) -> list[str]:
     fallos: list[str] = []
 
@@ -202,6 +223,25 @@ def auditar_residuos(
     for f in sorted(set(RE_FALTA.findall(texto))):
         fallos.append("marcador sin resolver: %s" % f)
 
+    # Lo que ninguna lista de marcas detecta: una fecha, un monto o un numero de
+    # poliza del caso de origen que sobrevivio al mapa. Es residuo indistinguible
+    # de un dato real, y por eso se declara uno por uno.
+    if duros_plantilla:
+        permitido = set(conservar or [])
+        permitido.update(reemplazos.values())
+        sobreviven = sorted(
+            d
+            for d in duros_plantilla
+            if d in texto and not any(d in p for p in permitido)
+        )
+        for d in sobreviven[:15]:
+            fallos.append(
+                "dato duro heredado de la plantilla: '%s' — o lo reemplazas, o lo "
+                'declaras en "conservar" si de verdad es de este caso' % d
+            )
+        if len(sobreviven) > 15:
+            fallos.append("...y %d datos duros heredados mas" % (len(sobreviven) - 15))
+
     return fallos
 
 
@@ -221,6 +261,7 @@ def construir(mapa: dict) -> int:
     with zipfile.ZipFile(plantilla) as z:
         nombres = z.namelist()
         datos = {n: z.read(n) for n in nombres}
+    duros_plantilla = datos_duros(texto_plano(datos))
 
     objetivo = [
         n
@@ -247,7 +288,15 @@ def construir(mapa: dict) -> int:
     print("  Sin abrir Word. Ningun proceso WINWORD.EXE involucrado.")
     print()
 
-    fallos = auditar_residuos(texto_plano(datos), reemplazos, hechos, plantilla, partes)
+    fallos = auditar_residuos(
+        texto_plano(datos),
+        reemplazos,
+        hechos,
+        plantilla,
+        partes,
+        duros_plantilla,
+        mapa.get("conservar", []),
+    )
     print("AUDITORIA DE RESIDUOS DEL CASO DE ORIGEN")
     print("-" * 78)
     if not fallos:
