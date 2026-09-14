@@ -17,3 +17,16 @@ automatizacion_antigravity/casos/*.docx
 productos (resoluciones) elaborada por google antigravity/ADM *.docx
 dist/
 build/
+
+# Artefactos de trabajo del agente. El 14/09/2026 un mapa.json con el nombre
+# completo de dos consumidores entro al repositorio publico en un `git add -A`.
+# No se commitean nunca: la guardia los bloquea y ademas se ignoran aqui.
+mapa*.json
+tpl*.txt
+test_match.py
+_texto_expediente.txt
+_ORDEN_DE_TRABAJO.md
+_CEDULA.md
+_ESTADO.md
+_COLA.md
+_paginas/

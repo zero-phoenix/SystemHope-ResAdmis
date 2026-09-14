@@ -44,6 +44,181 @@ SENALES_PERSONALES = (
 
 NOMBRE_ADMISORIO = re.compile(r"(ADMISORIO|ADM[_ -]|RES[_ ]?\d+)", re.I)
 
+# La guardia solo miraba dentro de los .docx, y por ahi se colo lo que tenia que
+# parar. El 14/09/2026 un `mapa.json` de trabajo del agente, con el nombre
+# completo del denunciante y el del consumidor de la plantilla, entro al
+# repositorio publico en un `git add -A`. Un `.json` o un `.txt` de trabajo lleva
+# exactamente los mismos datos que el `.docx`; lo unico que cambia es que es mas
+# facil de leer.
+TEXTO_REVISABLE = (".json", ".txt", ".md", ".py", ".csv", ".xml", ".yaml", ".yml")
+
+# Nombre propio completo en mayusculas: tres o mas palabras seguidas. Es la forma
+# en que un admisorio nombra a las partes y a los consumidores de las plantillas.
+NOMBRE_COMPLETO = re.compile(
+    r"\b[A-ZÁÉÍÓÚÑ][A-ZÁÉÍÓÚÑ]+(?:\s+[A-ZÁÉÍÓÚÑ][A-ZÁÉÍÓÚÑ]+){2,}\b"
+)
+
+# Un nombre propio no lleva preposiciones ni sustantivos institucionales. Basta
+# con que una sola palabra de la secuencia este aqui para saber que no es una
+# persona: asi «BANCO DE CREDITO» o «DIRECTRICES MAESTRAS DEL SISTEMA» dejan de
+# dar falso positivo sin necesidad de mantener una lista de entidades.
+PALABRAS_NO_PERSONALES = {
+    "DE",
+    "DEL",
+    "LA",
+    "EL",
+    "LOS",
+    "LAS",
+    "Y",
+    "O",
+    "EN",
+    "AL",
+    "POR",
+    "PARA",
+    "CON",
+    "SIN",
+    "SOBRE",
+    "SEGUN",
+    "SEGÚN",
+    "BANCO",
+    "SEGUROS",
+    "SEGURO",
+    "COMPANIA",
+    "COMPAÑIA",
+    "COMPAÑÍA",
+    "REASEGUROS",
+    "COMISION",
+    "COMISIÓN",
+    "PROTECCION",
+    "PROTECCIÓN",
+    "CONSUMIDOR",
+    "INDECOPI",
+    "INSTITUTO",
+    "NACIONAL",
+    "DEFENSA",
+    "COMPETENCIA",
+    "PROPIEDAD",
+    "INTELECTUAL",
+    "CODIGO",
+    "CÓDIGO",
+    "TEXTO",
+    "UNICO",
+    "ÚNICO",
+    "ORDENADO",
+    "LEY",
+    "DECRETO",
+    "SUPREMO",
+    "LEGISLATIVO",
+    "RESOLUCION",
+    "RESOLUCIÓN",
+    "EXPEDIENTE",
+    "SISTEMA",
+    "GUARDIA",
+    "PUERTA",
+    "DIRECTRICES",
+    "MAESTRAS",
+    "MAESTRO",
+    "PLANTILLA",
+    "SECRETARIA",
+    "SECRETARÍA",
+    "TECNICA",
+    "TÉCNICA",
+    "ADMISORIO",
+    "DENUNCIA",
+    "CASILLA",
+    "ELECTRONICA",
+    "ELECTRÓNICA",
+    "CORREO",
+    "DOMICILIO",
+    "PROCESAL",
+    "POLIZA",
+    "PÓLIZA",
+    "CERTIFICADO",
+    "SINIESTRO",
+    "COBERTURA",
+    "PRIMERO",
+    "SEGUNDO",
+    "TERCERO",
+    "CUARTO",
+    "QUINTO",
+    "SEXTO",
+    "SEPTIMO",
+    "SÉPTIMO",
+    "OCTAVO",
+    "NOVENO",
+    "DECIMO",
+    "DÉCIMO",
+    "HECHOS",
+    "MATERIAS",
+    "DENUNCIANTE",
+    "DENUNCIADO",
+    "LIMA",
+    "PERU",
+    "PERÚ",
+    "SAC",
+    "SAA",
+    "SA",
+}
+
+# Firmas institucionales: son cargos publicos, no datos de un consumidor.
+NOMBRES_INSTITUCIONALES = (
+    "LUISA ANALI SILVA MALPARTIDA",
+    "EVELING ROA QUISPE",
+    "MARIA GRACIELA REJAS JIMENEZ",
+    "MARÍA GRACIELA REJAS JIMÉNEZ",
+)
+
+
+_TRACKED: set[str] | None = None
+
+
+def ya_rastreado(norm: str) -> bool:
+    """Si el archivo ya estaba en el repositorio, alguien lo reviso en su dia."""
+    global _TRACKED
+    if _TRACKED is None:
+        salida = subprocess.run(
+            ["git", "ls-files"], capture_output=True, cwd=RAIZ
+        ).stdout.decode("utf-8", "replace")
+        _TRACKED = {ln.strip() for ln in salida.splitlines() if ln.strip()}
+    return norm in _TRACKED
+
+
+def revisar_texto(ruta: Path, norm: str) -> list[str]:
+    """Busca datos personales en un archivo de texto de trabajo."""
+    try:
+        contenido = ruta.read_text(encoding="utf-8", errors="replace")
+    except OSError:
+        return []
+
+    violaciones = []
+    for patron in SENALES_PERSONALES:
+        if patron.search(contenido):
+            return [
+                "FUGA: '%s' contiene datos personales identificables (%s). "
+                "Los archivos de trabajo del agente no entran al repositorio."
+                % (norm, patron.pattern[:34])
+            ]
+
+    # La busqueda de nombres propios en prosa libre no sabe distinguir «SOLO ESTE
+    # ARCHIVO» de «PABLO SANTIAGO ESPINOZA CANAL», asi que se limita a los
+    # archivos que **entran nuevos** al repositorio, que es donde ocurrio la fuga.
+    # Lo ya rastreado se reviso en su momento y no se vuelve a poner en duda.
+    if ya_rastreado(norm):
+        return violaciones
+
+    for m in NOMBRE_COMPLETO.finditer(contenido):
+        nombre = m.group(0)
+        if any(p in PALABRAS_NO_PERSONALES for p in nombre.split()):
+            continue
+        if any(inst in nombre or nombre in inst for inst in NOMBRES_INSTITUCIONALES):
+            continue
+        violaciones.append(
+            "FUGA: '%s' nombra a una persona ('%s'). Los mapas, volcados y "
+            "borradores de trabajo se quedan fuera del repositorio." % (norm, nombre)
+        )
+        break
+    return violaciones
+
 
 def texto_docx(ruta: Path) -> str:
     try:
@@ -88,6 +263,13 @@ def revisar(rutas: list[str]) -> list[str]:
                 "FUGA: '%s' es material de expediente en una ruta de trabajo. "
                 "Este repositorio es publico y el historial no se borra." % norm
             )
+            continue
+
+        if ruta.suffix.lower() in TEXTO_REVISABLE and ruta.exists():
+            # Las plantillas y la documentacion del propio sistema quedan fuera:
+            # sus ejemplos ya estan anonimizados y se revisan a mano.
+            if not norm.startswith(("plantillas_maestras/", "modelos/", "docs/")):
+                violaciones.extend(revisar_texto(ruta, norm))
             continue
 
         if ruta.suffix.lower() != ".docx" or not ruta.exists():
