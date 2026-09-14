@@ -451,7 +451,7 @@ anota aquí por qué.
 ## 5. Entrega — dos llamadas, ni una más
 
 ```bash
-python scripts/admisorio.py entregar <RES_0{d['resolucion'] or 'N'}_{carpeta.name}_CC1_ADMISORIO.docx> --caso {carpeta.name.split('-')[0]}
+python scripts/admisorio.py entregar "{carpeta}/ADM {carpeta.name} R{d['resolucion'] or 'N'}.docx" --caso {carpeta.name.split('-')[0]}
 ```
 
 Debe decir `APTO (0 falsadores)` y `ENTREGABLE`. Sin esa salida literal el
@@ -531,7 +531,7 @@ Las partes procesales son exactamente las de la cédula, con una sola vía de
 notificación cada una. Ninguna otra empresa mencionada en el escrito es parte.
 
 Entrega con:
-python scripts/admisorio.py entregar "<ruta del .docx>" --caso <EXP>
+python scripts/admisorio.py entregar "C:/Users/D/Desktop/expedientes/<EXP>/ADM <EXP> R<N>.docx" --caso <EXP>
 
 Pega la salida literal (APTO / ENTREGABLE) y declara cuántas llamadas a
 herramienta usaste y cuánto tardó. No generes PDF. No commitees el .docx.

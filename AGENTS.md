@@ -4,6 +4,7 @@
 > **AUTORIDAD:** Indecopi Comisión de Protección al Consumidor  1 (CC1)  
 > **NORMA MARCO:** Decreto Supremo 006-2026-JUS  
 > **PROTOCOLO DE LECTURA (R-137):** cero OCR, **Google Lens en todas las páginas**, tengan o no capa de texto. `scripts/extraer_expediente.py` va primero, pero no para ahorrar lectura: da el número real de páginas (R-136), el dossier anclado y el texto embebido, que sirve de **contraste**. Si el volcado y lo que Lens ve discrepan, **manda Lens**.  
+> **NOMBRE DEL ENTREGABLE (mandato del instructor, 14/09/2026):** `ADM <EXPEDIENTE> R<N>.docx`, donde `<N>` es el número de resolución **que fija la cédula** del expediente. Ejemplo: `ADM 3122-2026 R1.docx`.  
 > **PROTOCOLO DE ENTREGA:** `scripts/verificar_admisorio.py` debe decir `APTO`. Sin esa salida, el admisorio no está entregado.  
 > **REPOSITORIO:** https://github.com/zero-phoenix/SystemHope-ResAdmis
 
