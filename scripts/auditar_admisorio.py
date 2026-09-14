@@ -95,10 +95,21 @@ def texto_docx(ruta: Path) -> str:
 def texto_expediente(carpeta: Path) -> str:
     volcado = carpeta / "_texto_expediente.txt"
     if volcado.exists():
-        return volcado.read_text(encoding="utf-8", errors="replace")
-    return "\n".join(
-        "\n".join(EX.paginas_de_pdf(p)) for p in sorted(carpeta.glob("*.pdf"))
-    )
+        fuente = volcado.read_text(encoding="utf-8", errors="replace")
+    else:
+        fuente = "\n".join(
+            "\n".join(EX.paginas_de_pdf(p)) for p in sorted(carpeta.glob("*.pdf"))
+        )
+    # En paginas escaneadas los datos duros solo existen en la imagen; la
+    # constancia de la lectura con Lens (_LECTURA.md, R-137) es la que los
+    # registra. Sin ella como fuente, todo dato verdadero de una pagina sin capa
+    # de texto seria un falso «sin ancla» (mismo defecto de raiz que R-136
+    # corrigio en el triaje). La fidelidad de la constancia la garantiza la
+    # relectura del supervisor.
+    lectura = carpeta / "_LECTURA.md"
+    if lectura.exists():
+        fuente += "\n" + lectura.read_text(encoding="utf-8", errors="replace")
+    return fuente
 
 
 def datos_duros(texto: str) -> list[tuple[str, str]]:
