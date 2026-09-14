@@ -260,9 +260,20 @@ def orden(carpeta: Path, fichas) -> dict:
     escaneadas = [(i["archivo"], i["sin_texto"]) for i in inventario if i["sin_texto"]]
     n_vision = sum(len(s) for _a, s in escaneadas)
 
-    texto = "\n".join(
-        "\n".join(EX.paginas_de_pdf(p)) for p in sorted(carpeta.glob("*.pdf"))
-    )
+    # El volcado que la orden cita como contraste tiene que existir: sin el, el
+    # agente sale a buscar un archivo que no esta y gasta llamadas en ello.
+    partes_texto = []
+    with (carpeta / "_texto_expediente.txt").open("w", encoding="utf-8") as fh:
+        for pdf in sorted(carpeta.glob("*.pdf")):
+            for n, t in enumerate(EX.paginas_de_pdf(pdf), 1):
+                fh.write("\n\n===== %s p.%d =====\n" % (pdf.name, n))
+                fh.write(
+                    t
+                    if t.strip()
+                    else "[PAGINA SIN CAPA DE TEXTO: leer con Google Lens]"
+                )
+                partes_texto.append(t)
+    texto = "\n".join(partes_texto)
     clases = [clasificar(n) for n, _v, _d in partes]
     prov = proveedor_tipo(clases)
     ramas = ramas_probables(texto)

@@ -31,7 +31,7 @@ para buscar una regla concreta, no se leen enteros antes de empezar.
 
 Los scripts sueltos (`extraer_expediente.py`, `verificar_admisorio.py`,
 `guardia_admisorio.py`) siguen existiendo, pero llamarlos por separado gasta llamadas de
-mas: **cada llamada a herramienta cuesta 7,5 s de reloj, haga o no trabajo** (medido, ver
+mas: **cada llamada a herramienta cuesta ~17,6 s de reloj, haga o no trabajo** (medido, ver
 §10 de `docs/PLAN_VELOCIDAD_SIN_COLGARSE.md`).
 
 **Si la carpeta del expediente trae un `_ORDEN_DE_TRABAJO.md`, ese archivo manda sobre este
@@ -171,11 +171,14 @@ Se entrega con `APTO`, pegando la salida literal.
   F14 de `docs/PLAN_VELOCIDAD_SIN_COLGARSE.md`). Prohibido releer lo ya leído o abrir las
   605 plantillas a mano: la base se elige por índice en una llamada.
 - **La ley de la latencia (R-134, medida):** la sesión del Exp. 3054-2026 duró 1178 s con
-  157 llamadas — **7,5 s por llamada, haga o no trabajo**; los huecos de decisión suman
-  6 s en total. El cómputo útil de un admisorio es ~12 s. Luego **T ≈ 7,5 s × N**: la
-  única palanca es bajar N agrupando trabajo por llamada, no optimizar CPU.
+  **67 llamadas reales** — **17,6 s por llamada, haga o no trabajo**; los huecos de
+  decisión suman 6 s en total. El cómputo útil de un admisorio es ~12 s. Luego
+  **T ≈ 17,6 s × N**: la única palanca es bajar N agrupando trabajo por llamada, no
+  optimizar CPU. (La versión anterior de esta regla decía 157 llamadas y 7,5 s: contaba
+  pasos de la traza en vez de llamadas. Se corrigió el 14/09/2026.)
 - **Presupuesto declarado (R-135):** al cerrar un caso se declara **N** (llamadas) y **T**
-  (reloj). Objetivo: N ≤ 12 y T ≤ 2 minutos.
+  (reloj), contando N por `call_id`. Objetivo: N ≤ 12 y T ≤ 4 minutos en un
+  expediente corto; los largos escalan con sus páginas.
 - **Cwd y scorecard (F8, F9, F13):** todo comando corre desde la raíz del repositorio, con
   el primer paso `python scripts/admisorio.py preparar <carpeta>` en absoluto (el script
   fija la raíz por construcción). Prohibido buscar scripts del repositorio con `-Recurse`

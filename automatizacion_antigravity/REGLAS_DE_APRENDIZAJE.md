@@ -799,11 +799,23 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
 > (14/09/2026), leyendo las marcas de tiempo de cada paso de la base de conversaciones
 > del agente. No es una estimacion: es el reloj.
 
-- R-134: **CADA LLAMADA CUESTA 7,5 s, HAGA O NO TRABAJO. EL PUNTO DE ENTRADA ES UNICO:**
-  - *Medicion:* 1178 s de ventana / 157 llamadas = **7,5 s por llamada**. Los huecos de
-    decision entre pasos suman **6 s en toda la sesion**; la mediana de un `manage_task`
-    que no produce nada (13 s) iguala a la de un paso que genera documento. El computo
-    util de un admisorio completo es **~12 s**. Luego **T ≈ 7,5 s × N**.
+- R-134: **CADA LLAMADA CUESTA ~17,6 s, HAGA O NO TRABAJO. EL PUNTO DE ENTRADA ES UNICO:**
+  - **CIFRA CORREGIDA EL 14/09/2026.** La primera version de esta regla decia 7,5 s por
+    llamada sobre 157 llamadas. Estaba mal **por un defecto del instrumento, no del
+    agente**: `auditar_trayectoria.py` contaba *pasos* de la traza, y una misma llamada
+    aparece en varios (la invocacion, el resultado, a veces un eco). Contado por
+    identificador de llamada, la sesion del Exp. 3054 fueron **67 llamadas**, no 157, y
+    **17 operaciones evitables**, no 70. El auditor ya cuenta por `call_id`.
+  - *Medicion corregida:* 1178 s de ventana / **67 llamadas** = **17,6 s por llamada**.
+    Los huecos de decision entre pasos suman **6 s en toda la sesion**: el reloj esta
+    dentro de las llamadas, no en pensar. El computo util de un admisorio completo es
+    **~12 s**. Luego **T ≈ 17,6 s × N**.
+  - *Lo que no cambia:* la forma de la ley y su consecuencia. El tiempo lo fija el
+    numero de llamadas y la unica palanca es agrupar trabajo por llamada. Lo que cambia
+    es la constante, y con ella el presupuesto: **12 llamadas ≈ 3,5 minutos**, no 90 s.
+  - *Leccion sobre el propio supervisor:* una metrica que nadie ha falsado no es una
+    medicion, es una creencia con decimales. El instrumento se audita como se audita al
+    agente.
   - *Mandato:* el caso se abre con `python scripts/admisorio.py preparar <carpeta>` y se
     cierra con `python scripts/admisorio.py entregar <docx> --caso <n>`. La primera
     sustituye a seis llamadas; la segunda, a cuatro. Llamar a `extraer_expediente.py`,
@@ -813,9 +825,13 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
     propuesta de optimizacion justificada en CPU y no en numero de llamadas.
 
 - R-135: **AL CERRAR UN CASO SE DECLARAN N (LLAMADAS) Y T (RELOJ):**
-  - Objetivo: **N ≤ 12** y **T ≤ 2 minutos** desde el triaje hasta `ENTREGABLE`.
-  - *Falsador:* un caso entregado sin declarar N y T, o que supere los 2 minutos sin
-    causa identificada (pagina escaneada, control ausente, contradiccion elevada).
+  - Objetivo: **N ≤ 12** y **T ≤ 4 minutos** desde el triaje hasta `ENTREGABLE` en un
+    expediente corto. El limite sale de la constante corregida de R-134 (17,6 s × 12 ≈
+    3,5 min) mas el computo. Un expediente largo escala con sus paginas: la lectura con
+    Lens de todas las paginas (R-137) es parte del coste y no se recorta.
+  - **N se cuenta por identificador de llamada**, no por pasos de la traza.
+  - *Falsador:* un caso entregado sin declarar N y T, o que supere su presupuesto sin
+    causa identificada (numero de paginas, control ausente, contradiccion elevada).
 
 ## 83. EL TRIAJE CUENTA PAGINAS, NO TEXTO (R-136)
 

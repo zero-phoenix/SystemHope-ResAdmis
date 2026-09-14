@@ -34,6 +34,7 @@ from pathlib import Path
 RUTA_CONVERSACIONES = Path.home() / ".gemini" / "antigravity" / "conversations"
 
 TOOL = re.compile(rb"call_\d+.{0,3}?([a-z_]{3,})", re.S)
+LLAMADA = re.compile(rb"(call_\d+)")
 VIEW = re.compile(rb"view_file.{0,400}?AbsolutePath\":\"(.{4,240}?)\",\"", re.S)
 CMD = re.compile(rb"run_command.{0,80}?CommandLine\":\"(.{2,400}?)\",\"", re.S)
 CWD = re.compile(rb"Cwd\":\"(.{2,200}?)\",\"")
@@ -82,29 +83,53 @@ def auditar(filas: list[tuple], caso: str | None) -> int:
     relecturas = 0
     polls_tarea: Counter[str] = Counter()
 
+    # Una misma llamada aparece en varios pasos de la traza (la invocacion, el
+    # resultado y a veces un eco). Contar pasos inflaba el censo ~2,3x: la sesion
+    # del Exp. 3054 figuraba con 157 llamadas cuando en realidad fueron 67. La
+    # unidad correcta es el identificador de llamada, y cada uno cuenta una vez.
+    vistas_llamadas: set[bytes] = set()
+    vistas_rutas: set[tuple[bytes, str]] = set()
+    vistas_cmds: set[tuple[bytes, str]] = set()
+
     for idx, step_type, payload, task, _meta in filas:
         if idx < desde:
             continue
         blob = (payload or b"") + (task or b"")
-        m = TOOL.search(payload or b"")
-        if m:
-            herramientas[m.group(1).decode()] += 1
-        if b"manage_task" in blob:
-            for tid in set(re.findall(rb"task-(\d+)", blob)):
-                polls_tarea[tid.decode()] += 1
+        llamadas_aqui = [m.group(1) for m in LLAMADA.finditer(payload or b"")]
+        cid = llamadas_aqui[0] if llamadas_aqui else b""
+        nueva = bool(cid) and cid not in vistas_llamadas
+        if nueva:
+            vistas_llamadas.add(cid)
+            m = TOOL.search(payload or b"")
+            if m:
+                herramientas[m.group(1).decode()] += 1
+            if b"manage_task" in blob:
+                for tid in set(re.findall(rb"task-(\d+)", blob)):
+                    polls_tarea[tid.decode()] += 1
+        # Rutas y comandos se atribuyen a su llamada: la misma ruta repetida en el
+        # paso de resultado no es una relectura.
         for ruta in set(re.findall(VIEW, blob)):
             r = ruta.decode("utf-8", "replace")
+            clave = (cid, r)
+            if clave in vistas_rutas:
+                continue
+            vistas_rutas.add(clave)
             vistos[r] += 1
             if r.lower().endswith(".png"):
                 vision.append(idx)
         for cmd in re.findall(CMD, blob):
             c = cmd.decode("utf-8", "replace")
+            clave = (cid, c)
+            if clave in vistas_cmds:
+                continue
+            vistas_cmds.add(clave)
             if re.search(r"-Recurse", c, re.I) and re.search(
                 r"C:\\\\?Users|C:\\\\?Usuarios", c, re.I
             ):
                 recursivas.append(idx)
-        for w in re.findall(CWD, blob):
-            cwds[w.decode("utf-8", "replace")] += 1
+        if nueva:
+            for w in set(re.findall(CWD, blob)):
+                cwds[w.decode("utf-8", "replace")] += 1
 
     relecturas = sum(n - 1 for n in vistos.values() if n > 1)
     repetidos = [r for r, n in vistos.items() if n > 1]
@@ -118,14 +143,30 @@ def auditar(filas: list[tuple], caso: str | None) -> int:
     print("AUDITORIA DE TRAYECTORIA")
     print("=" * 78)
     print("  Pasos auditados desde idx %d" % desde)
-    print("  Herramientas:", ", ".join("%s=%d" % kv for kv in herramientas.most_common()))
+    print(
+        "  Herramientas:", ", ".join("%s=%d" % kv for kv in herramientas.most_common())
+    )
     print()
-    print("  %s  vision sobre imagenes ................ %d" % (veredicto(not vision), len(vision)))
-    print("  %s  relecturas del mismo archivo ........ %d" % (veredicto(relecturas == 0), relecturas))
-    print("  %s  busquedas recursivas de C:\\Users .... %d" % (veredicto(not recursivas), len(recursivas)))
-    print("  %s  espera activa (polls de mas) ........ %d" % (veredicto(polls_extra == 0), polls_extra))
-    print("  %s  llamadas a herramienta .............. %d (objetivo <= 12 fuera de triaje)"
-          % (veredicto(total_llamadas <= 40), total_llamadas))
+    print(
+        "  %s  vision sobre imagenes ................ %d"
+        % (veredicto(not vision), len(vision))
+    )
+    print(
+        "  %s  relecturas del mismo archivo ........ %d"
+        % (veredicto(relecturas == 0), relecturas)
+    )
+    print(
+        "  %s  busquedas recursivas de C:\\Users .... %d"
+        % (veredicto(not recursivas), len(recursivas))
+    )
+    print(
+        "  %s  espera activa (polls de mas) ........ %d"
+        % (veredicto(polls_extra == 0), polls_extra)
+    )
+    print(
+        "  %s  llamadas a herramienta .............. %d (objetivo <= 12 fuera de triaje)"
+        % (veredicto(total_llamadas <= 40), total_llamadas)
+    )
     print()
     if cwds:
         print("  Cwd usados (fuera del repositorio = sintoma):")
@@ -147,8 +188,12 @@ def auditar(filas: list[tuple], caso: str | None) -> int:
 
 def main(argv: list[str]) -> int:
     ap = argparse.ArgumentParser(description="Auditor de trayectoria del agente")
-    ap.add_argument("db", nargs="?", help="conversacion .db (por defecto, la mas reciente)")
-    ap.add_argument("--caso", help="numero de expediente a partir del cual auditar, p. ej. 3054")
+    ap.add_argument(
+        "db", nargs="?", help="conversacion .db (por defecto, la mas reciente)"
+    )
+    ap.add_argument(
+        "--caso", help="numero de expediente a partir del cual auditar, p. ej. 3054"
+    )
     args = ap.parse_args(argv[1:])
 
     db = Path(args.db) if args.db else conversacion_mas_reciente()

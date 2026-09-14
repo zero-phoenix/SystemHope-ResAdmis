@@ -128,17 +128,22 @@ Fuente: `python scripts/auditar_trayectoria.py --caso 3054`, que lee la base de
 conversaciones del agente en solo lectura. No es una impresion: es el conteo de lo que
 hizo, paso por paso.
 
+> **CIFRAS CORREGIDAS EL 14/09/2026** (contadas por `call_id`, no por pasos de la traza;
+> ver el aviso de la seccion 10). Las magnitudes bajan ~2,3x. El diagnostico no cambia:
+> el Cwd equivocado, las relecturas y la espera activa siguen ahi y siguen siendo
+> evitables.
+
 | Metrica | Medido | Objetivo |
 |---|---:|---:|
-| Llamadas a herramienta | **108** (y subiendo) | **<= 12** |
-| Vision sobre paginas CON capa de texto | **20** | **0** |
-| Relecturas del mismo archivo | **17** (`denuncia_3054_text.txt`: 8) | **0** |
-| Busquedas recursivas de `C:\Users` | **4** | **0** |
-| Espera activa (polls de mas) | **15** | **0** |
-| **Desperdicio total** | **56+ operaciones evitables** | **0** |
+| Llamadas reales | **67** | **<= 12** |
+| Vision sobre paginas (entonces desaconsejada; hoy obligatoria, R-137) | 10 | n/a |
+| Relecturas del mismo archivo | **5** | **0** |
+| Busquedas recursivas de `C:\Users` | **1** | **0** |
+| Espera activa (polls de mas) | **1** | **0** |
+| **Desperdicio evitable** | **17 operaciones** (~300 s) | **0** |
 
-Desglose de donde se va el trabajo (censo de herramientas): `run_command` 50,
-`manage_task` 28, `view_file` 28, `write_to_file` 2.
+Desglose de donde se va el trabajo (censo de herramientas): `run_command` 25,
+`manage_task` 21, `view_file` 19, `write_to_file` 2.
 
 ### El hallazgo que ordena todos los demas: el Cwd equivocado
 
@@ -146,9 +151,10 @@ Desglose de donde se va el trabajo (censo de herramientas): `run_command` 50,
 27 en el repositorio. Desde el Cwd equivocado no existen ni `plantillas_maestras` ni
 `verificar_admisorio.py`, y el agente reacciono asi:
 
-1. **Renderizo las 21 paginas a PNG y las miro con vision** aunque el triaje oficial
-   (`extraer_expediente.py`) habria dicho que **las 21 tienen capa de texto** y que
-   correspondian **0 pasadas de vision**.
+1. **Renderizo paginas a PNG y las miro con vision.** Entonces se conto como
+   desperdicio; **hoy ya no lo es**: R-137 obliga a leer todas las paginas con Google
+   Lens. Lo que si fue desperdicio es haberlo hecho **sin el triaje previo**, sin saber
+   cuantas paginas habia ni cuales carecian de capa de texto.
 2. **Releyo su propio volcado de texto en tramos crecientes desde el offset 0**
    (0-180, 0-360, 0-540, 0-746...), 8 veces el mismo archivo.
 3. **Buscó `verificar_admisorio.py` recorriendo todo `C:\Users\D` con `-Recurse`**, el
@@ -166,8 +172,10 @@ ejecutado el primer paso de R-115.
   `python scripts/extraer_expediente.py <carpeta>` **desde la raiz del repositorio**, con
   rutas absolutas. Su salida (paginas con texto / sin texto, dossier anclado) es la unica
   fuente para decidir vision.
-  - *Metrica:* 1 llamada, 0 visiones cuando el triaje dice 0.
-  - *Falsador:* una pagina con capa de texto mirada con vision.
+  - *Metrica:* 1 llamada, y el numero real de paginas conocido antes de leer nada.
+  - *Falsador:* empezar a leer sin haber hecho el triaje, o desconocer cuantas paginas
+    tiene el expediente. **Ya no es falsador mirar una pagina con capa de texto: R-137
+    obliga a mirarlas todas.**
 
 - **F9 — Contrato de Cwd.** Todo comando corre con Cwd = raiz del repositorio. Prohibido
   operar desde otro directorio o buscar archivos del repositorio fuera de el.
@@ -192,7 +200,8 @@ ejecutado el primer paso de R-115.
   - *Falsador:* dos numeros de expediente distintos en la misma conversacion.
 
 - **F13 — Scorecard obligatorio antes de entregar.** `python scripts/auditar_trayectoria.py
-  --caso <n>` debe mostrar 0 en las cinco columnas de desperdicio. Se entrega junto con la
+  --caso <n>` debe mostrar 0 en las columnas de desperdicio (relecturas, recursivas,
+  espera activa). La columna de vision dejo de ser desperdicio con R-137. Se entrega junto con la
   salida de `verificar_admisorio.py`.
 
 ## 9. Instrumento de supervision
@@ -210,14 +219,19 @@ Las secciones 7-9 contaban **cuantas** operaciones sobraban. Faltaba lo que **cu
 cada una. Se midio el reloj paso a paso sobre la misma traza (las marcas de tiempo de
 cada paso, no una estimacion):
 
+> **CIFRAS CORREGIDAS EL 14/09/2026.** Esta seccion decia 157 llamadas y 7,5 s por
+> llamada. Era un defecto **del instrumento**: `auditar_trayectoria.py` contaba *pasos*
+> de la traza, y una misma llamada aparece en varios (invocacion, resultado, eco).
+> Contado por identificador de llamada, la sesion fueron **67 llamadas** y **17**
+> operaciones evitables, no 157 y 70. El auditor ya cuenta por `call_id`. La forma de la
+> ley no cambia; cambia la constante, y con ella el presupuesto.
+
 | Magnitud medida | Valor |
 |---|---:|
 | Ventana de reloj de la sesion (Exp. 3054-2026) | **1178 s (19,6 min)** |
-| Llamadas a herramienta en esa ventana | **157** |
-| **Coste medio por llamada** | **7,5 s** |
+| Llamadas reales en esa ventana (por `call_id`) | **67** |
+| **Coste medio por llamada** | **17,6 s** |
 | Huecos de decision entre pasos (el agente "pensando") | **6 s en total** |
-| Mediana de un paso con dos marcas | 13 s |
-| Mediana de un `manage_task` (una consulta que no hace nada) | **13 s** |
 | Computo util de un admisorio completo | **~12 s** |
 
 Dos conclusiones, y la segunda es la unica que importa:
@@ -225,15 +239,17 @@ Dos conclusiones, y la segunda es la unica que importa:
 1. **La latencia no esta en pensar.** Los huecos entre pasos suman 6 s en 19,6 minutos.
    Casi todo el reloj esta **dentro** de las llamadas.
 2. **El coste por llamada es fijo y no depende del trabajo.** Un `manage_task` que solo
-   consulta un estado ya conocido tiene la misma mediana (13 s) que un paso que genera
-   documento. Luego:
+   consulta un estado ya conocido cuesta lo mismo que un paso que genera documento.
+   Luego:
 
-   > **T ≈ 7,5 s × N**, donde N es el numero de llamadas.
+   > **T ≈ 17,6 s × N**, donde N es el numero de llamadas reales (por `call_id`).
 
-   Con esa ley, las **70 operaciones evitables** del caso 3054 valen **~525 s (8,7 min)**:
-   el 45 % de la sesion se fue en trabajo que no produjo una linea del admisorio. Y el
-   objetivo del plan deja de ser una aspiracion: **12 llamadas × 7,5 s ≈ 90 s** de reloj
-   mas ~12 s de computo. **Un admisorio debe salir en menos de dos minutos.**
+   Con esa ley, las **17 operaciones evitables** del caso 3054 valen **~300 s (5 min)**:
+   una cuarta parte de la sesion se fue en trabajo que no produjo una linea del
+   admisorio. Y el presupuesto queda fijado: **12 llamadas × 17,6 s ≈ 3,5 min** de reloj
+   mas el computo. Un expediente corto debe cerrarse **por debajo de 4 minutos**; uno
+   largo escala con sus paginas, porque leerlas todas con Lens (R-137) es coste
+   irreducible.
 
 **Corolario operativo:** optimizar el computo es inutil (ya son 12 s de 1178). La unica
 palanca es **agrupar trabajo por llamada**. Todo frente nuevo se justifica por cuantas
@@ -259,10 +275,11 @@ llamadas elimina, no por cuanto CPU ahorra.
     `verificar_admisorio.py` o `guardia_admisorio.py`.
 
 - **F15 — Presupuesto de reloj, no solo de llamadas.** Cada caso se cierra declarando
-  `N` llamadas y `T` de reloj. Objetivo: **N ≤ 12** y **T ≤ 2 min** desde el triaje hasta
-  el veredicto `ENTREGABLE`.
-  - *Falsador:* un caso entregado sin declarar N y T, o que supere los 2 minutos sin que
-    la causa quede identificada (pagina escaneada, control ausente, contradiccion
+  `N` llamadas (contadas por `call_id`) y `T` de reloj. Objetivo: **N ≤ 12** y
+  **T ≤ 4 min** en un expediente corto, desde el triaje hasta el veredicto
+  `ENTREGABLE`. Un expediente largo escala con su numero de paginas.
+  - *Falsador:* un caso entregado sin declarar N y T, o que supere su presupuesto sin
+    que la causa quede identificada (numero de paginas, control ausente, contradiccion
     elevada).
 
 ### Correccion de un dato que se habia dado por bueno
