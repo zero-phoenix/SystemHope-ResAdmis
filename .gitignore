@@ -1,4 +1,19 @@
+# Ignorar PDFs pesados (los modelos se almacenan solo en DOCX)
+*.pdf
+
+# Archivos de caché y temporales
+__pycache__/
+*.pyc
+*.pyo
+.pytest_cache/
+*.tmp
+temp_*
+scratch*
+
+# Scratch y builds locales
 automatizacion_antigravity/.scratch/
 automatizacion_antigravity/__pycache__/
 automatizacion_antigravity/casos/*.docx
 productos (resoluciones) elaborada por google antigravity/ADM *.docx
+dist/
+build/

@@ -387,6 +387,174 @@ def _r69_sin_markdown_notas(borrador: dict[str, Any]) -> list[ValidationError]:
 
 
 # ---------------------------------------------------------------------------
+# Reglas Master Phoenyx (Sistema Popperiano: Invariantes y Prohibiciones)
+# ---------------------------------------------------------------------------
+
+
+def _extraer_texto_hechos(borrador: dict[str, Any]) -> list[str]:
+    """Extrae los párrafos individuales de hechos (soporta lista de strings o dicts)."""
+    hechos_raw = borrador.get("hechos", [])
+    if isinstance(hechos_raw, str):
+        return [hechos_raw]
+    if not isinstance(hechos_raw, list):
+        return []
+    parrafos = []
+    for item in hechos_raw:
+        if isinstance(item, str):
+            parrafos.append(item)
+        elif isinstance(item, dict):
+            texto = item.get("texto", "")
+            if texto:
+                parrafos.append(texto)
+            for sub in item.get("subincisos", []):
+                if isinstance(sub, str):
+                    parrafos.append(sub)
+    return parrafos
+
+
+def _r_phoenyx_sin_palabra_denunciante_en_hechos(borrador: dict[str, Any]) -> list[ValidationError]:
+    """PHOENYX-01 [CRITICA]: En los hechos está TERMINANTEMENTE PROHIBIDO escribir 'denunciante'
+    o el nombre del denunciante, pues van precedidos de 'el/la denunciante señaló lo siguiente:'.
+    Deben usarse verbos en tercera persona directamente (ej. 'presentó', no 'se presentó')."""
+    errs: list[ValidationError] = []
+    parrafos = _extraer_texto_hechos(borrador)
+    for idx, p in enumerate(parrafos, start=1):
+        if re.search(r"\bdenunciantes?\b", p, flags=re.IGNORECASE):
+            errs.append(
+                ValidationError(
+                    rule="PHOENYX-01",
+                    severity="CRITICA",
+                    message=f"Hechos párrafo #{idx}: contiene la palabra prohibida 'denunciante'. Debe usar verbo en 3ra persona directo.",
+                    context=p[:100],
+                )
+            )
+    return errs
+
+
+def _r_phoenyx_sin_habria_en_hechos(borrador: dict[str, Any]) -> list[ValidationError]:
+    """PHOENYX-02 [CRITICA]: En los hechos está PROHIBIDO usar 'habría' o 'habrían'.
+    Los hechos se narran en tiempo pasado afirmativo según la versión del denunciante ('presentó', 'denegó').
+    El condicional 'habría' es EXCLUSIVO de las imputaciones resolutivas de la Comisión."""
+    errs: list[ValidationError] = []
+    parrafos = _extraer_texto_hechos(borrador)
+    for idx, p in enumerate(parrafos, start=1):
+        m = re.search(r"\bhabr[ií]an?\b", p, flags=re.IGNORECASE)
+        if m:
+            errs.append(
+                ValidationError(
+                    rule="PHOENYX-02",
+                    severity="CRITICA",
+                    message=f"Hechos párrafo #{idx}: usa condicional '{m.group(0)}'. En hechos solo se usa pasado afirmativo.",
+                    context=p[:100],
+                )
+            )
+    return errs
+
+
+def _r_phoenyx_terminologia_estricta(texto: str) -> list[ValidationError]:
+    """PHOENYX-03 [CRITICA/VALIDABLE]: Reglas léxicas popperianas obligatorias:
+    - PROHIBIDO 'esposo/esposa/esposos': usar 'cónyuge' o 'cónyuges'.
+    - PROHIBIDO 'tras': usar 'luego de'.
+    - PROHIBIDO 'ésta'/'éstas'/'éste'/'éstos': 'esta' NUNCA lleva tilde.
+    - PROHIBIDO 'Dr.'/'doctor'/'doctora': usar 'médico'.
+    - PROHIBIDO 'carro'/'auto': usar 'vehículo' (o 'vehículo con Placa de Rodaje...').
+    """
+    errs: list[ValidationError] = []
+
+    # Cónyuge
+    for m in re.finditer(r"\b(espos[oa]s?)\b", texto, flags=re.IGNORECASE):
+        errs.append(
+            ValidationError(
+                rule="PHOENYX-03A",
+                severity="CRITICA",
+                message=f"Término prohibido '{m.group(0)}'. Debe usar estrictamente 'cónyuge' o 'cónyuges'.",
+                context=m.group(0),
+            )
+        )
+
+    # Luego de (no tras)
+    for m in re.finditer(r"\btras\s+(el|la|los|las|un|una|haber|constatar|sufrir|recibir|el\s+siniestro)\b", texto, flags=re.IGNORECASE):
+        errs.append(
+            ValidationError(
+                rule="PHOENYX-03B",
+                severity="VALIDABLE",
+                message=f"Uso de 'tras' detectado ('{m.group(0)}'). Debe reemplazarse por 'luego de'.",
+                context=m.group(0),
+            )
+        )
+
+    # 'esta' sin tilde
+    for m in re.finditer(r"\b([eé]st[ae]s?)\b", texto):
+        if m.group(0) in ("ésta", "éstas", "éste", "éstos"):
+            errs.append(
+                ValidationError(
+                    rule="PHOENYX-03C",
+                    severity="VALIDABLE",
+                    message=f"Tilde prohibida en '{m.group(0)}'. La palabra 'esta/estas/este/estos' nunca lleva tilde.",
+                    context=m.group(0),
+                )
+            )
+
+    # Médico (no doctor)
+    for m in re.finditer(r"\b(Dr\.|doctora?)\b", texto, flags=re.IGNORECASE):
+        # Excepción si es parte de un nombre propio registrado como 'Dr. Ley'
+        if "dr. ley" in texto[max(0, m.start()-5):m.end()+10].lower():
+            continue
+        errs.append(
+            ValidationError(
+                rule="PHOENYX-03D",
+                severity="VALIDABLE",
+                message=f"Término '{m.group(0)}' prohibido para profesionales de la salud. Usar siempre 'médico'.",
+                context=m.group(0),
+            )
+        )
+
+    # Vehículo (no carro / auto)
+    for m in re.finditer(r"\b(carros?|autos?|autom[oó]vil(?:es)?)\b", texto, flags=re.IGNORECASE):
+        errs.append(
+            ValidationError(
+                rule="PHOENYX-03E",
+                severity="VALIDABLE",
+                message=f"Término '{m.group(0)}' prohibido. Debe referirse siempre como 'vehículo' o 'vehículo con Placa de Rodaje [número]'.",
+                context=m.group(0),
+            )
+        )
+
+    return errs
+
+
+def _r_phoenyx_formato_moneda(texto: str) -> list[ValidationError]:
+    """PHOENYX-04 [VALIDABLE]: Formato monetario estricto INDECOPI CC1:
+    - Símbolos: 'S/' o 'US$'.
+    - Solo coma ',' para decimales (prohibido '.' como separador decimal).
+    - Espacio cada 3 enteros (prohibido ',' como separador de miles). Ej: 'S/ 2 618,00'.
+    """
+    errs: list[ValidationError] = []
+    # Detecta S/ o US$ seguido de número con punto decimal (ej: S/ 2,618.00 o S/ 1500.50)
+    for m in re.finditer(r"(?:S/|US\$)\s*(\d+[\d,]*\.\d{2})\b", texto):
+        errs.append(
+            ValidationError(
+                rule="PHOENYX-04",
+                severity="VALIDABLE",
+                message=f"Monto con punto decimal '{m.group(0)}'. Debe usar exclusivamente coma decimal (ej. 'S/ 2 618,00').",
+                context=m.group(0),
+            )
+        )
+    # Detecta comas como separador de miles (ej: S/ 2,618 o US$ 10,000)
+    for m in re.finditer(r"(?:S/|US\$)\s*(\d{1,3}(?:,\d{3})+)", texto):
+        errs.append(
+            ValidationError(
+                rule="PHOENYX-04",
+                severity="VALIDABLE",
+                message=f"Monto con coma de miles '{m.group(0)}'. En miles se usa espacio (ej. 'S/ 2 618,00').",
+                context=m.group(0),
+            )
+        )
+    return errs
+
+
+
+# ---------------------------------------------------------------------------
 # API pública
 # ---------------------------------------------------------------------------
 
@@ -410,12 +578,19 @@ def validar_borrador(borrador: dict[str, Any]) -> list[ValidationError]:
     errores += _r38_prohibido_deberes(borrador)
     errores += _r61_lpag_vigente(texto)
     errores += _r69_sin_markdown_notas(borrador)
+    # Master Phoenyx Críticas
+    errores += _r_phoenyx_sin_palabra_denunciante_en_hechos(borrador)
+    errores += _r_phoenyx_sin_habria_en_hechos(borrador)
+    errores += [e for e in _r_phoenyx_terminologia_estricta(texto) if e.severity == "CRITICA"]
 
     # VALIDABLES
     errores += _r12_boilerplate_idoneidad_exclusivo(borrador)
     errores += _r31_conectores_variados(borrador)
     errores += _r37_infinitivo_requerimientos(borrador)
     errores += _r63_caracteres_basura(texto)
+    # Master Phoenyx Validables
+    errores += [e for e in _r_phoenyx_terminologia_estricta(texto) if e.severity == "VALIDABLE"]
+    errores += _r_phoenyx_formato_moneda(texto)
 
     return errores
 
@@ -468,8 +643,11 @@ def validar_docx_generado(ruta: str | Path) -> list[ValidationError]:
     errores += _r05_prohibido_art24(texto)
     errores += _r06_prohibido_induccion(texto)
     errores += _r61_lpag_vigente(texto)
+    errores += _r_phoenyx_terminologia_estricta(texto)
+    errores += _r_phoenyx_formato_moneda(texto)
 
     return errores
+
 
 
 def resumen(errores: list[ValidationError]) -> str:

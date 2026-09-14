@@ -392,3 +392,23 @@ La Regla Definitiva:
 NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del texto de los puntos resolutivos. Solo se deben usar mayúsculas para la letra inicial de los nombres propios o siglas, aplicando "Title Case" o formato de título (ej. "La Positiva Seguros y Reaseguros S.A.A." y no "LA POSITIVA SEGUROS Y REASEGUROS S.A.A."). Las mayúsculas sostenidas solo se permiten estrictamente en el bloque de metadatos iniciales (encabezado del documento).
 
 - R-84: **Protección ortográfica estricta:** Al transcribir textos, en especial referencias legales, NUNCA omitas tildes ni alteres la escritura correcta. Específicamente, nunca escribas 'Artculo' u omitas la 'í'. Siempre debe decir 'Artículo'.
+
+## 76. MASTER PHOENYX: REGLAS POPPERIANAS DE REDACCIÓN Y TIPIFICACIÓN (R-85 A R-95)
+
+- R-85: **PROHIBICIÓN CATEGÓRICA DE 'INDUCCIÓN A ERROR':** Bajo ninguna circunstancia se imputará la figura de 'inducción al error' ni el Artículo 3 del Código. Cualquier defecto, falta o inexactitud en la información comercial se canaliza exclusivamente por el **Artículo 1°, numeral 1, literal b) y Artículo 2° del Código**.
+- R-86: **HECHOS SIN LA PALABRA 'DENUNCIANTE' NI SU NOMBRE:** Dado que la narración de los hechos es antecedida obligatoriamente por la frase *"el/la denunciante señaló lo siguiente:"*, queda estrictamente prohibido usar la palabra 'denunciante' o el nombre propio dentro de los párrafos de hechos. Se emplean directamente verbos afirmativos en tercera persona (ej. *"presentó"*, nunca *"se presentó"*).
+- R-87: **PROHIBICIÓN DE CONDICIONALES EN HECHOS ('HABRÍA'):** En la sección de HECHOS está terminantemente prohibido usar 'habría' o 'habrían'. Los hechos reflejan la versión del denunciante y se narran en tiempo pasado afirmativo (ej. *"presentó la solicitud"*, *"denegó la cobertura"*). El condicional 'habría' es de uso exclusivo para las imputaciones de la Secretaría Técnica.
+- R-88: **INICIO ESTRICTO DE PÁRRAFO CON FECHA:** Todo párrafo de hechos debe iniciar con la fecha precedida del artículo 'El' (ej. *"El 14 de agosto de 2024,"*). Colocar directamente el número del día y año (sin palabras superfluas como 'día' o 'año'). Si no hay fecha para un hecho previo crucial (como suscripción de contrato), iniciar como: *"Con anterioridad a [fecha del párrafo posterior],"*.
+- R-89: **FORMATO DE MONEDA MONOLÍTICO:** En montos en soles (`S/`) o dólares (`US$`), está prohibido el uso de punto `.` en cualquier posición y prohibida la coma `,` en números enteros. Solo se permite coma para decimales y espacio para separar miles (ejemplo exacto: `S/ 2 618,00` o `US$ 1 500,00`).
+- R-90: **PROHIBICIONES LÉXICAS Y REEMPLAZOS OBLIGATORIOS:**
+  - Prohibido 'esposo/esposa/esposos': usar exclusivamente `cónyuge` o `cónyuges`.
+  - Prohibido 'tras': usar exclusivamente `luego de`.
+  - Prohibido tildar 'esta': nunca escribir `ésta`, `éstas`, `éste` o `éstos`.
+  - Prohibido 'Dr.' o 'doctor': en profesionales de salud usar siempre `médico`.
+  - Prohibido 'carro' o 'auto': referirse siempre como `vehículo` (o `vehículo con Placa de Rodaje [número]`).
+- R-91: **NOMENCLATURA DE PÓLIZAS:** La primera mención de una póliza con número debe seguir la fórmula: `Seguro [tipo] – Póliza [número] (en adelante, “Seguro [tipo]”)`, y en adelante omitir el número y la palabra póliza.
+- R-92: **SUCESIÓN INTESTADA Y CAUSANTE:** Cuando la parte denunciante sea una Sucesión Intestada, a la persona fallecida se la llamará obligatoriamente `la/el causante de la Sucesión Intestada`.
+- R-93: **ESTRUCTURA DE IMPUTACIONES RESOLUTIVAS (PRIMERO):** Cada imputación debe ser de **una sola oración**, sin palabras en negrita, invocando la fórmula: `(i) Presunta infracción a... de la Ley 29571... en tanto [Nombre Proveedor] habría/no habría [conducta concreta]...` individualizando fechas exactas y pólizas.
+- R-94: **REQUERIMIENTOS EN PÁRRAFO ÚNICO (MÁXIMO 4 ÍTEMS):** La parte considerativa y resolutiva de requerimientos se condensa en un solo párrafo con máximo cuatro (4) viñetas `(i)`, `(ii)`... en infinitivo, guardando simetría estricta con la infracción principal controvertida.
+- R-95: **MANDATO CERO-OCR (VISIÓN MULTIMODAL EXCLUSIVA):** En escritos escaneados o manuscritos, queda prohibido el uso de OCR tradicional. El procesamiento se ejecuta exclusivamente con Visión Multimodal / Google Lens para garantizar cero alucinaciones en fechas, números y montos.
+
