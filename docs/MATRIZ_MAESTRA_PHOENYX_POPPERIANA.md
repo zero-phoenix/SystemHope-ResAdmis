@@ -218,7 +218,7 @@ El agente procesa cada escrito mediante **Visión Multimodal Pura (Google Lens /
 
 ### R-99: Dualidad de Requerimientos al Proveedor en la Resolutiva
 1. *Requerimiento Administrativo-Estructural (Artículo TERCERO):* 5 días hábiles para acreditar Registros Públicos, poderes vigentes, RUC, domicilio procesal y condición MYPE (Art. 110 del Código).
-2. *Requerimiento Probatorio Específico (Artículo CUARTO/SEXTO):* Redactado en **párrafo único con sub-incisos en infinitivo `(a)`, `(b)`, `(c)`, `(d)`** (máx. 4 viñetas) exigiendo póliza, certificados, grabaciones, cartas y estados de cuenta.
+2. *Requerimiento Probatorio Específico (Artículo CUARTO/QUINTO/SEXTO):* Redactado en **párrafo único con sub-incisos en números romanos minúsculos en línea `(i)`, `(ii)`, `(iii)`, `(iv)`** (máx. 4 viñetas) exigiendo póliza, certificados, grabaciones, cartas y medios probatorios pertinentes.
 
 ### R-100: Anclaje y Fórmula de Traslado desde Otro Órgano (Nota al Pie Página 1)
 - Cuando el expediente provenga de otro órgano (ORPS, CC2, sedes regionales), se coloca un superíndice de nota al pie sobre la palabra `denuncia` o `escrito` en el numeral 1 de Hechos: `Mediante la denuncia¹ del [fecha]...`
@@ -229,4 +229,50 @@ El agente procesa cada escrito mediante **Visión Multimodal Pura (Google Lens /
 
 ### R-102: Audiencia de Conciliación y Poder Notarial (Art. 29 D.Leg. 807)
 - Artículo resolutivo obligatorio informando sobre la facultad de solicitar conciliación antes de la resolución final, con apercibimiento de inasistencia si no se cuenta con poder con firma legalizada ante Notario Público.
+
+---
+
+## 7. Invariantes de Calibración Forense Avanzada (R-103 a R-110)
+
+### R-103: Matriz de Firma Digital Condicionada por Proveedor
+- Cuando el denunciado es **RÍMAC SEGUROS Y REASEGUROS S.A.** (o **RÍMAC**), NUNCA firma la Secretaria Técnica titular (Eveling Roa Quispe). Firma obligatoriamente como Secretaria Técnica Ad Hoc: **LUISA ANALÍ SILVA MALPARTIDA**, cargo: `Secretaria Técnica Ad Hoc`, refrendo de calidad `LSQ/DCQ`.
+- Para otros proveedores firma la Secretaria Técnica titular: **EVELING ROA QUISPE**, cargo: `Secretaria Técnica`, refrendo según instructor asignado (ej. `RSV/DCQ`).
+- *Falsador:* Un admisorio contra Rímac emitido firmado por la titular, o un admisorio sin el refrendo asignado correspondiente.
+
+### R-104: Integridad Tipográfica del Encabezado y de los Ordinales
+- Las cuatro líneas del bloque de metadatos (`EXPEDIENTE`, `DENUNCIANTE`, `DENUNCIADO`, `MATERIAS`, `RESOLUCIÓN`) van íntegramente en **negrita**.
+- **Todos** los rótulos ordinales de la parte resolutiva (`PRIMERO:`, `SEGUNDO:`, ..., `DÉCIMO:`) van en negrita sin excepción.
+- Títulos de sección en mayúsculas y números romanos (`I. HECHOS`, `II. DE LA ADMISIÓN A TRÁMITE...`, `III. REQUERIMIENTO DE INFORMACIÓN`, `IV. RESOLUCIÓN`).
+- *Falsador:* Un solo rótulo ordinal o metadato sin `<w:b/>` en su run.
+
+### R-105: Prohibición de Párrafos Numerados Vacíos y Secciones sin Contenido
+- Ningún párrafo con numeración activa (`w:numPr`) puede carecer de contenido (`w:t` vacío).
+- Ninguna sección introductoria (`cumpla con lo siguiente:`) puede quedar huérfana de incisos subsiguientes.
+- *Falsador:* `w:numPr` sin texto o fórmula anunciadora sin `(i)` posterior.
+
+### R-106: Anclas de Nota al Pie Obligatorias
+- Toda nota al pie declarada en `footnotes.xml` debe poseer su respectivo ancla (`w:footnoteReference`) en el cuerpo del documento.
+- Notas indispensables de tipificación: Arts. 18 y 19 del Código, y Art. 20 del TUO de la LPAG en confirmación de recepción.
+- *Falsador:* Nota al pie sin ancla en el cuerpo o ancla huérfana.
+
+### R-107: Estructura de Sección del Modelo Institucional (Seis Referencias)
+- Las secciones OpenXML del documento deben declarar seis referencias de encabezado y pie de página (`headerReference` y `footerReference` para tipos `even`, `default` y `first`).
+- Preserva el membrete y el código `M-CPC-01/03` en todas las páginas según el estándar CC1.
+- *Falsador:* Número de referencias de header/footer distinto de 6.
+
+### R-108: Segundo Isomorfismo: Requerimiento Probatorio (Considerativa <-> Resolutiva)
+- El considerando de `REQUERIMIENTO DE INFORMACIÓN` y el artículo resolutivo que lo manda ejecutar (`QUINTO`) contienen exactamente la misma lista de requerimientos palabra por palabra.
+- Solo difiere el sujeto gramatical (`la compañía aseguradora` en la considerativa vs. `el proveedor denunciado` en la resolutiva).
+- *Falsador:* Un inciso presente en una sección y omitido o discrepante en la otra.
+
+### R-109: Protocolo de Verificación Previa Automatizada (Obligatorio)
+- Ningún documento admisorio se entrega ni se da por concluido sin haber ejecutado `python scripts/verificar_admisorio.py <documento.docx>` y obtenido estado `APTO (0 falsadores)`.
+- La salida literal de la auditoría se reporta obligatoriamente al instructor.
+- *Falsador:* Entrega de admisorio sin reporte literal de verificación en estado APTO.
+
+### R-110: Modo Verbal y Atribución en Antecedentes / Hechos
+- Las conductas atribuidas al proveedor se redactan siempre mediante atribución al denunciante (`Señalo que...`, `Precisó que...`, `Manifestó que...`) o en tiempo potencial (`habría retenido`, `habría ofertado`).
+- Los hechos propios del denunciante (`notificó la Carta Notarial...`, `presentó su solicitud...`) se redactan en pasado simple indicativo.
+- *Falsador:* Verbo en pasado indicativo asertivo atribuido directamente al denunciado sin verbo de atribución en el inciso.
+
 

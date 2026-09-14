@@ -97,19 +97,30 @@ jobs:
               - Sangrías escalonadas CC1: Hechos a `0.79"/-0.39"`, Resolutivo a `0.39"/-0.39"`.
               - Carácter **One Dot Leader (`\u2024`)** en listas de notas al pie para neutralizar sangrías automáticas de Word COM.
 
-            ### 4. Invariantes Popperianas de Redacción (R-85 a R-102)
+            ### 4. Invariantes Popperianas de Redacción y Calibración Forense (R-85 a R-110)
             - **R-85:** Prohibición categórica de imputar por "inducción a error" (Arts. 1.1.b y 2 del Código).
             - **R-86:** Hechos objetivos en pasado simple, sin la palabra "denunciante" ni su nombre en el relato.
-            - **R-87:** Prohibición del condicional "habría" en hechos (reservado para la Secretaría Técnica).
+            - **R-87:** Prohibición del condicional "habría" en hechos propios (reservado para conductas atribuidas al denunciado).
             - **R-89:** Moneda institucional monolítica: `S/ X XXX,XX` o `US$ X XXX,XX`.
             - **R-90:** Filtro léxico estricto: `cónyuge`, `luego de`, `esta/este` sin tilde, `médico`, `vehículo`.
             - **R-96:** Denominación procesal unívoca: `el señor [Apellido]`, `la causante de la Sucesión Intestada`, alias formal de empresas.
             - **R-97:** **Teorema de Simetría Verbatim:** El núcleo fáctico de la Considerativa (Sec. II) es 100% idéntico al de la Resolutiva (`PRIMERO:`).
             - **R-98:** **Notificación Conjunta en Párrafo Único:** Cuando las partes comparten domicilio o vía de notificación (correo o casilla), se agrupan en un solo artículo resolutivo.
-            - **R-99:** Dualidad de requerimientos al proveedor: Formal-administrativo (Art. 3) y probatorio específico en párrafo único con sub-incisos (a), (b), (c), (d) (máx. 4).
+            - **R-99 / R-108:** Requerimiento probatorio específico: subincisos en números romanos minúsculos en línea `(i)`, `(ii)`, `(iii)` idénticos entre considerativa y resolutiva.
             - **R-100:** Anclaje y fórmula de traslado de otro órgano resolutivo en nota al pie (pág. 1).
             - **R-101:** Información sobre escala de sanciones (hasta 450 UIT) y allanamiento como atenuante.
             - **R-102:** Facultad de conciliación previa con poder notarial legalizado.
+            - **R-103:** **Matriz de Firma Condicionada por Proveedor:** En denuncias contra RÍMAC SEGUROS Y REASEGUROS S.A. firma obligatoriamente `LUISA ANALÍ SILVA MALPARTIDA` (Secretaria Técnica Ad Hoc, refrendo `LSQ/DCQ`). Para otros proveedores: `EVELING ROA QUISPE` (Secretaria Técnica).
+            - **R-104:** Integridad tipográfica: metadatos y ordinales (`PRIMERO:` a `DÉCIMO:`) 100% en negrita.
+            - **R-105:** Prohibición de párrafos numerados vacíos y de secciones anunciadas sin contenido.
+            - **R-106:** Anclas obligatorias en cuerpo para todas las notas al pie.
+            - **R-107:** Estructura de sección con 6 referencias de encabezado y pie.
+            - **R-109:** Protocolo de verificación obligatoria con `scripts/verificar_admisorio.py` antes de cualquier entrega.
+            - **R-110:** Modo verbal y atribución estricta en antecedentes y hechos.
+
+            ### 5. Suite de Validación y Casos de Control
+            - Incluye caso de prueba de control: `casos_de_prueba/admisorio_01_exp_2662_2026/RES_02_2662-2026_CC1_ADMISORIO.docx` (Expediente 2662-2026 contra Rímac, 7 páginas exactas, APTO con 0 falsadores).
+            - Script de verificación automatizada: `scripts/verificar_admisorio.py`.
 
             ## Componentes Incluidos
             - **`systemhope-engine.exe`**: Binario Windows x64 autónomo con servidor MCP integrado.

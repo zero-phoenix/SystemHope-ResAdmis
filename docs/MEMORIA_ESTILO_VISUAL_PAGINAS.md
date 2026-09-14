@@ -94,10 +94,10 @@
   - Sangría izquierda: `1.00 cm` (`0.39 in`).
   - Sangría francesa: `-1.00 cm` (`-0.39 in`).
   - La palabra ordinal va en negrita seguida de dos puntos (`PRIMERO: `, `SEGUNDO: `).
-- **Sub-incisos de Requerimiento de Información:**
+- **Sub-incisos de Requerimiento de Información (R-99 / R-108):**
   - Párrafo único consolidado (sin desglosar en múltiples párrafos para no perder compacidad).
-  - Letras en minúscula entre paréntesis: `(a) ... (b) ... (c) ... (d)`.
-  - Máximo 4 incisos por requerimiento.
+  - Números romanos en minúscula entre paréntesis en línea: `(i) ...; (ii) ...; y, (iii) ...`.
+  - Máximo 4 incisos por requerimiento. Corresponde verbatim con el considerando de requerimiento de información.
 
 ---
 

@@ -69,3 +69,16 @@ El repositorio contiene **605 plantillas Word (.docx) depuradas** en `plantillas
   - Hechos: Izquierda `0.79"` (2.0 cm), Francesa `-0.39"` (-1.0 cm).
   - Resolutivo: Izquierda `0.39"` (1.0 cm), Francesa `-0.39"` (-1.0 cm).
 - **Notas al Pie:** Formato con *One Dot Leader* (`\u2024`). Pie institucional: `M-CPC-01/03`.
+
+---
+
+## 6. FIRMA DIGITAL CONDICIONADA Y VERIFICACIÓN (R-103 A R-110)
+- **Firma según Denunciado (R-103):**
+  - **RÍMAC SEGUROS Y REASEGUROS S.A. (o RÍMAC):** NUNCA firma la titular. Firma obligatoriamente como Secretaria Técnica Ad Hoc: **LUISA ANALÍ SILVA MALPARTIDA**, cargo: `Secretaria Técnica Ad Hoc`, refrendo de calidad: `LSQ/DCQ`.
+  - **Demás proveedores:** **EVELING ROA QUISPE**, cargo: `Secretaria Técnica`, refrendo según instructor asignado (ej. `RSV/DCQ`).
+- **Isomorfismos Verbatim (R-97 / R-108):**
+  - El núcleo fáctico de imputaciones es idéntico entre la considerativa (Sección II) y el resolutivo (`PRIMERO:`, etc.).
+  - El requerimiento de información probatorio es idéntico palabra por palabra entre la considerativa (Sección III) y el resolutivo (`QUINTO:`).
+- **Protocolo de Verificación Previa Obligatorio (R-109):**
+  - Todo admisorio debe pasar: `python scripts/verificar_admisorio.py <admisorio.docx>` y obtener `APTO (0 falsadores)` antes de ser entregado.
+

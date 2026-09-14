@@ -9,4 +9,6 @@
 6. Moneda: 'S/ X XXX,XX' (espacio para miles, coma decimal, sin puntos).
 7. Notificaciones finales: Colocar obligatoriamente uno de los 3 párrafos literales (Casilla 5 días / Correo 2 días D.S. 006-2026-JUS / Cédula Domicilio Procesal 2 días) sin parafrasear.
 8. Consulta plantillas_maestras/ según rama y materia antes de redactar.
-9. Valida siempre el documento final con: systemhope-engine validate <admisorio.docx>
+9. Firma según Denunciado (R-103): Si el denunciado es RÍMAC, NUNCA firma la titular; firma obligatoriamente LUISA ANALÍ SILVA MALPARTIDA (Secretaria Técnica Ad Hoc, refrendo LSQ/DCQ). Demás casos: EVELING ROA QUISPE (Secretaria Técnica).
+10. Isomorfismo y Verificación (R-97, R-108, R-109): Imputaciones y Requerimiento de información deben ser idénticos palabra por palabra entre considerativa y resolutiva.
+11. Protocolo de Verificación Obligatorio: Ejecutar siempre `python scripts/verificar_admisorio.py <admisorio.docx>` y obtener APTO (0 falsadores) antes de entregar.

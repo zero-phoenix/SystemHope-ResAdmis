@@ -100,6 +100,11 @@ Calibrados mediante visión multimodal e incorporados en [docs/MEMORIA_ESTILO_VI
   - Puntos Resolutivos: Sangría izquierda `0.39"` (1.0 cm), Sangría francesa `-0.39"` (-1.0 cm).
   - Bloque de Metadatos: Sangría izquierda `1.48"` (3.75 cm), Sangría francesa `-1.48"` (-3.75 cm).
 - **Notas al Pie Institucionales:** Empleo de *One Dot Leader* (`\u2024`) antes del texto para suprimir la sangría nativa de Word. Pie de página oficial: `M-CPC-01/03`.
+- **Matriz de Firma Digital Condicionada (R-103):**
+  - **RÍMAC SEGUROS Y REASEGUROS S.A.:** NUNCA firma la titular. Firma obligatoriamente como Secretaria Técnica Ad Hoc: **LUISA ANALÍ SILVA MALPARTIDA**, cargo: `Secretaria Técnica Ad Hoc`, refrendo `LSQ/DCQ`.
+  - **Demás Proveedores:** **EVELING ROA QUISPE**, cargo: `Secretaria Técnica`, refrendo según instructor asignado (ej. `RSV/DCQ`).
+- **Verificación Automatizada Pre-entrega (R-109):** `python scripts/verificar_admisorio.py <admisorio.docx>` (debe arrojar `APTO (0 falsadores)`).
+
 
 ---
 
