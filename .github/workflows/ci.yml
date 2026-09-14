@@ -10,6 +10,11 @@ jobs:
   verify:
     runs-on: windows-latest
     steps:
+      - name: Habilitar rutas largas en Windows y Git
+        run: |
+          git config --global core.longpaths true
+          Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -ErrorAction SilentlyContinue
+
       - name: Checkout del codigo
         uses: actions/checkout@v4
 
@@ -32,4 +37,5 @@ jobs:
       - name: Test de ejecucion basica del motor
         run: |
           python -m src.systemhope_engine info
+          python -m src.systemhope_engine notifications --proveedor pacifico
           python -m src.systemhope_engine templates --rama vehicular --limit 2
