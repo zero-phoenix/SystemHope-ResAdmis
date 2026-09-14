@@ -76,31 +76,54 @@ jobs:
           body: |
             # SystemHope ResAdmis - Release Oficial v2.0.${{ github.run_number }}
 
-            Este release provee el motor ejecutable independiente (`systemhope-engine.exe`) y el paquete de memoria persistente para permitir que **Antigravity IDE**, **Cursor**, **Windsurf**, **Claude Code** o cualquier entorno de IA Desktop opere de manera autónoma, incluso tras un formateo total del equipo.
+            Este release provee el motor ejecutable independiente (`systemhope-engine.exe`), el catálogo maestro de **630 plantillas Word (.docx)** depuradas y el paquete de memoria persistente para permitir que **Antigravity IDE**, **Cursor**, **Windsurf**, **Claude Code** o cualquier entorno de IA Desktop opere de manera 100% determinista y autónoma.
+
+            ## 🚀 Lo Nuevo en este Release
+
+            ### 1. Actualización Normativa Integral TUO LPAG (D.S. 006-2026-JUS)
+            - **Cero citas derogadas:** 100% de citas al D.S. 004-2019-JUS erradicadas en todo el corpus.
+            - **TUO Vigente:** Actualización obligatoria al **Decreto Supremo 006-2026-JUS** y fecha de publicación al **30 de abril de 2026**.
+
+            ### 2. Catálogo Taxonómico Maestro de 630 Plantillas Word (.docx)
+            - **17 Ramas de Seguro Estructuradas:** Desgravamen, Protección de Tarjetas, Vehicular, Vida, SOAT/AFOCAT, SCTR, Salud/EPS, etc.
+            - **Clasificación en 4 Niveles:** `Rama` / `Materia` / `Proveedor (1 DDO vs 2+ DDOs)` / `Sujeto (Varón, Mujer, Sucesión)`.
+            - **100% Validación OOXML:** Todos los archivos preservan cabeceras, firmas digitales, pies `M-CPC-01/03` y `word/footnotes.xml`.
+            - **Exclusión Estricta de PDFs en Git:** Los 881 PDFs originales permanecen ignorados en Git tras haber servido como patrón de calibración visual.
+
+            ### 3. Memoria Permanente de Estilo Visual y Geometría de Página (Google Lens)
+            - Extraído mediante visión multimodal en `docs/MEMORIA_ESTILO_VISUAL_PAGINAS.md`:
+              - Formato A4 (21.0 x 29.7 cm), márgenes exactos: Izq 3.0 cm, Der 2.5 cm, Sup 2.5 cm, Inf 2.5 cm.
+              - Tipografía `Arial Narrow` (11 pt cuerpo a interlineado 1.0; 8 pt notas al pie e iniciales `LGP/JCQ`).
+              - Sangrías escalonadas CC1: Hechos a `0.79"/-0.39"`, Resolutivo a `0.39"/-0.39"`.
+              - Carácter **One Dot Leader (`\u2024`)** en listas de notas al pie para neutralizar sangrías automáticas de Word COM.
+
+            ### 4. Invariantes Popperianas de Redacción (R-85 a R-102)
+            - **R-85:** Prohibición categórica de imputar por "inducción a error" (Arts. 1.1.b y 2 del Código).
+            - **R-86:** Hechos objetivos en pasado simple, sin la palabra "denunciante" ni su nombre en el relato.
+            - **R-87:** Prohibición del condicional "habría" en hechos (reservado para la Secretaría Técnica).
+            - **R-89:** Moneda institucional monolítica: `S/ X XXX,XX` o `US$ X XXX,XX`.
+            - **R-90:** Filtro léxico estricto: `cónyuge`, `luego de`, `esta/este` sin tilde, `médico`, `vehículo`.
+            - **R-96:** Denominación procesal unívoca: `el señor [Apellido]`, `la causante de la Sucesión Intestada`, alias formal de empresas.
+            - **R-97:** **Teorema de Simetría Verbatim:** El núcleo fáctico de la Considerativa (Sec. II) es 100% idéntico al de la Resolutiva (`PRIMERO:`).
+            - **R-98:** **Notificación Conjunta en Párrafo Único:** Cuando las partes comparten domicilio o vía de notificación (correo o casilla), se agrupan en un solo artículo resolutivo.
+            - **R-99:** Dualidad de requerimientos al proveedor: Formal-administrativo (Art. 3) y probatorio específico en párrafo único con sub-incisos (a), (b), (c), (d) (máx. 4).
+            - **R-100:** Anclaje y fórmula de traslado de otro órgano resolutivo en nota al pie (pág. 1).
+            - **R-101:** Información sobre escala de sanciones (hasta 450 UIT) y allanamiento como atenuante.
+            - **R-102:** Facultad de conciliación previa con poder notarial legalizado.
 
             ## Componentes Incluidos
-            - **`systemhope-engine.exe`**: Binario autónomo Windows x64.
-              - Modos de uso: `info`, `rules`, `notifications`, `specs`, `templates`, `validate`, `dump-memory`, `mcp`.
-              - Servidor MCP integrado sobre stdio para conexión directa con cualquier IA IDE.
-            - **`systemhope-engine-windows-x64.zip`**: Paquete completo de distribución con memoria, especificaciones y catálogo.
-
-            ## Axiomas y Protocolos No Negociables
-            1. **ESTRICTO CERO OCR:** Las denuncias escaneadas y expedientes se procesan exclusivamente con **Google Lens / Visión Multimodal**.
-            2. **TUO LPAG VIGENTE:** Citas normalizadas al **Decreto Supremo N° 006-2026-JUS** (deroga D.S. 004-2019-JUS).
-            3. **TRES PÁRRAFOS LITERALES DE NOTIFICACIÓN:** Sección resolutiva final con fórmulas exactas no parafraseadas (Casilla Electrónica 5 días SINE, Correo Electrónico 2 días con apercibimiento de rehacer D.S. 006-2026-JUS, o Domicilio Procesal / Cédula 2 días).
-            4. **PROHIBICIÓN DE 'INDUCCIÓN A ERROR':** Se imputa bajo los Arts. 1.1.b y 2 de la Ley 29571. Prohibido invocar el Art. 3.
-            5. **CATÁLOGO TAXONÓMICO:** 605 plantillas Word (.docx) depuradas y estructuradas por rama de seguro, materia, proveedor y sujeto.
-            6. **ESTILO INSTITUCIONAL CC1:** Tipografía Arial Narrow 11 pt / 8 pt, sangrías escalonadas CC1 y pie institucional `M-CPC-01/03`.
+            - **`systemhope-engine.exe`**: Binario Windows x64 autónomo con servidor MCP integrado.
+            - **`systemhope-engine-windows-x64.zip`**: Paquete de distribución con ejecutable, catálogo e índices.
 
             ## Conexión Rápida para cualquier IA Desktop
             ```powershell
-            # Descargar y volcar memoria en cualquier carpeta de trabajo:
+            # Volcar memoria y doctrina en cualquier máquina:
             ./systemhope-engine.exe dump-memory
-            # Consultar vía de notificación de un proveedor:
+            # Consultar vía de notificación oficial:
             ./systemhope-engine.exe notifications --proveedor "rimac"
-            # Buscar plantilla correspondiente:
-            ./systemhope-engine.exe templates --rama 03_seguro_desgravamen --materia negativa_cobertura
-            # Validar resolución redactada:
+            # Buscar plantilla por rama y materia:
+            ./systemhope-engine.exe templates --rama vehicular --materia negativa_cobertura
+            # Validar resolución generada:
             ./systemhope-engine.exe validate <resolucion.docx>
             ```
           files: |
