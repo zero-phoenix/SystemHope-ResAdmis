@@ -812,3 +812,23 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
   - *Falsador:* un caso entregado sin declarar N y T, o que supere los 2 minutos sin
     causa identificada (pagina escaneada, control ausente, contradiccion elevada).
 
+## 83. EL TRIAJE CUENTA PAGINAS, NO TEXTO (R-136)
+
+- R-136: **UN PDF SIN TEXTO NO ES UN PDF SIN PAGINAS:**
+  - *Medicion (14/09/2026, remesa de 13 expedientes):* `extraer_expediente.py`
+    descartaba **todos** los tramos vacios que devuelve `pdftotext`, no solo el
+    form-feed final. Un PDF integramente escaneado no devuelve texto, luego se quedaba
+    en **cero paginas** y el triaje lo declaraba resuelto. Asi, `DENUNCIA F.PDF.pdf`
+    (Exp. 2893-2026), que tiene **14 paginas escaneadas**, figuraba como 0 paginas y
+    **0 pasadas de vision**: el escrito de denuncia entero era invisible para el agente.
+  - *Efecto medido en la remesa:* el triaje pasaba de **116 paginas y 0 visiones** a
+    **175 paginas y 59 visiones** una vez corregido. Cinco expedientes (2785, 2794,
+    2893, 2894, 2899) tienen documentos escaneados.
+  - *Mandato:* el numero de paginas lo fija la estructura del PDF (PyMuPDF), no su
+    texto. Las paginas sin texto se rellenan vacias para que el triaje las mande a
+    vision.
+  - *Falsador:* un PDF cuyo conteo de paginas del triaje no coincida con el de PyMuPDF,
+    o un expediente con paginas escaneadas que el triaje reporte con 0 visiones.
+  - *Por que importa mas que la velocidad:* este defecto no hacia lento al agente, lo
+    hacia **redactar sin fuente**. Un escrito invisible es la via mas corta a inventar.
+

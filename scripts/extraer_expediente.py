@@ -53,25 +53,54 @@ PATRONES = {
 }
 
 
+def paginas_reales(ruta: Path) -> int | None:
+    """Numero de paginas segun la estructura del PDF, no segun su texto.
+
+    Es el ancla del triaje: un PDF integramente escaneado no produce texto, y sin
+    este conteo el triaje lo daba por vacio (R-136).
+    """
+    try:
+        import fitz  # PyMuPDF
+    except ImportError:
+        return None
+    try:
+        with fitz.open(str(ruta)) as doc:
+            return doc.page_count
+    except Exception:
+        return None
+
+
 def paginas_de_pdf(ruta: Path) -> list[str]:
-    """Texto por pagina. Usa pdftotext si esta disponible (≈11x mas rapido que
-    las librerias puras de Python); si no, cae a pypdf/PyPDF2."""
+    """Texto por pagina, con tantas entradas como paginas tenga el PDF.
+
+    Usa pdftotext si esta disponible (≈11x mas rapido que las librerias puras de
+    Python) y cuadra el resultado contra el numero real de paginas: las que no
+    dieron texto quedan como cadena vacia para que el triaje las mande a vision.
+    """
+    paginas: list[str] | None = None
     if shutil.which("pdftotext"):
         salida = subprocess.run(
             ["pdftotext", "-layout", str(ruta), "-"], capture_output=True
         ).stdout.decode("utf-8", "replace")
         paginas = salida.split("\f")
         # pdftotext cierra la salida con un form-feed: el ultimo trozo es vacio y
-        # no es una pagina. Sin esto cada PDF reporta una pagina de mas y el
-        # triaje manda a vision una pagina que no existe.
-        while paginas and not paginas[-1].strip():
+        # no es una pagina. Se descarta **uno solo**: descartarlos todos borraba
+        # el expediente entero cuando ninguna pagina tenia capa de texto.
+        if paginas and not paginas[-1].strip():
             paginas.pop()
-        return paginas
-    try:
-        from pypdf import PdfReader  # type: ignore
-    except ImportError:
-        from PyPDF2 import PdfReader  # type: ignore
-    return [(p.extract_text() or "") for p in PdfReader(str(ruta)).pages]
+    if paginas is None:
+        try:
+            from pypdf import PdfReader  # type: ignore
+        except ImportError:
+            from PyPDF2 import PdfReader  # type: ignore
+        paginas = [(p.extract_text() or "") for p in PdfReader(str(ruta)).pages]
+
+    total = paginas_reales(ruta)
+    if total is not None and len(paginas) != total:
+        # El conteo estructural manda. Si pdftotext devolvio de menos (PDF
+        # escaneado) se rellena; si devolvio de mas, se recorta.
+        paginas = (paginas + [""] * total)[:total]
+    return paginas
 
 
 def triaje(carpeta: Path):
