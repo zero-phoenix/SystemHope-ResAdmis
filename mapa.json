@@ -1,0 +1,69 @@
+{
+  "plantilla": "plantillas_maestras/04_seguro_proteccion_tarjetas_y_dinero/negativa_cobertura/1_ddo_aseguradora/varon/TPL_2536_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx",
+  "salida": "C:/Users/D/Desktop/expedientes/3122-2026/RES_01_3122-2026_CC1_ADMISORIO.docx",
+  "partes": ["Interseguro", "Cornejo"],
+  "conservar": [
+    "12 de mayo de 2026",
+    "26 de junio de 2025",
+    "5000068",
+    "37559",
+    "24,500",
+    "49,000",
+    "26,745.39",
+    "24,176.10",
+    "323.90",
+    "[PENDIENTE: fecha de denuncia]",
+    "2 de julio de 2013",
+    "2 de setiembre de 2010",
+    "30 de abril de 2026",
+    "S/ 10 000,00"
+  ],
+  "reemplazos": {
+    "2536-2025/CC1": "3122-2026/CC1",
+    "PABLO SANTIAGO ESPINOZA CANAL": "DAVID ENRIQUE CORNEJO BELLIDO",
+    "SEÑOR ESPINOZA": "SEÑOR CORNEJO",
+    "14 de noviembre de 2025": "14 de setiembre de 2026",
+    "9 de octubre de 2025": "[PENDIENTE: fecha de denuncia]",
+    "Espinoza": "Cornejo",
+    "EVELING ROA QUISPE": "LUISA ANALI SILVA MALPARTIDA",
+    
+    "Secretaria Técnica": "Secretaria Técnica (e)",
+    "Secretaria Técnica (e) de la Comisión": "Secretaria Técnica de la Comisión",
+    "la Secretaría Técnica (e), en ejercicio": "la Secretaría Técnica, en ejercicio",
+    
+    "LSM/JCQ": "LSM",
+    
+    "El 13 de octubre de 2024, adquirió el Certificado 108059-1190614 de la póliza de seguro que cubre eventos de robo o fraude en operaciones bancarias (en adelante, Seguro para operaciones bancarias), emitido por Interseguro, con vigencia hasta el 12 de octubre de 2025.": "El 26 de junio de 2025, el señor Cornejo adquirió el Seguro de Tarjetas 360° Premium (Póliza N° 5000068, Certificado 37559) para proteger sus tarjetas, ofreciéndose una cobertura de hasta S/ 49,000 en 2 eventos de S/ 24,500 cada uno.",
+    
+    "Los días 18 y 19 de octubre de 2024, se efectuaron catorce operaciones no reconocidas con cargo a su cuenta de ahorros en el Banco Internacional del Perú S.A.A. – Interbank (en adelante, Interbank), por un monto total de S/ 28 049,00, que no correspondieron a su patrón habitual de consumo.": "El 12 de mayo de 2026, fue víctima de extravío y uso fraudulento de sus tarjetas por consumos no reconocidos de S/ 26,745.39.",
+    
+    "Posteriormente, solicitó la cobertura del Seguro para operaciones bancarias ante Interseguro, adjuntando, la denuncia policial, el estado de cuenta detallado y la denegatoria la devolución del dinero por parte de Interbank.": "Al tramitar el siniestro, Interseguro liquidó de forma diminuta abonando S/ 323.90 y alegó falazmente que con un pago previo de S/ 24,176.10 ya se había alcanzado el tope, sumando indebidamente dos eventos independientes.",
+    
+    "Luego, Interseguro le requirió documentación adicional de manera sucesiva, incluyendo cartas de denegatoria de cada una de las empresas receptoras de las transferencias de operaciones no reconocidas, extendiéndose el trámite por meses sin atención.": "El señor Cornejo solicitó como medida correctiva la liquidación correcta y el depósito de S/ 24,176.10 para completar el límite de su segundo evento.",
+    
+    "El 7 de enero de 2025, Interseguro lo citó a una prueba de polígrafo como condición para evaluar la cobertura, a la cual asistió.": "",
+    "El 13 de enero de 2025, mediante carta GOT-SIN-5704-2024, Interseguro le comunicó la denegatoria de la indemnización en atención a resultados del examen de polígrafo porque habría presentado respuestas significativas de engaño y dio por concluido el caso sin habilitar un recurso de apelación interno.": "",
+    "Posteriormente, interpuso denuncia administrativa ante la Comisión de Protección al Consumidor 1 contra Interbank, tramitada bajo el código de caso 000778-2025.": "",
+    "El 3 de octubre de 2025, la Secretaría Técnica de la Comisión de Protección al Consumidor 1 emitió la Resolución 3452-2025/CC1, declarando fundada la denuncia contra Interbank en atención a su allanamiento, por haberse permitido la realización de catorce operaciones no reconocidas por el importe total de S/ 28 049,00 con cargo a la cuenta de ahorros, las cuales no correspondieron al patrón habitual de consumo y constituyeron patrones de fraude.": "",
+    "La admisión de culpa por parte de Interbank, en consideración al allanamiento formulado, desacredita la conclusión de Interseguro en el documento GOT-SIN-5704-2024, ya que confirma que el fraude fue facilitado por fallas en la seguridad bancaria, y no por su conducta en atención a resultados del examen de polígrafo.": "",
+    
+    "se habría negado injustificadamente a otorgar al denunciante la cobertura del Certificado  108059-1190614 por las catorce (14) operaciones no reconocidas realizadas desde su cuenta de ahorros": "habría liquidado de forma diminuta el pago del siniestro sumando de mala fe dos eventos independientes, y habría incurrido en publicidad engañosa respecto al tope de S/ 24,500",
+    "se habría negado injustificadamente a otorgar al denunciante la cobertura del Certificado 108059-1190614 por las catorce (14) operaciones no reconocidas realizadas desde su cuenta de ahorros": "habría liquidado de forma diminuta el pago del siniestro sumando de mala fe dos eventos independientes, y habría incurrido en publicidad engañosa respecto al tope de S/ 24,500",
+    
+    "no habría cumplido con brindar una respuesta dentro del plazo legal a la solicitud de cobertura del Certificado  108059-1190614 presentada por el denunciante por las catorce (14) operaciones no reconocidas realizadas desde su cuenta de ahorros": "habría ofertado comercialmente una cobertura de hasta S/ 49,000 en 2 eventos, y alegado contradictoriamente que el monto máximo anual es únicamente de S/ 24,500",
+    "no habría cumplido con brindar una respuesta dentro del plazo legal a la solicitud de cobertura del Certificado 108059-1190614 presentada por el denunciante por las catorce (14) operaciones no reconocidas realizadas desde su cuenta de ahorros": "habría ofertado comercialmente una cobertura de hasta S/ 49,000 en 2 eventos, y alegado contradictoriamente que el monto máximo anual es únicamente de S/ 24,500",
+    
+    "presentar una copia completa, legible y debidamente suscrita del Certificado 108059-1190614": "presentar una copia completa, legible y debidamente suscrita de la Póliza N° 5000068 y Certificado 37559",
+    "presentar los medios probatorios que acrediten que el rechazo de cobertura se encuentra debidamente justificado": "presentar los medios probatorios que acrediten que la liquidación se encuentra debidamente justificada",
+    "presentar los medios probatorios que acrediten que la solicitud de cobertura se atendió oportunamente": "presentar los sustentos sobre los topes máximos por evento informados en su publicidad",
+    
+    "108059-1190614": "5000068",
+    "108059": "5000068",
+    "1190614": "37559",
+    "S/ 28 049,00": "S/ 26,745.39",
+    "S/28 049,00": "S/ 26,745.39",
+    "18 y 19 de octubre de 2024": "12 de mayo de 2026",
+    "19 de octubre de 2024": "12 de mayo de 2026",
+    "catorce (14) operaciones no reconocidas": "operaciones no reconocidas"
+  }
+}
