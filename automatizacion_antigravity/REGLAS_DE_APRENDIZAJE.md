@@ -417,12 +417,12 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
 - R-96: **DENOMINACION DE PARTES POR ZONA DEL DOCUMENTO (REESCRITA — v2):**
   - *Estado epistemico:* la version 1 de esta regla (prohibicion absoluta de `el denunciante`
     y uso exclusivo del alias en todo el documento) **fue falsada** por el documento de control
-    `ADM 2662-2026 R3 RIMAC - LSQok.docx`, corregido por el instructor el 14/09/2026, que usa
+    el documento de control corregido por el instructor el 14/09/2026, que usa
     `el denunciante` en la considerativa y la razon social completa en la resolutiva. Se sustituye
     por una regla por zonas. Corroboracion: n=1 documento de control; **pendiente de contraste
     contra el corpus completo** (ver R-109).
   - **Zona 1 — Encabezado (`EXPEDIENTE`/`DENUNCIANTE`/`DENUNCIADO`):** nombre completo en
-    mayusculas y alias entre parentesis: `DENUNCIANTE: CESAR AUGUSTO FLORES SILVERA (SEÑOR FLORES)`,
+    mayusculas y alias entre parentesis: `DENUNCIANTE: [NOMBRE COMPLETO EN MAYUSCULAS] (SEÑOR [PRIMER APELLIDO])`,
     `DENUNCIADO: RIMAC SEGUROS Y REASEGUROS S.A. (RIMAC)`. Todo el bloque en negrita (R-104).
   - **Zona 2 — Numeral 1 de Hechos:** `el señor [Nombre Completo]` y razon social completa con
     definicion del alias. A partir de aqui rige el alias.
@@ -489,7 +489,7 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
     (¿abstencion de la titular por conflicto de interes, art. 99 del TUO de la LPAG? ¿designacion por
     resolucion de la Comision para expedientes determinados? ¿materia o sede?). Hasta que se responda,
     el motor aplica el mandato literal y **no** reescribe retroactivamente las 140 plantillas.
-  - *Causa raiz del error del Expediente 2662-2026:* `docs/MEMORIA_ESTILO_VISUAL_PAGINAS.md` codificaba
+  - *Causa raiz del error del caso de control:* `docs/MEMORIA_ESTILO_VISUAL_PAGINAS.md` codificaba
     la firma como valor fijo `EVELING ROA QUISPE`. El motor cumplio el repositorio; **el repositorio
     estaba mal**. Corregido con una matriz de firma en esa misma seccion.
   - *Falsador:* un admisorio contra Rimac emitido despues del 14/09/2026 firmado por la titular.
