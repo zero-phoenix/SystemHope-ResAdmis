@@ -283,4 +283,37 @@ El agente procesa cada escrito mediante **Visión Multimodal Pura (Google Lens /
 > Leerlo completo en cada arranque es la razon de que el segundo admisorio tardara mas que
 > el primero: la superficie de instrucciones crecio a 149 KB con R-103 repetida en 8 archivos.
 
+### R-117: El Control Aprobado Manda en el Numero y el Articulo de Cada Imputacion
+- El numero de imputaciones y el articulo de cada una se copian del control aprobado; prohibido refundir dos conductas en un articulo (150 y 88.1 dentro de 18/19).
+- Si la rama de la plantilla no trae el articulo, se inserta desde el donante verificado.
+- *Falsador:* una imputacion del control ausente o subsumida en otro articulo en el generado.
+
+### R-118: Ordinal y Fecha de Emision: Los del Control, y la Contradiccion se Eleva
+- Se redacta con el ordinal y la fecha del control; el conflicto con el expediente se lista como punto abierto para el instructor.
+- *Falsador:* ordinal o fecha distintos del control sin constancia de elevacion.
+
+### R-119: Requerimiento Probatorio: los Incisos del Control, ni Uno Mas ni Uno Menos
+- Los incisos del control se reproducen; no se anaden ni se omiten sin orden ni elevacion.
+- *Falsador:* inciso del control ausente, o inciso anadido que no figure en control ni escrito.
+
+### R-120: Hechos: Cada Acto con su Fecha, sin Fusionar
+- Si el control separa dos actos con fechas distintas (envio 9 de junio / presentacion 11 de junio), el generado no los funde en un inciso.
+- *Falsador:* dos incisos de hecho del control reducidos a uno.
+
+### R-121: El Control Tambien Falla: no se Copian sus Erratas
+- El control se copia en estructura, no en errata; las invariantes lexicas del §1 de AGENTS.md siguen mandando.
+- Una fecha del control sin ocurrencias en el expediente se eleva, no se silencia.
+- *Falsador:* errata del control reproducida, o fecha no verificada incorporada sin elevacion.
+
+### R-122: Caso Cerrado = Paro Inmediato
+- Con `_ESTADO.md` o `_ORDEN_DE_TRABAJO.md` en «CASO CERRADO», el agente no genera otro `.docx`: reporta y se detiene.
+- *Falsador:* un `.docx` nuevo en carpeta cerrada despues de la marca.
+
+### R-123: La Espera de Word es Acotada: Falla Rapido, no Espera
+- `footnote_injector.procesar_notas` aborta con el PID si hay `WINWORD.EXE` sin ventana, en vez de esperar sin limite. No mata procesos.
+- *Falsador:* una generacion que pase mas de un minuto sin salida nueva ni error.
+
+### R-124: Contradiccion Declarada (R-110 vs Control 2723)
+- R-110 exige atribucion al denunciante en los hechos; el control 2723 narra en tercera persona directa. Bajo el falsador de R-110, el control no la cumple. Se eleva al instructor; no se resuelve por cuenta propia.
+
 

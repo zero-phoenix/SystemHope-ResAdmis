@@ -19,6 +19,7 @@ reemplaza los marcadores por notas reales y aplica formato.
 from __future__ import annotations
 
 import re
+import subprocess
 import sys
 from pathlib import Path
 from typing import Any
@@ -33,6 +34,45 @@ def _requiere_windows() -> None:
         raise RuntimeError(
             "La inyección de notas al pie nativas requiere Microsoft Word en Windows. "
             "En Linux/Mac se conserva el marcador como texto (editable manualmente)."
+        )
+
+
+def _pids_word_sin_ventana() -> list[int]:
+    """PIDs de WINWORD.EXE sin ventana principal (residuo de un DispatchEx sin Quit).
+
+    Se consulta **antes** de abrir Word. Una instancia huerfana deja el .docx
+    bloqueado y el siguiente ``Documents.Open`` espera sin limite: es la causa
+    medida de que una generacion de minutos se convierta en una espera
+    indefinida (R-116). Detectar y fallar rapido convierte esa espera en un
+    error con instruccion.
+    """
+    if sys.platform != "win32":
+        return []
+    ps = (
+        "Get-Process -Name WINWORD -ErrorAction SilentlyContinue | "
+        "Where-Object { -not $_.MainWindowTitle } | "
+        "ForEach-Object { $_.Id }"
+    )
+    try:
+        salida = subprocess.run(
+            ["powershell", "-NoProfile", "-NonInteractive", "-Command", ps],
+            capture_output=True,
+            timeout=30,
+        ).stdout.decode("utf-8", "replace")
+    except Exception:
+        return []
+    return [int(x) for x in salida.split() if x.strip().isdigit()]
+
+
+def _verificar_word_sano() -> None:
+    """Aborta con instruccion si hay un Word huerfano, en vez de esperar (R-123)."""
+    pids = _pids_word_sin_ventana()
+    if pids:
+        lista = ", ".join(str(p) for p in pids)
+        raise RuntimeError(
+            "Hay WINWORD.EXE huerfano(s) sin ventana (PID %s). Mantienen el .docx "
+            "abierto y la inyeccion de notas esperaria sin limite. Cierralos con "
+            "conocimiento de causa: Stop-Process -Id %s" % (lista, lista.split(",")[0])
         )
 
 
@@ -52,6 +92,7 @@ def procesar_notas(ruta_docx: str | Path, visible: bool = False) -> dict[str, An
 
     ruta_abs = str(Path(ruta_docx).resolve())
     _limpiar_bloqueo(Path(ruta_docx))
+    _verificar_word_sano()
     word = None
     doc = None
     stats = {"notas_insertadas": 0, "errores": [], "resaltados_limpiados": False}

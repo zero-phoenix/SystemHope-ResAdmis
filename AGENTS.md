@@ -130,3 +130,19 @@ python scripts/verificar_admisorio.py <generado.docx>
 ```
 Se entrega con `APTO`, pegando la salida literal.
 
+---
+
+## 8. PARO, CONTROL APROBADO Y DEMORA (R-117 A R-123)
+
+- **Caso cerrado = paro inmediato (R-122).** Si la carpeta del expediente trae
+  `_ESTADO.md` o `_ORDEN_DE_TRABAJO.md` con «CASO CERRADO», **no generes otro `.docx`**:
+  reporta y detente. Regenerar trabajo cerrado es la causa medida de la demora.
+- **El control aprobado manda sobre la plantilla (R-117 a R-119):** ordinal, fecha de
+  emisión, número de imputaciones y el artículo de cada una, y los incisos del
+  requerimiento probatorio se copian del control. Sus erratas no se copian (R-121).
+  Si el control contradice al expediente, se redacta según el control y se eleva el
+  conflicto al instructor; no se resuelve por cuenta propia.
+- **Antes de generar, mide Word (R-116, R-123):** `python scripts/estado_word.py <carpeta>`.
+  Un `WINWORD.EXE` sin ventana hace esperar la inyección de notas sin límite; el inyector
+  ahora aborta con el PID en vez de esperar, y no mata procesos.
+

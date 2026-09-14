@@ -622,3 +622,87 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
     para buscar una regla, no se leen enteros al arrancar. La lectura de arranque es `AGENTS.md`.
   - *Falsador:* un admisorio que tarde mas que el anterior sin que el expediente sea mayor.
 
+## 80. MASTER PHOENYX: LO QUE ENSEÑA EL CONTROL APROBADO (R-117 A R-123)
+
+> Origen: diff del 14/09/2026 entre el entregable generado del Expediente 2723-2026 y el
+> control aprobado de la CC1 (`ADM 2723-2026 R2 - LSQok.docx`). El generado pasaba
+> `verificar_admisorio.py` con `APTO (0 falsadores)` y aun asi divergia del control en
+> cuatro puntos que el verificador no mira. Leccion: el verificador falsa lo formalizable;
+> el control aprobado falsa el contenido. Ninguno sustituye al otro.
+
+- R-117: **EL NUMERO DE IMPUTACIONES Y EL ARTICULO DE CADA UNA SE COPIAN DEL CONTROL:**
+  - *Medicion:* el control imputa **seis** conductas (arts. 18 y 19 en tres hechos; art. 1,
+    numeral 1, literal b) y art. 2; **art. 150**; **art. 88, numeral 88.1**). El generado
+    imputo **cinco**: refundio el libro de reclamaciones (150) y la falta de respuesta al
+    reclamo (88.1) dentro de 18 y 19.
+  - Prohibido colapsar dos conductas en un solo articulo para calzar la plantilla base. Si
+    la rama de la plantilla no trae el articulo, se inserta desde el donante verificado.
+  - *Falsador:* una imputacion del control que en el generado aparezca ausente o subsumida
+    en otro articulo.
+
+- R-118: **ORDINAL Y FECHA DE EMISION: LOS DEL CONTROL. LA CONTRADICCION SE ELEVA:**
+  - *Medicion:* control RESOLUCION **2** y «Lima, 28 de agosto de 2026»; generado
+    RESOLUCION **3** y 14/09/2026, inferidos del escrito de subsanacion.
+  - Se redacta con el ordinal y la fecha del control, y el conflicto se lista como punto
+    abierto para el instructor. No se resuelve por cuenta propia.
+  - *Falsador:* un ordinal o una fecha de emision distintos del control sin constancia de
+    elevacion.
+
+- R-119: **REQUERIMIENTO PROBATORIO: LOS INCISOS DEL CONTROL, NI UNO MAS NI UNO MENOS:**
+  - *Medicion:* el inciso (i) del control incluye «asi como el cargo de remision de la
+    poliza»; el generado lo omitio y anadio incisos propios (Certificado del SOAT, informe
+    de auditoria medica, constancia de remision al Instituto Nacional de Rehabilitacion).
+  - *Falsador:* un inciso del control ausente del generado, o un inciso anadido que no
+    figure en el control ni en el escrito, sin elevacion.
+
+- R-120: **HECHOS: CADA ACTO CON SU FECHA, SIN FUSIONAR:**
+  - *Medicion:* el control separa «El 9 de junio del 2026, realizo el envio de la
+    solicitud» y «El 11 de junio del 2026, presento la solicitud»; el generado fundio los
+    dos actos en un solo inciso con la segunda fecha.
+  - *Falsador:* dos incisos de hecho del control reducidos a uno en el generado.
+
+- R-121: **EL CONTROL TAMBIEN FALLA: NO SE COPIAN SUS ERRATAS:**
+  - *Medicion:* el control trae «del del Seguro», «articulo 150° 29571» (sin «de la Ley»)
+    y «esta debera» con tilde diacritica. Las invariantes del §1 de `AGENTS.md` siguen
+    mandando: el control se copia en estructura, no en errata.
+  - *Punto abierto medido, no silenciado:* «9 de junio» y «24 de junio» del control tienen
+    **0** ocurrencias en el texto extraido de los tres PDF del expediente.
+  - *Falsador:* una errata del control reproducida en el generado, o una fecha del control
+    ausente del expediente incorporada sin elevacion.
+
+- R-122: **CASO CERRADO = PARO INMEDIATO (ANTIDOTO CONTRA LA DEMORA POR REGENERACION):**
+  - Si la carpeta del expediente trae `_ESTADO.md` o `_ORDEN_DE_TRABAJO.md` con «CASO
+    CERRADO», el agente **no produce un `.docx` nuevo**: reporta y se detiene.
+  - *Medicion:* el Expediente 2723-2026 quedo cerrado a las 03:27 (RES_03) y a las 03:33 ya
+    existia un RES_02 regenerado con ordinal y contenido divergentes, pese a que la orden
+    decia «NO EJECUTAR ESTA ORDEN». La demora no vino de generar el Word: vino de rehacer
+    trabajo cerrado.
+  - *Falsador:* un `.docx` nuevo en una carpeta marcada CERRADA despues de la marca.
+
+- R-123: **LA ESPERA DE WORD ES ACOTADA: FALLA RAPIDO, NO ESPERA:**
+  - `footnote_injector.procesar_notas` consulta antes de `DispatchEx` si hay
+    `WINWORD.EXE` sin ventana; si lo hay, aborta con el PID y el comando exacto para
+    cerrarlo, en vez de esperar sin limite. Sigue sin matar procesos: informa.
+  - *Medicion del 14/09/2026, 03:41:* seis procesos de Antigravity consumiendo **1,3 s y
+    2,4 s de CPU en 3 s** (trabajando en ese momento) y un `WINWORD.EXE` huerfano vivo
+    desde las 02:30 con el bloqueo `~$S_02_2662-2026_CC1_ADMISORIO.docx` en la carpeta del
+    expediente en curso. Ambos se detuvieron y el bloqueo se retiro.
+  - *Falsador:* una generacion que pase mas de un minuto sin producir salida nueva ni error.
+
+### 80.1 / R-124. Contradiccion declarada, no resuelta: R-110 contra el control 2723
+
+- R-110 exige que las conductas del proveedor se redacten **mediante atribucion al
+  denunciante** («Senalo que...», «Preciso que...», «Manifesto que...») o en potencial.
+  Su falsador es un inciso con verbo asertivo directo atribuido al denunciado.
+- El control 2723, en cambio, narra **en tercera persona directa y sin atribucion**:
+  «El 24 de marzo del 2025, sufrio un accidente...», «El 9 de junio del 2026, realizo el
+  envio...», «El 24 de junio del 2026, la compania aseguradora despacho una comunicacion
+  notarial...». Bajo el falsador de R-110, ese control no la cumple.
+- El generado, por su parte, mezcla los dos estilos: hechos en directo («El 24 de marzo
+  de 2025, sufrio...») y hechos con atribucion («Senalo que el 11 de junio...»,
+  «Manifesto que el 27 de junio...»).
+- **No se resuelve aqui.** Se eleva al instructor: o R-110 acota su dominio (p. ej. solo
+  cuando el hecho consta unicamente en la declaracion del denunciante), o el estilo del
+  control 2723 es el que manda y R-110 se reescribe. Una regla que hay que reinterpretar
+  caso por caso dejo de ser regla.
+
