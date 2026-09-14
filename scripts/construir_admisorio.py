@@ -37,8 +37,15 @@ Uso:
       "reemplazos": {"texto viejo": "texto nuevo", ...}
     }
 
-Los `reemplazos` se aplican en `document.xml`, encabezados, pies y notas al pie, y
-son sensibles a que el texto este partido en varios `run`.
+Los `reemplazos` se aplican en `document.xml`, encabezados, pies y notas al pie,
+son sensibles a que el texto este partido en varios `run`, y se aplican de clave
+mas larga a mas corta para que los solapamientos tengan una regla unica: manda la
+mas especifica.
+
+Una clave que no coincida al caracter con la plantilla --sobra un espacio, falta
+una tilde, se colo la llamada de una nota-- se **alinea sola** con el parrafo que
+se le parece por encima del 92 %, y la alineacion se imprime. Cazar esa diferencia
+a ojo costaba una vuelta entera del bucle del agente por cada clave.
 """
 
 from __future__ import annotations
@@ -165,7 +172,44 @@ def aplicar(xml: str, reemplazos: dict[str, str]) -> tuple[str, dict[str, int]]:
         piezas.append(xml[fin:])
         xml = "".join(piezas)
 
-    return xml, hechos
+    # 3) Alineacion. Una clave copiada a mano de un volcado casi nunca coincide al
+    # caracter con la plantilla: sobra un espacio, falta una tilde, se colo el
+    # numero de una nota al pie. Obligar al redactor a cazar esa diferencia a ojo
+    # cuesta una vuelta entera del bucle (~30 s). Si la clave se parece a UN solo
+    # parrafo por encima del 92 %, se usa ese parrafo y se dice en voz alta.
+    pendientes = {v: n for v, n in reemplazos.items() if v not in hechos}
+    alineados: dict[str, tuple[str, float]] = {}
+    if pendientes:
+        parrafos = [
+            (m.start(), m.end(), m.group(0), texto_parrafo(m.group(0)).strip())
+            for m in RE_PARRAFO.finditer(xml)
+        ]
+        candidatos = [p for p in parrafos if len(p[3]) > 20]
+        # Se decide todo primero y se aplica despues de atras hacia delante: si se
+        # sustituyera sobre la marcha, la primera sustitucion desplazaria los
+        # offsets de las siguientes y el XML acabaria partido por la mitad.
+        planeados: list[tuple[int, int, str, str]] = []
+        usados: set[int] = set()
+        for viejo, nuevo in pendientes.items():
+            if len(viejo) < 40:
+                continue  # una clave corta se alinea con cualquier cosa
+            mejor = None
+            for ini, fin_p, parrafo, texto in candidatos:
+                if ini in usados:
+                    continue
+                r = difflib.SequenceMatcher(None, viejo, texto).ratio()
+                if r >= 0.92 and (mejor is None or r > mejor[0]):
+                    mejor = (r, ini, fin_p, parrafo, texto)
+            if mejor:
+                r, ini, fin_p, parrafo, texto = mejor
+                usados.add(ini)
+                planeados.append((ini, fin_p, parrafo, nuevo))
+                hechos[viejo] = hechos.get(viejo, 0) + 1
+                alineados[viejo] = (texto, r)
+        for ini, fin_p, parrafo, nuevo in sorted(planeados, reverse=True):
+            xml = xml[:ini] + reescribir_parrafo(parrafo, nuevo) + xml[fin_p:]
+
+    return xml, hechos, alineados
 
 
 def texto_plano(datos: dict[str, bytes]) -> str:
@@ -316,12 +360,14 @@ def construir(mapa: dict) -> int:
         if n in PARTES_XML or re.match(r"word/(header|footer)\d+\.xml", n)
     ]
     hechos: dict[str, int] = {}
+    alineados: dict[str, tuple[str, float]] = {}
     for n in objetivo:
         xml = datos[n].decode("utf-8")
-        xml, parciales = aplicar(xml, reemplazos)
+        xml, parciales, alin = aplicar(xml, reemplazos)
         datos[n] = xml.encode("utf-8")
         for k, v in parciales.items():
             hechos[k] = hechos.get(k, 0) + v
+        alineados.update(alin)
 
     with zipfile.ZipFile(salida, "w", zipfile.ZIP_DEFLATED) as z:
         for n in nombres:
@@ -333,6 +379,12 @@ def construir(mapa: dict) -> int:
     print("  Plantilla: %s" % plantilla.name)
     print("  Reemplazos aplicados: %d de %d" % (len(hechos), len(reemplazos)))
     print("  Sin abrir Word. Ningun proceso WINWORD.EXE involucrado.")
+    if alineados:
+        print()
+        print("  ALINEADOS AUTOMATICAMENTE (tu clave no coincidia al caracter):")
+        for viejo_k, (real, r) in alineados.items():
+            print("    %.0f%%  tu clave: '%s'" % (r * 100, viejo_k[:66]))
+            print("          plantilla: '%s'" % real[:66])
     print()
 
     fallos = auditar_residuos(
@@ -355,6 +407,12 @@ def construir(mapa: dict) -> int:
         print()
         print("  El documento se escribio, pero NO es entregable: un dato del caso de")
         print("  origen dentro de este admisorio es informacion inventada.")
+        print()
+        print("  Orden de arreglo: primero los reemplazos que no se aplicaron. Un dato")
+        print(
+            "  duro suele seguir dentro porque la frase que lo contenia no se sustituyo,"
+        )
+        print("  asi que arreglar un reemplazo cierra varios falsadores de golpe.")
     print()
     print("  Siguiente paso:")
     print('  python scripts/admisorio.py entregar "%s"' % salida)
