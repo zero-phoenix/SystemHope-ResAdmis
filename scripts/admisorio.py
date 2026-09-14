@@ -164,6 +164,32 @@ def entregar(docx: Path, caso: str | None) -> int:
     else:
         print("  Sin fuga detectada.")
 
+    _titulo("LECTURA CON GOOGLE LENS (R-137)")
+    # La pasada de vision no se puede comprobar mirando el .docx, y la traza del
+    # agente no sirve con varios casos en paralelo: `conversacion_mas_reciente()`
+    # devuelve la de otro expediente. Medido el 14/09/2026: los tres agentes de la
+    # segunda tanda entregaron con CERO toques a imagen y nadie lo habria sabido.
+    # Asi que la evidencia la deja el propio agente, por escrito y por pagina.
+    lectura = docx.parent / "_LECTURA.md"
+    paginas = sorted((docx.parent / "_paginas").glob("*.png"))
+    if not lectura.exists():
+        fallas.append(
+            "no hay _LECTURA.md: sin constancia de la lectura con Lens no hay entrega (R-137)"
+        )
+        print("  FALLA  falta %s" % lectura.name)
+        print("         Escribe una linea por pagina con lo que viste en ella.")
+    else:
+        texto_lectura = lectura.read_text(encoding="utf-8", errors="replace")
+        faltan = [p.name for p in paginas if p.name not in texto_lectura]
+        if faltan:
+            fallas.append(
+                "_LECTURA.md no cubre %d de %d paginas (R-137)"
+                % (len(faltan), len(paginas))
+            )
+            print("  FALLA  sin constancia de lectura: %s" % ", ".join(faltan[:6]))
+        else:
+            print("  OK     constancia de lectura de las %d paginas." % len(paginas))
+
     _titulo("RESTRICCIONES DURAS DEL PLAN")
     # Solo cuenta como PDF del pipeline el que nace del propio entregable: mismo
     # nombre, o escrito despues del .docx. Los PDF del expediente son la entrada.
@@ -199,6 +225,12 @@ def entregar(docx: Path, caso: str | None) -> int:
         print("  FALLA  Word sin ventana vivo: %s" % pids)
     else:
         print("  OK     ningun WINWORD.EXE vivo.")
+
+    _titulo("AUDITORIA DE FONDO: TODO DATO ANCLADO")
+    import auditar_admisorio  # import diferido
+
+    if auditar_admisorio.auditar(docx.parent, False) != 0:
+        fallas.append("hay datos del admisorio sin ancla en el expediente")
 
     if caso:
         _titulo("SCORECARD DE TRAYECTORIA (F13)")
