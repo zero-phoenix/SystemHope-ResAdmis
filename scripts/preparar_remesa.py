@@ -463,6 +463,30 @@ def escribir_cola(base: Path, ordenes: list[dict]) -> None:
    N ≤ 12 y T ≤ 2 minutos por caso sin visión.
 3. Terminado un caso, su `_ESTADO.md` dice `CASO CERRADO` y no se vuelve a tocar.
 4. Ningún `.docx` de expediente entra al repositorio.
+
+## Encargo, uno por conversación
+
+Abrir **una conversación nueva** por expediente y pegar exactamente esto,
+cambiando solo el número:
+
+```
+Redacta el admisorio del Expediente <EXP>/CC1.
+
+Workspace: C:\\Users\\D\\Code\\repos\\SystemHope-ResAdmis (todo comando corre ahí).
+Orden de trabajo: C:\\Users\\D\\Desktop\\expedientes\\<EXP>\\_ORDEN_DE_TRABAJO.md
+
+Lee esa orden y síguela. El triaje, el censo de la cédula, el dossier anclado y
+las candidatas de plantilla YA ESTÁN HECHOS: no los rehagas. Visión solo en las
+páginas que la orden liste como escaneadas. Lee cada archivo una sola vez.
+
+Entrega con:
+python scripts/admisorio.py entregar "<ruta del .docx>" --caso <EXP>
+
+Pega la salida literal (APTO / ENTREGABLE) y declara cuántas llamadas a
+herramienta usaste y cuánto tardó. No generes PDF. No commitees el .docx.
+Cualquier dato que no esté en el dossier o en _texto_expediente.txt: no lo
+inventes, decláralo como pendiente del instructor.
+```
 """
     (base / "_COLA.md").write_text(texto, encoding="utf-8")
 
