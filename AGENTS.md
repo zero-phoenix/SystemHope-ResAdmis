@@ -145,4 +145,10 @@ Se entrega con `APTO`, pegando la salida literal.
 - **Antes de generar, mide Word (R-116, R-123):** `python scripts/estado_word.py <carpeta>`.
   Un `WINWORD.EXE` sin ventana hace esperar la inyección de notas sin límite; el inyector
   ahora aborta con el PID en vez de esperar, y no mata procesos.
+- **Prohibido el PDF (mandato del instructor, R-125):** el entregable es el `.docx`. No se
+  convierte, imprime ni exporta a PDF. La conversión era el último consumidor de Word por
+  COM y una causa medida de cuelgue.
+- **Velocidad con calidad:** un admisorio son **cinco pasos y ≤ 12 llamadas** (F3 a F5 de
+  `docs/PLAN_VELOCIDAD_SIN_COLGARSE.md`). Prohibido releer lo ya leído o abrir las 630
+  plantillas a mano: la base se elige por índice en una llamada.
 

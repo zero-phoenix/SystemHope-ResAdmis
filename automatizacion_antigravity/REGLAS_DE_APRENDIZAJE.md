@@ -706,3 +706,12 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
   control 2723 es el que manda y R-110 se reescribe. Una regla que hay que reinterpretar
   caso por caso dejo de ser regla.
 
+- R-125: **PROHIBIDO EL PDF: EL ENTREGABLE ES WORD (MANDATO DEL INSTRUCTOR, 14/09/2026):**
+  - El sistema no convierte, imprime ni exporta a PDF en ningun punto del flujo. La
+    conversion era el ultimo consumidor de Word por COM y una de las causas medidas de
+    cuelgue: el Expediente 2723-2026 no pudo cerrarla porque un Word huerfano retenia los
+    bloqueos.
+  - *Falsador:* un `.pdf` producido por el pipeline de admisorios.
+  - Plan completo y presupuestos: `docs/PLAN_VELOCIDAD_SIN_COLGARSE.md` (F2; linea base de
+    ~12 s de computo total y las cuatro causas de cuelgue con su evidencia).
+
