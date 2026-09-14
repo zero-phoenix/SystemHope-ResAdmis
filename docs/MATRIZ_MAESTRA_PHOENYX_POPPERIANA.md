@@ -276,3 +276,11 @@ El agente procesa cada escrito mediante **Visión Multimodal Pura (Google Lens /
 - *Falsador:* Verbo en pasado indicativo asertivo atribuido directamente al denunciado sin verbo de atribución en el inciso.
 
 
+
+> ⚠️ **NO ES LECTURA DE ARRANQUE.** Este archivo es el corpus de consulta dirigida.
+> Para trabajar un admisorio basta con `AGENTS.md`, que es corto y manda. Aqui se viene a
+> buscar **una** regla concreta cuando hace falta, no a leerlo entero antes de empezar.
+> Leerlo completo en cada arranque es la razon de que el segundo admisorio tardara mas que
+> el primero: la superficie de instrucciones crecio a 149 KB con R-103 repetida en 8 archivos.
+
+

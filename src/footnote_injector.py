@@ -51,6 +51,7 @@ def procesar_notas(ruta_docx: str | Path, visible: bool = False) -> dict[str, An
         ) from exc
 
     ruta_abs = str(Path(ruta_docx).resolve())
+    _limpiar_bloqueo(Path(ruta_docx))
     word = None
     doc = None
     stats = {"notas_insertadas": 0, "errores": [], "resaltados_limpiados": False}
@@ -232,3 +233,18 @@ def _bold_a_leyes(rango: Any) -> None:
                 par.Range.Font.Bold = True
         except Exception:  # pragma: no cover
             continue
+
+def _limpiar_bloqueo(destino: Path) -> None:
+    """Borra el archivo de bloqueo ``~$nombre.docx`` si quedo huerfano.
+
+    Word deja ese archivo mientras tiene el documento abierto y lo retira al
+    cerrar. Si el proceso que lo automatizaba murio entre medias, el bloqueo
+    sobrevive y la siguiente apertura sale en solo lectura o se queda
+    esperando. Si otro Word lo tiene tomado de verdad, el borrado falla y no
+    pasa nada: se sigue adelante."""
+    bloqueo = destino.parent / ("~$" + destino.name)
+    try:
+        if bloqueo.exists():
+            bloqueo.unlink()
+    except OSError:  # pragma: no cover - lo tiene abierto un Word vivo
+        pass

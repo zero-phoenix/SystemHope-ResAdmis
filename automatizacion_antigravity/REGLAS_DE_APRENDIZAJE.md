@@ -1,4 +1,12 @@
 
+> ⚠️ **NO ES LECTURA DE ARRANQUE.** Este archivo es el corpus de consulta dirigida.
+> Para trabajar un admisorio basta con `AGENTS.md`, que es corto y manda. Aqui se viene a
+> buscar **una** regla concreta cuando hace falta, no a leerlo entero antes de empezar.
+> Leerlo completo en cada arranque es la razon de que el segundo admisorio tardara mas que
+> el primero: la superficie de instrucciones crecio a 149 KB con R-103 repetida en 8 archivos.
+
+
+
 # MATRIZ DE APRENDIZAJE Y REGLAS DE REDACCIÓN (ANTIGRAVITY)
 Documento autogenerado para consolidar las instrucciones de "Lo que se debe hacer" (DOs) vs "Lo que NO se debe hacer" (DONTs) en la elaboración de resoluciones admisorias.
 
@@ -598,4 +606,19 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
   - *Lo que NO hay que optimizar:* abrir las 630 plantillas maestras cuesta **1,69 s** medidos.
     No es el cuello de botella y no necesita indice, cache ni base de datos. Optimizar ahi es
     trabajo inventado.
+
+- R-116: **WORD HUERFANO Y SUPERFICIE DE INSTRUCCIONES: LAS DOS CAUSAS DE QUE UN ADMISORIO SE ATASQUE:**
+  - *Word huerfano.* `footnote_injector` abre Word por COM. Si el proceso que lo lanzo muere entre
+    `Documents.Open` y `word.Quit()`, queda un WINWORD.EXE **sin ventana** con el documento abierto
+    y el bloqueo `~$nombre.docx` en la carpeta. El siguiente intento espera indefinidamente.
+    Diagnostico: `python scripts/estado_word.py <carpeta>`. El script **informa y no mata**: cerrar
+    un Word que puede tener trabajo sin guardar es decision de la persona.
+    *Medicion del 14/09/2026:* un WINWORD.EXE sin ventana llevaba 50 minutos vivo con 5,7 s de CPU,
+    y un bloqueo `~$` de un expediente anterior seguia en la carpeta del expediente en curso.
+  - *Superficie de instrucciones.* Lo que el agente lee antes de empezar llego a **149 KB**, con
+    R-103 repetida en **8** archivos y R-108 en **7**. Crecer el corpus de reglas hace el trabajo
+    mas lento sin hacerlo mejor. Por eso `REGLAS_DE_APRENDIZAJE.md` y
+    `MATRIZ_MAESTRA_PHOENYX_POPPERIANA.md` quedan marcados como **consulta dirigida**: se abren
+    para buscar una regla, no se leen enteros al arrancar. La lectura de arranque es `AGENTS.md`.
+  - *Falsador:* un admisorio que tarde mas que el anterior sin que el expediente sea mayor.
 

@@ -9,6 +9,27 @@
 
 ---
 
+## LECTURA DE ARRANQUE: SOLO ESTE ARCHIVO
+
+Para redactar un admisorio **basta con este archivo**. `REGLAS_DE_APRENDIZAJE.md` (79 KB) y
+`MATRIZ_MAESTRA_PHOENYX_POPPERIANA.md` (45 KB) son corpus de **consulta dirigida**: se abren
+para buscar una regla concreta, no se leen enteros antes de empezar.
+
+**Los cinco pasos, en orden:**
+
+1. `python scripts/extraer_expediente.py <carpeta>` — triaje y dossier anclado.
+2. Vision multimodal **solo** en las paginas que el triaje liste sin capa de texto.
+3. Redaccion sobre la plantilla que corresponda al patron del caso.
+4. `python scripts/inspeccionar_docx.py <generado> --diff <control>` — si hay control.
+5. `python scripts/verificar_admisorio.py <generado>` — se entrega con `APTO`, pegando la
+   salida literal. Sin eso, el admisorio no esta entregado.
+
+**Si la carpeta del expediente trae un `_ORDEN_DE_TRABAJO.md`, ese archivo manda sobre este
+para ese caso concreto:** significa que el triaje, la eleccion de plantilla y el anclaje de
+datos ya estan hechos y no hay que rehacerlos.
+
+---
+
 ## 1. REGLAS NO NEGOCIABLES (AXIOMAS POPPERIANOS)
 1. **PROHIBICIÓN ESTRICTA DE OCR:** Jamás transcribir denuncias con OCR clásico ni extractores que rompan coordenadas o inventen datos. Se analiza la imagen de la denuncia escaneada con Google Lens o modelos de visión directa.
 2. **TUO LPAG ACTUALIZADO:** Siempre citar el **Decreto Supremo 006-2026-JUS**. Prohibida cualquier mención al D.S. 004-2019-JUS.
