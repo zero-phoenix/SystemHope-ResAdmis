@@ -167,7 +167,45 @@ def auditar(carpeta: Path, ver_anclados: bool) -> int:
             )
         print("     %-8s %-46s %s" % (marca, nombre[:46], via))
 
-    # 3. Datos duros sin ancla
+    # 3. Nombres de persona ajenos al caso.
+    #
+    # El auditor de residuos del constructor vigila aseguradoras y datos duros,
+    # pero no apellidos, y por ahi se cuela lo peor: el Exp. 3122-2026 salio
+    # certificado APTO nombrando a «Pablo Santiago Cornejo Canal», una quimera del
+    # consumidor de la plantilla (Espinoza Canal) y del de este caso (Cornejo); y
+    # el 2820-2026 atribuia la denuncia a «el senor Nanez», que no existe en el
+    # expediente. Un apellido que no es de ninguna parte procesal ni consta en el
+    # expediente es residuo de plantilla con forma de dato verdadero.
+    print("  Nombres de persona:")
+    autorizados = set()
+    for nombre, _via, _canal in partes:
+        autorizados.update(w for w in sin_tildes(nombre).upper().split() if len(w) > 2)
+    autorizados.update(
+        "LUISA ANALI SILVA MALPARTIDA COMISION PROTECCION CONSUMIDOR INDECOPI "
+        "SECRETARIA TECNICA SUCESION INTESTADA SENOR SENORA".split()
+    )
+    fuente_alto = sin_tildes(fuente).upper()
+    tratamiento = re.compile(
+        r"(?:señor|señora|señorita)\s+([A-ZÁÉÍÓÚÑ][\wáéíóúñ]+)",
+        re.I,
+    )
+    ajenos = []
+    for m in tratamiento.finditer(cuerpo):
+        apellido = sin_tildes(m.group(1)).upper()
+        if apellido in autorizados or apellido in fuente_alto:
+            continue
+        if apellido not in [a for a, _ in ajenos]:
+            ajenos.append((apellido, m.group(0)))
+    if not ajenos:
+        print("     OK     ningun apellido ajeno al caso.")
+    for apellido, frase in ajenos:
+        fallos.append(
+            "el admisorio nombra a '%s' ('%s'), que no es parte procesal ni consta "
+            "en el expediente: es residuo de plantilla" % (apellido.title(), frase)
+        )
+        print("     AJENO  %s" % frase)
+
+    # 4. Datos duros sin ancla
     duros = datos_duros(cuerpo)
     sin_ancla: list[tuple[str, str]] = []
     anclados = 0
