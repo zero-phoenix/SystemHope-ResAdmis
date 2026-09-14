@@ -58,6 +58,13 @@ def procesar_notas(ruta_docx: str | Path, visible: bool = False) -> dict[str, An
     try:
         word = win32com.client.DispatchEx("Word.Application")
         word.Visible = visible
+        # Word repinta la ventana en cada operacion COM. Apagar el repintado
+        # es la diferencia mas grande de toda la automatizacion y no altera
+        # el resultado: se restaura antes de cerrar.
+        try:
+            word.ScreenUpdating = False
+        except Exception:  # pragma: no cover
+            pass
         word.DisplayAlerts = 0  # wdAlertsNone
         doc = word.Documents.Open(ruta_abs)
 
@@ -102,6 +109,10 @@ def procesar_notas(ruta_docx: str | Path, visible: bool = False) -> dict[str, An
             except Exception:  # pragma: no cover
                 pass
         if word is not None:
+            try:
+                word.ScreenUpdating = True
+            except Exception:  # pragma: no cover
+                pass
             try:
                 word.Quit()
             except Exception:  # pragma: no cover
@@ -164,35 +175,60 @@ def _sanitizar_nota(texto: str) -> str:
 
 
 def _formatear_notas(doc: Any) -> None:
-    """Aplica Arial Narrow 8, justificado, hanging indent y Bold a leyes."""
+    """Aplica Arial Narrow 8, justificado, hanging indent y Bold a leyes.
+
+    El formato comun se aplica de una sola vez sobre el story range de notas al
+    pie (``wdFootnotesStory``): una operacion COM en lugar de siete por nota. Si
+    esa via falla en alguna version de Word, cae al recorrido nota por nota, que
+    produce exactamente el mismo resultado.
+    """
     try:
         footnotes = doc.Footnotes
     except Exception:  # pragma: no cover
         return
+    if footnotes.Count == 0:
+        return
+
+    try:
+        story = doc.StoryRanges(2)  # wdFootnotesStory
+        story.Font.Name = "Arial Narrow"
+        story.Font.Size = 8
+        story.Font.Bold = False  # R-73: limpiar herencia antes de aplicar logica
+        fmt = story.Format
+        fmt.Alignment = 3  # wdAlignParagraphJustify
+        fmt.LeftIndent = 28.35  # R-72: PUNTOS no twips. 1 cm = 28.35 pt.
+        fmt.FirstLineIndent = -28.35
+        _bold_a_leyes(story)
+        return
+    except Exception:  # pragma: no cover
+        pass
 
     for i in range(1, footnotes.Count + 1):
         try:
-            fn = footnotes(i)
-            rango = fn.Range
+            rango = footnotes(i).Range
             fmt = rango.Format
-            # R-70: forzar tipografía
             rango.Font.Name = "Arial Narrow"
             rango.Font.Size = 8
-            fmt.Alignment = 3  # wdAlignParagraphJustify
-            # R-72: PUNTOS no twips. 1 cm = 28.35 pt.
+            fmt.Alignment = 3
             fmt.LeftIndent = 28.35
             fmt.FirstLineIndent = -28.35
-            # R-73: limpiar herencia de Bold antes de aplicar lógica
             rango.Font.Bold = False
+            _bold_a_leyes(rango)
+        except Exception:  # pragma: no cover
+            continue
 
-            # R-74: poner en Bold los párrafos que inicien con "LEY " o "Artículo "
-            for j in range(1, rango.Paragraphs.Count + 1):
-                try:
-                    par = rango.Paragraphs(j)
-                    txt = par.Range.Text.lstrip(" \t").strip()
-                    if txt.startswith(("LEY ", "Ley ", "ARTÍCULO ", "Artículo ", "Articulo ")):
-                        par.Range.Font.Bold = True
-                except Exception:  # pragma: no cover
-                    continue
+
+def _bold_a_leyes(rango: Any) -> None:
+    """R-74: pone en negrita los parrafos que abren con 'LEY ' o 'Articulo '."""
+    try:
+        total = rango.Paragraphs.Count
+    except Exception:  # pragma: no cover
+        return
+    for j in range(1, total + 1):
+        try:
+            par = rango.Paragraphs(j)
+            txt = par.Range.Text.lstrip(" 	").strip()
+            if txt.startswith(("LEY ", "Ley ", "ARTÍCULO ", "Artículo ", "Articulo ")):
+                par.Range.Font.Bold = True
         except Exception:  # pragma: no cover
             continue

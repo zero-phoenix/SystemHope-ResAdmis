@@ -82,3 +82,29 @@ El repositorio contiene **605 plantillas Word (.docx) depuradas** en `plantillas
 - **Protocolo de Verificación Previa Obligatorio (R-109):**
   - Todo admisorio debe pasar: `python scripts/verificar_admisorio.py <admisorio.docx>` y obtener `APTO (0 falsadores)` antes de ser entregado.
 
+---
+
+## 7. ORDEN DE TRABAJO Y ECONOMIA DE PASADAS (R-113 A R-115)
+
+**Antes de leer un expediente:**
+```
+python scripts/extraer_expediente.py <carpeta_del_expediente>
+```
+Devuelve que paginas tienen capa de texto (se leen literales) y cuales requieren vision
+multimodal (solo esas). Incluye un dossier de fechas, montos, placas, correos y cartas
+notariales anclado a la pagina de origen.
+
+**Para inspeccionar o comparar un .docx, una sola llamada:**
+```
+python scripts/inspeccionar_docx.py <archivo.docx>              # volcado integro
+python scripts/inspeccionar_docx.py <archivo.docx> --resumen    # esqueleto
+python scripts/inspeccionar_docx.py <generado.docx> --diff <control.docx>
+```
+Prohibido inspeccionar parrafo por parrafo con llamadas sucesivas.
+
+**Antes de entregar:**
+```
+python scripts/verificar_admisorio.py <generado.docx>
+```
+Se entrega con `APTO`, pegando la salida literal.
+

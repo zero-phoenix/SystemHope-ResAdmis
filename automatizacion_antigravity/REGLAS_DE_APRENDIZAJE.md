@@ -560,3 +560,42 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
   - *Falsador:* un inciso de hechos donde el proveedor sea sujeto de un verbo en indicativo pasado
     sin verbo de atribucion en el mismo inciso.
 
+## 79. MASTER PHOENYX: PROTOCOLO DE TRABAJO Y ECONOMIA DE PASADAS (R-113 A R-115)
+
+> Origen: medicion del 14/09/2026 sobre el Expediente 2723-2026. El tiempo de un
+> admisorio no se va en generar el Word: se va en mirar lo que ya se puede leer y en
+> preguntarle al documento una cosa por llamada.
+
+- R-113: **TRIAJE ANTES DE VISION. LA VISION ES PARA LO ESCANEADO, NO PARA TODO:**
+  - Antes de abrir un expediente se ejecuta `python scripts/extraer_expediente.py <carpeta>`.
+  - Las paginas **con capa de texto** se leen literalmente: es mas fiel que mirarlas, porque el
+    caracter esta escrito, no interpretado. Las paginas **sin capa de texto** se listan por numero
+    y solo esas van a vision multimodal. R-95 conserva intacto su alcance: escaneado o manuscrito.
+  - *Medicion:* las 18 paginas del Expediente 2723-2026 tienen capa de texto. Extraerlas cuesta
+    **1,1 s** y **cero** pasadas de vision. Mirarlas una por una es gastar 18 pasadas en leer algo
+    que ya estaba escrito.
+  - El script devuelve ademas un dossier con cada fecha, monto, placa, correo y carta notarial
+    **anclados a la pagina de la que salieron**, que es lo que hace verificable la cita (R-112).
+  - *Falsador:* una pasada de vision sobre una pagina que el triaje marco como 'con texto'.
+
+- R-114: **INTROSPECCION EN UNA SOLA LLAMADA:**
+  - Queda prohibido inspeccionar un `.docx` parrafo por parrafo con llamadas sucesivas
+    ('lee el parrafo 75', 'ahora sus runs', 'ahora sus notas'). Todo eso sale junto con
+    `python scripts/inspeccionar_docx.py <archivo.docx>` en **0,5 s**: texto, negritas,
+    subrayados, estilo, numeracion, anclas y notas, encabezados, pies y `sectPr`.
+  - Para comparar contra un documento de control: `--diff <control.docx>`, que imprime
+    **solo lo que difiere**. `--resumen` da el esqueleto de la resolucion.
+  - *Falsador:* dos o mas lecturas consecutivas del mismo documento para averiguar cosas
+    distintas del mismo parrafo.
+
+- R-115: **ORDEN DE TRABAJO DE UN ADMISORIO (CINCO PASOS, EN ESTE ORDEN):**
+  1. `extraer_expediente.py <carpeta>` — triaje y dossier anclado.
+  2. Vision multimodal **solo** sobre las paginas que el triaje listo como sin texto.
+  3. Redaccion sobre la plantilla que corresponda al patron del caso.
+  4. `inspeccionar_docx.py <generado> --diff <control>` — si hay control disponible.
+  5. `verificar_admisorio.py <generado>` — se entrega con `APTO`, pegando la salida literal (R-109).
+  - Saltarse el paso 1 es lo que convierte un admisorio de minutos en un admisorio de horas.
+  - *Lo que NO hay que optimizar:* abrir las 630 plantillas maestras cuesta **1,69 s** medidos.
+    No es el cuello de botella y no necesita indice, cache ni base de datos. Optimizar ahi es
+    trabajo inventado.
+
