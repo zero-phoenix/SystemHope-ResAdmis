@@ -788,3 +788,27 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
     se commitea: el repositorio es publico y contiene datos personales
     (`guardia_admisorio.py` lo bloquea).
 
+## 82. LA LEY DE LA LATENCIA Y EL PUNTO DE ENTRADA UNICO (R-134 A R-135)
+
+> Origen: medicion del reloj paso a paso sobre la traza real del Expediente 3054-2026
+> (14/09/2026), leyendo las marcas de tiempo de cada paso de la base de conversaciones
+> del agente. No es una estimacion: es el reloj.
+
+- R-134: **CADA LLAMADA CUESTA 7,5 s, HAGA O NO TRABAJO. EL PUNTO DE ENTRADA ES UNICO:**
+  - *Medicion:* 1178 s de ventana / 157 llamadas = **7,5 s por llamada**. Los huecos de
+    decision entre pasos suman **6 s en toda la sesion**; la mediana de un `manage_task`
+    que no produce nada (13 s) iguala a la de un paso que genera documento. El computo
+    util de un admisorio completo es **~12 s**. Luego **T ≈ 7,5 s × N**.
+  - *Mandato:* el caso se abre con `python scripts/admisorio.py preparar <carpeta>` y se
+    cierra con `python scripts/admisorio.py entregar <docx> --caso <n>`. La primera
+    sustituye a seis llamadas; la segunda, a cuatro. Llamar a `extraer_expediente.py`,
+    `verificar_admisorio.py` o `guardia_admisorio.py` por separado esta permitido para
+    depurar, pero **cuenta como desperdicio** en el scorecard.
+  - *Falsador:* un caso que gaste una llamada en algo que `admisorio.py` ya agrupa, o una
+    propuesta de optimizacion justificada en CPU y no en numero de llamadas.
+
+- R-135: **AL CERRAR UN CASO SE DECLARAN N (LLAMADAS) Y T (RELOJ):**
+  - Objetivo: **N ≤ 12** y **T ≤ 2 minutos** desde el triaje hasta `ENTREGABLE`.
+  - *Falsador:* un caso entregado sin declarar N y T, o que supere los 2 minutos sin
+    causa identificada (pagina escaneada, control ausente, contradiccion elevada).
+

@@ -15,14 +15,23 @@ Para redactar un admisorio **basta con este archivo**. `REGLAS_DE_APRENDIZAJE.md
 `MATRIZ_MAESTRA_PHOENYX_POPPERIANA.md` (45 KB) son corpus de **consulta dirigida**: se abren
 para buscar una regla concreta, no se leen enteros antes de empezar.
 
-**Los cinco pasos, en orden:**
+**Los cuatro pasos, en orden. Dos de ellos son una sola llamada cada uno (R-134):**
 
-1. `python scripts/extraer_expediente.py <carpeta>` — triaje y dossier anclado.
+1. `python scripts/admisorio.py preparar <carpeta> [--contiene "frase"] [--rama X]`
+   — paro si el caso esta cerrado, aviso si hay Word huerfano, triaje con dossier
+   anclado, presupuesto de vision y candidatas de plantilla. **Todo en una llamada.**
 2. Vision multimodal **solo** en las paginas que el triaje liste sin capa de texto.
-3. Redaccion sobre la plantilla que corresponda al patron del caso.
-4. `python scripts/inspeccionar_docx.py <generado> --diff <control>` — si hay control.
-5. `python scripts/verificar_admisorio.py <generado>` — se entrega con `APTO`, pegando la
-   salida literal. Sin eso, el admisorio no esta entregado.
+3. Redaccion sobre la plantilla elegida. Si hay control:
+   `python scripts/inspeccionar_docx.py <generado> --diff <control>`.
+4. `python scripts/admisorio.py entregar <generado> [--caso <n>]` — verificador,
+   guardia de datos personales, control de PDF y de Word vivo, y scorecard.
+   **Todo en una llamada.** Se entrega pegando la salida literal `APTO` /
+   `ENTREGABLE`. Sin eso, el admisorio no esta entregado.
+
+Los scripts sueltos (`extraer_expediente.py`, `verificar_admisorio.py`,
+`guardia_admisorio.py`) siguen existiendo, pero llamarlos por separado gasta llamadas de
+mas: **cada llamada a herramienta cuesta 7,5 s de reloj, haga o no trabajo** (medido, ver
+§10 de `docs/PLAN_VELOCIDAD_SIN_COLGARSE.md`).
 
 **Si la carpeta del expediente trae un `_ORDEN_DE_TRABAJO.md`, ese archivo manda sobre este
 para ese caso concreto:** significa que el triaje, la eleccion de plantilla y el anclaje de
@@ -156,13 +165,20 @@ Se entrega con `APTO`, pegando la salida literal.
 - **Prohibido el PDF (mandato del instructor, R-125):** el entregable es el `.docx`. No se
   convierte, imprime ni exporta a PDF. La conversión era el último consumidor de Word por
   COM y una causa medida de cuelgue.
-- **Velocidad con calidad:** un admisorio son **cinco pasos y ≤ 12 llamadas** (F3 a F5 de
-  `docs/PLAN_VELOCIDAD_SIN_COLGARSE.md`). Prohibido releer lo ya leído o abrir las 630
-  plantillas a mano: la base se elige por índice en una llamada.
+- **Velocidad con calidad:** un admisorio son **cuatro pasos y ≤ 12 llamadas** (F3 a F5 y
+  F14 de `docs/PLAN_VELOCIDAD_SIN_COLGARSE.md`). Prohibido releer lo ya leído o abrir las
+  605 plantillas a mano: la base se elige por índice en una llamada.
+- **La ley de la latencia (R-134, medida):** la sesión del Exp. 3054-2026 duró 1178 s con
+  157 llamadas — **7,5 s por llamada, haga o no trabajo**; los huecos de decisión suman
+  6 s en total. El cómputo útil de un admisorio es ~12 s. Luego **T ≈ 7,5 s × N**: la
+  única palanca es bajar N agrupando trabajo por llamada, no optimizar CPU.
+- **Presupuesto declarado (R-135):** al cerrar un caso se declara **N** (llamadas) y **T**
+  (reloj). Objetivo: N ≤ 12 y T ≤ 2 minutos.
 - **Cwd y scorecard (F8, F9, F13):** todo comando corre desde la raíz del repositorio, con
-  el primer paso `python scripts/extraer_expediente.py <carpeta>` en absoluto. Prohibido
-  buscar scripts del repositorio con `-Recurse` fuera de él. Antes de entregar,
-  `python scripts/auditar_trayectoria.py --caso <n>` debe dar 0 operaciones evitables.
+  el primer paso `python scripts/admisorio.py preparar <carpeta>` en absoluto (el script
+  fija la raíz por construcción). Prohibido buscar scripts del repositorio con `-Recurse`
+  fuera de él. Antes de entregar, `admisorio.py entregar --caso <n>` debe dar 0
+  operaciones evitables en el scorecard.
 - **Fecha única de la remesa (R-128):** todos los admisorios llevan
   `Lima, 14 de setiembre de 2026`, sin importar las fechas de las cédulas.
 - **Cédulas de la carpeta (R-129):** de ellas se toman las partes procesales y el

@@ -201,3 +201,75 @@ ejecutado el primer paso de R-115.
 desde su base de conversaciones y cuenta vision, relecturas, Cwd ajeno, busquedas
 recursivas y espera activa. Da un veredicto por regla y un total de desperdicio. Es el
 mismo instrumento que se usara para supervisar la cola de admisorios uno por uno.
+
+---
+
+## 10. La ley de la latencia: el tiempo lo fija el numero de llamadas
+
+Las secciones 7-9 contaban **cuantas** operaciones sobraban. Faltaba lo que **cuesta**
+cada una. Se midio el reloj paso a paso sobre la misma traza (las marcas de tiempo de
+cada paso, no una estimacion):
+
+| Magnitud medida | Valor |
+|---|---:|
+| Ventana de reloj de la sesion (Exp. 3054-2026) | **1178 s (19,6 min)** |
+| Llamadas a herramienta en esa ventana | **157** |
+| **Coste medio por llamada** | **7,5 s** |
+| Huecos de decision entre pasos (el agente "pensando") | **6 s en total** |
+| Mediana de un paso con dos marcas | 13 s |
+| Mediana de un `manage_task` (una consulta que no hace nada) | **13 s** |
+| Computo util de un admisorio completo | **~12 s** |
+
+Dos conclusiones, y la segunda es la unica que importa:
+
+1. **La latencia no esta en pensar.** Los huecos entre pasos suman 6 s en 19,6 minutos.
+   Casi todo el reloj esta **dentro** de las llamadas.
+2. **El coste por llamada es fijo y no depende del trabajo.** Un `manage_task` que solo
+   consulta un estado ya conocido tiene la misma mediana (13 s) que un paso que genera
+   documento. Luego:
+
+   > **T ≈ 7,5 s × N**, donde N es el numero de llamadas.
+
+   Con esa ley, las **70 operaciones evitables** del caso 3054 valen **~525 s (8,7 min)**:
+   el 45 % de la sesion se fue en trabajo que no produjo una linea del admisorio. Y el
+   objetivo del plan deja de ser una aspiracion: **12 llamadas × 7,5 s ≈ 90 s** de reloj
+   mas ~12 s de computo. **Un admisorio debe salir en menos de dos minutos.**
+
+**Corolario operativo:** optimizar el computo es inutil (ya son 12 s de 1178). La unica
+palanca es **agrupar trabajo por llamada**. Todo frente nuevo se justifica por cuantas
+llamadas elimina, no por cuanto CPU ahorra.
+
+## 11. F14 y F15 — los frentes que salen de la ley
+
+- **F14 — Punto de entrada unico: `scripts/admisorio.py`.** Dos ordenes, una llamada
+  cada una:
+  - `preparar <carpeta>` = paro por caso cerrado (R-122) + deteccion de Word huerfano
+    (R-123) + triaje con dossier anclado + presupuesto de vision + candidatas de
+    plantilla del indice, con filtro por texto. **Sustituye a seis llamadas.**
+    *Medido:* 4,3 s con filtro de texto sobre las 605 plantillas; 0,3 s cuando el caso
+    esta cerrado y corta de inmediato.
+  - `entregar <docx>` = `verificar_admisorio` + `guardia_admisorio` + control de PDF +
+    control de Word vivo + scorecard de trayectoria (`--caso`). **Sustituye a cuatro
+    llamadas.** *Medido:* 0,6 s.
+  - El script fija el Cwd en la raiz del repositorio por construccion (F9): desde el no
+    se puede repetir la busqueda recursiva de un script propio sobre `C:\Users`.
+  - *Metrica:* un admisorio de expediente con capa de texto se juega en **2 llamadas de
+    herramienta mas la redaccion**.
+  - *Falsador:* un caso que necesite llamar por separado a `extraer_expediente.py`,
+    `verificar_admisorio.py` o `guardia_admisorio.py`.
+
+- **F15 — Presupuesto de reloj, no solo de llamadas.** Cada caso se cierra declarando
+  `N` llamadas y `T` de reloj. Objetivo: **N ≤ 12** y **T ≤ 2 min** desde el triaje hasta
+  el veredicto `ENTREGABLE`.
+  - *Falsador:* un caso entregado sin declarar N y T, o que supere los 2 minutos sin que
+    la causa quede identificada (pagina escaneada, control ausente, contradiccion
+    elevada).
+
+### Correccion de un dato que se habia dado por bueno
+
+El cierre del caso 3054 afirmaba que `TPL_1190_2026_...` era **la unica** plantilla cuyo
+texto contiene el nucleo de *derecho de arrepentimiento*. Medido con
+`admisorio.py preparar --contiene "derecho de arrepentimiento"`: son **dos de 605**
+(tambien `TPL_2603_2025_SEGURO_VIDA_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1`).
+Se corrige aqui porque una afirmacion de unicidad sin el comando que la reproduce es
+exactamente lo que este plan le exige al agente no hacer.
