@@ -66,7 +66,9 @@ En la sección resolutiva final de todo admisorio, se coloca indefectiblemente e
 ---
 
 ## 3. DOMICILIOS PROCESALES Y VÍAS OFICIALES POR PROVEEDOR
-- **Casilla Electrónica (SINE Indecopi):** Pacífico Compañía de Seguros, Mapfre Perú Compañía de Seguros, Interseguro Compañía de Seguros, La Positiva Seguros y Reaseguros, BNP Paribas Cardif, Chubb Perú, Quálitas Compañía de Seguros, Protecta Compañía de Seguros, Crecer Seguros, Banco BBVA Perú, Scotiabank Perú, Interbank, Empresa de Créditos Santander Consumo Perú, Banco Falabella, Banco Ripley, Banco Pichincha, Banco GNB.
+- **Casilla Electrónica (SINE Indecopi):** Pacífico Compañía de Seguros, Mapfre Perú Compañía de Seguros, Interseguro Compañía de Seguros, La Positiva Seguros y Reaseguros, BNP Paribas Cardif, Chubb Perú, Quálitas Compañía de Seguros, Protecta Compañía de Seguros, Crecer Seguros, Vivir Seguros Compañía de Seguros de Vida, Banco BBVA Perú, Scotiabank Perú, Interbank, Empresa de Créditos Santander Consumo Perú, Banco Falabella, Banco Ripley, Banco Pichincha, Banco GNB.
+- **La cédula de notificación de la carpeta manda sobre esta lista (R-129):** de ella se
+  toman las partes y el domicilio procesal; la vía que indique es la que se usa.
 - **Correo Electrónico Autorizado / Casilla:** Rímac Seguros y Reaseguros, Banco de Crédito del Perú (BCP).
 - **Domicilio Procesal / Cédula Física:** AFOCATs provinciales/regionales, Comités de Administración CAFAE, talleres y personas naturales denunciadas.
 
@@ -94,10 +96,11 @@ El repositorio contiene **605 plantillas Word (.docx) depuradas** en `plantillas
 
 ---
 
-## 6. FIRMA DIGITAL CONDICIONADA Y VERIFICACIÓN (R-103 A R-110)
-- **Firma según Denunciado (R-103):**
-  - **RÍMAC SEGUROS Y REASEGUROS S.A. (o RÍMAC):** NUNCA firma la titular. Firma obligatoriamente como Secretaria Técnica Ad Hoc: **LUISA ANALÍ SILVA MALPARTIDA**, cargo: `Secretaria Técnica Ad Hoc`, refrendo de calidad: `LSQ/DCQ`.
-  - **Demás proveedores:** **EVELING ROA QUISPE**, cargo: `Secretaria Técnica`, refrendo según el especialista instructor. **No inventar iniciales:** los valores observados en los controles son `LSQ/DCQ` y `LSQ/JCQ`, y son independientes de quien firma.
+## 6. FIRMA DIGITAL ÚNICA Y VERIFICACIÓN (R-103, R-127)
+- **Mandato del instructor (14/09/2026): firma única.** Todos los admisorios firman
+  **LUISA ANALÍ SILVA MALPARTIDA**, cargo `Secretaria Técnica (e)`. **Nunca** EVELING ROA
+  QUISPE. **Nunca** designación `Ad Hoc`. Refrendo: se copia del control o de la cédula
+  del caso (observados: `LSQ/DCQ`, `LSQ/JCQ`); no se inventa.
 - **Isomorfismos Verbatim (R-97 / R-108):**
   - El núcleo fáctico de imputaciones es idéntico entre la considerativa (Sección II) y el resolutivo (`PRIMERO:`, etc.).
   - El requerimiento de información probatorio debe ser idéntico palabra por palabra entre la considerativa (Sección III) y el resolutivo (`QUINTO:`). Se verifica como **observación**: una divergencia no bloquea la entrega, se eleva al instructor.
@@ -160,4 +163,13 @@ Se entrega con `APTO`, pegando la salida literal.
   el primer paso `python scripts/extraer_expediente.py <carpeta>` en absoluto. Prohibido
   buscar scripts del repositorio con `-Recurse` fuera de él. Antes de entregar,
   `python scripts/auditar_trayectoria.py --caso <n>` debe dar 0 operaciones evitables.
+- **Fecha única de la remesa (R-128):** todos los admisorios llevan
+  `Lima, 14 de setiembre de 2026`, sin importar las fechas de las cédulas.
+- **Cédulas de la carpeta (R-129):** de ellas se toman las partes procesales y el
+  domicilio procesal; sus fechas se ignoran; la vía de notificación es la que la cédula
+  indique. Se copia además el refrendo del control o de la cédula.
+- **Subsunción, hechos y escrito: los del control (R-130, R-131, R-132).** Cada conducta
+  del control conserva su artículo (arts. 56 b), 47 e), 88.1 incluidos); los hechos van en
+  narración directa con el alias del encabezado; la fecha del escrito es la del control y
+  la contradicción se eleva.
 

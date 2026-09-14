@@ -36,10 +36,12 @@ ORDINALES = [
     "DUODECIMO",
 ]
 
-# R-103: la firma depende del proveedor denunciado, no es una constante.
-FIRMA_AD_HOC = "LUISA ANALI SILVA MALPARTIDA"
-FIRMA_TITULAR = "EVELING ROA QUISPE"
-PROVEEDORES_AD_HOC = ("RIMAC",)
+# R-103 (mandato del instructor, 14/09/2026): TODOS los admisorios firman
+# LUISA ANALI SILVA MALPARTIDA como Secretaria Tecnica (e). Nunca Evelyn y
+# nunca designacion Ad Hoc. La firma dejo de depender del proveedor.
+FIRMA_MANDATO = "LUISA ANALI SILVA MALPARTIDA"
+FIRMA_PROHIBIDA = "EVELING ROA QUISPE"
+CARGO_MANDATO = "SECRETARIA TECNICA (E)"
 
 
 def sin_tildes(texto: str) -> str:
@@ -182,6 +184,12 @@ def prueba_r108_requerimiento(doc) -> list[str]:
 
 
 def prueba_r103_firma(doc) -> list[str]:
+    """Mandato del instructor (14/09/2026): firma unica.
+
+    Todos los admisorios firman LUISA ANALI SILVA MALPARTIDA con el cargo
+    'Secretaria Tecnica (e)'. Ninguno firma EVELING ROA QUISPE y ninguno usa
+    la designacion 'Ad Hoc'.
+    """
     texto_doc = sin_tildes(" ".join(p.texto for p in doc)).upper()
     denunciado = ""
     for p in doc:
@@ -191,22 +199,19 @@ def prueba_r103_firma(doc) -> list[str]:
             break
     if not denunciado:
         return ["R-103: no se hallo la linea DENUNCIADO en el encabezado"]
-    ad_hoc = any(nombre in denunciado for nombre in PROVEEDORES_AD_HOC)
     fallos = []
-    if ad_hoc:
-        if FIRMA_AD_HOC not in texto_doc:
-            fallos.append(
-                "R-103: proveedor de firma ad hoc (%s) pero no firma %s"
-                % (denunciado.strip(), FIRMA_AD_HOC)
-            )
-        if FIRMA_TITULAR in texto_doc:
-            fallos.append(
-                "R-103: firma la secretaria titular en un caso que exige Secretaria Tecnica Ad Hoc"
-            )
-        if "AD HOC" not in texto_doc:
-            fallos.append(
-                "R-103: falta el cargo 'Secretaria Tecnica Ad Hoc' bajo el nombre"
-            )
+    if FIRMA_MANDATO not in texto_doc:
+        fallos.append(
+            "R-103: no firma %s (mandato del instructor del 14/09/2026)" % FIRMA_MANDATO
+        )
+    if CARGO_MANDATO not in texto_doc:
+        fallos.append("R-103: falta el cargo 'Secretaria Tecnica (e)' bajo el nombre")
+    if FIRMA_PROHIBIDA in texto_doc:
+        fallos.append(
+            "R-103: firma %s, prohibida por mandato del instructor" % FIRMA_PROHIBIDA
+        )
+    if "AD HOC" in texto_doc:
+        fallos.append("R-103: aparece una designacion 'Ad Hoc', prohibida por mandato")
     return fallos
 
 

@@ -728,3 +728,63 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
   - *Falsador:* un dato del generado que no coincida con la extraccion de PyMuPDF del
     mismo PDF, o una fecha del volcado incorporada sin verificacion cruzada.
 
+## 81. MANDATO DEL INSTRUCTOR DEL 14/09/2026 Y LECCIONES DEL CONTROL 3054 (R-127 A R-132)
+
+> Origen: encargo de la remesa de 13 admisorios y diff entre el generado del Expediente
+> 3054-2026 y el control aprobado `ADM 3054-2026 R1 - LSQok.docx`. El mandato del
+> instructor manda sobre el control en firma y fecha; el control manda sobre la plantilla
+> en imputaciones, escrito y via de notificacion.
+
+- R-127: **FIRMA UNICA (MANDATO): TODOS FIRMAN ANALI, SECRETARIA TECNICA (e):**
+  - Todos los admisorios firman **LUISA ANALI SILVA MALPARTIDA** con el cargo
+    `Secretaria Técnica (e)`. **Ninguno** firma EVELING ROA QUISPE. **Ninguno** usa la
+    designacion `Ad Hoc`. Esta regla **sustituye a R-103**.
+  - *Falsador:* una firma distinta de Anali, el cargo sin `(e)`, o la aparicion de
+    `Ad Hoc` o de `EVELING ROA QUISPE` en el documento.
+
+- R-128: **FECHA UNICA DE LA REMESA (MANDATO): 14 DE SETIEMBRE DE 2026:**
+  - Todos los admisorios de esta remesa llevan `Lima, 14 de setiembre de 2026`, sin
+    importar las fechas que traigan las cedulas de notificacion.
+  - *Falsador:* cualquier otra fecha de emision.
+
+- R-129: **LAS CEDULAS DE NOTIFICACION DE LA CARPETA MANDAN EN PARTES Y DOMICILIO:**
+  - Cada carpeta de expediente trae sus cedulas. De ellas se toman las **partes
+    procesales** y el **domicilio procesal** (son correctos). Sus **fechas se ignoran**
+    (R-128). La **via** de notificacion se toma de la cedula: si dice Casilla
+    Electronica, se usa el parrafo TIPO 1 (cinco dias); si dice correo, TIPO 2; si dice
+    domicilio, TIPO 3.
+  - *Falsador:* notificar por una via distinta de la que senala la cedula, o consignar
+    un domicilio procesal distinto del de la cedula.
+
+- R-130: **SUBSUNCION POR CONDUCTA, TAL COMO LA Fija EL CONTROL (LECCION 3054):**
+  - El control 3054 imputa **seis** conductas, cada una con su articulo: arts. 18 y 19
+    (denegatoria del 14/07); arts. 18 y 19 (denegatoria del 5/08); **literal b) del
+    articulo 56** (metodos comerciales coercitivos: remitir la poliza pese a la
+    solicitud); art. 1, numeral 1, literal b) y art. 2 (omision de informar el
+    arrepentimiento); **literal e) del articulo 47** (no entregar el resumen de
+    cobertura); **numeral 88.1 del articulo 88** (atencion deficiente del reclamo).
+  - Prohibido refundir dos conductas en un articulo, o imputar la lista larga del
+    escrito en lugar de la subsuncion depurada del control.
+  - *Falsador:* una conducta del control ausente o subsumida en otro articulo.
+
+- R-131: **HECHOS EN NARRACION DIRECTA CON EL ALIAS (LECCION 3054):**
+  - El control narra los actos del proveedor en indicativo directo y con el alias del
+    encabezado: «Vivir Seguros remitio por correo electronico la Poliza...». No usa
+    «senalo que el proveedor...». El detector automatico de R-110 solo vigila los alias
+    de su lista (Rimac, Pacifico, el Banco, la compania aseguradora, la aseguradora, el
+    proveedor); usar el alias del encabezado es la forma correcta y ademas verificable.
+  - *Falsador:* un inciso de hechos con «la compania aseguradora» o «la aseguradora»
+    como sujeto de un verbo en indicativo, en lugar del alias.
+
+- R-132: **FECHA DEL ESCRITO DE DENUNCIA: LA DEL CONTROL. LA CONTRADICCION SE ELEVA:**
+  - *Medicion:* el control 3054 consigna «escrito del 24 de agosto de 2026»; la firma
+    del PDF (pagina 21, leida con PyMuPDF) dice «Lima, 17 de agosto de 2026». Se redacta
+    con la fecha del control y el conflicto se eleva al instructor.
+  - *Falsador:* una fecha de escrito distinta de la del control sin constancia de
+    elevacion.
+
+- R-133: **PROHIBIDO EL PDF (RECORDATORIO) Y EL `.docx` FUERA DEL REPOSITORIO:**
+  - El entregable es el `.docx`; no se genera PDF (R-125). El `.docx` del expediente no
+    se commitea: el repositorio es publico y contiene datos personales
+    (`guardia_admisorio.py` lo bloquea).
+
