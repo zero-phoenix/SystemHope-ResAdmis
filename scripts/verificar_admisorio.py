@@ -313,13 +313,13 @@ def prueba_r110_modo_verbal(doc) -> list[str]:
     atribucion al denunciante (estilo indirecto) o en modo potencial. Afirmarla
     en indicativo asertivo prejuzga el fondo antes de los descargos."""
     atribucion = re.compile(
-        r"(senal[oó]|indic[oó]|precis[oó]|manifest[oó]|refiri[oó]|sostuvo|agreg[oó]"
-        r"|aleg[oó]|cuestion[oó]|denunci[oó]|afirm[oó]|declar[oó])", re.I)
-    potencial = re.compile(r"habr[ií]a", re.I)
+        r"\b(senal[oó]|indic[oó]|precis[oó]|manifest[oó]|refiri[oó]|sostuvo|agreg[oó]"
+        r"|aleg[oó]|cuestion[oó]|denunci[oó]|afirm[oó]|declar[oó])\b", re.I)
+    potencial = re.compile(r"\bhabr[ií]a\b", re.I)
     proveedor_activo = re.compile(
-        r"(R[ií]mac|Pac[ií]fico|el Banco|la compa[nñ][ií]a aseguradora|la aseguradora|el proveedor)"
+        r"\b(R[ií]mac|Pac[ií]fico|el Banco|la compa[nñ][ií]a aseguradora|la aseguradora|el proveedor)\b"
         r"\s+(?:no\s+)?(?:se\s+)?(?:le\s+)?[a-záéíóú]+"
-        r"(?:[oó]|aron|ieron|uvo|izo|ab[ií]a)")
+        r"(?:[oó]|aron|ieron|uvo|izo|ab[ií]a)\b")
     fallos = []
     dentro = False
     for p in doc:

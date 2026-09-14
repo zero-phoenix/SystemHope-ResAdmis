@@ -117,7 +117,15 @@ def reescribir_parrafo(parrafo: str, nuevo: str) -> str:
 
     Es lo que permite sustituir una frase partida en varios `run`, que es el caso
     normal en documentos que han pasado por Word.
+
+    **Si el texto nuevo es vacio, el parrafo entero desaparece.** Vaciarle el
+    texto y dejar el `<w:p>` es lo que produce la vineta huerfana: un parrafo con
+    numeracion activa y sin contenido, que Word pinta como un numero suelto y que
+    R-105 declara falsador. Medido en el Exp. 3122-2026: seis de golpe.
     """
+    if not nuevo.strip():
+        return ""
+
     primero = {"si": True}
 
     def _sub(m: re.Match) -> str:
@@ -145,6 +153,11 @@ def aplicar(xml: str, reemplazos: dict[str, str]) -> tuple[str, dict[str, int]]:
 
     # 1) Lo que este contiguo se sustituye directo: es lo barato y lo mas comun.
     for viejo, nuevo in por_longitud(reemplazos):
+        if not nuevo.strip():
+            # Borrar texto a pelo deja el <w:p> vacio con su numeracion viva, que
+            # es la vineta huerfana de R-105. Las supresiones se resuelven a nivel
+            # de parrafo, donde el parrafo entero se puede quitar.
+            continue
         n = xml.count(viejo)
         if n:
             xml = xml.replace(viejo, nuevo)
@@ -212,6 +225,30 @@ def aplicar(xml: str, reemplazos: dict[str, str]) -> tuple[str, dict[str, int]]:
     return xml, hechos, alineados
 
 
+RE_NUMPR = re.compile("<w:numPr[ />]")
+
+
+def limpiar_vinetas_huerfanas(xml: str) -> tuple[str, int]:
+    """Quita los parrafos que quedaron con numeracion y sin texto.
+
+    Word pinta esos parrafos como un numero suelto colgando, y `verificar_admisorio`
+    los declara falsador (R-105). Da igual como se hayan producido --una supresion,
+    una plantilla que ya los traia--: si un parrafo tiene `<w:numPr>` y ni una
+    letra, sobra.
+    """
+    piezas: list[str] = []
+    fin = 0
+    quitados = 0
+    for m in RE_PARRAFO.finditer(xml):
+        parrafo = m.group(0)
+        if RE_NUMPR.search(parrafo) and not texto_parrafo(parrafo).strip():
+            piezas.append(xml[fin : m.start()])
+            fin = m.end()
+            quitados += 1
+    piezas.append(xml[fin:])
+    return "".join(piezas), quitados
+
+
 def texto_plano(datos: dict[str, bytes]) -> str:
     trozos = []
     for nombre, crudo in datos.items():
@@ -262,6 +299,17 @@ def auditar_residuos(
         mayor = next((a for a in aplicados if v in a and a != v), None)
         if mayor:
             continue  # consumido por un reemplazo mas especifico
+        if "\n" in v:
+            # Un `<w:p>` es una unidad: ninguna clave puede cruzarlo. Decirlo por
+            # su nombre ahorra la vuelta entera que costaba descubrirlo a ciegas.
+            trozos = [t.strip() for t in v.split("\n") if t.strip()]
+            fallos.append(
+                "el reemplazo '%s...' abarca %d parrafos: una clave no puede cruzar "
+                "un salto de parrafo. Divide el reemplazo en %d, uno por parrafo."
+                % (v.replace("\n", " / ")[:60], len(trozos), len(trozos))
+            )
+            continue
+
         aviso = (
             "el reemplazo '%s' no encontro nada en la plantilla: el texto difiere"
             % v[:80]
@@ -361,9 +409,12 @@ def construir(mapa: dict) -> int:
     ]
     hechos: dict[str, int] = {}
     alineados: dict[str, tuple[str, float]] = {}
+    huerfanas = 0
     for n in objetivo:
         xml = datos[n].decode("utf-8")
         xml, parciales, alin = aplicar(xml, reemplazos)
+        if n == "word/document.xml":
+            xml, huerfanas = limpiar_vinetas_huerfanas(xml)
         datos[n] = xml.encode("utf-8")
         for k, v in parciales.items():
             hechos[k] = hechos.get(k, 0) + v
@@ -379,12 +430,17 @@ def construir(mapa: dict) -> int:
     print("  Plantilla: %s" % plantilla.name)
     print("  Reemplazos aplicados: %d de %d" % (len(hechos), len(reemplazos)))
     print("  Sin abrir Word. Ningun proceso WINWORD.EXE involucrado.")
+    if huerfanas:
+        print(
+            "  Vinetas huerfanas retiradas: %d (parrafos numerados sin texto, R-105)"
+            % huerfanas
+        )
     if alineados:
         print()
         print("  ALINEADOS AUTOMATICAMENTE (tu clave no coincidia al caracter):")
         for viejo_k, (real, r) in alineados.items():
             print("    %.0f%%  tu clave: '%s'" % (r * 100, viejo_k[:66]))
-            print("          plantilla: '%s'" % real[:66])
+            print("          documento: '%s'" % real[:66])
     print()
 
     fallos = auditar_residuos(
