@@ -660,3 +660,31 @@ def resumen(errores: list[ValidationError]) -> str:
     for e in errores:
         lineas.append(str(e))
     return "\n".join(lineas)
+def _r_phoenyx_parrafos_notificacion(texto: str) -> list[ValidationError]:
+    """PHOENYX-05: Valida que la seccion resolutiva final contenga los parrafos
+    literales de notificacion segun las 3 vias de CC1 (Casilla, Correo o Domicilio),
+    sin parafrasear y con el D.S. 006-2026-JUS cuando corresponda."""
+    errores = []
+    if any(k in texto for k in ["DECIMO", "DÉCIMO", "UNDÉCIMO", "DUODÉCIMO", "NOTIFICAR"]):
+        has_casilla = "acuse de recibo mediante la confirmación de recepción" in texto and "Casilla" in texto
+        has_correo = "bandeja de correo electrónico" in texto or "bandejas de correo electrónico" in texto
+        has_domicilio = "en su domicilio procesal" in texto or "en sus domicilios procesales" in texto
+        
+        if not (has_casilla or has_correo or has_domicilio):
+            errores.append(
+                ValidationError(
+                    "PHOENYX-05",
+                    "CRITICA",
+                    "La resolucion debe contener al menos uno de los 3 parrafos literales de notificacion CC1 (Casilla Electronica, Correo Electronico o Domicilio Procesal) sin parafraseo."
+                )
+            )
+        if (has_correo or has_domicilio) and "confirmación de recepción" in texto:
+            if "006-2026" not in texto:
+                errores.append(
+                    ValidationError(
+                        "PHOENYX-05",
+                        "CRITICA",
+                        "El requerimiento de confirmacion de notificacion debe citar expresamente el Decreto Supremo N° 006-2026-JUS."
+                    )
+                )
+    return errores

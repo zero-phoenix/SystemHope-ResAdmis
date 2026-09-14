@@ -1,0 +1,12 @@
+# Cursor Rules - ResAdmis INDECOPI CC1
+# NORMATIVA: Decreto Supremo N° 006-2026-JUS | PROTOCOLO: CERO OCR (Solo Google Lens)
+
+1. Jamás uses OCR para leer expedientes o denuncias. Utiliza Google Lens / Visión Multimodal.
+2. La norma del TUO LPAG siempre es el Decreto Supremo N° 006-2026-JUS. Nunca 004-2019-JUS.
+3. Prohibido imputar por 'inducción a error' (Art. 3). Usa Arts. 1.1.b y 2 de Ley 29571.
+4. En imputaciones de cargos usa condicional 'habría'. En antecedentes usa pasado indicativo.
+5. Invariantes léxicas: cónyuge (no esposo), luego de (no tras), médico (no doctor), vehículo (no auto).
+6. Moneda: 'S/ X XXX,XX' (espacio para miles, coma decimal, sin puntos).
+7. Notificaciones finales: Colocar obligatoriamente uno de los 3 párrafos literales (Casilla 5 días / Correo 2 días D.S. 006-2026-JUS / Cédula Domicilio Procesal 2 días) sin parafrasear.
+8. Consulta plantillas_maestras/ según rama y materia antes de redactar.
+9. Valida siempre el documento final con: systemhope-engine validate <admisorio.docx>

@@ -2,7 +2,8 @@
 """SystemHope ResAdmis - Engine & Autonomous Bridge for AI Desktop IDEs.
 
 Provides CLI, MCP Server, Template Taxonomy Search, Document Validation,
-and Memory Export to ensure complete persistence across machine formats.
+Provider Domicile Registry, Literal Notification Formulas, and Memory Export
+to ensure complete persistence across machine formats.
 """
 
 from __future__ import annotations
@@ -61,11 +62,28 @@ def load_template_index() -> List[Dict[str, Any]]:
     return []
 
 
+def load_provider_directory() -> Dict[str, Any]:
+    """Loads the provider domicile & notification channel registry."""
+    candidates = [
+        get_resource_path("docs/directorio_proveedores_domicilios.json"),
+        APP_DIR / "directorio_proveedores_domicilios.json",
+        BUNDLE_DIR / "docs" / "directorio_proveedores_domicilios.json",
+    ]
+    for c in candidates:
+        if c.exists():
+            try:
+                return json.loads(c.read_text(encoding="utf-8"))
+            except Exception:
+                pass
+    return {}
+
+
 # ==============================================================================
 # SUBCOMMAND: INFO
 # ==============================================================================
 def cmd_info(args: argparse.Namespace) -> int:
     templates = load_template_index()
+    providers = load_provider_directory()
     print("=" * 75)
     print(f" SYSTEMHOPE RESADMIS - AUTONOMOUS ENGINE (v{VERSION})")
     print(f" Repositorio Oficial: {REPO_URL}")
@@ -75,7 +93,9 @@ def cmd_info(args: argparse.Namespace) -> int:
     print(" • Tipografía Oficial: Arial Narrow 11 pt (Cuerpo) / 8 pt (Pies y Notas)")
     print(" • Formato de Moneda: S/ X XXX,XX o US$ X XXX,XX (Espacio para miles, coma decimal)")
     print(" • Reglas Popperianas: R-01 a R-95 activas (Cero inducción a error, condicional habría)")
+    print(" • Vías de Notificación: 3 párrafos resolutivos literales estrictos (Casilla, Correo, Cédula)")
     print(f" • Catálogo de Plantillas: {len(templates)} plantillas Word (.docx) indexadas y depuradas")
+    print(f" • Directorio de Proveedores: {len(providers)} entidades aseguradoras y financieras registradas")
     print(" • Modo de Ejecución: Autónomo (CLI / Servidor MCP para AI IDEs Desktop)")
     print("=" * 75)
     return 0
@@ -89,15 +109,35 @@ def cmd_rules(args: argparse.Namespace) -> int:
     if rules_doc.exists():
         print(rules_doc.read_text(encoding="utf-8"))
         return 0
-    
-    # Fallback summary
-    print(f"# REGLAS POPPERIANAS Y PROTOCOLO CC1 ({LPAG_NORM})")
-    print("1. PROHIBICION ESTRICTA DE OCR: Nunca procesar denuncias con OCR. Usar Google Lens.")
-    print("2. TUO LPAG: Decreto Supremo N° 006-2026-JUS (deroga 004-2019-JUS).")
-    print("3. CERO INDUCCION A ERROR: No imputar por inducción a error. Usar Arts. 1.1.b y 2 Ley 29571.")
-    print("4. CONDICIONAL HABRIA: En imputaciones resolutivas usar condicional 'habría'. En Hechos, pasado.")
-    print("5. INVARIANTES LEXICAS: 'cónyuge' (no esposo), 'luego de' (no tras), 'médico' (no doctor), 'vehículo' (no auto).")
-    print("6. MONEDA MONOLITICA: 'S/ 1 500,00' (espacio miles, coma decimal, nunca punto).")
+    return 0
+
+
+# ==============================================================================
+# SUBCOMMAND: NOTIFICATIONS & PROVIDERS
+# ==============================================================================
+def cmd_notifications(args: argparse.Namespace) -> int:
+    notif_doc = get_resource_path("docs/DIRECTORIO_PROVEEDORES_Y_DOMICILIOS_PROCESALES.md")
+    if notif_doc.exists() and not args.proveedor:
+        print(notif_doc.read_text(encoding="utf-8"))
+        return 0
+
+    providers = load_provider_directory()
+    if args.proveedor:
+        q = args.proveedor.lower()
+        matches = {k: v for k, v in providers.items() if q in k.lower()}
+        if matches:
+            print(f"\nCoincidencias encontradas ({len(matches)}):")
+            print("-" * 75)
+            for k, v in matches.items():
+                print(f"• {k}")
+                print(f"  Vía Oficial: {v.get('via_notificacion_oficial')}")
+                print(f"  Frecuencia en modelos: {v.get('frecuencia_total')} casos")
+                print(f"  Detalle: Casilla={v.get('casilla_count')}, Correo={v.get('correo_count')}, Domicilio={v.get('domicilio_count')}")
+                print("-" * 75)
+            return 0
+        else:
+            print(f"No se encontró el proveedor '{args.proveedor}' en el directorio.")
+            return 1
     return 0
 
 
@@ -225,7 +265,24 @@ def cmd_validate(args: argparse.Namespace) -> int:
     if re.search(r"S/\s*\d{1,3}(?:\.\d{3})+,\d{2}", texto_total) or re.search(r"S/\.\s*\d+", texto_total):
         errores.append("[R-91 MONEDA] Moneda con puntos. Formato obligatorio: 'S/ X XXX,XX' (espacio para miles, coma decimal).")
 
-    # 5. Pie institucional
+    # 5. Párrafos Resolutivos de Notificación (Tres tipos literales)
+    has_casilla = "acuse de recibo mediante la confirmación de recepción" in texto_total and "Casilla" in texto_total
+    has_correo = "bandeja de correo electrónico" in texto_total or "bandejas de correo electrónico" in texto_total
+    has_domicilio = "en su domicilio procesal" in texto_total or "en sus domicilios procesales" in texto_total
+
+    if not (has_casilla or has_correo or has_domicilio):
+        errores.append("[NOTIFICACION CC1] La resolución debe contener al menos una de las tres fórmulas literales de notificación (Casilla Electrónica, Correo Electrónico o Domicilio Procesal).")
+
+    if (has_correo or has_domicilio) and "confirmación de recepción" in texto_total:
+        if "006-2026-JUS" not in texto_total:
+            errores.append("[NOTIFICACION CC1] La notificación por correo o domicilio procesal debe citar el Decreto Supremo N° 006-2026-JUS.")
+        if "dos (2) días hábiles" not in texto_total:
+            advertencias.append("[NOTIFICACION CC1] El plazo para confirmación de correo o domicilio procesal debe ser de dos (2) días hábiles.")
+
+    if has_casilla and "cinco (5) primeros días hábiles" not in texto_total:
+        advertencias.append("[NOTIFICACION CC1] El plazo para acuse de recibo en Casilla Electrónica debe ser de cinco (5) primeros días hábiles.")
+
+    # 6. Pie institucional
     if "M-CPC-01/03" not in texto_total:
         advertencias.append("[FORMATO] Pie institucional 'M-CPC-01/03' no detectado en el documento.")
 
@@ -281,39 +338,49 @@ def cmd_dump_memory(args: argparse.Namespace) -> int:
 
 ---
 
-## 2. TAXONOMÍA Y LOCALIZACIÓN DE PLANTILLAS
-El repositorio contiene **605 plantillas Word (.docx) depuradas** en `plantillas_maestras/`:
-- `01_seguro_vehicular` (174 plantillas)
-- `02_seguro_vida` (134 plantillas)
-- `03_seguro_desgravamen` (66 plantillas)
-- `04_seguro_proteccion_tarjetas_y_dinero` (37 plantillas)
-- `05_soat_y_afocat` (43 plantillas)
-- `06_seguro_hogar_e_inmuebles` (20 plantillas)
-- `07_seguro_sctr` (18 plantillas)
-- `08_seguro_salud_eps_oncologico` (12 plantillas)
-- `09_seguro_patrimonial_caucion_rc` (10 plantillas)
-- `10_seguro_sepelio` (8 plantillas)
-- `11_seguro_accidentes_personales` (7 plantillas)
-- `12_seguro_transporte_y_carga` (6 plantillas)
-- `13_seguro_multiple_y_equipos` (4 plantillas)
-- `14_seguro_desempleo` (2 plantillas)
-- `15_sistema_previsional_afp_onp` (2 plantillas)
-- `16_temas_administrativos_financieros` (4 plantillas)
-- `17_seguro_no_especificado` (58 plantillas)
+## 2. LOS TRES PÁRRAFOS RESOLUTIVOS LITERALES DE NOTIFICACIÓN (SIN PARAFRASEAR)
+En la sección resolutiva final de todo admisorio, se coloca indefectiblemente el párrafo correspondiente a la vía legal de notificación:
 
-Estructura de subdirectorios:
-`plantillas_maestras/<RAMA>/<MATERIA>/<PROVEEDOR>/<SUJETO>/TPL_*.docx`
+### TIPO 1: VÍA CASILLA ELECTRÓNICA (SINE INDECOPI - 5 DÍAS)
+*Para compañías de seguros y bancos afiliados obligatoriamente:*
+> *"requerir a [PROVEEDOR(ES)] para que efectúe[n] el acuse de recibo mediante la confirmación de recepción de la notificación remitida por este despacho a su[s] Casilla[s] Electrónica[s], dentro de los cinco (5) primeros días hábiles siguientes a la fecha en que recibe[n] la notificación."*
+
+### TIPO 2: VÍA CORREO ELECTRÓNICO (AUTORIZACIÓN EXPRESA - 2 DÍAS)
+*Para consumidores y proveedores con dirección electrónica autorizada:*
+> *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su[s] bandeja[s] de correo electrónico, efectúe[n] la confirmación de recepción de la notificación remitida por este despacho a su[s] correo[s] electrónico[s], de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo N° 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle[s] conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
+
+### TIPO 3: VÍA DOMICILIO PROCESAL / CÉDULA FÍSICA (2 DÍAS)
+*Para denunciantes sin correo, AFOCATs, fondos especiales (CAFAE) o proveedores sin casilla:*
+> *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su domicilio procesal, efectúe[n] la confirmación de recepción de la notificación remitida por este despacho a su domicilio procesal, de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo N° 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle[s] conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
 
 ---
 
-## 3. PARÁMETROS DE ESTILO VISUAL CC1
+## 3. DOMICILIOS PROCESALES Y VÍAS OFICIALES POR PROVEEDOR
+- **Casilla Electrónica (SINE Indecopi):** Pacífico Compañía de Seguros, Mapfre Perú Compañía de Seguros, Interseguro Compañía de Seguros, La Positiva Seguros y Reaseguros, BNP Paribas Cardif, Chubb Perú, Quálitas Compañía de Seguros, Protecta Compañía de Seguros, Crecer Seguros, Banco BBVA Perú, Scotiabank Perú, Interbank, Empresa de Créditos Santander Consumo Perú, Banco Falabella, Banco Ripley, Banco Pichincha, Banco GNB.
+- **Correo Electrónico Autorizado / Casilla:** Rímac Seguros y Reaseguros, Banco de Crédito del Perú (BCP).
+- **Domicilio Procesal / Cédula Física:** AFOCATs provinciales/regionales, Comités de Administración CAFAE, talleres y personas naturales denunciadas.
+
+---
+
+## 4. TAXONOMÍA Y LOCALIZACIÓN DE PLANTILLAS
+El repositorio contiene **605 plantillas Word (.docx) depuradas** en `plantillas_maestras/`:
+- `01_seguro_vehicular` (174) | `02_seguro_vida` (134) | `03_seguro_desgravamen` (66)
+- `04_seguro_proteccion_tarjetas_y_dinero` (37) | `05_soat_y_afocat` (43) | `06_seguro_hogar_e_inmuebles` (20)
+- `07_seguro_sctr` (18) | `08_seguro_salud_eps_oncologico` (12) | `09_seguro_patrimonial_caucion_rc` (10)
+- `10_seguro_sepelio` (8) | `11_seguro_accidentes_personales` (7) | `12_seguro_transporte_y_carga` (6)
+- `13_seguro_multiple_y_equipos` (4) | `14_seguro_desempleo` (2) | `15_sistema_previsional_afp_onp` (2)
+- `16_temas_administrativos_financieros` (4) | `17_seguro_no_especificado` (58)
+
+---
+
+## 5. PARÁMETROS DE ESTILO VISUAL CC1
 - **Fuente:** `Arial Narrow` (11 pt cuerpo de texto, 8 pt notas al pie y encabezados).
 - **Márgenes A4:** Superior 2.5 cm, Inferior 2.5 cm, Izquierdo 3.0 cm, Derecho 2.5 cm.
 - **Interlineado:** Sencillo 1.0, espaciado `0 pt antes / 0 pt después`.
 - **Sangrías Institucionales:**
   - Hechos: Izquierda `0.79"` (2.0 cm), Francesa `-0.39"` (-1.0 cm).
   - Resolutivo: Izquierda `0.39"` (1.0 cm), Francesa `-0.39"` (-1.0 cm).
-- **Notas al Pie:** Formato con *One Dot Leader* (`\\u2024`) para evitar el sangrado nativo de Word. Pie institucional: `M-CPC-01/03`.
+- **Notas al Pie:** Formato con *One Dot Leader* (`\\u2024`). Pie institucional: `M-CPC-01/03`.
 """
 
     cursorrules = f"""# Cursor Rules - ResAdmis INDECOPI CC1
@@ -325,8 +392,9 @@ Estructura de subdirectorios:
 4. En imputaciones de cargos usa condicional 'habría'. En antecedentes usa pasado indicativo.
 5. Invariantes léxicas: cónyuge (no esposo), luego de (no tras), médico (no doctor), vehículo (no auto).
 6. Moneda: 'S/ X XXX,XX' (espacio para miles, coma decimal, sin puntos).
-7. Consulta plantillas_maestras/ según la rama de seguro y materia antes de redactar.
-8. Valida siempre el documento final con: systemhope-engine validate <admisorio.docx>
+7. Notificaciones finales: Colocar obligatoriamente uno de los 3 párrafos literales (Casilla 5 días / Correo 2 días D.S. 006-2026-JUS / Cédula Domicilio Procesal 2 días) sin parafrasear.
+8. Consulta plantillas_maestras/ según rama y materia antes de redactar.
+9. Valida siempre el documento final con: systemhope-engine validate <admisorio.docx>
 """
 
     claude_md = f"""# Claude Code Instructions - SystemHope ResAdmis CC1
@@ -336,23 +404,23 @@ Este repositorio contiene el sistema automatizado de resoluciones admisorias de 
 ## Comandos Principales
 - Ver catálogo y estado: `python -m src.systemhope_engine info`
 - Buscar plantillas: `python -m src.systemhope_engine templates --rama 03_seguro_desgravamen --materia negativa_cobertura`
+- Consultar vías de notificación: `python -m src.systemhope_engine notifications`
 - Auditar documento: `python -m src.systemhope_engine validate <archivo.docx>`
-- Exportar reglas a IDE: `python -m src.systemhope_engine dump-memory`
+- Exportar memoria completa a IDE: `python -m src.systemhope_engine dump-memory`
 
 ## Reglas Críticas
 - **Cero OCR:** Siempre analizar capturas con Google Lens / Vision.
 - **LPAG 2026:** D.S. N° 006-2026-JUS.
 - **Cero Inducción a Error:** Arts. 1.1.b y 2 de Ley 29571.
+- **Notificaciones Finales:** 3 fórmulas literales estrictas (Casilla 5 días, Correo 2 días con apercibimiento, Domicilio Procesal 2 días con apercibimiento).
 - **Formato:** Arial Narrow 11 pt, notas 8 pt, sangrías CC1, pie institucional M-CPC-01/03.
 """
 
     (out_dir / "AGENTS.md").write_text(agents_md, encoding="utf-8")
     (out_dir / ".cursorrules").write_text(cursorrules, encoding="utf-8")
+    (out_dir / ".windsurfrules").write_text(cursorrules, encoding="utf-8")
     (out_dir / "CLAUDE.md").write_text(claude_md, encoding="utf-8")
     print(f"✅ Archivos de memoria para AI IDEs generados exitosamente en: {out_dir.resolve()}")
-    print("  • AGENTS.md (Antigravity IDE, Cursor, Windsurf, Copilot)")
-    print("  • .cursorrules (Cursor IDE)")
-    print("  • CLAUDE.md (Claude Code / Desktop)")
     return 0
 
 
@@ -366,6 +434,11 @@ def cmd_mcp(args: argparse.Namespace) -> int:
             "name": "get_system_rules",
             "description": "Retorna las reglas popperianas y marco normativo LPAG 2026 para admisorios.",
             "inputSchema": {"type": "object", "properties": {}},
+        },
+        {
+            "name": "get_notification_formulas",
+            "description": "Retorna las 3 fórmulas literales de notificación y directorio de domicilios procesales.",
+            "inputSchema": {"type": "object", "properties": {"proveedor": {"type": "string"}}},
         },
         {
             "name": "get_visual_specs",
@@ -427,6 +500,9 @@ def cmd_mcp(args: argparse.Namespace) -> int:
                 content_text = ""
                 if name == "get_system_rules":
                     content_text = f"LPAG: {LPAG_NORM}. Cero OCR (Solo Google Lens). Cero inducción a error. Moneda: S/ X XXX,XX."
+                elif name == "get_notification_formulas":
+                    p_doc = get_resource_path("docs/DIRECTORIO_PROVEEDORES_Y_DOMICILIOS_PROCESALES.md")
+                    content_text = p_doc.read_text(encoding="utf-8") if p_doc.exists() else "3 Vías: Casilla (5 días), Correo (2 días D.S. 006-2026-JUS), Domicilio Procesal (2 días)."
                 elif name == "get_visual_specs":
                     content_text = "Arial Narrow 11pt/8pt. Margenes A4: Sup 2.5, Inf 2.5, Izq 3.0, Der 2.5 cm. Sangría Hechos 0.79\"/-0.39\". Pie M-CPC-01/03."
                 elif name == "search_templates":
@@ -473,6 +549,10 @@ def main(argv: Optional[List[str]] = None) -> int:
     # rules
     subparsers.add_parser("rules", help="Muestra la matriz popperiana de reglas y prohibiciones")
 
+    # notifications
+    n_parser = subparsers.add_parser("notifications", help="Muestra las 3 fórmulas literales de notificación y directorio de proveedores")
+    n_parser.add_argument("--proveedor", help="Consultar vía de notificación para un proveedor específico")
+
     # specs
     subparsers.add_parser("specs", help="Muestra la memoria de estilo visual y medidas de página")
 
@@ -505,6 +585,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     command_handlers = {
         "info": cmd_info,
         "rules": cmd_rules,
+        "notifications": cmd_notifications,
         "specs": cmd_specs,
         "templates": cmd_templates,
         "validate": cmd_validate,

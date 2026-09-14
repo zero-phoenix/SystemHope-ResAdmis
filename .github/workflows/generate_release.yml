@@ -1,35 +1,108 @@
-name: Generar Resoluciones y Release
+name: Build, Package and Release SystemHope Engine
 
 on:
   push:
     branches:
       - main
+  workflow_dispatch:
+
+permissions:
+  contents: write
 
 jobs:
-  generate-and-release:
+  build-and-release:
     runs-on: windows-latest
-    permissions:
-      contents: write
 
     steps:
-      - name: Habilitar long paths en Git (Windows)
-        run: git config --global core.longpaths true
-
-      - name: Checkout del código
-        uses: actions/checkout@v4
-
-      - name: Instalar uv (si no está instalado)
+      - name: Habilitar rutas largas en Windows y Git
         run: |
-          if (!(Get-Command uv -ErrorAction SilentlyContinue)) {
-            Invoke-WebRequest -Uri https://astral.sh/uv/install.ps1 -OutFile install_uv.ps1
-            powershell -ExecutionPolicy ByPass -File install_uv.ps1
-          }
+          git config --global core.longpaths true
+          Set-ItemProperty -Path "HKLM:\SYSTEM\CurrentControlSet\Control\FileSystem" -Name "LongPathsEnabled" -Value 1 -ErrorAction SilentlyContinue
 
+      - name: Checkout del repositorio
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
 
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+          cache: "pip"
 
-      - name: Crear Release de GitHub
+      - name: Instalar dependencias de compilacion
+        run: |
+          python -m pip install --upgrade pip
+          pip install pyinstaller python-docx pywin32
+
+      - name: Compilar ejecutable standalone con PyInstaller
+        run: |
+          pyinstaller --onefile --clean --name systemhope-engine `
+            --add-data "docs/plantillas_maestras_index.json;docs" `
+            --add-data "docs/directorio_proveedores_domicilios.json;docs" `
+            --add-data "docs/MATRIZ_MAESTRA_PHOENYX_POPPERIANA.md;docs" `
+            --add-data "docs/DIRECTORIO_PROVEEDORES_Y_DOMICILIOS_PROCESALES.md;docs" `
+            --add-data "docs/MEMORIA_ESTILO_VISUAL_PAGINAS.md;docs" `
+            src/systemhope_engine.py
+
+      - name: Verificar ejecucion del binario compilado
+        run: |
+          ./dist/systemhope-engine.exe info
+          ./dist/systemhope-engine.exe templates --rama vehicular --limit 3
+          ./dist/systemhope-engine.exe notifications --proveedor pacifico
+
+      - name: Crear paquete ZIP autonomo para AI IDEs Desktop
+        run: |
+          Compress-Archive -Path `
+            dist/systemhope-engine.exe, `
+            AGENTS.md, `
+            README.md, `
+            .cursorrules, `
+            .windsurfrules, `
+            CLAUDE.md, `
+            docs/plantillas_maestras_index.json, `
+            docs/directorio_proveedores_domicilios.json, `
+            docs/DIRECTORIO_PROVEEDORES_Y_DOMICILIOS_PROCESALES.md, `
+            docs/INDICE_TAXONOMICO_PLANTILLAS_MAESTRAS.md, `
+            docs/MEMORIA_ESTILO_VISUAL_PAGINAS.md, `
+            docs/MATRIZ_MAESTRA_PHOENYX_POPPERIANA.md `
+            -DestinationPath dist/systemhope-engine-windows-x64.zip -Force
+
+      - name: Publicar Release en GitHub con Binarios y Memoria
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v1.0.${{ github.run_number }}
-          name: Actualización de Código v1.0.${{ github.run_number }}
-          body: Nueva versión del código de automatización desplegada.
+          tag_name: v2.0.${{ github.run_number }}
+          name: "SystemHope ResAdmis v2.0.${{ github.run_number }} - Engine & Persistent Memory"
+          body: |
+            # SystemHope ResAdmis - Release Oficial v2.0.${{ github.run_number }}
+
+            Este release provee el motor ejecutable independiente (`systemhope-engine.exe`) y el paquete de memoria persistente para permitir que **Antigravity IDE**, **Cursor**, **Windsurf**, **Claude Code** o cualquier entorno de IA Desktop opere de manera autónoma, incluso tras un formateo total del equipo.
+
+            ## Componentes Incluidos
+            - **`systemhope-engine.exe`**: Binario autónomo Windows x64.
+              - Modos de uso: `info`, `rules`, `notifications`, `specs`, `templates`, `validate`, `dump-memory`, `mcp`.
+              - Servidor MCP integrado sobre stdio para conexión directa con cualquier IA IDE.
+            - **`systemhope-engine-windows-x64.zip`**: Paquete completo de distribución con memoria, especificaciones y catálogo.
+
+            ## Axiomas y Protocolos No Negociables
+            1. **ESTRICTO CERO OCR:** Las denuncias escaneadas y expedientes se procesan exclusivamente con **Google Lens / Visión Multimodal**.
+            2. **TUO LPAG VIGENTE:** Citas normalizadas al **Decreto Supremo N° 006-2026-JUS** (deroga D.S. 004-2019-JUS).
+            3. **TRES PÁRRAFOS LITERALES DE NOTIFICACIÓN:** Sección resolutiva final con fórmulas exactas no parafraseadas (Casilla Electrónica 5 días SINE, Correo Electrónico 2 días con apercibimiento de rehacer D.S. 006-2026-JUS, o Domicilio Procesal / Cédula 2 días).
+            4. **PROHIBICIÓN DE 'INDUCCIÓN A ERROR':** Se imputa bajo los Arts. 1.1.b y 2 de la Ley 29571. Prohibido invocar el Art. 3.
+            5. **CATÁLOGO TAXONÓMICO:** 605 plantillas Word (.docx) depuradas y estructuradas por rama de seguro, materia, proveedor y sujeto.
+            6. **ESTILO INSTITUCIONAL CC1:** Tipografía Arial Narrow 11 pt / 8 pt, sangrías escalonadas CC1 y pie institucional `M-CPC-01/03`.
+
+            ## Conexión Rápida para cualquier IA Desktop
+            ```powershell
+            # Descargar y volcar memoria en cualquier carpeta de trabajo:
+            ./systemhope-engine.exe dump-memory
+            # Consultar vía de notificación de un proveedor:
+            ./systemhope-engine.exe notifications --proveedor "rimac"
+            # Buscar plantilla correspondiente:
+            ./systemhope-engine.exe templates --rama 03_seguro_desgravamen --materia negativa_cobertura
+            # Validar resolución redactada:
+            ./systemhope-engine.exe validate <resolucion.docx>
+            ```
+          files: |
+            dist/systemhope-engine.exe
+            dist/systemhope-engine-windows-x64.zip

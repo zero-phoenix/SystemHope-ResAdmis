@@ -1,0 +1,1427 @@
+{
+  "Reaseguros S.A": {
+    "denominacion": "Reaseguros S.A",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 316,
+    "casilla_count": 255,
+    "correo_count": 61,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0007-2026",
+      "0008-2026",
+      "0031-2026",
+      "0161-2026",
+      "0171-2026"
+    ]
+  },
+  "Pacífico Compañía de Seguros": {
+    "denominacion": "Pacífico Compañía de Seguros",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 132,
+    "casilla_count": 132,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0031-2026",
+      "0171-2026",
+      "0204-2026",
+      "0320-2026",
+      "0356-2026"
+    ]
+  },
+  "Mapfre Perú Compañía de Seguros": {
+    "denominacion": "Mapfre Perú Compañía de Seguros",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 90,
+    "casilla_count": 90,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0007-2026",
+      "0196-2026",
+      "0334-2026",
+      "0458-2026",
+      "0599-2026"
+    ]
+  },
+  "Rímac Seguros": {
+    "denominacion": "Rímac Seguros",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 60,
+    "casilla_count": 0,
+    "correo_count": 60,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0008-2026",
+      "0327-2026",
+      "0367-2026",
+      "0384-2026",
+      "0525-2026"
+    ]
+  },
+  "Interseguro Compañía de Seguros S.A": {
+    "denominacion": "Interseguro Compañía de Seguros S.A",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 55,
+    "casilla_count": 55,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0037-2026",
+      "0598-2026",
+      "0631-2026",
+      "0666-2026",
+      "0695-2025"
+    ]
+  },
+  "La Positiva Seguros": {
+    "denominacion": "La Positiva Seguros",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 35,
+    "casilla_count": 35,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0161-2026",
+      "0329-2026",
+      "0493-2026",
+      "0505-2026",
+      "0592-2026"
+    ]
+  },
+  "Reaseguros": {
+    "denominacion": "Reaseguros",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 22,
+    "casilla_count": 22,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0717-2026",
+      "0726-2026",
+      "0742-2026",
+      "1372-2025",
+      "1394-2025"
+    ]
+  },
+  "al Banco de Crédito del Perú S.A": {
+    "denominacion": "al Banco de Crédito del Perú S.A",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 14,
+    "casilla_count": 0,
+    "correo_count": 14,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0609-2026",
+      "0637-2025",
+      "0866-2025",
+      "1046-2025",
+      "1169-2025"
+    ]
+  },
+  "BNP Paribas Cardif S.A. Compañía de Seguros": {
+    "denominacion": "BNP Paribas Cardif S.A. Compañía de Seguros",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 11,
+    "casilla_count": 11,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1394-2025",
+      "1593-2026",
+      "1659-2025",
+      "2266-2026",
+      "2451-2025"
+    ]
+  },
+  "Quálitas Compañía de Seguros S.A": {
+    "denominacion": "Quálitas Compañía de Seguros S.A",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 10,
+    "casilla_count": 10,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0040-2026",
+      "0627-2026",
+      "1122-2026",
+      "1200-2026",
+      "1663-2026"
+    ]
+  },
+  "Reaseguros S.A.A": {
+    "denominacion": "Reaseguros S.A.A",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 9,
+    "casilla_count": 9,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1036-2025",
+      "1213-2025",
+      "1307-2025",
+      "1962-2025",
+      "1971-2025"
+    ]
+  },
+  "Chubb Perú S.A. Compañía de Seguros": {
+    "denominacion": "Chubb Perú S.A. Compañía de Seguros",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 8,
+    "casilla_count": 8,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0726-2026",
+      "0742-2026",
+      "1372-2025",
+      "1733-2026",
+      "2389-2025"
+    ]
+  },
+  "La Positiva Vida Seguros": {
+    "denominacion": "La Positiva Vida Seguros",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 7,
+    "casilla_count": 7,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1157-2025",
+      "1211-2026",
+      "1244-2026",
+      "1294-2025",
+      "2233-2026"
+    ]
+  },
+  "Banco BBVA Perú S.A": {
+    "denominacion": "Banco BBVA Perú S.A",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 6,
+    "casilla_count": 6,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1217-2025",
+      "1455-2026",
+      "1550-2025",
+      "1771-2025",
+      "2428-2025"
+    ]
+  },
+  "Corredores de Seguros Falabella S.A.C": {
+    "denominacion": "Corredores de Seguros Falabella S.A.C",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 4,
+    "casilla_count": 0,
+    "correo_count": 2,
+    "domicilio_count": 2,
+    "expedientes_muestra": [
+      "1288-2026",
+      "1835-2025",
+      "2138-2025",
+      "2502-2025"
+    ]
+  },
+  "Honesty S.A.C": {
+    "denominacion": "Honesty S.A.C",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 4,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 4,
+    "expedientes_muestra": [
+      "0895-2026",
+      "1287-2025",
+      "1912-2025"
+    ]
+  },
+  "Scotiabank Perú S.A.A": {
+    "denominacion": "Scotiabank Perú S.A.A",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 4,
+    "casilla_count": 0,
+    "correo_count": 4,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0613-2026",
+      "2711-2025",
+      "DESCONOCIDO"
+    ]
+  },
+  "Peritos de Seguros S.A.C": {
+    "denominacion": "Peritos de Seguros S.A.C",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 4,
+    "casilla_count": 2,
+    "correo_count": 0,
+    "domicilio_count": 2,
+    "expedientes_muestra": [
+      "0600-2026",
+      "2188-2025",
+      "3144-2025",
+      "3437-2025"
+    ]
+  },
+  "la Sucesión Intestada de César Emilio Miranda Soria": {
+    "denominacion": "la Sucesión Intestada de César Emilio Miranda Soria",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 3,
+    "casilla_count": 0,
+    "correo_count": 3,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2995-2025",
+      "DESCONOCIDO"
+    ]
+  },
+  "Protecta S.A. Compañía de Seguros": {
+    "denominacion": "Protecta S.A. Compañía de Seguros",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 3,
+    "casilla_count": 3,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0717-2026",
+      "1496-2025",
+      "3358-2025"
+    ]
+  },
+  "la Caja Municipal de Ahorro": {
+    "denominacion": "la Caja Municipal de Ahorro",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 3,
+    "casilla_count": 1,
+    "correo_count": 1,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "1589-2026",
+      "1592-2025",
+      "1971-2025"
+    ]
+  },
+  "al Banco Internacional del Perú -Interbank S.A.A": {
+    "denominacion": "al Banco Internacional del Perú -Interbank S.A.A",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 3,
+    "casilla_count": 0,
+    "correo_count": 3,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1372-2025",
+      "2389-2025"
+    ]
+  },
+  "Qualitas Compañía de Seguros S.A": {
+    "denominacion": "Qualitas Compañía de Seguros S.A",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 2,
+    "casilla_count": 2,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1197-2025",
+      "1933-2025"
+    ]
+  },
+  "la Sucesión Intestada de Giorgio Franco Nibin Contreras": {
+    "denominacion": "la Sucesión Intestada de Giorgio Franco Nibin Contreras",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 2,
+    "casilla_count": 0,
+    "correo_count": 2,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0007-2026",
+      "0008-2026"
+    ]
+  },
+  "la Sucesión Intestada de Swint Larry Torres Romero": {
+    "denominacion": "la Sucesión Intestada de Swint Larry Torres Romero",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 2,
+    "casilla_count": 0,
+    "correo_count": 2,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1254-2026",
+      "1313-2026"
+    ]
+  },
+  "Diners Club Perú S.A": {
+    "denominacion": "Diners Club Perú S.A",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 2,
+    "casilla_count": 2,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1871-2025",
+      "2071-2025"
+    ]
+  },
+  "al Banco Internacional del Perú S.A.A. – Interbank": {
+    "denominacion": "al Banco Internacional del Perú S.A.A. – Interbank",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 2,
+    "casilla_count": 0,
+    "correo_count": 2,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1254-2026",
+      "DESCONOCIDO"
+    ]
+  },
+  "la Sucesión Intestada de Vicente Orestes Flores Baldeón": {
+    "denominacion": "la Sucesión Intestada de Vicente Orestes Flores Baldeón",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 2,
+    "casilla_count": 0,
+    "correo_count": 2,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1326-2026",
+      "1589-2026"
+    ]
+  },
+  "Banco Ripley Perú S.A": {
+    "denominacion": "Banco Ripley Perú S.A",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 2,
+    "casilla_count": 0,
+    "correo_count": 2,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0731-2025"
+    ]
+  },
+  "Baukost Ajustadores": {
+    "denominacion": "Baukost Ajustadores",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 2,
+    "casilla_count": 2,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0600-2026",
+      "3437-2025"
+    ]
+  },
+  "Pacífico Compañía de Seguros Y Reaseguros S.A": {
+    "denominacion": "Pacífico Compañía de Seguros Y Reaseguros S.A",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 2,
+    "casilla_count": 2,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2381-2026",
+      "DESCONOCIDO"
+    ]
+  },
+  "B&amp;C Ajustadores": {
+    "denominacion": "B&amp;C Ajustadores",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 2,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 2,
+    "expedientes_muestra": [
+      "1243-2026",
+      "DESCONOCIDO"
+    ]
+  },
+  "Peritos de Seguros S.A": {
+    "denominacion": "Peritos de Seguros S.A",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 2,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 2,
+    "expedientes_muestra": [
+      "1243-2026",
+      "DESCONOCIDO"
+    ]
+  },
+  "Cooper Brothers Perú S.A.C. Ajustadores de Seguros": {
+    "denominacion": "Cooper Brothers Perú S.A.C. Ajustadores de Seguros",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 2,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 2,
+    "expedientes_muestra": [
+      "1574-2026",
+      "DESCONOCIDO"
+    ]
+  },
+  "Autoland S.A": {
+    "denominacion": "Autoland S.A",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "2595-2025"
+    ]
+  },
+  "City Motors S.A.C": {
+    "denominacion": "City Motors S.A.C",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1513-2025"
+    ]
+  },
+  "Pana Autos S.A.C": {
+    "denominacion": "Pana Autos S.A.C",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "2064-2025"
+    ]
+  },
+  "BBVA Consumer Finance Entidad de Desarrollo a la Pequeña": {
+    "denominacion": "BBVA Consumer Finance Entidad de Desarrollo a la Pequeña",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2888-2025"
+    ]
+  },
+  "Micro Empresa S.A. - EDPYME en Liquidación": {
+    "denominacion": "Micro Empresa S.A. - EDPYME en Liquidación",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2888-2025"
+    ]
+  },
+  "al Banco BBVA Perú S.A": {
+    "denominacion": "al Banco BBVA Perú S.A",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2888-2025"
+    ]
+  },
+  "JM Biomedical Corporation E.I.R.L": {
+    "denominacion": "JM Biomedical Corporation E.I.R.L",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0627-2026"
+    ]
+  },
+  "Empresa de Créditos Santander Consumo Perú S.A. - Empresa de Créditos Santander Consumo Perú": {
+    "denominacion": "Empresa de Créditos Santander Consumo Perú S.A. - Empresa de Créditos Santander Consumo Perú",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1091-2025"
+    ]
+  },
+  "Grupo T &amp; Q Asociados S.A.C": {
+    "denominacion": "Grupo T &amp; Q Asociados S.A.C",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0367-2026"
+    ]
+  },
+  "Autofondo S.A.C": {
+    "denominacion": "Autofondo S.A.C",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1039-2026"
+    ]
+  },
+  "Megaservicios J &amp; F S.A.C": {
+    "denominacion": "Megaservicios J &amp; F S.A.C",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1112-2025"
+    ]
+  },
+  "Autonort Cajamarca S.A.C": {
+    "denominacion": "Autonort Cajamarca S.A.C",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "1112-2025"
+    ]
+  },
+  "Illapu Service S.A.C": {
+    "denominacion": "Illapu Service S.A.C",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1949-2025"
+    ]
+  },
+  "Servicios e Inversiones Petit E.I.R.L": {
+    "denominacion": "Servicios e Inversiones Petit E.I.R.L",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1122-2026"
+    ]
+  },
+  "Roberto Cantalicio Condori Chinchay": {
+    "denominacion": "Roberto Cantalicio Condori Chinchay",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1692-2026"
+    ]
+  },
+  "Eurostar Motors S.A.C": {
+    "denominacion": "Eurostar Motors S.A.C",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "1692-2026"
+    ]
+  },
+  "Transporte Movesa": {
+    "denominacion": "Transporte Movesa",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0592-2026"
+    ]
+  },
+  "Servicios Múltiples S.A.C": {
+    "denominacion": "Servicios Múltiples S.A.C",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0592-2026"
+    ]
+  },
+  "la Sucesión Intestada de Andres Yopan Diaz": {
+    "denominacion": "la Sucesión Intestada de Andres Yopan Diaz",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1669-2026"
+    ]
+  },
+  "la Sucesión Intestada de Hozver Jeiner Tapia Vasquez": {
+    "denominacion": "la Sucesión Intestada de Hozver Jeiner Tapia Vasquez",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1907-2026"
+    ]
+  },
+  "la Sucesión Intestada de José Wilder Eugenio Saucedo": {
+    "denominacion": "la Sucesión Intestada de José Wilder Eugenio Saucedo",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "3119-2025"
+    ]
+  },
+  "Sistemas": {
+    "denominacion": "Sistemas",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "DESCONOCIDO"
+    ]
+  },
+  "Soluciones Inteligentes S.A.C": {
+    "denominacion": "Soluciones Inteligentes S.A.C",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "DESCONOCIDO"
+    ]
+  },
+  "Maquinaria Nacional S.A.C. Perú": {
+    "denominacion": "Maquinaria Nacional S.A.C. Perú",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "DESCONOCIDO"
+    ]
+  },
+  "Industrias Buddy Gang E.I.R.L": {
+    "denominacion": "Industrias Buddy Gang E.I.R.L",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0635-2026"
+    ]
+  },
+  "EPP Seguridad S.A.C": {
+    "denominacion": "EPP Seguridad S.A.C",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1257-2025"
+    ]
+  },
+  "Electromecánica Viñak E.I.R.L": {
+    "denominacion": "Electromecánica Viñak E.I.R.L",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2048-2025"
+    ]
+  },
+  "Dudica Industria E.I.R.L": {
+    "denominacion": "Dudica Industria E.I.R.L",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2299-2025"
+    ]
+  },
+  "Multiservicios Anber E.I.R.L": {
+    "denominacion": "Multiservicios Anber E.I.R.L",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2487-2026"
+    ]
+  },
+  "Jaime Mariano Sayan Naranjo": {
+    "denominacion": "Jaime Mariano Sayan Naranjo",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1288-2026"
+    ]
+  },
+  "Pacifico Compañia de Seguros": {
+    "denominacion": "Pacifico Compañia de Seguros",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2263-2026"
+    ]
+  },
+  "Reaseguro S.A": {
+    "denominacion": "Reaseguro S.A",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "3268-2025"
+    ]
+  },
+  "Carmen Esther Ato Aliaga": {
+    "denominacion": "Carmen Esther Ato Aliaga",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2873-2025"
+    ]
+  },
+  "la Sucesión Intestada de William Joel Pinedo Salas": {
+    "denominacion": "la Sucesión Intestada de William Joel Pinedo Salas",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2077-2026"
+    ]
+  },
+  "la Sucesión Intestada de Kalani Sánchez Hidalgo": {
+    "denominacion": "la Sucesión Intestada de Kalani Sánchez Hidalgo",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1730-2025"
+    ]
+  },
+  "la Sucesión Intestada de Lenir Portocarrero Salazar": {
+    "denominacion": "la Sucesión Intestada de Lenir Portocarrero Salazar",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2715-2025"
+    ]
+  },
+  "la Sucesión Intestada de Claudia Ramos Chacón": {
+    "denominacion": "la Sucesión Intestada de Claudia Ramos Chacón",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1275-2025"
+    ]
+  },
+  "la Sucesión Intestada de Carmen Roxana Molina Lujan": {
+    "denominacion": "la Sucesión Intestada de Carmen Roxana Molina Lujan",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2825-2025"
+    ]
+  },
+  "el Banco de Crédito del Perú S.A": {
+    "denominacion": "el Banco de Crédito del Perú S.A",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2825-2025"
+    ]
+  },
+  "la Sucesión Intestada de Corina Irena Salas León": {
+    "denominacion": "la Sucesión Intestada de Corina Irena Salas León",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0904-2025"
+    ]
+  },
+  "al Banco Interamericano de Finanzas S.A": {
+    "denominacion": "al Banco Interamericano de Finanzas S.A",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1329-2026"
+    ]
+  },
+  "la Sucesión Intestada de Elna Yluminada Bravo Mejia de Cornejo": {
+    "denominacion": "la Sucesión Intestada de Elna Yluminada Bravo Mejia de Cornejo",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1758-2026"
+    ]
+  },
+  "la Sucesión de César Augusto Revollar Zuluaga": {
+    "denominacion": "la Sucesión de César Augusto Revollar Zuluaga",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0825-2025"
+    ]
+  },
+  "la Sucesión Intestada de Felicitas Tica Pastor": {
+    "denominacion": "la Sucesión Intestada de Felicitas Tica Pastor",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2021-2026"
+    ]
+  },
+  "Financiera Proempresa S.A": {
+    "denominacion": "Financiera Proempresa S.A",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "2021-2026"
+    ]
+  },
+  "la Sucesión Intestada de Ricardo Serguio Chuquimantari Marreros": {
+    "denominacion": "la Sucesión Intestada de Ricardo Serguio Chuquimantari Marreros",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2268-2026"
+    ]
+  },
+  "Sucesión Intestada de Edilberto Gonzales Sedano": {
+    "denominacion": "Sucesión Intestada de Edilberto Gonzales Sedano",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "3152-2025"
+    ]
+  },
+  "Santander Consumer Bank S.A": {
+    "denominacion": "Santander Consumer Bank S.A",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "3152-2025"
+    ]
+  },
+  "Crecer Seguros S.A. Compañía de Seguros": {
+    "denominacion": "Crecer Seguros S.A. Compañía de Seguros",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1647-2026"
+    ]
+  },
+  "al Banco Internacional del Perú S.A.A. - Interbank": {
+    "denominacion": "al Banco Internacional del Perú S.A.A. - Interbank",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "3523-2025"
+    ]
+  },
+  "Importaciones Mistiano E.I.R.L": {
+    "denominacion": "Importaciones Mistiano E.I.R.L",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2711-2025"
+    ]
+  },
+  "la Sucesión Intestada de Vicente Moali Heidinger": {
+    "denominacion": "la Sucesión Intestada de Vicente Moali Heidinger",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "3358-2025"
+    ]
+  },
+  "Crédito Cusco S.A. - CMAC Cusco": {
+    "denominacion": "Crédito Cusco S.A. - CMAC Cusco",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1592-2025"
+    ]
+  },
+  "Crédito de Arequipa S.A": {
+    "denominacion": "Crédito de Arequipa S.A",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1589-2026"
+    ]
+  },
+  "la Sucesión Intestada de Roiser Guadalupe Fernández": {
+    "denominacion": "la Sucesión Intestada de Roiser Guadalupe Fernández",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2379-2026"
+    ]
+  },
+  "Rimac Seguros": {
+    "denominacion": "Rimac Seguros",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2379-2026"
+    ]
+  },
+  "Financiera TFC S.A. en Liquidacion": {
+    "denominacion": "Financiera TFC S.A. en Liquidacion",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2379-2026"
+    ]
+  },
+  "la Sucesión Intestada de Luis Antonio Chavez Luna": {
+    "denominacion": "la Sucesión Intestada de Luis Antonio Chavez Luna",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2816-2025"
+    ]
+  },
+  "la Sucesión Intestada de Gerardo Fiestas Purizaca": {
+    "denominacion": "la Sucesión Intestada de Gerardo Fiestas Purizaca",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "3087-2025"
+    ]
+  },
+  "Autoseguro - Asociación Fondo Contra Accidentes de Tránsito - Autoseguro - Afocat": {
+    "denominacion": "Autoseguro - Asociación Fondo Contra Accidentes de Tránsito - Autoseguro - Afocat",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "0840-2025"
+    ]
+  },
+  "Ion Insurance Company Inc": {
+    "denominacion": "Ion Insurance Company Inc",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "1477-2026"
+    ]
+  },
+  "Vivir Seguros Compañía de Seguros de Vida S.A": {
+    "denominacion": "Vivir Seguros Compañía de Seguros de Vida S.A",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2059-2025"
+    ]
+  },
+  "la Empresa de Crédito Vívela S.A": {
+    "denominacion": "la Empresa de Crédito Vívela S.A",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "1763-2025"
+    ]
+  },
+  "Máster Ajustadores de Seguros S.A.C": {
+    "denominacion": "Máster Ajustadores de Seguros S.A.C",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0552-2026"
+    ]
+  },
+  "A. Freyre &amp; Asociados E.I.R.L": {
+    "denominacion": "A. Freyre &amp; Asociados E.I.R.L",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1348-2025"
+    ]
+  },
+  "la Sucesión Intestada de Antonio Calancha Mío": {
+    "denominacion": "la Sucesión Intestada de Antonio Calancha Mío",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0384-2026"
+    ]
+  },
+  "Assist Card Perú S.A.C": {
+    "denominacion": "Assist Card Perú S.A.C",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "2116-2026"
+    ]
+  },
+  "Mastercard Perú Inc-Sucursal del Perú": {
+    "denominacion": "Mastercard Perú Inc-Sucursal del Perú",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "2116-2026"
+    ]
+  },
+  "Charles Taylor Ajustadores de Seguros S.A": {
+    "denominacion": "Charles Taylor Ajustadores de Seguros S.A",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2188-2025"
+    ]
+  },
+  "W. Moller Organización Internacional de Ajustadores": {
+    "denominacion": "W. Moller Organización Internacional de Ajustadores",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "2188-2025"
+    ]
+  },
+  "la Sucesión Intestada de Andrés Yopan Diaz": {
+    "denominacion": "la Sucesión Intestada de Andrés Yopan Diaz",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1206-2026"
+    ]
+  },
+  "la Sucesión Intestada de Sonia Beatriz Arrieta Velarde": {
+    "denominacion": "la Sucesión Intestada de Sonia Beatriz Arrieta Velarde",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2110-2025"
+    ]
+  },
+  "la Sucesión Intestada de Fabiana Esther Hernández Barba": {
+    "denominacion": "la Sucesión Intestada de Fabiana Esther Hernández Barba",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1917-2025"
+    ]
+  },
+  "Arias &amp; Asociados Corredores de Seguros S.A.C. - A &amp; A Corredores de Seguros": {
+    "denominacion": "Arias &amp; Asociados Corredores de Seguros S.A.C. - A &amp; A Corredores de Seguros",
+    "via_notificacion_oficial": "Casilla Electrónica",
+    "frecuencia_total": 1,
+    "casilla_count": 1,
+    "correo_count": 0,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1917-2025"
+    ]
+  },
+  "la Sucesión Intestada de Facundo Castro Flores": {
+    "denominacion": "la Sucesión Intestada de Facundo Castro Flores",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "DESCONOCIDO"
+    ]
+  },
+  "la Asociación Defensoría del Consumidor": {
+    "denominacion": "la Asociación Defensoría del Consumidor",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0161-2026"
+    ]
+  },
+  "Usuarios - D.D.C. Y U": {
+    "denominacion": "Usuarios - D.D.C. Y U",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0161-2026"
+    ]
+  },
+  "la Asociación de Consumidores del Perú": {
+    "denominacion": "la Asociación de Consumidores del Perú",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1472-2025"
+    ]
+  },
+  "Rímac S.A. Entidad Prestadora de Salud": {
+    "denominacion": "Rímac S.A. Entidad Prestadora de Salud",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "1472-2025"
+    ]
+  },
+  "Belanela S.A.C": {
+    "denominacion": "Belanela S.A.C",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2545-2025"
+    ]
+  },
+  "Rímac Seguros Y Reaseguros S.A": {
+    "denominacion": "Rímac Seguros Y Reaseguros S.A",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "1890-2025"
+    ]
+  },
+  "la Sucesión Intestada de José Antonio Ramos Madrid": {
+    "denominacion": "la Sucesión Intestada de José Antonio Ramos Madrid",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "0637-2025"
+    ]
+  },
+  "Segui Infraestructuras": {
+    "denominacion": "Segui Infraestructuras",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2843-2025"
+    ]
+  },
+  "Servicios E.I.R.L": {
+    "denominacion": "Servicios E.I.R.L",
+    "via_notificacion_oficial": "Correo Electrónico",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 1,
+    "domicilio_count": 0,
+    "expedientes_muestra": [
+      "2843-2025"
+    ]
+  },
+  "Bona Fide &amp; Asociados Corredores de Seguros S.A.C": {
+    "denominacion": "Bona Fide &amp; Asociados Corredores de Seguros S.A.C",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "2498-2025"
+    ]
+  },
+  "Impulsa 365 S.A.C": {
+    "denominacion": "Impulsa 365 S.A.C",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "1687-2026"
+    ]
+  },
+  "Abaco Perú International Loss Adjusters Ajustadores": {
+    "denominacion": "Abaco Perú International Loss Adjusters Ajustadores",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "3144-2025"
+    ]
+  },
+  "Crédito de Trujillo S.A. - Caja Trujillo": {
+    "denominacion": "Crédito de Trujillo S.A. - Caja Trujillo",
+    "via_notificacion_oficial": "Domicilio Procesal / Cédula Física",
+    "frecuencia_total": 1,
+    "casilla_count": 0,
+    "correo_count": 0,
+    "domicilio_count": 1,
+    "expedientes_muestra": [
+      "1971-2025"
+    ]
+  }
+}

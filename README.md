@@ -1,301 +1,170 @@
-# ResAdmi - Sistema de Automatización de Resoluciones Administrativas
+# SystemHope ResAdmis - Sistema Autónomo de Resoluciones Admisorias INDECOPI CC1
 
-> Herramienta profesional para generar resoluciones conformes a estándares INDECOPI (Comisión de Protección al Consumidor - Perú)
+> **Plataforma Integral de Generación, Calibración Visual y Validación Popperiana de Resoluciones Admisorias de Seguros y Servicios Financieros.**  
+> Diseñado para operar con **Antigravity IDE**, **Cursor**, **Windsurf**, **Claude Code** y cualquier entorno de IA Desktop, con memoria persistente y versionada en GitHub.
 
-[![Python 3.8+](https://img.shields.io/badge/python-3.8%2B-blue)](https://www.python.org/)
-[![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](LICENSE)
-[![Repository Status](https://img.shields.io/badge/status-active-brightgreen)](https://github.com/davidchaveznge-wq/ResAdmi)
-
----
-
-## 📋 Descripción
-
-**ResAdmi** es un sistema de automatización que simplifica la creación de resoluciones administrativas para procesos legales. Permite generar documentos conformes a estándares específicos de redacción legal mediante la combinación de:
-
-- **Plantillas Word profesionales** pre-diseñadas
-- **Scripts Python** que aplican reglas de redacción automáticamente
-- **Validación integrada** de normas INDECOPI
-- **Documentación exhaustiva** de procedimientos
-
-### Características Principales
-
-✅ Generación automatizada de Resoluciones de Primera Instancia (R1)  
-✅ Generación de Resoluciones de Apelación  
-✅ Validación de reglas de tipificación de infracciones  
-✅ Manejo de notificaciones por múltiples canales  
-✅ Generación de memorandos administrativos  
-✅ Respeto automático de formatos y estilos legales  
+[![Repo](https://img.shields.io/badge/GitHub-zero--phoenix%2FSystemHope--ResAdmis-blue)](https://github.com/zero-phoenix/SystemHope-ResAdmis)
+[![TUO LPAG](https://img.shields.io/badge/TUO%20LPAG-D.S.%20N°%20006--2026--JUS-brightgreen)](docs/MATRIZ_MAESTRA_PHOENYX_POPPERIANA.md)
+[![Protocolo de Entrada](https://img.shields.io/badge/Entrada-Estricto%20Cero%20OCR%20(Google%20Lens)-red)](AGENTS.md)
+[![Plantillas](https://img.shields.io/badge/Plantillas%20Depuradas-605%20modelos%20.docx-orange)](docs/INDICE_TAXONOMICO_PLANTILLAS_MAESTRAS.md)
 
 ---
 
-## 🚀 Inicio Rápido
+## 🏛️ Arquitectura y Filosofía del Sistema
 
-### Requisitos Previos
+Este repositorio alberga la memoria completa, reglas normativas, parámetros visuales y 605 plantillas Word (`.docx`) depuradas para la elaboración de Resoluciones Admisorias en la Comisión de Protección al Consumidor N° 1 (CC1) del Indecopi.
 
-- **Python 3.8+**
-- **Microsoft Word** (para integración via `win32com`)
-- **Sistema Operativo:** Windows (recomendado) o Linux/Mac (requiere ajustes)
-
-### 1. Instalación
-
-```bash
-# Clonar el repositorio
-git clone https://github.com/davidchaveznge-wq/ResAdmi.git
-cd ResAdmi
-
-# Crear entorno virtual (recomendado)
-python -m venv venv
-source venv/bin/activate  # En Windows: venv\Scripts\activate
-
-# Instalar dependencias
-pip install -r requirements.txt
-```
-
-### 2. Configuración Inicial
-
-```bash
-# Crear archivo de configuración local
-cp config/.env.example .env
-
-# Editar .env con tus rutas
-# TEMPLATE_PATH=/ruta/a/tus/plantillas
-# OUTPUT_PATH=/ruta/para/documentos/generados
-```
-
-### 3. Primer Uso
-
-```python
-from scripts.builder import DocumentBuilder
-from config import Config
-
-# Cargar configuración
-config = Config.from_env()
-
-# Crear instancia del builder
-builder = DocumentBuilder(
-    template_path=config.TEMPLATE_PATH,
-    rules_path="automatizacion_antigravity/REGLAS_DE_APRENDIZAJE.md"
-)
-
-# Generar resolución
-resultado = builder.build(
-    expediente="2190-2026",
-    denunciante="Nombre del Denunciante",
-    denunciado="Empresa Denunciada",
-    hechos=[
-        "Primer hecho alegado",
-        "Segundo hecho alegado"
-    ],
-    output_path=config.OUTPUT_PATH
-)
-
-print(f"✅ Documento generado: {resultado}")
-```
+### 🌐 Persistencia de Memoria en el Repositorio (Zero-Local-Loss)
+**El repositorio es el cerebro:** Ninguna directriz crítica reside únicamente de manera local. Si esta computadora es formateada o si otro agente/desarrollador clona este repositorio en cualquier parte del mundo:
+1. Clona o descarga el ejecutable desde [Releases](https://github.com/zero-phoenix/SystemHope-ResAdmis/releases).
+2. Ejecuta `./systemhope-engine.exe dump-memory` o arranca el servidor MCP `./systemhope-engine.exe mcp`.
+3. El entorno de IA adquiere instantáneamente el 100% de la doctrina institucional, catálogo taxonómico y reglas popperianas.
 
 ---
 
-## 📁 Estructura del Proyecto
+## 🛑 Axiomas y Prohibiciones Críticas (Doctrina CC1)
 
-```
-ResAdmi/
-├── README.md                              # Este archivo
-├── LICENSE                                # Licencia MIT
-├── CHANGELOG.md                           # Historial de versiones
-├── requirements.txt                       # Dependencias Python
-├── .gitignore                             # Archivos ignorados por Git
-│
-├── docs/                                  # 📚 Documentación
-│   └── REGLAS_DE_REDACCION.md            # Guía de reglas administrativas
-│
-├── templates/                             # 📄 Plantillas Word
-│   ├── resoluciones/
-│   │   ├── base_ordinaria.docx           # Modelo base
-│   │   ├── apelacion_r1.docx             # Resolución de apelación
-│   │   └── ...
-│   ├── memos/
-│   └── oficios/
-│
-├── scripts/                               # 🐍 Scripts Python
-│   ├── __init__.py
-│   ├── builder.py                         # Módulo principal
-│   ├── utils/
-│   │   ├── docx_handler.py               # Manipulación de .docx
-│   │   ├── rules_validator.py            # Validación de reglas
-│   │   └── config.py                     # Configuración
-│   └── test_builder.py                    # Tests unitarios
-│
-├── automatizacion_antigravity/            # 🤖 Automatización específica
-│   ├── build_exp2190.py                  # Script para expediente 2190
-│   ├── build_r4.py                       # Script para Resolución R4
-│   ├── insert_footnotes.py               # Insertor de notas al pie
-│   └── REGLAS_DE_APRENDIZAJE.md          # Base de conocimiento
-│
-├── config/                                # ⚙️ Configuración
-│   ├── config.example.yaml               # Plantilla config
-│   └── .env.example                      # Plantilla variables entorno
-│
-└── expedientes/                           # 📂 Datos de casos (GITIGNORED)
-    └── [caso-id]/
-        ├── input.json                    # Datos del caso
-        └── output/
-            └── ADM_[numero]_v1.docx      # Documento generado
+### 1. Mandato Estricto Cero-OCR (Solo Google Lens / Visión Multimodal)
+- **PROHIBIDO EL USO DE OCR:** Los expedientes administrativos de consumo contienen escritos escaneados y firmas donde el OCR clásico fragmenta párrafos, pierde tablas y alucina números de póliza o fechas críticas.
+- **ANÁLISIS OBLIGATORIO:** Las denuncias y escritos complementarios deben inspeccionarse **únicamente mediante Google Lens o modelos de visión multimodal**.
+
+### 2. Normativa TUO LPAG Vigente
+- Todas las referencias normativas al Texto Único Ordenado de la Ley N° 27444 citan estrictamente el **Decreto Supremo N° 006-2026-JUS**.
+- **PROHIBIDA** cualquier cita al derogado Decreto Supremo N° 004-2019-JUS.
+
+### 3. Prohibición Absoluta de Imputar por "Inducción a Error"
+- **PROHIBIDO** imputar bajo la figura de *inducción al error* o por el Artículo 3° del Código (Ley 29571).
+- Toda falta o afectación al deber de información en contratación de seguros se imputa indefectiblemente bajo el **Artículo 1°, numeral 1, literal b) y Artículo 2° del Código**.
+
+### 4. Tiempos Verbales y Narrativa
+- **En Antecedentes / Hechos:** Pasado indicativo afirmativo ("solicitó", "adquirió", "presentó"). Prohibido usar "denunciante" en el cuerpo fáctico.
+- **En Imputación de Cargos:** Condicional estricto ("habría denegado", "habría omitido", "no habría emitido").
+
+### 5. Invariantes Léxicas y Formato Monetario Monolítico
+- `cónyuge` / `cónyuges` (PROHIBIDO: esposo/a).
+- `luego de` (PROHIBIDO: tras).
+- `esta` / `este` (sin tilde diacrítica).
+- `médico` (PROHIBIDO: doctor/a o Dr. para profesionales de salud).
+- `vehículo con Placa de Rodaje [N°]` (PROHIBIDO: carro, auto).
+- **Moneda:** Únicamente `S/ X XXX,XX` o `US$ X XXX,XX` (espacio para separar miles, coma para decimales; nunca puntos).
+
+---
+
+## 📂 Catálogo Taxonómico de 605 Plantillas Word (`plantillas_maestras/`)
+
+Las 605 resoluciones modelo han sido depuradas ortográficamente, actualizadas a la LPAG 2026 y estructuradas en:
+`plantillas_maestras/<RAMA>/<MATERIA>/<PROVEEDOR>/<SUJETO>/TPL_*.docx`
+
+| Directorio | Ramas de Seguro | Plantillas | Materias Clave |
+| :--- | :--- | :---: | :--- |
+| `01_seguro_vehicular` | Seguro Vehicular y Pérdida Total | **174** | Negativa de cobertura, cláusula abusiva, demora |
+| `02_seguro_vida` | Seguro de Vida y Sobrevivencia | **134** | Negativa de cobertura, anulación indebida |
+| `03_seguro_desgravamen` | Seguro de Desgravamen Hipotecario/Personal | **66** | Negativa de siniestro, falta de póliza |
+| `04_seguro_proteccion_tarjetas_y_dinero` | Tarjetas, Fraude y Cuentas Bancarias | **37** | Consumos no reconocidos, transferencias no autorizadas |
+| `05_soat_y_afocat` | SOAT y Fondos Contra Accidentes de Tránsito | **43** | Negativa de cobertura médica, incapacidad temporal |
+| `06_seguro_hogar_e_inmuebles` | Seguros Patrimoniales de Vivienda e Inmuebles | **20** | Daños por agua, sismo, robo |
+| `07_seguro_sctr` | Seguro Complementario de Trabajo de Riesgo | **18** | Evaluación de invalidez, pensión de sobrevivencia |
+| `08_seguro_salud_eps_oncologico` | EPS, Seguros de Salud y Oncológicos | **12** | Cobertura integral, tratamientos de alto costo |
+| `09_seguro_patrimonial_caucion_rc` | Fianzas, Caución y Responsabilidad Civil | **10** | Ejecución de póliza de caución |
+| `10_seguro_sepelio` | Seguros Funerarios y de Sepelio | **8** | Reembolso de gastos, cobro indebido |
+| `11_seguro_accidentes_personales` | Accidentes Personales | **7** | Indemnización por fallecimiento / desmembración |
+| `12_seguro_transporte_y_carga` | Transporte y Carga Terrestre/Marítima | **6** | Pérdida de mercadería en tránsito |
+| `13_seguro_multiple_y_equipos` | Equipos Electrónicos y Multirriesgo | **4** | Rotura de maquinaria, equipos móviles |
+| `14_seguro_desempleo` | Protección de Cuotas por Desempleo | **2** | Negativa injustificada de cobertura de cuotas |
+| `15_sistema_previsional_afp_onp` | Devolución y Trámites Previsionales | **2** | Cobro indebido de primas previsionales |
+| `16_temas_administrativos_financieros` | Procesos Financieros Conexos | **4** | Información errónea en centrales de riesgo |
+| `17_seguro_no_especificado` | Pólizas No Categorizadas | **58** | Materias diversas |
+| **TOTAL** | **18 Ramas de Seguro** | **605** | **100% Depuradas y Verificadas** |
+
+---
+
+## 📐 Parámetros de Diseño y Estilo Visual CC1
+
+Documentados exhaustivamente en [docs/MEMORIA_ESTILO_VISUAL_PAGINAS.md](docs/MEMORIA_ESTILO_VISUAL_PAGINAS.md):
+- **Tipografía Institucional:** `Arial Narrow` (11 pt para el cuerpo de resolución, 8 pt para notas al pie, encabezados y pies de página).
+- **Márgenes de Página (A4):**
+  - Superior: `2.5 cm` (0.98")
+  - Inferior: `2.5 cm` (0.98")
+  - Izquierdo: `3.0 cm` (1.18")
+  - Derecho: `2.5 cm` (0.98")
+- **Interlineado y Espaciado:** Interlineado sencillo (1.0). Espaciado anterior y posterior: `0 pt`.
+- **Sangrías Escalonadas CC1:**
+  - Párrafos de Hechos: Sangría izquierda `0.79"` (2.0 cm), Sangría francesa `-0.39"` (-1.0 cm).
+  - Puntos Resolutivos: Sangría izquierda `0.39"` (1.0 cm), Sangría francesa `-0.39"` (-1.0 cm).
+  - Bloque de Metadatos: Sangría izquierda `1.48"` (3.75 cm), Sangría francesa `-1.48"` (-3.75 cm).
+- **Notas al Pie Institucionales:** Empleo de *One Dot Leader* (`\u2024`) antes del texto para suprimir la sangría nativa de Word. Pie de página: `M-CPC-01/03`.
+
+---
+
+## ⚡ Motor Autónomo (`systemhope-engine.exe`)
+
+El repositorio compila automáticamente en **GitHub Actions** un ejecutable independiente para Windows (`systemhope-engine.exe`) publicado en cada [GitHub Release](https://github.com/zero-phoenix/SystemHope-ResAdmis/releases).
+
+### Comandos Principales de la CLI:
+```powershell
+# 1. Ver estado del sistema, normativas y catálogo:
+./systemhope-engine.exe info
+
+# 2. Consultar reglas popperianas y prohibiciones:
+./systemhope-engine.exe rules
+
+# 3. Consultar especificaciones de diseño y medidas:
+./systemhope-engine.exe specs
+
+# 4. Buscar plantillas por rama, materia, ddo o sujeto:
+./systemhope-engine.exe templates --rama vehicular --materia negativa_cobertura
+./systemhope-engine.exe templates --rama 03_seguro_desgravamen --limit 5
+
+# 5. Auditar un documento Word contra las 95 reglas:
+./systemhope-engine.exe validate "C:\Ruta\Mi_Resolucion.docx"
+
+# 6. Exportar memoria completa (AGENTS.md, .cursorrules, CLAUDE.md) a cualquier proyecto:
+./systemhope-engine.exe dump-memory --dir .
+
+# 7. Iniciar Servidor MCP (Model Context Protocol) sobre stdio:
+./systemhope-engine.exe mcp
 ```
 
 ---
 
-## 📖 Documentación
+## 🤖 Integración con AI IDEs Desktop (Antigravity, Cursor, Windsurf, Claude)
 
-### Guías Disponibles
+### Opción A: A través de Memoria Versionada (Archivos de Directivas)
+El repositorio ya incluye en la raíz:
+- [AGENTS.md](AGENTS.md): Directivas maestras para Antigravity IDE, Windsurf y Copilot.
+- [.cursorrules](.cursorrules): Instrucciones automáticas para Cursor IDE.
+- [CLAUDE.md](CLAUDE.md): Instrucciones de comando para Claude Code y Claude Desktop.
 
-| Documento | Descripción |
-|-----------|------------|
-| [REGLAS_DE_APRENDIZAJE.md](automatizacion_antigravity/REGLAS_DE_APRENDIZAJE.md) | Matriz de DOs y DONTs para redacción legal |
-| [GENERAR_RESOLUCIONES_WORD.md](GENERAR_RESOLUCIONES_WORD.md) | 🔴 **CRÍTICO** - Usar modelos base INDECOPI para generar .docx (preserva imágenes y colores) |
-| [ANALISIS_Y_MEJORAS.md](ANALISIS_Y_MEJORAS.md) | Análisis técnico y roadmap de mejoras |
-| [CHANGELOG.md](CHANGELOG.md) | Historial de versiones y cambios |
-
-### Ejemplos de Uso
-
-Consulta la carpeta `expedientes/` para ver ejemplos de cómo se estructuran los datos de entrada.
+### Opción B: Integración como MCP Server (Model Context Protocol)
+Agrega el motor ejecutable en el archivo de configuración de tu AI IDE (ej. `claude_desktop_config.json` o en la configuración MCP de Cursor/Antigravity):
+```json
+{
+  "mcpServers": {
+    "systemhope-resadmis": {
+      "command": "C:\\Ruta\\systemhope-engine.exe",
+      "args": ["mcp"]
+    }
+  }
+}
+```
+Esto dotará a tu IA de herramientas nativas para consultar reglas, buscar plantillas en tiempo real y auditar documentos sin salir del entorno.
 
 ---
 
-## 🛠️ Desarrollo
+## 🔄 Flujo de Trabajo para Nuevas Resoluciones Admisorias
 
-### Instalación para Desarrolladores
-
-```bash
-# Instalar con extras de desarrollo
-pip install -r requirements.txt
-
-# Instalar pre-commit hooks (opcional)
-pip install pre-commit
-pre-commit install
-```
-
-### Ejecutar Tests
-
-```bash
-pytest tests/ -v
-pytest tests/ --cov=scripts/ # Con cobertura
-```
-
-### Estilo de Código
-
-El proyecto usa:
-- **Black** para formatting
-- **Flake8** para linting
-- **Type hints** para seguridad de tipos
-
-```bash
-black scripts/
-flake8 scripts/
+```mermaid
+graph LR
+    A["Escrito de Denuncia Escaneado"] --> B["Inspección Visual (Google Lens / Vision)"]
+    B --> C["systemhope-engine templates (Selección de Plantilla Depurada)"]
+    C --> D["Redacción de Antecedentes e Imputaciones (D.S. 006-2026-JUS)"]
+    D --> E["systemhope-engine validate (Auditoría Popperiana Cero Errores)"]
+    E --> F["Resolución Admisoria Oficial CC1 (.docx)"]
 ```
 
 ---
 
-## 🔐 Consideraciones de Seguridad
-
-⚠️ **IMPORTANTE:** Este proyecto maneja documentos legales que pueden contener:
-- Nombres de personas
-- Números de expedientes confidenciales
-- Información financiera sensible
-
-### Mejores Prácticas
-
-- ✅ **Nunca** commitear datos reales al repositorio
-- ✅ Usar `.gitignore` para excluir documentos generados
-- ✅ Usar variables de entorno para rutas sensibles
-- ✅ Anonimizar documentos antes de compartirlos
-- ✅ Almacenar datos en directorios excluidos (`expedientes/` está gitignored)
-
----
-
-## 📞 Soporte
-
-### Problemas Comunes
-
-**P: "Word encontró contenido no legible" / "Error al abrir archivo .docx"**  
-R: **⚠️ CRÍTICO** - El archivo está corrupto. Lee [GENERAR_RESOLUCIONES_WORD.md](GENERAR_RESOLUCIONES_WORD.md) para la solución. Causa: archivo no era ZIP OOXML válido. Usa siempre `python-docx` y `doc.save()`.
-
-**P: "Module 'win32com' not found"**  
-R: Ejecuta `pip install pywin32` y reinicia Python.
-
-**P: "Cannot find template file"**  
-R: Verifica que la ruta en `.env` sea correcta y accesible.
-
-**P: "Documento generado con formato incorrecto"**  
-R: Asegúrate de que la plantilla base contiene todos los estilos (Arial Narrow 11pt).
-
-**P: "UnicodeEncodeError al generar .docx"**  
-R: Agrega `# -*- coding: utf-8 -*-` en la primera línea del script Python.
-
-### Reportar Problemas
-
-Abre un [issue en GitHub](https://github.com/davidchaveznge-wq/ResAdmi/issues) con:
-- Descripción clara del problema
-- Steps para reproducir
-- Versión de Python y dependencias
-- Logs de error (si aplica)
-
----
-
-## 🤝 Contribuciones
-
-Las contribuciones son bienvenidas. Por favor:
-
-1. Fork el proyecto
-2. Crea una rama (`git checkout -b feature/AmazingFeature`)
-3. Commit tus cambios (`git commit -m 'Add AmazingFeature'`)
-4. Push a la rama (`git push origin feature/AmazingFeature`)
-5. Abre un Pull Request
-
----
-
-## 📜 Licencia
-
-Este proyecto está bajo licencia **MIT**. Ver [LICENSE](LICENSE) para más detalles.
-
-### Nota Legal
-
-- Código: Libre de usar bajo MIT
-- Documentos generados: Responsabilidad del usuario
-- INDECOPI: Marca registrada (no afiliado)
-
----
-
-## 👨‍💻 Autor
-
-**David Chavez** ([@davidchaveznge-wq](https://github.com/davidchaveznge-wq))
-
----
-
-## 🗺️ Roadmap
-
-- [x] v1.0.0: Core functionality
-- [ ] v1.1.0: Refactoring y CI/CD
-- [ ] v1.2.0: API REST
-- [ ] v2.0.0: Interfaz web
-
-Consulta [CHANGELOG.md](CHANGELOG.md) para el roadmap completo.
-
----
-
-## ⭐ Agradecimientos
-
-- INDECOPI por estandarización de procesos
-- Comunidad Python por excelentes librerías
-- Usuarios por feedback y mejoras
-
----
-
-**Última actualización:** 19 de Julio de 2026  
-**Versión:** 1.0.0
-
-## 🚀 Actualización V1000: Modelos Dinámicos
-
-El sistema ahora integra nativamente dos modelos de resoluciones admisorias:
-1. **MODELO_1_DDO.docx:** Modelo optimizado para casos con un solo proveedor denunciado.
-2. **MODELO_2_DDOS.docx:** Modelo optimizado para casos con dos o más proveedores denunciados (pluralización, división de requerimientos probatorios).
-
-El orquestador de *Google Antigravity* analiza dinámicamente el AST JSON y enruta al modelo adecuado sin intervención humana.
+## 👥 Créditos y Licencia
+- **Desarrollado para:** Indecopi - Comisión de Protección al Consumidor N° 1 (CC1).
+- **Repositorio:** [zero-phoenix/SystemHope-ResAdmis](https://github.com/zero-phoenix/SystemHope-ResAdmis)
+- **Licencia:** MIT.
