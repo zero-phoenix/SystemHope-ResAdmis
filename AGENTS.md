@@ -75,10 +75,10 @@ El repositorio contiene **605 plantillas Word (.docx) depuradas** en `plantillas
 ## 6. FIRMA DIGITAL CONDICIONADA Y VERIFICACIÓN (R-103 A R-110)
 - **Firma según Denunciado (R-103):**
   - **RÍMAC SEGUROS Y REASEGUROS S.A. (o RÍMAC):** NUNCA firma la titular. Firma obligatoriamente como Secretaria Técnica Ad Hoc: **LUISA ANALÍ SILVA MALPARTIDA**, cargo: `Secretaria Técnica Ad Hoc`, refrendo de calidad: `LSQ/DCQ`.
-  - **Demás proveedores:** **EVELING ROA QUISPE**, cargo: `Secretaria Técnica`, refrendo según instructor asignado (ej. `RSV/DCQ`).
+  - **Demás proveedores:** **EVELING ROA QUISPE**, cargo: `Secretaria Técnica`, refrendo según el especialista instructor. **No inventar iniciales:** los valores observados en los controles son `LSQ/DCQ` y `LSQ/JCQ`, y son independientes de quien firma.
 - **Isomorfismos Verbatim (R-97 / R-108):**
   - El núcleo fáctico de imputaciones es idéntico entre la considerativa (Sección II) y el resolutivo (`PRIMERO:`, etc.).
-  - El requerimiento de información probatorio es idéntico palabra por palabra entre la considerativa (Sección III) y el resolutivo (`QUINTO:`).
+  - El requerimiento de información probatorio debe ser idéntico palabra por palabra entre la considerativa (Sección III) y el resolutivo (`QUINTO:`). Se verifica como **observación**: una divergencia no bloquea la entrega, se eleva al instructor.
 - **Protocolo de Verificación Previa Obligatorio (R-109):**
   - Todo admisorio debe pasar: `python scripts/verificar_admisorio.py <admisorio.docx>` y obtener `APTO (0 falsadores)` antes de ser entregado.
 

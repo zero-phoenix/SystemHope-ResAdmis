@@ -515,11 +515,15 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
     LPAG en el articulo de confirmacion de recepcion son obligatorias.
   - *Falsador:* una nota con contenido y sin ancla, o un ancla sin nota.
 
-- R-107: **ESTRUCTURA DE SECCION DEL MODELO INSTITUCIONAL (SEIS REFERENCIAS):**
-  - El `sectPr` del modelo declara **seis** referencias: `header` y `footer` en `even`, `default` y
-    `first`. Un generador que emita solo `default` ha reconstruido la seccion en vez de heredarla
-    del modelo, y el membrete y el codigo `M-CPC-01/03` quedan con alcance distinto al institucional.
-  - *Falsador:* `len(headerReference + footerReference) != 6`.
+- R-107: **MEMBRETE Y PIE INSTITUCIONAL (REESCRITA — v2):**
+  - *Estado epistemico:* la version 1 exigia **seis** referencias de encabezado/pie en el `sectPr`.
+    **Falsada** el 14/09/2026 por un documento de control valido que declara solo **dos**. El numero
+    de referencias depende del modelo del que se parte y no es invariante.
+  - Lo invariante es el **contenido**: el encabezado lleva el membrete de tres lineas
+    (`SECRETARIA TECNICA DE LA` / `COMISION DE PROTECCION AL CONSUMIDOR 1` / `SEDE CENTRAL`) y el pie
+    lleva el codigo de calidad `M-CPC-01/03`.
+  - El campo dinamico de numero de pagina **no se exige**: esta presente en 2 de los 3 controles.
+  - *Falsador:* ausencia de cualquiera de las tres lineas del membrete o del codigo `M-CPC-01/03`.
 
 - R-108: **SEGUNDO ISOMORFISMO: REQUERIMIENTO DE INFORMACION (CONSIDERATIVA) <-> ARTICULO RESOLUTIVO:**
   - El parrafo `REQUERIMIENTO DE INFORMACION` de la considerativa y el articulo resolutivo que lo
@@ -528,6 +532,10 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
     (`la compañia aseguradora`), el articulo resolutivo usa `el proveedor denunciado`.
   - Este isomorfismo es independiente del de R-97 y **no estaba registrado**: R-99 describia la
     dualidad de requerimientos sin advertir que el probatorio tambien se escribe dos veces.
+  - *Grado de corroboracion:* 2 de 3 controles lo cumplen verbatim. El tercero omite en la
+    resolutiva una clausula que si figura en la considerativa y sigue siendo valido. Por eso esta
+    regla se verifica como **observacion, no como falsador**: una divergencia no bloquea la entrega,
+    se eleva al instructor para que decida.
   - *Falsador:* un inciso presente en una zona y ausente en la otra.
 
 - R-109: **PROTOCOLO DE FALSACION PREVIO A LA ENTREGA (OBLIGATORIO):**

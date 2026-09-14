@@ -112,7 +112,9 @@ def prueba_r97_isomorfismo(doc) -> list[str]:
     en el articulo de imputacion correspondiente."""
     nucleos_cons = []
     for p in doc:
-        m = re.search(r"consistente en que (.+?);\s*involucrar", p.texto, re.S)
+        m = re.search(
+            r"consistente en que (.+?)(?:;\s*involucrar|\.\s*Por consiguiente)", p.texto, re.S
+        )
         if m:
             nucleos_cons.append(re.sub(r"\s+", " ", m.group(1)).strip())
     nucleos_res = []
@@ -270,13 +272,35 @@ def prueba_r106_notas(doc, z) -> list[str]:
     return []
 
 
-def prueba_r107_seccion(secciones) -> list[str]:
-    if len(secciones) != 6:
-        return [
-            "R-107: la seccion declara %d referencias de encabezado/pie; el modelo institucional exige 6 "
-            "(even/default/first para header y footer)" % len(secciones)
-        ]
-    return []
+def prueba_r107_membrete(z) -> list[str]:
+    """Lo invariante del modelo institucional es el CONTENIDO del encabezado y del
+    pie, no el numero de referencias de seccion: el corpus de control incluye
+    documentos con seis referencias y documentos con dos."""
+
+    def compacta(texto):
+        return re.sub(r"[^A-Z0-9/]", "", sin_tildes(texto).upper())
+
+    cab_xml = pie_xml = ""
+    for n in z.namelist():
+        if re.match(r"word/header\d+\.xml", n):
+            cab_xml += z.read(n).decode("utf-8", "replace")
+        if re.match(r"word/footer\d+\.xml", n):
+            pie_xml += z.read(n).decode("utf-8", "replace")
+    cab = compacta(re.sub(r"<[^>]+>", " ", cab_xml))
+    pie = compacta(re.sub(r"<[^>]+>", " ", pie_xml))
+    fallos = []
+    for etiqueta, esperado in (
+        ("membrete linea 1", "SECRETARIATECNICADELA"),
+        ("membrete linea 2", "COMISIONDEPROTECCIONALCONSUMIDOR1"),
+        ("membrete linea 3", "SEDECENTRAL"),
+    ):
+        if esperado not in cab:
+            fallos.append("R-107: falta el %s en el encabezado" % etiqueta)
+    if "MCPC01/03" not in pie:
+        fallos.append("R-107: falta el codigo de calidad M-CPC-01/03 en el pie de pagina")
+    # El campo dinamico de numero de pagina NO se exige: el control ADM 2723-2026 R2
+    # carece de el y es un documento valido. Presente en 2 de 3 controles.
+    return fallos
 
 
 def prueba_r110_modo_verbal(doc) -> list[str]:
@@ -313,23 +337,16 @@ def prueba_r110_modo_verbal(doc) -> list[str]:
 
 
 PRUEBAS = [
-    (
-        "R-97  isomorfismo considerativa/resolutiva",
-        lambda d, s, z: prueba_r97_isomorfismo(d),
-    ),
-    ("R-103 firma segun proveedor denunciado", lambda d, s, z: prueba_r103_firma(d)),
-    (
-        "R-104 negritas de ordinales y encabezado",
-        lambda d, s, z: prueba_r104_negritas(d),
-    ),
-    ("R-105 parrafos numerados vacios", lambda d, s, z: prueba_r105_vacios(d)),
-    ("R-106 anclas de nota al pie", lambda d, s, z: prueba_r106_notas(d, z)),
-    ("R-107 estructura de encabezado/pie", lambda d, s, z: prueba_r107_seccion(s)),
-    (
-        "R-108 espejo del requerimiento de informacion",
-        lambda d, s, z: prueba_r108_requerimiento(d),
-    ),
-    ("R-110 modo verbal en hechos", lambda d, s, z: prueba_r110_modo_verbal(d)),
+    ("R-97  isomorfismo considerativa/resolutiva", lambda d, s, z: prueba_r97_isomorfismo(d), "falsador"),
+    ("R-103 firma segun proveedor denunciado", lambda d, s, z: prueba_r103_firma(d), "falsador"),
+    ("R-104 negritas de ordinales y encabezado", lambda d, s, z: prueba_r104_negritas(d), "falsador"),
+    ("R-105 parrafos numerados vacios", lambda d, s, z: prueba_r105_vacios(d), "falsador"),
+    ("R-106 anclas de nota al pie", lambda d, s, z: prueba_r106_notas(d, z), "falsador"),
+    ("R-107 membrete y pie institucional", lambda d, s, z: prueba_r107_membrete(z), "falsador"),
+    # R-108 es observacion, no falsador: el control ADM 2723-2026 R2 diverge en una
+    # clausula entre considerativa y resolutiva y sigue siendo un documento valido.
+    ("R-108 espejo del requerimiento de informacion", lambda d, s, z: prueba_r108_requerimiento(d), "observacion"),
+    ("R-110 modo verbal en hechos", lambda d, s, z: prueba_r110_modo_verbal(d), "falsador"),
 ]
 
 
@@ -338,17 +355,25 @@ def verificar(ruta: str) -> bool:
     print("=" * 78)
     print(ruta)
     print("=" * 78)
-    total = []
-    for etiqueta, prueba in PRUEBAS:
+    falsadores, observaciones = [], []
+    for etiqueta, prueba, severidad in PRUEBAS:
         fallos = prueba(doc, secciones, z)
-        estado = "OK  " if not fallos else "FALLA"
+        if not fallos:
+            estado = "OK   "
+        else:
+            estado = "FALLA" if severidad == "falsador" else "AVISO"
         print("  [%s] %s" % (estado, etiqueta))
         for f in fallos:
             print("         - %s" % f)
-        total.extend(fallos)
-    print("  --> %s (%d falsadores)" % ("APTO" if not total else "NO APTO", len(total)))
+        (falsadores if severidad == "falsador" else observaciones).extend(fallos)
+    print(
+        "  --> %s (%d falsadores, %d observaciones)"
+        % ("APTO" if not falsadores else "NO APTO", len(falsadores), len(observaciones))
+    )
+    if observaciones:
+        print("      Las observaciones no bloquean la entrega: se elevan al instructor.")
     print()
-    return not total
+    return not falsadores
 
 
 def main(argv: list[str]) -> int:
