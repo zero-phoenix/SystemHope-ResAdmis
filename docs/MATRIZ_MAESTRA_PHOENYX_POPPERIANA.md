@@ -180,3 +180,19 @@ a partir de tu analisis previo ahora redacta en un solo parrafo los requerimient
 
 ### Mandato Operativo
 El agente procesa cada escrito mediante **Visión Multimodal Pura (Google Lens / Gemini Vision)**, interpretando directamente los pixeles del documento escaneado como un humano experto.
+
+## Reglas PHOENYX-06 y PHOENYX-07: Estilo de Citación Numérica y Confidencialidad
+
+### PHOENYX-06: Erradicación Absoluta de 'Nº', 'N°' y Símbolos Ordinales 'º', '°'
+- **Mandato Estricto:** Prohibido escribir "N°", "Nº", "n°", "nº" o usar símbolos ordinales ("°", "º") pegados a números o normas.
+- **Forma Correcta de Citación:**
+  - Normas: "Ley 29571", "Decreto Supremo 006-2026-JUS", "Decreto Legislativo 807".
+  - Artículos: "artículo 81 de la Ley...", "artículo 19", "artículo 1", "artículo 108".
+  - Pólizas: "Póliza 4053053", "Póliza 1760006823".
+  - Resoluciones y Expedientes: "Resolución 1", "Expediente 1451-2026".
+  - Comisiones: "Comisión de Protección al Consumidor 1".
+
+### PHOENYX-07: Confidencialidad de Tarjetas y Números de Créditos Bancarios
+- **Mandato Estricto:** Todo número de tarjeta de crédito o número de crédito bancario (hipotecario, vehicular, personal, mype, etc.) debe tener sus dígitos centrales enmascarados por confidencialidad.
+- **Ejemplo Oficial:** "el credito hipotecario 123xxxxxx879", "crédito mype 102xxxxxx172", "tarjeta 455xxxxxx545".
+- **EXCEPCIÓN NO NEGOCIABLE:** Las **pólizas y certificados de seguro NUNCA se censuran**; su numeración se consigna íntegra y completa.

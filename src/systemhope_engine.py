@@ -19,7 +19,7 @@ from typing import Any, Dict, List, Optional
 # Version and metadata
 VERSION = "2.0.0"
 AUTHOR = "SystemHope / Indecopi CC1 Phoenix"
-LPAG_NORM = "Decreto Supremo N° 006-2026-JUS"
+LPAG_NORM = "Decreto Supremo 006-2026-JUS"
 REPO_URL = "https://github.com/zero-phoenix/SystemHope-ResAdmis"
 
 # Base directories resolution (works both in script and PyInstaller bundle)
@@ -275,7 +275,7 @@ def cmd_validate(args: argparse.Namespace) -> int:
 
     if (has_correo or has_domicilio) and "confirmación de recepción" in texto_total:
         if "006-2026-JUS" not in texto_total:
-            errores.append("[NOTIFICACION CC1] La notificación por correo o domicilio procesal debe citar el Decreto Supremo N° 006-2026-JUS.")
+            errores.append("[NOTIFICACION CC1] La notificación por correo o domicilio procesal debe citar el Decreto Supremo 006-2026-JUS.")
         if "dos (2) días hábiles" not in texto_total:
             advertencias.append("[NOTIFICACION CC1] El plazo para confirmación de correo o domicilio procesal debe ser de dos (2) días hábiles.")
 
@@ -313,7 +313,7 @@ def cmd_dump_memory(args: argparse.Namespace) -> int:
     agents_md = f"""# DIRECTRICES MAESTRAS DEL SISTEMA (AGENTS.md)
 # SISTEMA DE EMISION DE RESOLUCIONES ADMISORIAS INDECOPI CC1
 
-> **AUTORIDAD:** Indecopi Comisión de Protección al Consumidor N° 1 (CC1)  
+> **AUTORIDAD:** Indecopi Comisión de Protección al Consumidor  1 (CC1)  
 > **NORMA MARCO:** {LPAG_NORM}  
 > **PROTOCOLO VISUAL:** ESTRICTO CERO OCR. Inspección exclusiva mediante Google Lens / Visión Multimodal.  
 > **REPOSITORIO:** {REPO_URL}
@@ -322,7 +322,7 @@ def cmd_dump_memory(args: argparse.Namespace) -> int:
 
 ## 1. REGLAS NO NEGOCIABLES (AXIOMAS POPPERIANOS)
 1. **PROHIBICIÓN ESTRICTA DE OCR:** Jamás transcribir denuncias con OCR clásico ni extractores que rompan coordenadas o inventen datos. Se analiza la imagen de la denuncia escaneada con Google Lens o modelos de visión directa.
-2. **TUO LPAG ACTUALIZADO:** Siempre citar el **Decreto Supremo N° 006-2026-JUS**. Prohibida cualquier mención al D.S. 004-2019-JUS.
+2. **TUO LPAG ACTUALIZADO:** Siempre citar el **Decreto Supremo 006-2026-JUS**. Prohibida cualquier mención al D.S. 004-2019-JUS.
 3. **PROHIBICIÓN DE 'INDUCCIÓN A ERROR':** Nunca imputar por el Artículo 3° ni emplear la frase 'inducción a error'. Todas las fallas de información se canalizan por los Artículos 1°, numeral 1, literal b) y 2° del Código de Protección y Defensa del Consumidor.
 4. **TIEMPOS VERBALES OBLIGATORIOS:**
    - **En Antecedentes / Hechos:** Pasado indicativo afirmativo ("señaló", "contrató", "solicitó"). PROHIBIDO usar la palabra 'denunciante' en el cuerpo narrativo; usar el nombre de pila o 'el señor / la señora [Apellido]'.
@@ -332,7 +332,7 @@ def cmd_dump_memory(args: argparse.Namespace) -> int:
    - Usar `luego de` (PROHIBIDO: tras).
    - Usar `esta` / `este` sin tilde diacrítica.
    - Usar `médico` (PROHIBIDO: doctor/a o Dr.).
-   - Usar `vehículo con Placa de Rodaje [N°]` (PROHIBIDO: carro, auto).
+   - Usar `vehículo con Placa de Rodaje []` (PROHIBIDO: carro, auto).
 6. **FORMATO MONETARIO MONOLÍTICO:**
    - `S/ X XXX,XX` o `US$ X XXX,XX` (espacio para miles, coma decimal, nunca punto ni apóstrofe).
 
@@ -347,11 +347,11 @@ En la sección resolutiva final de todo admisorio, se coloca indefectiblemente e
 
 ### TIPO 2: VÍA CORREO ELECTRÓNICO (AUTORIZACIÓN EXPRESA - 2 DÍAS)
 *Para consumidores y proveedores con dirección electrónica autorizada:*
-> *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su[s] bandeja[s] de correo electrónico, efectúe[n] la confirmación de recepción de la notificación remitida por este despacho a su[s] correo[s] electrónico[s], de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo N° 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle[s] conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
+> *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su[s] bandeja[s] de correo electrónico, efectúe[n] la confirmación de recepción de la notificación remitida por este despacho a su[s] correo[s] electrónico[s], de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle[s] conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
 
 ### TIPO 3: VÍA DOMICILIO PROCESAL / CÉDULA FÍSICA (2 DÍAS)
 *Para denunciantes sin correo, AFOCATs, fondos especiales (CAFAE) o proveedores sin casilla:*
-> *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su domicilio procesal, efectúe[n] la confirmación de recepción de la notificación remitida por este despacho a su domicilio procesal, de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo N° 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle[s] conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
+> *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su domicilio procesal, efectúe[n] la confirmación de recepción de la notificación remitida por este despacho a su domicilio procesal, de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle[s] conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
 
 ---
 
@@ -387,7 +387,7 @@ El repositorio contiene **605 plantillas Word (.docx) depuradas** en `plantillas
 # NORMATIVA: {LPAG_NORM} | PROTOCOLO: CERO OCR (Solo Google Lens)
 
 1. Jamás uses OCR para leer expedientes o denuncias. Utiliza Google Lens / Visión Multimodal.
-2. La norma del TUO LPAG siempre es el Decreto Supremo N° 006-2026-JUS. Nunca 004-2019-JUS.
+2. La norma del TUO LPAG siempre es el Decreto Supremo 006-2026-JUS. Nunca 004-2019-JUS.
 3. Prohibido imputar por 'inducción a error' (Art. 3). Usa Arts. 1.1.b y 2 de Ley 29571.
 4. En imputaciones de cargos usa condicional 'habría'. En antecedentes usa pasado indicativo.
 5. Invariantes léxicas: cónyuge (no esposo), luego de (no tras), médico (no doctor), vehículo (no auto).
@@ -410,7 +410,7 @@ Este repositorio contiene el sistema automatizado de resoluciones admisorias de 
 
 ## Reglas Críticas
 - **Cero OCR:** Siempre analizar capturas con Google Lens / Vision.
-- **LPAG 2026:** D.S. N° 006-2026-JUS.
+- **LPAG 2026:** D.S.  006-2026-JUS.
 - **Cero Inducción a Error:** Arts. 1.1.b y 2 de Ley 29571.
 - **Notificaciones Finales:** 3 fórmulas literales estrictas (Casilla 5 días, Correo 2 días con apercibimiento, Domicilio Procesal 2 días con apercibimiento).
 - **Formato:** Arial Narrow 11 pt, notas 8 pt, sangrías CC1, pie institucional M-CPC-01/03.

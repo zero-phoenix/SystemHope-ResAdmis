@@ -688,3 +688,49 @@ def _r_phoenyx_parrafos_notificacion(texto: str) -> list[ValidationError]:
                     )
                 )
     return errores
+def _r_phoenyx_sin_simbolo_numero_ni_ordinal(texto: str) -> list[ValidationError]:
+    """PHOENYX-06: Erradicacion de 'N°', 'Nº', 'n°', 'nº' y simbolos ordinales '°' o 'º'.
+    Se nombra directamente: 'Ley 29571', 'Decreto Supremo 006-2026-JUS',
+    'articulo 81 de la Ley...', 'Poliza 4053053', 'Resolucion 1', etc."""
+    errores = []
+    if "N°" in texto or "Nº" in texto or "n°" in texto or "nº" in texto:
+        errores.append(
+            ValidationError(
+                "PHOENYX-06",
+                "CRITICA",
+                "Prohibido el uso de 'N°' o 'Nº'. Debe citarse directamente el numero (ej. 'Ley 29571', 'Poliza 4053053', 'Resolucion 1')."
+            )
+        )
+    if "°" in texto or "º" in texto:
+        errores.append(
+            ValidationError(
+                "PHOENYX-06",
+                "CRITICA",
+                "Prohibido el uso del simbolo ordinal '°' o 'º' (ej. usar 'articulo 81 de la Ley...', 'articulo 19', nunca '81°' o '19°')."
+            )
+        )
+    return errores
+
+def _r_phoenyx_confidencialidad_creditos_tarjetas(texto: str) -> list[ValidationError]:
+    """PHOENYX-07: Confidencialidad de tarjetas de credito y numeros de credito.
+    Deben tener los digitos del medio reemplazados (ej. 'el credito hipotecario 123xxxxxx879').
+    Las polizas y certificados de seguro NUNCA se censuran."""
+    errores = []
+    # Buscar numeros de credito o tarjeta de 8 o mas digitos que no esten enmascarados
+    pattern = re.compile(
+        r'\b(?:crédito|credito|tarjeta|préstamo|prestamo|cuenta)\b(?:\s+[a-zA-ZáéíóúÁÉÍÓÚñÑ]+){0,3}\s+([0-9]{8,25})',
+        re.IGNORECASE
+    )
+    for m in pattern.finditer(texto):
+        num = m.group(1)
+        full_match = m.group(0).lower()
+        if not any(k in full_match for k in ['póliza', 'poliza', 'certificado', 'ley', 'decreto', 'resolución', 'expediente', 'ruc', 'dni']):
+            errores.append(
+                ValidationError(
+                    "PHOENYX-07",
+                    "CRITICA",
+                    f"Numero de credito o tarjeta no enmascarado por confidencialidad: '{m.group(0)}'. Reemplazar digitos centrales con 'xxxxxx' (ej. '123xxxxxx879')."
+                )
+            )
+            break
+    return errores

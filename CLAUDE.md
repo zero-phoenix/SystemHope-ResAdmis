@@ -11,7 +11,7 @@ Este repositorio contiene el sistema automatizado de resoluciones admisorias de 
 
 ## Reglas Críticas
 - **Cero OCR:** Siempre analizar capturas con Google Lens / Vision.
-- **LPAG 2026:** D.S. N° 006-2026-JUS.
+- **LPAG 2026:** D.S.  006-2026-JUS.
 - **Cero Inducción a Error:** Arts. 1.1.b y 2 de Ley 29571.
 - **Notificaciones Finales:** 3 fórmulas literales estrictas (Casilla 5 días, Correo 2 días con apercibimiento, Domicilio Procesal 2 días con apercibimiento).
 - **Formato:** Arial Narrow 11 pt, notas 8 pt, sangrías CC1, pie institucional M-CPC-01/03.
