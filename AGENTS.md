@@ -116,6 +116,11 @@ Devuelve que paginas tienen capa de texto (se leen literales) y cuales requieren
 multimodal (solo esas). Incluye un dossier de fechas, montos, placas, correos y cartas
 notariales anclado a la pagina de origen.
 
+**El volcado puede corromper acentos y cifras (R-126):** en el Expediente 3054-2026 la
+fecha del escrito «17 de agosto de 2026» salió como «1274 de agosto de 2026». Verifica
+todo dato crítico (fechas, montos, números de póliza, nombres) contra el PDF con
+PyMuPDF antes de escribirlo en el admisorio.
+
 **Para inspeccionar o comparar un .docx, una sola llamada:**
 ```
 python scripts/inspeccionar_docx.py <archivo.docx>              # volcado integro

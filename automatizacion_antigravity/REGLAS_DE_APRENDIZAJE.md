@@ -715,3 +715,16 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
   - Plan completo y presupuestos: `docs/PLAN_VELOCIDAD_SIN_COLGARSE.md` (F2; linea base de
     ~12 s de computo total y las cuatro causas de cuelgue con su evidencia).
 
+- R-126: **VERIFICACION CRUZADA DEL VOLCADO: EL EXTRACTOR CORROMPE EL TEXTO:**
+  - *Medicion del 14/09/2026 (Expediente 3054-2026):* `_texto_expediente.txt` escribio el
+    caracter de reemplazo en cada acento («MART?N» por «MARTIN» con tilde) y convirtio la
+    fecha del escrito «17 de agosto de 2026» en **«1274 de agosto de 2026»**. PyMuPDF
+    sobre el mismo PDF devuelve los acentos y el «17» correctos: el PDF esta bien y el
+    defecto es del extractor (`pypdf`/`pdftotext -layout`).
+  - Mientras el extractor no se reemplace, **todo dato critico** —fechas, montos, numeros
+    de solicitud o poliza, nombres y numeros de carta— se verifica contra el PDF con
+    PyMuPDF antes de entrar al admisorio. Un «1274» en la fecha del escrito es un
+    admisorio mal emitido.
+  - *Falsador:* un dato del generado que no coincida con la extraccion de PyMuPDF del
+    mismo PDF, o una fecha del volcado incorporada sin verificacion cruzada.
+
