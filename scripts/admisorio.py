@@ -173,6 +173,19 @@ def entregar(docx: Path, caso: str | None) -> int:
         for p in docx.parent.glob("*.pdf")
         if p.stem == docx.stem or p.stat().st_mtime > corte
     ]
+    # Scratch en la raiz del repositorio: sintoma de que el documento se construyo
+    # improvisando un script en vez de usar construir_admisorio.py (R-139). En el
+    # Exp. 3122-2026 fueron cinco, y cuatro de ellos peleandose con Word por COM.
+    scratch = sorted(p.name for p in RAIZ.glob("scratch*.py"))
+    if scratch:
+        fallas.append(
+            "scratch en la raiz del repositorio: %s (R-139)" % ", ".join(scratch)
+        )
+        print("  FALLA  scratch sin borrar: %s" % ", ".join(scratch))
+        print("         Se construye con scripts/construir_admisorio.py, no a mano.")
+    else:
+        print("  OK     sin scratch en la raiz del repositorio.")
+
     if pdfs:
         fallas.append("PDF generado: %s (R-125 lo prohibe)" % ", ".join(pdfs))
         print("  FALLA  PDF reciente en la carpeta: %s" % ", ".join(pdfs))

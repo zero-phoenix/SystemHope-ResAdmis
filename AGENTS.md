@@ -22,8 +22,11 @@ para buscar una regla concreta, no se leen enteros antes de empezar.
    anclado, inventario de paginas y candidatas de plantilla. **Todo en una llamada.**
 2. **Google Lens en todas las paginas del expediente** (R-137), con o sin capa de
    texto. Cero OCR. El volcado de texto es contraste, no reemplazo.
-3. Redaccion sobre la plantilla elegida. Si hay control:
-   `python scripts/inspeccionar_docx.py <generado> --diff <control>`.
+3. Redaccion. El documento se construye **siempre** con
+   `python scripts/construir_admisorio.py --mapa <mapa.json>` (R-139): sin Word, sin
+   `win32com` y sin scratch, y con auditoria de residuos del caso de origen — se niega
+   a dar por bueno un documento en el que sobreviva un dato de la plantilla. Si hay
+   control: `python scripts/inspeccionar_docx.py <generado> --diff <control>`.
 4. `python scripts/admisorio.py entregar <generado> [--caso <n>]` — verificador,
    guardia de datos personales, control de PDF y de Word vivo, y scorecard.
    **Todo en una llamada.** Se entrega pegando la salida literal `APTO` /

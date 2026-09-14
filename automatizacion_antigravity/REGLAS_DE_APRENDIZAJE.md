@@ -893,3 +893,31 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
   - *Falsador:* un admisorio con una parte que la cedula no notifica, una parte de la
     cedula ausente del admisorio, o una parte notificada por dos vias.
 
+## 85. COMO SE CONSTRUYE EL DOCUMENTO (R-139)
+
+> Origen: supervision en vivo del Expediente 3122-2026, 14/09/2026.
+
+- R-139: **NI WORD NI SCRATCH: SE CONSTRUYE CON `construir_admisorio.py`:**
+  - *Medicion:* el agente intento construir el admisorio con `win32com` y escribio
+    **cinco** scratch sucesivos (`scratch.py`, `scratch_com.py`, `_com2`, `_com3`,
+    `_com4`) anadiendo `DisplayAlerts = False` y `try/except` en cada intento. **Diez de
+    sus dieciseis minutos** se fueron ahi y el resultado quedo **NO APTO** (R-97 y R-103).
+  - **Prohibido `win32com` para construir el admisorio.** Un `.docx` es un ZIP de XML:
+    se edita en ~0,3 s sin abrir Word. Word cuesta 8,4 s por apertura y su proceso
+    huerfano es la causa medida de que un caso cueste una tarde (R-116, R-123).
+  - **Prohibido dejar scratch en la raiz del repositorio.** `admisorio.py entregar` lo
+    declara falsador.
+  - **El peligro real no es la lentitud, es el residuo.** Sustituir «Pacifico» por
+    «Interseguro» deja intacto *todo lo que el redactor no penso en listar*: fechas,
+    polizas, apellidos y hechos del caso de origen se quedan dentro con aspecto de dato
+    verdadero. Es la forma mas silenciosa de inventar que tiene este sistema. Por eso
+    `construir_admisorio.py` **se niega a dar por bueno** el documento si encuentra
+    residuo: una clave del mapa sin aplicar o aun presente, el numero de expediente de
+    la plantilla, una aseguradora que no es parte del caso, o un marcador `[FALTA: ...]`.
+  - *Dos errores medidos de aquel mapa, como muestra de lo que el control atrapa:*
+    reemplazar «correo electronico» en todas sus apariciones rompia el parrafo de
+    notificacion del denunciante, que **si** se notifica por correo; y el refrendo
+    «LSM/JCQ» -> «LSM» era inventado.
+  - *Falsador:* un admisorio construido con Word, un `scratch*.py` en la raiz, o un
+    documento entregado con la auditoria de residuos en falla.
+
