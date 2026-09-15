@@ -963,3 +963,24 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
     un hallazgo automatico que no se haya contrastado contra la fuente antes de
     exigir la correccion.
 
+- R-142: **ANTES DE CORREGIR EL TERCER SINTOMA, MIRA DE DONDE ARRANCA EL AGENTE:**
+  - *Medicion:* el workspace de Antigravity era `C:/Users/D/_ConfigIA/.resadmi`, una
+    carpeta con una sola subcarpeta, y **ningun proyecto suyo apuntaba al
+    repositorio**. Casi todos sus fallos eran consecuencias de eso: no cargaba el
+    `AGENTS.md` correcto porque su raiz era otra; buscaba los scripts con `-Recurse`
+    por todo el perfil porque no estaban donde miraba; se iba a otros proyectos
+    porque desde una carpeta vacia cualquier ruta parece igual de buena. Se tardo
+    una remesa entera en mirarlo, corrigiendo sintomas de uno en uno.
+  - *Mandato:* al tercer fallo del mismo agente, se comprueba su punto de partida
+    antes de escribir otra correccion. `python scripts/orquestar.py sanear` lo
+    dice.
+  - *Corolario incomodo:* **una causa raiz que solo se puede parchear se declara
+    como tal.** El `AGENTS.md` de redireccion que se dejo en el workspace
+    equivocado es un parche, no el arreglo, y depende de que el agente lo lea y lo
+    obedezca --que es justo lo que no se puede dar por hecho--. El arreglo es una
+    accion manual, una vez: anadir el repositorio como workspace. Esta escrito en
+    `docs/PLAN_WORKSPACE_ANTIGRAVITY.md` para que el parche no se confunda con la
+    solucion.
+  - *Falsador:* tres correcciones consecutivas al mismo agente sin haber
+    comprobado su workspace, o un parche presentado como arreglo de causa raiz.
+
