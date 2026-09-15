@@ -76,3 +76,4 @@ plantillas_maestras/**/test_*.docx
 # Scripts de un solo uso de la fase exploratoria: siguen en el disco, fuera
 # del repositorio. El utillaje vigente esta en scripts/.
 /*.py
+automatizacion_antigravity/MEMORIA_ESTILO_VISUAL_PAGINAS.md

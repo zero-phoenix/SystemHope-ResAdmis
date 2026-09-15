@@ -1016,3 +1016,35 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
     es una decision de criterio, no de redaccion.
   - *Falsador:* un admisorio con una combinacion de normas ausente del catalogo, o
     un catalogo modificado a mano en vez de regenerado desde el corpus.
+
+## 88. FORMA MEDIDA: FUENTE, ALINEACION, ESPACIADO Y ENCUADRE (R-144)
+
+> Mandato del instructor, 15/09/2026. Los valores salen de **medir 120 plantillas**,
+> no de la memoria documentada. Donde las dos discrepan, manda el corpus.
+
+- R-144: **LA FORMA NO SE ELIGE, SE HEREDA DEL CORPUS:**
+  - **Fuente `Arial Narrow`**: 59.337 de 59.370 runs con fuente declarada. Solo se
+    tolera `Segoe UI Symbol` para simbolos.
+  - **Alineacion justificada o centrada, nunca a la izquierda ni a la derecha**:
+    10.412 parrafos justificados, 421 centrados, **cero** alineados a la izquierda.
+    El desalineamiento es el falsador mas visible que existe: un parrafo a la
+    izquierda dentro de un cuerpo justificado se ve desde el otro lado de la sala y
+    delata que el documento se manipulo fuera del flujo.
+  - **Interlineado sencillo (`240`)**: el `276` aparece en el 1 % y es desviacion.
+  - **Encuadre `3,0 / 3,0 / 2,5 / 2,5 cm`** (izq/der/sup/inf). *Correccion medida:*
+    `MEMORIA_ESTILO_VISUAL_PAGINAS.md` afirmaba un margen derecho de **2,50 cm**;
+    el corpus mide **3,00 cm** en 113 de 116 secciones. La memoria estaba mal.
+  - *Calibracion:* de 40 plantillas del corpus tomadas al azar, **37 pasan** y las
+    3 que fallan son desviaciones reales (dos con runs en `Arial`, una con
+    interlineado 276). La regla caza anomalias, no ruido.
+  - *Falsador:* un run en fuente ajena, un parrafo alineado a izquierda o derecha,
+    un interlineado distinto de 240 o unos margenes distintos de los medidos.
+
+- R-145: **LOS SUB-INCISOS DEL REQUERIMIENTO VAN EN ROMANOS MINUSCULOS:**
+  - *Medicion sobre 150 plantillas:* **72 requerimientos usan `(i) (ii) (iii)`** y
+    **uno solo** usa `(a) (b)`. No hay empate que discutir.
+  - *Cierra una contradiccion abierta desde el primer analisis:* R-99 enunciaba
+    «sub-incisos (a), (b), (c), (d)» mientras el ejemplo canonico que ella misma
+    adjuntaba usaba `(i)` y `(ii)`. Se resolvio midiendo, que es como habia que
+    resolverlo: **gana `(i) (ii)`**.
+  - *Falsador:* un requerimiento con incisos en letras.

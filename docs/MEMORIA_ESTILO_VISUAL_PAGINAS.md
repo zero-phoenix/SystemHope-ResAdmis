@@ -22,7 +22,7 @@
 | **Margen Superior** | `70.9 pt` | `2.50 cm` | `0.98 in` |
 | **Margen Inferior** | `70.9 pt` | `2.50 cm` | `0.98 in` |
 | **Margen Izquierdo** | `85.0 pt` | `3.00 cm` | `1.18 in` |
-| **Margen Derecho** | `70.9 pt` | `2.50 cm` | `0.98 in` |
+| **Margen Derecho** | `85.0 pt` | `3.00 cm` | `1.18 in` |  <!-- corregido 15/09/2026: la memoria decia 2,50 cm; el corpus mide 3,00 cm en 113 de 116 secciones. Manda el corpus. -->
 | **Distancia Encabezado al borde** | `35.4 pt` | `1.25 cm` | `0.49 in` |
 | **Distancia Pie de Página al borde** | `34.0 pt` | `1.20 cm` | `0.47 in` |
 | **Ancho Útil de Texto** | `439.4 pt` | `15.50 cm` | `6.10 in` |

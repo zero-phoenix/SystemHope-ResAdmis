@@ -15,6 +15,7 @@ Codigo de salida: 0 si todos los documentos son APTOS, 1 si alguno falla.
 from __future__ import annotations
 
 import re
+from collections import Counter
 from pathlib import Path as pathlib_Path
 import sys
 import zipfile
@@ -393,6 +394,79 @@ def prueba_r143_imputaciones(doc) -> list[str]:
     return fallos
 
 
+
+# Invariantes de forma, MEDIDOS sobre 120 plantillas del corpus el 15/09/2026, no
+# copiados de la memoria documentada. Importa la diferencia: la memoria afirmaba un
+# margen derecho de 2,50 cm y el corpus mide 3,00 cm en 113 de 116 secciones. Donde
+# la memoria y el corpus discrepan, manda el corpus.
+FUENTE_CC1 = "Arial Narrow"          # 59 337 de 59 370 runs con fuente declarada
+FUENTES_TOLERADAS = {"Arial Narrow", "Segoe UI Symbol", None}
+ALINEACIONES = {"both", "center"}    # 10 412 justificados, 421 centrados, 0 a la izquierda
+INTERLINEADO = "240"                 # sencillo; 276 aparece en el 1 % y es desviacion
+MARGENES = ("1701", "1701", "1417", "1417")  # izq, der, sup, inf = 3,0/3,0/2,5/2,5 cm
+
+
+def prueba_r144_formato(z) -> list[str]:
+    """Fuente, alineacion, interlineado y encuadre, contra lo que hace el corpus.
+
+    El desalineamiento es el falsador mas visible de todos: un parrafo a la
+    izquierda en un cuerpo justificado se ve desde el otro lado de la sala y delata
+    que el documento se manipulo fuera del flujo.
+    """
+    try:
+        raiz = ET.fromstring(z.read("word/document.xml"))
+    except Exception as exc:
+        return ["R-144: no se pudo leer el documento: %s" % exc]
+
+    fallos = []
+
+    ajenas = Counter()
+    for rpr in raiz.iter(W + "rPr"):
+        f = rpr.find(W + "rFonts")
+        if f is not None and f.get(W + "ascii") not in FUENTES_TOLERADAS:
+            ajenas[f.get(W + "ascii")] += 1
+    for fuente, veces in ajenas.most_common(3):
+        fallos.append(
+            "R-144: %d run(s) en '%s'; el corpus usa %s" % (veces, fuente, FUENTE_CC1)
+        )
+
+    malas = Counter()
+    for ppr in raiz.iter(W + "pPr"):
+        j = ppr.find(W + "jc")
+        if j is not None and j.get(W + "val") not in ALINEACIONES:
+            malas[j.get(W + "val")] += 1
+    for alineacion, veces in malas.most_common(3):
+        fallos.append(
+            "R-144: %d parrafo(s) alineados a '%s'. El corpus solo justifica o "
+            "centra: un parrafo desalineado delata manipulacion fuera del flujo"
+            % (veces, alineacion)
+        )
+
+    otros = Counter()
+    for ppr in raiz.iter(W + "pPr"):
+        sp = ppr.find(W + "spacing")
+        if sp is not None and sp.get(W + "line") and sp.get(W + "line") != INTERLINEADO:
+            otros[sp.get(W + "line")] += 1
+    for valor, veces in otros.most_common(2):
+        fallos.append(
+            "R-144: %d parrafo(s) con interlineado %s; el corpus usa %s (sencillo)"
+            % (veces, valor, INTERLINEADO)
+        )
+
+    for mar in raiz.iter(W + "pgMar"):
+        actual = tuple(
+            mar.get(W + k) for k in ("left", "right", "top", "bottom")
+        )
+        if actual != MARGENES:
+            fallos.append(
+                "R-144: margenes %s; el corpus usa %s (3,0/3,0/2,5/2,5 cm)"
+                % ("/".join(str(a) for a in actual), "/".join(MARGENES))
+            )
+            break
+
+    return fallos
+
+
 PRUEBAS = [
     ("R-97  isomorfismo considerativa/resolutiva", lambda d, s, z: prueba_r97_isomorfismo(d), "falsador"),
     ("R-103 firma segun proveedor denunciado", lambda d, s, z: prueba_r103_firma(d), "falsador"),
@@ -405,6 +479,7 @@ PRUEBAS = [
     ("R-108 espejo del requerimiento de informacion", lambda d, s, z: prueba_r108_requerimiento(d), "observacion"),
     ("R-110 modo verbal en hechos", lambda d, s, z: prueba_r110_modo_verbal(d), "falsador"),
     ("R-143 imputaciones del catalogo", lambda d, s, z: prueba_r143_imputaciones(d), "falsador"),
+    ("R-144 fuente, alineacion, interlineado y encuadre", lambda d, s, z: prueba_r144_formato(z), "falsador"),
 ]
 
 
