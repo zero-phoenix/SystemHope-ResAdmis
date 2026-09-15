@@ -25,6 +25,14 @@ jobs:
         with:
           python-version: "3.11"
 
+      - name: Instalar lo que la guardia necesita
+        # Sin Pillow, la comprobacion del sello de las imagenes no puede leer los
+        # metadatos del PNG y declara sin sello a todas: un control que no puede
+        # ejecutarse no debe inventar una infraccion.
+        run: |
+          python -m pip install --upgrade pip
+          pip install pillow python-docx
+
       - name: Determinar el rango que anade este push
         id: rango
         run: |

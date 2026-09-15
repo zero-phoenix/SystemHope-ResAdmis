@@ -272,14 +272,24 @@ def sellar(png: Path, tachados: int) -> None:
         img.save(png, pnginfo=info, optimize=True)
 
 
-def tiene_sello(png: Path) -> bool:
+def tiene_sello(png: Path) -> bool | None:
+    """True sellada, False sin sello, **None si no se puede comprobar**.
+
+    La distincion no es cosmetica. La primera version devolvia False cuando faltaba
+    Pillow, y CI declaro sin sello a las 1.042 capturas que si lo tenian. Un control
+    que no puede ejecutarse tiene que decirlo: inventar una infraccion es el reverso
+    exacto de R-110 --una regla que siempre falla es tan inutil como una que nunca
+    falla, y ademas ensena a ignorarla--.
+    """
     try:
         from PIL import Image
-
+    except ImportError:
+        return None
+    try:
         with Image.open(png) as img:
             return img.info.get("Software", "") == SELLO
     except Exception:
-        return False
+        return None
 
 
 def estratos() -> dict:

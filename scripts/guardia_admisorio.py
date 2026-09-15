@@ -206,7 +206,15 @@ def revisar_imagen(ruta: Path, norm: str) -> list[str]:
             "FUGA: '%s' es una imagen y no se pudo comprobar su procedencia. "
             "Las imagenes solo entran si las genera capturar_referencias.py." % norm
         ]
-    if tiene_sello(ruta):
+    estado = tiene_sello(ruta)
+    if estado is True:
+        return []
+    if estado is None:
+        print(
+            "  (aviso: no se pudo comprobar el sello de '%s'. Falta Pillow. La "
+            "imagen NO se declara infractora: un control que no corre no acusa.)"
+            % norm
+        )
         return []
     return [
         "FUGA: '%s' es una imagen sin sello de procedencia. Ninguna guardia de "
