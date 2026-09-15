@@ -102,12 +102,17 @@ la misma rama, materia, tipo de denunciado y sujeto enseña en un vistazo lo que
 ninguna regla escrita transmite: cuánto ocupa cada bloque, dónde caen los saltos,
 cómo se ve una resolutiva de tres partes frente a una de dos.
 
-## 4. Riesgo residual, declarado
+## 4. El riesgo residual, ya cerrado
 
-**Ninguna guardia inspecciona imágenes.** `guardia_admisorio.py` lee texto; un PNG
-le pasa por delante sin que lo mire. La única defensa es que el tachado ocurra en
-la generación, con fallo cerrado, que es como está hecho — pero si alguien añade a
-mano una captura sin pasar por `capturar_referencias.py`, **nada la detendrá**.
+Lo era: `guardia_admisorio.py` leía texto y un PNG le pasaba por delante sin que lo
+mirara. **Cerrado el 15/09/2026 (R-150)**: cada captura se sella con su procedencia
+en un chunk del propio PNG, y la guardia bloquea toda imagen sin sello. Verificado
+en los dos sentidos — la sellada pasa, una añadida a mano se bloquea.
+
+El sello prueba que la imagen pasó por el tachado automático, **no que el tachado
+sea correcto**: el apellido «de Pastor» sobrevivió a una versión del patrón. Por eso
+toda imagen se revisa además **con Google Lens**, sea escaneo o sea render, tenga o
+no capa de texto detrás. Cero OCR, sin excepción.
 
 Se descubrió además, con las capturas ya generadas, que los patrones de DNI, RUC y
 teléfono **llevaban rotos desde el principio**: un carácter de retroceso donde

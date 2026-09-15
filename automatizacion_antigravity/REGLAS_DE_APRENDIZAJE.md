@@ -1146,3 +1146,49 @@ El mapa visual completo esta en `docs/ANATOMIA_DEL_ADMISORIO.md`.
     residuos, no formas alternativas. Sub-incisos `(i) (ii)`, nunca letras (R-145).
   - *Falsador:* un requerimiento que ordene «remitir» en vez de «presentar», o una
     imputacion en indicativo.
+
+## 93. IMAGENES: PROCEDENCIA SELLADA Y LECTURA CON LENS (R-150)
+
+> Mandato del instructor, 15/09/2026, al cerrar el riesgo residual de las capturas.
+
+- R-150: **NINGUNA IMAGEN ENTRA SIN SELLO, Y TODA IMAGEN SE MIRA CON LENS:**
+  - *El agujero:* ninguna guardia de texto mira dentro de una imagen. Entraron
+    1.042 capturas al repositorio; iban tachadas en origen, pero nada impedia que
+    alguien anadiera despues una captura a mano, sin tachar, y **nada la habria
+    detenido**. Un PNG de un admisorio lleva exactamente los mismos datos que el
+    `.docx`; lo unico que cambia es que ningun `grep` los ve.
+  - *Cierre por procedencia:* `capturar_referencias.py` sella cada PNG que genera
+    con su origen en un chunk de texto del propio archivo. `guardia_admisorio.py`
+    bloquea toda imagen sin ese sello. Verificado en los dos sentidos: la sellada
+    pasa, la anadida a mano se bloquea.
+  - *El sello no sustituye a mirar.* Prueba que la imagen paso por el tachado
+    automatico, no que el tachado sea correcto --el apellido «de Pastor» sobrevivio
+    a una version del patron--. Por eso **toda imagen que entre al repositorio se
+    revisa con Google Lens antes de publicarse**, tenga o no capa de texto detras,
+    sea escaneo o sea render: R-137 no distingue, y aqui tampoco.
+  - **Cero OCR, sin excepcion.** Ni para comprobar un tachado, ni para leer una
+    captura, ni para verificar una firma. La unica lectura de imagen autorizada es
+    Google Lens.
+  - *Falsador:* una imagen rastreada sin sello de procedencia, o una captura
+    publicada sin constancia de haberse mirado.
+
+## 94. EN ESPERA, DECLARADO (no implementar hasta que el instructor decida)
+
+- **Firma y refrendo de los casos de Rimac.** El instructor mando que los
+  admisorios contra Rimac los firme LUISA ANALI SILVA MALPARTIDA como **Secretaria
+  Tecnica Ad Hoc**, y que bajo esa firma --y bajo la de Eveling-- vaya `LSQ/DCQ` a
+  tamano 8 como maximo.
+  - *Lo medido, y por eso queda en espera:* en los 593 admisorios del corpus,
+    «Ad Hoc» aparece **0 veces** y `LSQ/DCQ` aparece **0 veces**. Lo que si existe
+    es `LSM/JCQ` (292), `LGP/JCQ` (234) y `LSM/LCG` (24). El tamano 8 pt si lo
+    confirma el corpus: 1.291 apariciones contra 90 a 9 pt.
+  - *La duda concreta, pendiente de respuesta:* si `LSQ/DCQ` sustituye a `LSM/JCQ`
+    en **todos** los admisorios o solo en los de Rimac con firma Ad Hoc.
+  - Cuando se resuelva, se implementa como **mandato que vence al corpus**, igual
+    que la fecha unica de la remesa, y se deja declarado que no es un patron
+    extraido sino una orden. No se implementa antes: una regla de firma a medias
+    es peor que ninguna.
+  - *Nota para el que lea esto mas tarde:* R-127 afirmaba que «ninguno firma
+    EVELING ROA QUISPE». Es falso para el corpus --lo hacen **494 de 593**-- y solo
+    era cierto para los admisorios que generamos nosotros. La regla estaba mal
+    enunciada y se corrige aqui.

@@ -183,6 +183,40 @@ def ya_rastreado(norm: str) -> bool:
     return norm in _TRACKED
 
 
+
+# Ninguna guardia de texto mira dentro de una imagen, y una captura de un admisorio
+# real lleva exactamente los mismos datos que el .docx. El 15/09/2026 entraron 1.042
+# capturas al repositorio: iban tachadas en origen, pero nada impedia que alguien
+# anadiera una a mano sin tachar.
+#
+# Se cierra por procedencia: `capturar_referencias.py` sella cada PNG que genera.
+# Lo que no lleva sello no entra. Y el sello **no sustituye a mirarla**: manda que
+# la imagen se revise con Google Lens, nunca con OCR (R-137, R-150).
+IMAGENES = (".png", ".jpg", ".jpeg", ".gif", ".bmp", ".webp", ".tif", ".tiff")
+
+
+def revisar_imagen(ruta: Path, norm: str) -> list[str]:
+    try:
+        import sys as _sys
+
+        _sys.path.insert(0, str(RAIZ / "scripts"))
+        from capturar_referencias import tiene_sello
+    except Exception:
+        return [
+            "FUGA: '%s' es una imagen y no se pudo comprobar su procedencia. "
+            "Las imagenes solo entran si las genera capturar_referencias.py." % norm
+        ]
+    if tiene_sello(ruta):
+        return []
+    return [
+        "FUGA: '%s' es una imagen sin sello de procedencia. Ninguna guardia de "
+        "texto mira dentro de una imagen: si lleva datos de un expediente, entra "
+        "sin que nada la vea. Generala con scripts/capturar_referencias.py, que "
+        "tacha en origen, y revisala con Google Lens antes de publicarla (R-150)."
+        % norm
+    ]
+
+
 def revisar_texto(ruta: Path, norm: str) -> list[str]:
     """Busca datos personales en un archivo de texto de trabajo."""
     try:
@@ -263,6 +297,10 @@ def revisar(rutas: list[str]) -> list[str]:
                 "FUGA: '%s' es material de expediente en una ruta de trabajo. "
                 "Este repositorio es publico y el historial no se borra." % norm
             )
+            continue
+
+        if ruta.suffix.lower() in IMAGENES and ruta.exists():
+            violaciones.extend(revisar_imagen(ruta, norm))
             continue
 
         if ruta.suffix.lower() in TEXTO_REVISABLE and ruta.exists():

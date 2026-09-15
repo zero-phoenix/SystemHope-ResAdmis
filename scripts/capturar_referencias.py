@@ -247,8 +247,39 @@ def capturar(fuente: Path, pagina_n: int, destino: Path, dpi: int = 90) -> bool:
         # maqueta, no para leerla. A 150 dpi en color las 1.389 capturas pesaban
         # 444 MB, que es inviable en un repositorio; asi bajan a ~70 MB sin perder
         # legibilidad de la estructura.
-        pagina.get_pixmap(dpi=dpi, colorspace=fitz.csGRAY).save(str(destino))
+        pm = pagina.get_pixmap(dpi=dpi, colorspace=fitz.csGRAY)
+        pm.save(str(destino))
+    sellar(destino, len(cajas))
     return True
+
+
+# Marca de procedencia. Ninguna guardia de texto inspecciona una imagen, asi que
+# una captura anadida a mano se colaria sin que nada la mirase. La marca no
+# demuestra que el tachado sea correcto --eso lo garantiza el fallo cerrado de la
+# generacion-- pero **si** demuestra que la imagen paso por aqui. Lo que no lleva
+# marca no entra, y ademas se manda a revision con vision (R-150).
+SELLO = "SystemHope-ResAdmis/capturar_referencias.py"
+
+
+def sellar(png: Path, tachados: int) -> None:
+    """Escribe la procedencia en el propio PNG, en un chunk de texto."""
+    from PIL import Image, PngImagePlugin
+
+    with Image.open(png) as img:
+        info = PngImagePlugin.PngInfo()
+        info.add_text("Software", SELLO)
+        info.add_text("Comment", "captura referencial tachada en origen; %d region(es) ocultada(s)" % tachados)
+        img.save(png, pnginfo=info, optimize=True)
+
+
+def tiene_sello(png: Path) -> bool:
+    try:
+        from PIL import Image
+
+        with Image.open(png) as img:
+            return img.info.get("Software", "") == SELLO
+    except Exception:
+        return False
 
 
 def estratos() -> dict:
