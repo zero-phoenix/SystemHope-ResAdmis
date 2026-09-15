@@ -7,6 +7,7 @@
 > **NOMBRE DEL ENTREGABLE (mandato del instructor, 14/09/2026):** `ADM <EXPEDIENTE> R<N>.docx`, donde `<N>` es el número de resolución **que fija la cédula** del expediente. Ejemplo: `ADM 3122-2026 R1.docx`.  
 > **PROTOCOLO DE ENTREGA:** `scripts/verificar_admisorio.py` debe decir `APTO`. Sin esa salida, el admisorio no está entregado.  
 > **REPOSITORIO:** https://github.com/zero-phoenix/SystemHope-ResAdmis
+> **SI SUPERVISAS A UN AGENTE:** `docs/SUPERVISION_DE_AGENTES.md` — superficie de control (`scripts/orquestar.py`), qué medir, cuándo intervenir, y el catálogo de fallos medidos del agente **y del supervisor**.
 
 ---
 

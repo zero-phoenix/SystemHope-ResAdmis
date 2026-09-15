@@ -921,3 +921,45 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
   - *Falsador:* un admisorio construido con Word, un `scratch*.py` en la raiz, o un
     documento entregado con la auditoria de residuos en falla.
 
+## 86. COMO SE SUPERVISA (R-140 A R-141)
+
+> Origen: primera remesa supervisada de punta a punta, 14-15/09/2026, trece
+> expedientes. El detalle esta en `docs/SUPERVISION_DE_AGENTES.md`.
+
+- R-140: **LA ORDEN OBLIGATORIA SE SIRVE PREPARADA, NO SE ENUNCIA:**
+  - *Medicion:* decirle al agente «lee todas las paginas con Google Lens» no basto.
+    Se paso **17 llamadas y 6 minutos** averiguando **como** hacerlo, llegando a
+    leer el codigo de las propias herramientas del repositorio. Solo lo hizo tras
+    una segunda orden que incluia el comando exacto. Cuando el triaje empezo a
+    dejar las paginas ya renderizadas en `_paginas/` y la orden de trabajo a listar
+    la ruta de cada imagen, el problema desaparecio: 175 paginas de trece
+    expedientes renderizadas en **66,6 s** y una sola llamada.
+  - *Mandato:* si una regla exige un trabajo, el repositorio entrega ese trabajo
+    **hecho** o el **comando exacto** que lo hace. Una regla que obliga al agente a
+    inventarse el procedimiento se paga en llamadas y se incumple a la primera.
+  - *Corolario para quien escriba reglas nuevas:* antes de anadir una obligacion,
+    pregunta que artefacto la vuelve trivial. Si no hay ninguno, la obligacion aun
+    no esta lista.
+  - *Falsador:* una regla obligatoria cuyo cumplimiento exija al agente descubrir el
+    metodo, o un caso en el que se gasten llamadas averiguando **como** cumplir en
+    vez de cumpliendo.
+
+- R-141: **EL INSTRUMENTO SE AUDITA COMO SE AUDITA AL AGENTE:**
+  - *Medicion, y es incomoda:* mas de la mitad de lo que se le imputo al agente en
+    la primera remesa era defecto del supervisor. `auditar_trayectoria.py` contaba
+    pasos en vez de llamadas (157 donde habia **67**); `construir_admisorio.py`
+    declaraba inexistentes **14 de 19** reemplazos por un `<w:t[^>]*>` que capturaba
+    `<w:tab>`; `verificar_admisorio.py` tenia los cinco patrones de R-110 con un
+    caracter de retroceso y **llevaba sin comprobar nada**; el vigilante contaba
+    como busqueda recursiva el texto del propio encargo.
+  - *Mandato:* **toda metrica nueva nace con su falsador y con una prueba que la vea
+    fallar de verdad.** Una regla que nunca falla no es una regla que se cumple: es
+    una regla que no se esta ejecutando. Un diagnostico que miente cuesta mas que no
+    tener diagnostico, porque manda a corregir lo que ya estaba bien.
+  - *Procedimiento:* antes de acusar al agente de incumplir, reproduce el hallazgo a
+    mano sobre el artefacto. Si el instrumento y la lectura directa discrepan, el
+    sospechoso es el instrumento.
+  - *Falsador:* una comprobacion que jamas haya dado FALLA sobre ningun documento, o
+    un hallazgo automatico que no se haya contrastado contra la fuente antes de
+    exigir la correccion.
+
