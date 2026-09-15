@@ -1,13 +1,26 @@
 name: CI Verification
 
+# Dos capas distintas y no intercambiables:
+#
+#  - `autocomprobacion.py` comprueba que el **sistema** no este roto de una forma
+#    que nadie notaria: expresiones regulares con un caracter de retroceso en vez
+#    de un limite de palabra, plantillas que conservan el nombre del consumidor
+#    que las origino, modulos que no compilan, artefactos de trabajo rastreados.
+#    Cada una de esas cuatro nace de un fallo real y medido (R-141).
+#
+#  - El motor se ejecuta de verdad, no solo se compila. Un `import` que funciona
+#    no dice nada sobre un comando que falla al primer argumento.
+
 on:
   push:
-    branches: [ "main" ]
+    branches: ["main"]
   pull_request:
-    branches: [ "main" ]
+    branches: ["main"]
+  workflow_dispatch:
 
 jobs:
   verify:
+    name: Salud del repositorio y del motor
     runs-on: windows-latest
     steps:
       - name: Habilitar rutas largas en Windows y Git
@@ -26,16 +39,45 @@ jobs:
       - name: Instalar dependencias minimas
         run: |
           python -m pip install --upgrade pip
-          pip install python-docx
+          pip install python-docx pymupdf
 
-      - name: Verificar sintaxis de modulos principales
+      - name: Autocomprobacion del repositorio
+        run: python scripts/autocomprobacion.py
+
+      - name: Sintaxis de todo el utillaje
         run: |
-          python -m py_compile src/systemhope_engine.py
-          python -m py_compile src/rules_engine.py
-          python -m py_compile src/system_prompt.py
+          python -m compileall -q scripts src
+          if ($LASTEXITCODE -ne 0) { exit 1 }
 
-      - name: Test de ejecucion basica del motor
+      - name: Ejecucion basica del motor
         run: |
           python -m src.systemhope_engine info
           python -m src.systemhope_engine notifications --proveedor pacifico
           python -m src.systemhope_engine templates --rama vehicular --limit 2
+
+      - name: El verificador distingue de verdad
+        # Una regla que nunca falla no es una regla que se cumple: es una regla
+        # que no se esta ejecutando. R-110 estuvo asi, declarando OK sin
+        # comprobar nada, hasta que se leyeron sus bytes. Aqui se le da un
+        # documento que **debe** rechazar: si lo aprueba, el verificador miente.
+        run: |
+          python - <<'PY'
+          import sys, zipfile, shutil, glob
+          sys.path.insert(0, "scripts")
+          import verificar_admisorio as V
+          modelo = sorted(glob.glob("plantillas_maestras/**/*.docx", recursive=True))[0]
+          roto = "ci_documento_roto.docx"
+          shutil.copy2(modelo, roto)
+          with zipfile.ZipFile(roto) as z:
+              nombres, datos = z.namelist(), {n: z.read(n) for n in z.namelist()}
+          xml = datos["word/document.xml"].decode("utf-8")
+          xml = xml.replace("LUISA ANALI SILVA MALPARTIDA", "QUIEN SEA")
+          datos["word/document.xml"] = xml.encode("utf-8")
+          with zipfile.ZipFile(roto, "w", zipfile.ZIP_DEFLATED) as z:
+              for n in nombres:
+                  z.writestr(n, datos[n])
+          if V.verificar(roto):
+              print("El verificador aprobo un documento que debia rechazar.")
+              raise SystemExit(1)
+          print("El verificador rechaza lo que debe rechazar.")
+          PY

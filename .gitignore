@@ -30,3 +30,49 @@ _CEDULA.md
 _ESTADO.md
 _COLA.md
 _paginas/
+
+# ---------------------------------------------------------------------------
+# Depuracion del 15/09/2026. Todo esto SIGUE EN EL DISCO del instructor: lo que
+# se retira es su publicacion. El repositorio es publico y estas carpetas
+# contienen expedientes reales, o sedimento que contradice las reglas vigentes.
+# ---------------------------------------------------------------------------
+Modelos al 30-06-26/
+ADMI + CONFI/
+productos (resoluciones) elaborada por claude/
+productos (resoluciones) elaborada por google antigravity/
+Proyecto admisorios/
+revision_codex/
+temp_docx/
+casos/
+casos_de_prueba/
+dist/
+*.db
+*.xlsx
+*_CC1.json
+.cursorrules
+.windsurfrules
+CLAUDE.md
+ANALISIS_*.md
+RESUMEN_FINAL_*.md
+GENERAR_RESOLUCIONES_WORD.md
+GIT_COMMIT_INSTRUCTIONS.md
+push_a_github.bat
+ResAdmi.spec
+*_debug.log
+*_debug.xml
+*_debug_pretty.xml
+PDF_*.txt
+REFERENCIA_PDF_ORIGINAL.txt
+model1.txt
+model2.txt
+models.json
+my_generated.txt
+temp.zip
+temp_v*.docx
+test*.docx
+test_runner.txt
+plantillas_maestras/**/test_*.docx
+
+# Scripts de un solo uso de la fase exploratoria: siguen en el disco, fuera
+# del repositorio. El utillaje vigente esta en scripts/.
+/*.py

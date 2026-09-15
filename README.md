@@ -1,146 +1,102 @@
-# SystemHope ResAdmis - Sistema Autónomo de Resoluciones Admisorias INDECOPI CC1
+# SystemHope ResAdmis — CC1
 
-> **Plataforma Integral de Generación, Calibración Visual Multimodal y Validación Popperiana de Resoluciones Admisorias de Seguros y Servicios Financieros.**  
-> Diseñado para operar con **Google Antigravity**, **Cursor**, **Windsurf**, **Claude Code** y cualquier entorno de IA Desktop, con memoria persistente y versionada en GitHub.
+Sistema de apoyo a la redacción de **resoluciones admisorias** de la Comisión de
+Protección al Consumidor N° 1 del Indecopi. Un agente redacta; el repositorio le
+da las plantillas, las reglas y —sobre todo— las barreras que impiden que un
+documento salga con datos que no existen.
 
-[![GitHub Release](https://img.shields.io/github/v/release/zero-phoenix/SystemHope-ResAdmis?color=blue&label=Release)](https://github.com/zero-phoenix/SystemHope-ResAdmis/releases)
-[![TUO LPAG](https://img.shields.io/badge/TUO%20LPAG-D.S.%20006--2026--JUS%20(Vigente)-brightgreen)](docs/MATRIZ_MAESTRA_PHOENYX_POPPERIANA.md)
-[![Protocolo de Entrada](https://img.shields.io/badge/Entrada-Estricto%20Cero%20OCR%20(Google%20Lens)-red)](AGENTS.md)
-[![Plantillas](https://img.shields.io/badge/Plantillas%20Depuradas-630%20modelos%20.docx-orange)](docs/INDICE_TAXONOMICO_PLANTILLAS_MAESTRAS.md)
-[![Build Status](https://github.com/zero-phoenix/SystemHope-ResAdmis/actions/workflows/generate_release.yml/badge.svg)](https://github.com/zero-phoenix/SystemHope-ResAdmis/actions)
+> **Norma marco:** Decreto Supremo 006-2026-JUS (TUO de la LPAG).
+> **Los datos personales no entran aquí.** Este repositorio es público. Las
+> plantillas están anonimizadas y ningún expediente, mapa de trabajo ni admisorio
+> emitido se commitea. Hay una guardia que lo impide y CI la vuelve a comprobar.
 
----
+## Qué hay dentro
 
-## 🏛️ Arquitectura y Filosofía del Sistema
+| | |
+|---|---|
+| **620 plantillas maestras** (`plantillas_maestras/`) | Admisorios reales **anonimizados**, clasificados en 17 ramas por materia, tipo de denunciado y sujeto |
+| **18 herramientas** (`scripts/`) | El utillaje completo: triaje, construcción, verificación, auditoría, orquestación y vigilancia |
+| **56 reglas** (`automatizacion_antigravity/REGLAS_DE_APRENDIZAJE.md`) | Cada una con su **falsador**: la observación concreta que la refutaría |
+| **Documentación** (`docs/`) | Índice taxonómico, directorio de proveedores y vías, plan de velocidad y manual de supervisión |
 
-Este repositorio alberga el motor autónomo, las reglas normativas institucionales, la calibración geométrica de página y el catálogo de **630 plantillas Word (`.docx`)** depuradas y estructuradas para la elaboración determinista de Resoluciones Admisorias en la Comisión de Protección al Consumidor N° 1 (CC1) del INDECOPI.
+## El ciclo de un admisorio
 
-### 🌐 Persistencia de Memoria Absoluta (Zero-Local-Loss)
-**El repositorio es el cerebro:** Ninguna directriz crítica reside únicamente de manera local o efímera. Si el entorno de desarrollo es formateado o clonado en una máquina nueva:
-1. Se descarga el ejecutable autónomo desde [Releases](https://github.com/zero-phoenix/SystemHope-ResAdmis/releases).
-2. Se ejecuta `./systemhope-engine.exe dump-memory` o se inicia el servidor MCP con `./systemhope-engine.exe mcp`.
-3. Cualquier IA Desktop adquiere de inmediato el 100% de la doctrina jurídica institucional, el catálogo taxonómico y las invariantes popperianas.
+```bash
+# 1. Preparar el caso: triaje, cédula, dossier anclado y candidatas de plantilla
+python scripts/preparar_remesa.py <carpeta-remesa> --caso 3122-2026
 
----
+# 2. Leer TODAS las páginas con Google Lens (las deja renderizadas en _paginas/)
+#    Cero OCR. El volcado de texto es contraste, no fuente.
 
-## 🛑 Axiomas y Principios No Negociables (Doctrina CC1)
+# 3. Construir, sin abrir Word
+python scripts/construir_admisorio.py --mapa mapa.json
 
-### 1. Mandato Estricto Cero-OCR (Solo Visión Multimodal / Google Lens)
-- **PROHIBICIÓN DEL OCR TRADICIONAL:** Los expedientes administrativos de consumo contienen escritos escaneados y firmas donde los motores OCR clásicos fragmentan párrafos, confunden letras con números y alucinan fechas o números de póliza.
-- **ANÁLISIS VISUAL OBLIGATORIO:** Las denuncias y escritos complementarios deben inspeccionarse **únicamente mediante Google Lens o visión multimodal**.
-
-### 2. Normativa TUO LPAG Vigente (Decreto Supremo 006-2026-JUS)
-- Todas las citas normativas al Texto Único Ordenado de la Ley N° 27444 se encuentran rigurosamente actualizadas al **Decreto Supremo 006-2026-JUS** (publicado el 30 de abril de 2026).
-- Queda **prohibida** cualquier referencia al derogado Decreto Supremo 004-2019-JUS.
-
-### 3. Prohibición Absoluta de Imputar por "Inducción a Error"
-- **PROHIBIDO** imputar bajo la figura de *inducción al error* o citar el Artículo 3° del Código (Ley 29571).
-- Toda falta o inexactitud informativa se canaliza estrictamente por el **Artículo 1°, numeral 1, literal b) y Artículo 2° del Código**.
-
-### 4. Isomorfismo Textual Verbatim (Considerativa vs. Resolutiva)
-- El núcleo fáctico de la imputación en la Sección II (De la Admisión a Trámite: *"consistente en que..."*) debe ser **idéntico palabra por palabra** al formulado en la Sección RESUELVE (`PRIMERO:`, `SEGUNDO:`: *"en tanto..."*). La alteración de un solo vocablo vicia de nulidad la resolución por incongruencia procesal.
-
-### 5. Denominación Procesal Rigurosa en Considerandos
-- **Persona natural:** Nombre completo en el considerando inicial (`el señor [Nombre] [Apellidos]`) y a partir de allí exclusivamente `el señor [Primer Apellido]` o `la señora [Primer Apellido]`. Prohibido usar "el denunciante" o "la denunciante" en el relato fáctico.
-- **Sucesión Intestada:** Obligatorio `la Sucesión Intestada de [Nombre]`; a la persona fallecida se la llama exclusivamente `la/el causante de la Sucesión Intestada`.
-- **Personas jurídicas:** Razón social completa en la primera mención fijando el alias institucional (`Rímac`, `Pacífico`, `el Banco`), y en adelante uso exclusivo del alias.
-
-### 6. Notificación Conjunta y Domicilio Compartido (Párrafo Único)
-- Cuando dos o más partes procesales compartan la misma vía de notificación (v. gr., correo electrónico con apercibimiento LPAG 2026, dos entidades del mismo grupo financiero con Casilla Electrónica, o co-denunciantes con domicilio común), se fusionan obligatoriamente **en un único artículo resolutivo consolidado**.
-
-### 7. Invariantes Léxicas y Formato Monetario Monolítico
-- `cónyuge` / `cónyuges` (PROHIBIDO: esposo/a).
-- `luego de` (PROHIBIDO: tras).
-- `esta` / `este` (sin tilde diacrítica).
-- `médico` (PROHIBIDO: doctor/a o Dr. para profesionales de salud).
-- `vehículo` (PROHIBIDO: carro, auto).
-- **Moneda:** Formato institucional estricto `S/ X XXX,XX` o `US$ X XXX,XX` (espacio de miles, coma decimal, sin puntos).
-
----
-
-## 📂 Catálogo Taxonómico de Plantillas Word (`plantillas_maestras/`)
-
-Las plantillas Word han sido sanitizadas de *mojibake*, actualizadas normativamente y organizadas en 4 niveles jerárquicos:  
-`plantillas_maestras/<RAMA>/<MATERIA>/<PROVEEDOR>/<SUJETO>/TPL_*.docx`
-
-| Directorio | Ramas de Seguro | Plantillas | Materias Clave |
-| :--- | :--- | :---: | :--- |
-| `01_seguro_vehicular` | Seguro Vehicular y Pérdida Total | **174** | Negativa de cobertura, cláusula abusiva, demora en taller |
-| `02_seguro_vida` | Seguro de Vida y Sobrevivencia | **134** | Negativa de cobertura, anulación indebida, exclusiones |
-| `03_seguro_desgravamen` | Seguro de Desgravamen Hipotecario/Personal | **66** | Negativa de siniestro, falta de póliza, cobros indebidos |
-| `04_seguro_proteccion_tarjetas_y_dinero` | Tarjetas, Fraude y Cuentas Bancarias | **37** | Consumos no reconocidos, transferencias no autorizadas |
-| `05_soat_y_afocat` | SOAT y Fondos Contra Accidentes de Tránsito | **43** | Negativa de cobertura médica, incapacidad temporal |
-| `06_seguro_hogar_e_inmuebles` | Seguros Patrimoniales de Vivienda e Inmuebles | **20** | Daños por agua, sismo, robo |
-| `07_seguro_sctr` | Seguro Complementario de Trabajo de Riesgo | **18** | Evaluación de invalidez, pensión de sobrevivencia |
-| `08_seguro_salud_eps_oncologico` | EPS, Seguros de Salud y Oncológicos | **12** | Cobertura integral, tratamientos de alto costo |
-| `09_seguro_patrimonial_caucion_rc` | Fianzas, Caución y Responsabilidad Civil | **10** | Ejecución de póliza de caución |
-| `10_seguro_sepelio` | Seguros Funerarios y de Sepelio | **8** | Reembolso de gastos, cobro indebido |
-| `11_seguro_accidentes_personales` | Accidentes Personales | **7** | Indemnización por fallecimiento / desmembración |
-| `12_seguro_transporte_y_carga` | Transporte y Carga Terrestre/Marítima | **6** | Pérdida de mercadería en tránsito |
-| `13_seguro_multiple_y_equipos` | Equipos Electrónicos y Multirriesgo | **4** | Rotura de maquinaria, equipos móviles |
-| `14_seguro_desempleo` | Protección de Cuotas por Desempleo | **2** | Negativa injustificada de cobertura de cuotas |
-| `15_sistema_previsional_afp_onp` | Devolución y Trámites Previsionales | **2** | Cobro indebido de primas previsionales |
-| `16_temas_administrativos_financieros` | Procesos Financieros Conexos | **4** | Información errónea en centrales de riesgo |
-| `17_seguro_no_especificado` | Pólizas No Categorizadas | **58** | Materias diversas |
-| **TOTAL** | **17 Ramas de Seguro** | **630** | **100% Depuradas y Verificadas (OOXML Válido)** |
-
----
-
-## 📐 Parámetros de Diseño y Estilo Visual CC1 (Google Lens)
-
-Calibrados mediante visión multimodal e incorporados en [docs/MEMORIA_ESTILO_VISUAL_PAGINAS.md](docs/MEMORIA_ESTILO_VISUAL_PAGINAS.md):
-- **Tipografía Institucional:** `Arial Narrow` (11 pt cuerpo y resolutivos a interlineado 1.0; 8 pt para notas al pie, iniciales de control `LGP/JCQ` y pies).
-- **Márgenes de Página (A4 - 21.0 x 29.7 cm):**
-  - Superior: `2.50 cm` (`70.9 pt`) / Encabezado a `1.25 cm` (`35.4 pt`)
-  - Inferior: `2.50 cm` (`70.9 pt`) / Pie a `1.20 cm` (`33.9 pt`)
-  - Izquierdo: `3.00 cm` (`85.0 pt`)
-  - Derecho: `2.50 cm` (`70.9 pt`)
-- **Sangrías Escalonadas CC1:**
-  - Párrafos de Hechos: Sangría izquierda `0.79"` (2.0 cm), Sangría francesa `-0.39"` (-1.0 cm).
-  - Puntos Resolutivos: Sangría izquierda `0.39"` (1.0 cm), Sangría francesa `-0.39"` (-1.0 cm).
-  - Bloque de Metadatos: Sangría izquierda `1.48"` (3.75 cm), Sangría francesa `-1.48"` (-3.75 cm).
-- **Notas al Pie Institucionales:** Empleo de *One Dot Leader* (`\u2024`) antes del texto para suprimir la sangría nativa de Word. Pie de página oficial: `M-CPC-01/03`.
-- **Matriz de Firma Digital Condicionada (R-103):**
-  - **RÍMAC SEGUROS Y REASEGUROS S.A.:** NUNCA firma la titular. Firma obligatoriamente como Secretaria Técnica Ad Hoc: **LUISA ANALÍ SILVA MALPARTIDA**, cargo: `Secretaria Técnica Ad Hoc`, refrendo `LSQ/DCQ`.
-  - **Demás Proveedores:** **EVELING ROA QUISPE**, cargo: `Secretaria Técnica`, refrendo según instructor asignado (ej. `RSV/DCQ`).
-- **Verificación Automatizada Pre-entrega (R-109):** `python scripts/verificar_admisorio.py <admisorio.docx>` (debe arrojar `APTO (0 falsadores)`).
-
-
----
-
-## ⚡ Motor Autónomo (`systemhope-engine.exe`)
-
-El ejecutable independiente compilado por GitHub Actions provee una interfaz CLI y un servidor MCP para interactuar con el sistema:
-
-```powershell
-# 1. Ver información del motor y normas vigentes
-systemhope-engine info
-
-# 2. Buscar plantillas maestras por rama, materia o sujeto
-systemhope-engine templates --rama vehicular --limit 5
-
-# 3. Consultar vía de notificación oficial de un proveedor
-systemhope-engine notifications --proveedor "rimac"
-
-# 4. Validar integridad de un archivo .docx generado
-systemhope-engine validate "ruta/al/admisorio.docx"
-
-# 5. Volcar toda la memoria persistente en un nuevo entorno
-systemhope-engine dump-memory
-
-# 6. Iniciar Servidor MCP sobre stdio (para Cursor, Windsurf, Antigravity)
-systemhope-engine mcp
+# 4. Entregar: verificador + guardia + auditoría de fondo, en una llamada
+python scripts/admisorio.py entregar "<ruta>/ADM 3122-2026 R1.docx" --caso 3122
 ```
 
----
+El entregable se llama **`ADM <EXPEDIENTE> R<N>.docx`**, donde `N` es el número de
+resolución **que fija la cédula** del expediente.
 
-## 🔄 Integración Continua y Despliegue Automático (CI/CD)
+## Las tres barreras, y qué ve cada una
 
-- **Workflow `generate_release.yml`:** Compila el binario autónomo `systemhope-engine.exe` en Windows x64, verifica su ejecución, empaqueta el archivo ZIP con toda la memoria persistente y publica automáticamente el release en GitHub.
-- **Workflow `ci.yml`:** Valida la sintaxis de los módulos Python y asegura la coherencia del motor en cada pull request o push a `main`.
+Ninguna sustituye a las otras. Un documento puede pasar dos y ser inservible.
 
----
+| Barrera | Comprueba | Lo que **no** ve |
+|---|---|---|
+| `verificar_admisorio.py` | La forma: firma, ordinales, negritas, espejos, modo verbal | Que los datos existan |
+| `construir_admisorio.py` | Que no sobreviva nada de la plantilla de origen | Un dato que no viene de la plantilla ni de ningún sitio |
+| `auditar_admisorio.py` | Que **cada dato exista en el expediente**, y las partes y el ordinal en la cédula | La coherencia jurídica del razonamiento |
 
-## ⚖️ Licencia y Autoría
+La tercera se escribió tarde y, en su primer barrido sobre cuatro admisorios ya
+dados por buenos, encontró cuatro fechas sin ancla, un ordinal que contradecía a
+su cédula y dos apellidos inventados.
 
-Desarrollado bajo doctrina de ingeniería de software determinista para la Comisión de Protección al Consumidor N° 1 (Sede Central) del INDECOPI. Distribuido bajo Licencia MIT.
+## Reglas que no se negocian
+
+- **Cero OCR. Google Lens en todas las páginas** (R-137), tengan o no capa de
+  texto. El texto embebido de un PDF es *contraste*: está medido que pierde tildes
+  y corrompe cifras. Si discrepan, manda lo que se ve.
+- **Las partes procesales son exactamente las de la cédula** (R-138), con una sola
+  vía de notificación cada una.
+- **Ni Word ni scratch** (R-139). Un `.docx` es un ZIP de XML y se edita en 0,3 s;
+  abrir Word cuesta 8,4 s y su proceso huérfano es la causa medida de cuelgue.
+- **Prohibido generar PDF.** El entregable es `.docx`.
+- **Nada que no conste en el expediente.** Un dato sin ancla se eleva, no se
+  rellena.
+
+## Supervisión de agentes
+
+Si diriges a un agente redactor, empieza por
+**[`docs/SUPERVISION_DE_AGENTES.md`](docs/SUPERVISION_DE_AGENTES.md)**: la
+superficie de control, qué medir, cuándo intervenir, y los dos catálogos de fallos
+medidos —los del agente y los del supervisor—.
+
+```bash
+python scripts/orquestar.py estado              # conversaciones y su estado
+python scripts/orquestar.py lanzar 2765-2026    # encargo canónico del caso
+python scripts/orquestar.py corregir <id> "..." # corrección en caliente
+```
+
+## Salud del repositorio
+
+```bash
+python scripts/autocomprobacion.py
+```
+
+Cuatro comprobaciones, cada una nacida de un fallo real: ninguna expresión regular
+con un carácter de retroceso donde debe ir un límite de palabra, ninguna plantilla
+con datos personales, todos los módulos compilan, ningún artefacto de trabajo
+rastreado. CI las ejecuta en cada push, y además le da al verificador un documento
+que **debe** rechazar: una regla que nunca falla no es una regla que se cumple.
+
+## Instalación
+
+```bash
+pip install -r requirements.txt
+python scripts/instalar_hooks.py     # guardia de datos personales en pre-commit
+```
+
+## Licencia
+
+Ver [`LICENSE`](LICENSE). Contribuciones: [`CONTRIBUTING.md`](CONTRIBUTING.md).

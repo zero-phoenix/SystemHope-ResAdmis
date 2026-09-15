@@ -165,6 +165,120 @@ def resolucion_de_cedula(carpeta: Path) -> str:
     return resolucion
 
 
+
+REDIRECCION = """# ATENCIÓN — este no es el directorio de trabajo
+
+Si estás intentando redactar un admisorio desde aquí, **estás en el sitio
+equivocado** y vas a perder el tiempo buscando herramientas que no están.
+
+Está medido: una sesión que trabajó desde una carpeta como esta gastó **67
+llamadas y 19,6 minutos** sin producir ni el triaje, porque desde aquí no existen
+ni `plantillas_maestras` ni `scripts/`, y acabó buscándolos con `-Recurse` por todo
+`C:/Users`.
+
+## El directorio de trabajo real
+
+```
+{raiz}
+```
+
+**Todo comando se ejecuta desde esa raíz, con rutas absolutas.** Ahí están
+`AGENTS.md` (las reglas), `scripts/` (las herramientas) y `plantillas_maestras/`.
+
+## Las tres reglas que no se negocian
+
+1. **Google Lens en todas las páginas, cero OCR.** El volcado de texto es
+   contraste, no fuente: si discrepa con lo que ves, manda lo que ves.
+2. **Las partes procesales son exactamente las de la cédula**, con una sola vía de
+   notificación cada una.
+3. **No inventes.** Dato que no veas en una página concreta se declara pendiente
+   del instructor; no se rellena.
+
+Generado por `scripts/orquestar.py sanear`. No lo borres.
+"""
+
+
+def workspaces_conocidos() -> dict[str, list[str]]:
+    """Cada proyecto de Antigravity con los workspaces que ha usado."""
+    import json as _json
+    import urllib.parse
+
+    tmp = Path(tempfile.mkdtemp(prefix="orq_"))
+    for suf in ("", "-wal", "-shm"):
+        s = Path(str(RESUMENES) + suf)
+        if s.exists():
+            shutil.copy2(s, tmp / s.name)
+    con = sqlite3.connect(str(tmp / RESUMENES.name))
+    salida: dict[str, list[str]] = {}
+    for proyecto, uris in con.execute(
+        "SELECT project_id, workspace_uris FROM conversation_summaries "
+        "WHERE workspace_uris != ''"
+    ):
+        try:
+            rutas = _json.loads(uris or "[]")
+        except Exception:
+            continue
+        for u in rutas:
+            ruta = urllib.parse.unquote(u).replace("file:///", "").replace("/", chr(92))
+            salida.setdefault(proyecto or "(sin proyecto)", [])
+            if ruta not in salida[proyecto or "(sin proyecto)"]:
+                salida[proyecto or "(sin proyecto)"].append(ruta)
+    con.close()
+    return salida
+
+
+def sanear() -> int:
+    """Declara que workspaces no son el repositorio y deja en ellos la redireccion.
+
+    Es una defensa en profundidad, no el arreglo. **El arreglo de verdad es abrir
+    el repositorio como workspace en Antigravity** (Add Workspace), porque un
+    archivo de redireccion depende de que el agente lo lea y lo obedezca, y eso ya
+    ha fallado. Mientras no exista ese proyecto, esto acota el dano.
+    """
+    conocidos = workspaces_conocidos()
+    raiz_norm = str(RAIZ).lower()
+    print("=" * 78)
+    print("WORKSPACES QUE HA USADO ANTIGRAVITY")
+    print("=" * 78)
+    correcto = False
+    plantados = 0
+    for proyecto, rutas in sorted(conocidos.items()):
+        for ruta in rutas:
+            carpeta = Path(ruta)
+            es_repo = ruta.lower().rstrip(chr(92)) == raiz_norm
+            correcto = correcto or es_repo
+            print("  %-8s %-10s %s" % ("REPO" if es_repo else "AJENO", proyecto[:8], ruta[:58]))
+            # Solo se planta la redireccion donde se ha trabajado en admisorios.
+            # La primera version la dejo caer en un proyecto ajeno del usuario:
+            # ensuciar el trabajo de otro para proteger el propio no vale.
+            relacionado = any(
+                marca in ruta.lower()
+                for marca in ("resadmi", "admis", "phoenyx", "systemhope")
+            )
+            if es_repo or not carpeta.is_dir():
+                continue
+            if not relacionado:
+                print("           (ajeno a este trabajo: no se toca)")
+                continue
+            destino = carpeta / "AGENTS.md"
+            texto = REDIRECCION.format(raiz=RAIZ)
+            if not destino.exists() or destino.read_text(encoding="utf-8", errors="replace") != texto:
+                destino.write_text(texto, encoding="utf-8")
+                plantados += 1
+                print("           -> redireccion escrita en %s" % destino)
+    print()
+    print("  Redirecciones escritas o actualizadas: %d" % plantados)
+    if correcto:
+        print("  Hay un proyecto apuntando al repositorio. Usalo para lanzar los casos.")
+        return 0
+    print("  NINGUN proyecto apunta al repositorio, y eso es la causa raiz.")
+    print("  Arreglo, y hay que hacerlo UNA vez a mano en la aplicacion:")
+    print("     Antigravity -> Add Workspace -> %s" % RAIZ)
+    print("  Hasta entonces, el encargo lleva rutas absolutas y las herramientas")
+    print("  fijan la raiz por construccion, pero el agente arranca donde no debe.")
+    return 1
+
+
 ENCARGO = """Redacta el admisorio del Expediente {exp}/CC1. Trabajas solo en ESTE expediente.
 
 ORDEN DE TRABAJO (leela entera UNA vez y siguela; el triaje, la cedula, el dossier
@@ -297,6 +411,7 @@ def main(argv: list[str]) -> int:
     )
     sub = ap.add_subparsers(dest="orden", required=True)
     sub.add_parser("estado", help="Conversaciones y en que estado estan")
+    sub.add_parser("sanear", help="Declara workspaces ajenos y deja la redireccion")
     p = sub.add_parser("lanzar", help="Lanza un expediente con el encargo canonico")
     p.add_argument("expediente")
     p.add_argument("--modelo", default="pro", choices=("flash_lite", "flash", "pro"))
@@ -308,6 +423,8 @@ def main(argv: list[str]) -> int:
     args = ap.parse_args(argv[1:])
     if args.orden == "estado":
         return estado()
+    if args.orden == "sanear":
+        return sanear()
     if args.orden == "lanzar":
         return lanzar(args.expediente, args.modelo)
     mensaje = (
