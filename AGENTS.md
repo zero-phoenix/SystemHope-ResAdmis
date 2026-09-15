@@ -48,6 +48,7 @@ datos ya estan hechos y no hay que rehacerlos.
 
 ## 1. REGLAS NO NEGOCIABLES (AXIOMAS POPPERIANOS)
 1. **PROHIBICIÓN ESTRICTA DE OCR (R-137):** Jamás transcribir denuncias con OCR clásico ni extractores que rompan coordenadas o inventen datos. **Toda** página de **todo** PDF del expediente se analiza con Google Lens / visión directa, esté escaneada o no, tenga capa de texto o no. No existe la excepción del «PDF nativo».
+2. **SOLO SE IMPUTA COMO IMPUTAN LOS MODELOS (R-143):** prohibido inventar combinaciones de artículos o mezclar imputaciones distintas en una sola. El corpus admite **64 combinaciones**, catalogadas en `docs/catalogo_imputaciones.json`. Si la que hace falta no está, se eleva al instructor.
 2. **TUO LPAG ACTUALIZADO:** Siempre citar el **Decreto Supremo 006-2026-JUS**. Prohibida cualquier mención al D.S. 004-2019-JUS.
 3. **PROHIBICIÓN DE 'INDUCCIÓN A ERROR':** Nunca imputar por el Artículo 3° ni emplear la frase 'inducción a error'. Todas las fallas de información se canalizan por los Artículos 1°, numeral 1, literal b) y 2° del Código de Protección y Defensa del Consumidor.
 4. **TIEMPOS VERBALES OBLIGATORIOS:**

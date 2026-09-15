@@ -50,8 +50,9 @@ PLANTILLAS = RAIZ / "plantillas_maestras"
 
 RE_DENUNCIANTE = re.compile(r"DENUNCIANTE\s*:?\s*(.{4,90}?)(?:\(|$)", re.I)
 RE_TRATAMIENTO = re.compile(
-    r"\b(señor|señora|señorita|Señor|Señora|SEÑOR|SEÑORA)\s+"
-    r"([A-ZÁÉÍÓÚÑ][\wáéíóúñÁÉÍÓÚÑ]{2,})"
+    "(señor|señora|señorita|señores|señoras"
+    "|Señor|Señora|Señores|Señoras|SEÑOR|SEÑORA|SEÑORES|SEÑORAS)"
+    "\s+((?:[A-ZÁÉÍÓÚÑ][\wáéíóúñ]{2,}\s*){1,4})"
 )
 RE_DNI = re.compile(r"(DNI\s*(?:N\.?[°º]|N[°º]|No\.?)?\s*)\d{8}\b", re.I)
 RE_CORREO = re.compile(
@@ -119,13 +120,24 @@ def anonimizar_texto(texto: str, nombres: set[str]) -> tuple[str, int]:
 
     def _trato(m: re.Match) -> str:
         nonlocal cambios
-        apellido = sin_tildes(m.group(2)).upper()
+        bloque = m.group(2).strip()
+        apellido = sin_tildes(bloque.split()[0]).upper()
         if apellido in NO_APELLIDO or apellido.startswith("["):
             return m.group(0)
         cambios += 1
-        return "%s [APELLIDO]" % m.group(1)
+        return "%s [APELLIDO] " % m.group(1)
 
     texto = RE_TRATAMIENTO.sub(_trato, texto)
+
+    # Codenunciantes: «los senores X y Z». La regla de tratamiento solo alcanza
+    # al primero; el segundo va detras de la conjuncion y hay que ir a por el.
+    texto, n = re.subn(
+        "\[APELLIDO\]\s*y\s+(?:[A-ZÁÉÍÓÚÑ][\wáéíóúñ]{2,}\s*){1,4}",
+        "[APELLIDO] y [APELLIDO] ",
+        texto,
+    )
+    cambios += n
+    texto = re.sub("\s{2,}", " ", texto)
 
     texto, n = RE_DNI.subn(lambda m: m.group(1) + "[DNI]", texto)
     cambios += n

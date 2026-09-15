@@ -984,3 +984,35 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
   - *Falsador:* tres correcciones consecutivas al mismo agente sin haber
     comprobado su workspace, o un parche presentado como arreglo de causa raiz.
 
+## 87. SOLO SE IMPUTA COMO IMPUTAN LOS MODELOS (R-143)
+
+> Mandato del instructor, 15/09/2026.
+
+- R-143: **PROHIBIDA TODA IMPUTACION QUE NO EXISTA EN EL CORPUS:**
+  - No se inventan combinaciones de articulos, ni se mezclan imputaciones
+    distintas en una sola, ni se imputa por una norma que ninguna resolucion del
+    corpus haya usado para ese tipo de conducta.
+  - *Por que no es una preferencia de estilo:* la imputacion fija el **objeto del
+    procedimiento**. De ella dependen los descargos, la carga de la prueba y el
+    marco sancionador. Una combinacion inventada --aunque cada articulo suelto sea
+    correcto-- formula un cargo que la Comision nunca ha hecho, y obliga al
+    administrado a defenderse de algo que en la practica no existe.
+  - *Medicion:* `catalogar_imputaciones.py` extrajo de las 630 plantillas
+    **64 combinaciones de normas** y **212 enunciados** distintos. El catalogo vive
+    en `docs/catalogo_imputaciones.json` con la frecuencia de cada una y las
+    plantillas donde aparece. La mas usada, con diferencia, es `art.18|art.19` --el
+    deber de idoneidad-- con 1.430 apariciones en la considerativa y 1.243 en la
+    resolutiva.
+  - *Comprobacion:* la prueba R-143 de `verificar_admisorio.py` extrae las normas
+    de cada enunciado `Presunta infraccion...` del documento --en la considerativa
+    y en la resolutiva, que se escriben distinto-- y rechaza la que no figure en el
+    catalogo. Verificado: acepta `art.18|art.19`, y rechaza tanto
+    `art.18|art.19|art.77` como `art.18|art.19|art.88|num.88.1`, que es exactamente
+    el error medido en el control 2723-2026 (refundir el 88.1 dentro de 18 y 19 en
+    lugar de imputarlo aparte).
+  - *Como se amplia el catalogo:* no se amplia a mano. Entra una resolucion nueva
+    al corpus y se vuelve a ejecutar `catalogar_imputaciones.py --guardar`. Si una
+    combinacion hace falta y el corpus no la tiene, **se eleva al instructor**: eso
+    es una decision de criterio, no de redaccion.
+  - *Falsador:* un admisorio con una combinacion de normas ausente del catalogo, o
+    un catalogo modificado a mano en vez de regenerado desde el corpus.

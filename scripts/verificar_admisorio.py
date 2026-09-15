@@ -15,6 +15,7 @@ Codigo de salida: 0 si todos los documentos son APTOS, 1 si alguno falla.
 from __future__ import annotations
 
 import re
+from pathlib import Path as pathlib_Path
 import sys
 import zipfile
 from xml.etree import ElementTree as ET
@@ -341,6 +342,57 @@ def prueba_r110_modo_verbal(doc) -> list[str]:
     return fallos
 
 
+
+CATALOGO_IMPUTACIONES = (
+    pathlib_Path(__file__).resolve().parent.parent / "docs" / "catalogo_imputaciones.json"
+)
+
+
+def prueba_r143_imputaciones(doc) -> list[str]:
+    """Solo se imputa como imputan los modelos (mandato del instructor, 15/09/2026).
+
+    Una imputacion no es una frase: es la pieza que fija el objeto del
+    procedimiento, y de ella dependen los descargos, la carga de la prueba y el
+    marco sancionador. Una combinacion de articulos que no existe en ninguna
+    resolucion del corpus crea un cargo que la Comision nunca ha formulado, y el
+    administrado tiene que defenderse de algo que en la practica no existe.
+
+    El corpus admite **35 combinaciones** de normas, extraidas de 630 plantillas
+    por `catalogar_imputaciones.py`. Cualquier otra --aunque cada articulo suelto
+    sea correcto-- es una mezcla inventada.
+    """
+    import json as _json
+    import sys as _sys
+
+    _sys.path.insert(0, str(pathlib_Path(__file__).resolve().parent))
+    import catalogar_imputaciones as CI
+
+    if not CATALOGO_IMPUTACIONES.exists():
+        return []  # sin catalogo no se puede juzgar; no se inventa un veredicto
+    admitidas = set(
+        _json.loads(CATALOGO_IMPUTACIONES.read_text(encoding="utf-8"))["normas_admitidas"]
+    )
+
+    texto = re.sub(r"\s+", " ", " ".join(p.texto for p in doc))
+    fallos = []
+    vistas = set()
+    for m in CI.RE_IMPUTACION.finditer(texto):
+        normas = CI.normas_de(m.group(1))
+        if not normas:
+            continue
+        clave = "|".join(normas)
+        if clave in admitidas or clave in vistas:
+            continue
+        vistas.add(clave)
+        fallos.append(
+            "R-143: la combinacion de normas '%s' no existe en ninguna de las 630 "
+            "plantillas del corpus. Solo se imputa como imputan los modelos: o se "
+            "usa una combinacion admitida, o se eleva al instructor. Enunciado: '%s'"
+            % (clave, re.sub(r"\s+", " ", m.group(0))[:110])
+        )
+    return fallos
+
+
 PRUEBAS = [
     ("R-97  isomorfismo considerativa/resolutiva", lambda d, s, z: prueba_r97_isomorfismo(d), "falsador"),
     ("R-103 firma segun proveedor denunciado", lambda d, s, z: prueba_r103_firma(d), "falsador"),
@@ -352,6 +404,7 @@ PRUEBAS = [
     # clausula entre considerativa y resolutiva y sigue siendo un documento valido.
     ("R-108 espejo del requerimiento de informacion", lambda d, s, z: prueba_r108_requerimiento(d), "observacion"),
     ("R-110 modo verbal en hechos", lambda d, s, z: prueba_r110_modo_verbal(d), "falsador"),
+    ("R-143 imputaciones del catalogo", lambda d, s, z: prueba_r143_imputaciones(d), "falsador"),
 ]
 
 
