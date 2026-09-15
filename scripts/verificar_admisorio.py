@@ -535,6 +535,51 @@ def prueba_r146_esqueleto(doc) -> list[str]:
     return fallos
 
 
+
+# Lexico prohibido, por NIVELES y con la frecuencia medida sobre los 593
+# admisorios del corpus. La diferencia entre niveles importa: una prohibicion que
+# el propio corpus incumple en el 25 % de los casos no es una prohibicion, es una
+# preferencia mal enunciada.
+LEXICO_ABSOLUTO = {          # 0 apariciones en 593 admisorios
+    "tras": ("luego de", 0),
+    "esposo": ("conyuge", 0),
+    "esposa": ("conyuge", 0),
+    "induccion a error": ("arts. 1.1.b y 2", 0),
+    "004-2019-JUS": ("006-2026-JUS", 0),
+}
+LEXICO_CUASI_ABSOLUTO = {    # 1 aparicion (0,17 %): desviacion, no uso
+    "doctor": ("medico", 1),
+    "occiso": ("el causante", 1),
+    "finado": ("el causante", 1),
+    "difunto": ("el causante", 1),
+}
+
+
+def prueba_r148_lexico(doc) -> list[str]:
+    """Las invariantes lexicas, con la frecuencia que las sostiene.
+
+    Se comprueban solo las que el corpus respeta de forma absoluta o casi. Las
+    demas se dejan fuera a proposito: «indebidamente» estaba enunciado como
+    prohibido y aparece en **149 de 593** admisorios (25,1 %). Prohibirlo seria
+    hacer fallar al propio corpus, que es la senal de que la regla estaba mal.
+    """
+    texto = sin_tildes(" ".join(p.texto for p in doc)).lower()
+    fallos = []
+    for termino, (correcto, _freq) in LEXICO_ABSOLUTO.items():
+        if re.search(r"\b%s\b" % re.escape(sin_tildes(termino).lower()), texto):
+            fallos.append(
+                "R-148: usa '%s'; el corpus no lo usa ni una vez en 593 admisorios. "
+                "Escribe '%s'" % (termino, correcto)
+            )
+    for termino, (correcto, freq) in LEXICO_CUASI_ABSOLUTO.items():
+        if re.search(r"\b%s\b" % re.escape(sin_tildes(termino).lower()), texto):
+            fallos.append(
+                "R-148: usa '%s'; aparece %d vez en 593 admisorios (0,2 %%), que es "
+                "desviacion y no uso. Escribe '%s'" % (termino, freq, correcto)
+            )
+    return fallos
+
+
 PRUEBAS = [
     ("R-97  isomorfismo considerativa/resolutiva", lambda d, s, z: prueba_r97_isomorfismo(d), "falsador"),
     ("R-103 firma segun proveedor denunciado", lambda d, s, z: prueba_r103_firma(d), "falsador"),
@@ -549,6 +594,7 @@ PRUEBAS = [
     ("R-143 imputaciones del catalogo", lambda d, s, z: prueba_r143_imputaciones(d), "falsador"),
     ("R-144 fuente, alineacion, interlineado y encuadre", lambda d, s, z: prueba_r144_formato(z), "falsador"),
     ("R-146 esqueleto y ortografia de ordinales", lambda d, s, z: prueba_r146_esqueleto(d), "falsador"),
+    ("R-148 lexico invariante", lambda d, s, z: prueba_r148_lexico(d), "falsador"),
 ]
 
 

@@ -7,6 +7,7 @@
 > **NOMBRE DEL ENTREGABLE (mandato del instructor, 14/09/2026):** `ADM <EXPEDIENTE> R<N>.docx`, donde `<N>` es el número de resolución **que fija la cédula** del expediente. Ejemplo: `ADM 3122-2026 R1.docx`.  
 > **PROTOCOLO DE ENTREGA:** `scripts/verificar_admisorio.py` debe decir `APTO`. Sin esa salida, el admisorio no está entregado.  
 > **REPOSITORIO:** https://github.com/zero-phoenix/SystemHope-ResAdmis
+> **COMO NO SE REDACTA:** `docs/COMO_NO_SE_REDACTA.md` — las prohibiciones por apartado, cada una con la frecuencia medida que la sostiene. Una prohibición sin cifra detrás es una opinión.
 > **ANATOMIA DEL DOCUMENTO:** `docs/ANATOMIA_DEL_ADMISORIO.md` — el esqueleto de diez ordinales, qué comparten los 603 admisorios del corpus y **por qué difieren** los que difieren.
 > **SI EL AGENTE NO OBEDECE:** mira de donde arranca antes de escribir otra corrección (R-142). `python scripts/orquestar.py sanear` y `docs/PLAN_WORKSPACE_ANTIGRAVITY.md`.
 > **SI SUPERVISAS A UN AGENTE:** `docs/SUPERVISION_DE_AGENTES.md` — superficie de control (`scripts/orquestar.py`), qué medir, cuándo intervenir, y el catálogo de fallos medidos del agente **y del supervisor**.

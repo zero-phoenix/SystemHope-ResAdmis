@@ -1098,3 +1098,51 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
     para esa parte, o un numero de ordinales de acuse distinto del numero de partes.
 
 El mapa visual completo esta en `docs/ANATOMIA_DEL_ADMISORIO.md`.
+
+## 91. LO QUE EL CORPUS NO HACE (R-148)
+
+> Prohibiciones derivadas **por ausencia**, medidas sobre los 593 admisorios que
+> quedan tras retirar las 27 plantillas que no eran admisorios. El detalle visual,
+> apartado por apartado, esta en `docs/COMO_NO_SE_REDACTA.md`.
+
+- R-148: **UNA PROHIBICION SIN FRECUENCIA DETRAS ES UNA OPINION:**
+  - **Absolutas (0 de 593):** `tras` (se escribe «luego de»), `esposo/esposa` (se
+    escribe «conyuge»), «induccion a error» (se canaliza por arts. 1.1.b y 2) y el
+    `D.S. 004-2019-JUS` (rige el 006-2026-JUS, presente en el 97,3 %).
+  - **Cuasi-absolutas (1 de 593, 0,17 %):** `doctor` (se escribe «medico»),
+    `difunto`/`occiso`/`finado` (se escribe «el causante»), `carro`/`auto` (se
+    escribe «vehiculo con Placa de Rodaje»), y el monto con punto de miles.
+  - **CORRECCION DE UNA REGLA MAL ENUNCIADA:** estaba escrito que en los hechos se
+    prohibian los calificativos «indebidamente», «arbitrariamente» y «vulnerando
+    la ley». El corpus lo desmiente: **«indebidamente» aparece en 149 de 593
+    admisorios (25,1 %)**. Prohibirlo haria fallar a uno de cada cuatro documentos
+    reales de la Comision. Cuando una regla hace fallar al corpus, esta mal la
+    regla, no el corpus. «arbitraria» (2,4 %) y «vulnerando/incumpliendo» (1,5 %)
+    son infrecuentes, no prohibidos.
+  - **SEGUNDA CORRECCION:** tampoco es cierto que todo hecho deba ir bajo
+    atribucion al denunciante. Las formulas de estilo indirecto --«indico que»
+    (25,6 %), «senalo que» (12,3 %), «preciso que» (2,4 %), «manifesto que»
+    (2,0 %)-- suman ~40 %. **El 60 % narra en indicativo directo con el alias.**
+    Conviven las dos formas, y R-110 solo debe perseguir el indicativo **sin**
+    ninguna de las dos marcas.
+  - *Calibracion:* 0 de 60 plantillas del corpus incumplen R-148, y la regla
+    rechaza «tras», «esposa», «induccion a error» y «el difunto». Probada en los
+    dos sentidos (R-141).
+  - *Falsador:* un termino de los niveles absoluto o cuasi-absoluto dentro de un
+    admisorio; o una prohibicion nueva anadida a este archivo sin la frecuencia
+    medida que la sostenga.
+
+## 92. FORMAS CANONICAS POR APARTADO (R-149)
+
+- R-149: **CADA APARTADO TIENE SU FORMULA, MEDIDA:**
+  - **Hechos, apertura:** «Mediante el escrito del [fecha], el senor [APELLIDO]
+    denuncio a [PROVEEDOR]...» --**78,2 %**--. Las variantes abren por subsanacion
+    o por traslado de otra comision.
+  - **Imputacion, modo verbal:** condicional `habria` en **591 de 593 (99,7 %)**.
+    El indicativo prejuzga el fondo antes de los descargos: es el error mas grave
+    del apartado y el unico que el modo verbal delata por si solo.
+  - **Requerimiento, verbo:** `presentar` --«presentar copia de...» esta en el
+    **99,7 %**--. `remitir` (4 de 593) e `informar sobre si` (7 de 593) son
+    residuos, no formas alternativas. Sub-incisos `(i) (ii)`, nunca letras (R-145).
+  - *Falsador:* un requerimiento que ordene «remitir» en vez de «presentar», o una
+    imputacion en indicativo.
