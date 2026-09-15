@@ -1048,3 +1048,53 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
     adjuntaba usaba `(i)` y `(ii)`. Se resolvio midiendo, que es como habia que
     resolverlo: **gana `(i) (ii)`**.
   - *Falsador:* un requerimiento con incisos en letras.
+
+## 89. ESQUELETO Y ORTOGRAFIA FORENSE DE LOS ORDINALES (R-146)
+
+> Medido sobre los **603 admisorios reales** del corpus. Correccion de censo: de
+> las 630 plantillas, 27 son resoluciones de confidencialidad o decretos cortos.
+> Por eso ninguna medicion de anatomia llegaba al 100 %: el techo del 96 % no era
+> incumplimiento, era el denominador mal puesto.
+
+- R-146: **LA RESOLUTIVA SIGUE LA SECUENCIA DEL CORPUS Y ESCRIBE COMO EL CORPUS:**
+  - Secuencia medida: PRIMERO admitir a tramite (90,0 %) · SEGUNDO medios
+    probatorios (91,4 %) · TERCERO personeria y MYPE (89,6 %) · CUARTO correr
+    traslado (88,7 %) · QUINTO requerimiento de informacion (86,6 %) · SEXTO
+    sancion hasta 450 UIT (90,9 %) · SETIMO costas y gastos · OCTAVO conciliacion
+    (72,3 %) · NOVENO reserva o medida complementaria · DECIMO acuse de recibo
+    (92,9 %). A partir del DECIMO, **un ordinal por parte a notificar**.
+  - **Ortografia forense:** el corpus escribe `SETIMO` (579 veces) y no `SEPTIMO`
+    (12); compone `DECIMO PRIMERO` (485) y `DECIMO SEGUNDO` (152), y **nunca** usa
+    `UNDECIMO` ni `DUODECIMO` --cero apariciones--.
+  - *Calibracion:* 57 de 57 admisorios del corpus pasan. Y la regla **no es vacia**:
+    rechaza `SEPTIMO`, rechaza `UNDECIMO` y rechaza una resolutiva desordenada.
+    Comprobado en negativo antes de darla por buena, que es lo que no se hizo con
+    R-110 (R-141).
+  - *Un falso positivo que costo encontrar:* buscar los ordinales en el texto
+    corrido hacia saltar la regla con la palabra «tercero» de la prosa --7 de 57
+    plantillas--. Solo cuentan los ordinales que **encabezan** un parrafo.
+  - *Falsador:* un ordinal fuera de secuencia, o escrito en una forma que el corpus
+    no usa.
+
+## 90. POR QUE DIFIEREN LOS MODELOS (R-147)
+
+- R-147: **LAS DIFERENCIAS ENTRE ADMISORIOS SON ESTRUCTURALES, NO DE ESTILO:**
+  - **La via de notificacion la fijan las partes**, no el redactor: persona natural
+    -> correo (2 dias); aseguradora o banco con Casilla -> Casilla Electronica (5
+    dias); parte sin canal electronico -> domicilio procesal. Medido: `casilla +
+    correo` es la combinacion dominante en **todos** los tipos de denunciado,
+    porque el reparto tipico es una empresa con casilla y un consumidor con correo.
+    El domicilio procesal aparece en el **6,8 %**.
+  - **El numero de ordinales no es libre:** hay uno de acuse de recibo por cada
+    parte a notificar. De ahi que un admisorio tenga 10, 11 o 12.
+  - Otras diferencias con su causa medida: libro de reclamaciones **7,8 %** (solo
+    si la conducta lo involucra, art. 150); medida correctiva **91,9 %** (falta
+    cuando el denunciante no la pidio); apertura «Mediante el escrito» **79,8 %**
+    (el resto abre por subsanacion o por traslado de otra comision).
+  - *Consecuencia practica:* ante una diferencia entre el modelo y el caso, la
+    pregunta no es «que estilo prefiero» sino **que hecho estructural la causa**.
+    Si no hay ninguno, la diferencia es un error.
+  - *Falsador:* una via de notificacion que no corresponda a la que la cedula fija
+    para esa parte, o un numero de ordinales de acuse distinto del numero de partes.
+
+El mapa visual completo esta en `docs/ANATOMIA_DEL_ADMISORIO.md`.

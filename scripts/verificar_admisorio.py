@@ -467,6 +467,74 @@ def prueba_r144_formato(z) -> list[str]:
     return fallos
 
 
+
+# Esqueleto resolutivo, MEDIDO sobre los 603 admisorios reales del corpus (de 630
+# plantillas, 27 son resoluciones de confidencialidad o decretos cortos: por eso
+# ninguna medicion de anatomia llega al 100 %).
+ESQUELETO = [
+    ("PRIMERO", "admitir a tramite", 90.0),
+    ("SEGUNDO", "medios probatorios ofrecidos", 91.4),
+    ("TERCERO", "personeria y condicion MYPE", 89.6),
+    ("CUARTO", "correr traslado", 88.7),
+    ("QUINTO", "requerimiento de informacion", 86.6),
+    ("SEXTO", "sancion hasta 450 UIT (art. 110)", 90.9),
+    ("SÉTIMO", "costas y gastos (art. 39 D.L. 807)", 0),
+    ("OCTAVO", "conciliacion (art. 29 D.L. 807)", 72.3),
+    ("NOVENO", "reserva o medida complementaria", 0),
+    ("DÉCIMO", "acuse de recibo de la notificacion", 92.9),
+]
+
+# Ortografia de los ordinales: el corpus escribe SETIMO (uso forense peruano), no
+# SEPTIMO --579 contra 12--, y compone el undecimo y el duodecimo como DECIMO
+# PRIMERO (485) y DECIMO SEGUNDO (152). UNDECIMO y DUODECIMO: cero apariciones.
+ORDINAL_PROHIBIDO = {
+    "SÉPTIMO": "SÉTIMO",
+    "SEPTIMO": "SÉTIMO",
+    "UNDÉCIMO": "DÉCIMO PRIMERO",
+    "UNDECIMO": "DÉCIMO PRIMERO",
+    "DUODÉCIMO": "DÉCIMO SEGUNDO",
+    "DUODECIMO": "DÉCIMO SEGUNDO",
+}
+
+
+def prueba_r146_esqueleto(doc) -> list[str]:
+    """El orden de los ordinales y su ortografia, tal como los escribe el corpus.
+
+    No comprueba el contenido de cada articulo --eso lo hacen R-97 y R-108--, sino
+    que la resolutiva siga la secuencia del corpus y que los ordinales se escriban
+    como los escribe la Comision.
+    """
+    texto = re.sub(r"\s+", " ", " ".join(p.texto for p in doc))
+    alto = sin_tildes(texto).upper()
+    fallos = []
+
+    for malo, bueno in ORDINAL_PROHIBIDO.items():
+        if re.search(r"\b%s\b" % sin_tildes(malo).upper(), alto):
+            fallos.append(
+                "R-146: escribe '%s'; el corpus usa '%s' (medido: 579 contra 12)"
+                % (malo, bueno)
+            )
+
+    # Solo cuentan los ordinales que ENCABEZAN un parrafo resolutivo. Buscarlos en
+    # el texto corrido hacia saltar la regla con la palabra «tercero» de la prosa:
+    # 7 de 57 plantillas del corpus daban falso positivo por eso.
+    posiciones = []
+    for i, parrafo in enumerate(doc):
+        cabeza = sin_tildes(parrafo.texto.strip()).upper()
+        for ordinal, _tema, _pct in ESQUELETO:
+            if re.match(r"%s\s*:" % sin_tildes(ordinal).upper(), cabeza):
+                posiciones.append((ordinal, i))
+                break
+    orden_hallado = [o for o, _pos in sorted(posiciones, key=lambda x: x[1])]
+    orden_esperado = [o for o, _t, _p in ESQUELETO if o in orden_hallado]
+    if orden_hallado != orden_esperado:
+        fallos.append(
+            "R-146: los ordinales no siguen la secuencia del corpus. Hallado: %s"
+            % " < ".join(orden_hallado)
+        )
+    return fallos
+
+
 PRUEBAS = [
     ("R-97  isomorfismo considerativa/resolutiva", lambda d, s, z: prueba_r97_isomorfismo(d), "falsador"),
     ("R-103 firma segun proveedor denunciado", lambda d, s, z: prueba_r103_firma(d), "falsador"),
@@ -480,6 +548,7 @@ PRUEBAS = [
     ("R-110 modo verbal en hechos", lambda d, s, z: prueba_r110_modo_verbal(d), "falsador"),
     ("R-143 imputaciones del catalogo", lambda d, s, z: prueba_r143_imputaciones(d), "falsador"),
     ("R-144 fuente, alineacion, interlineado y encuadre", lambda d, s, z: prueba_r144_formato(z), "falsador"),
+    ("R-146 esqueleto y ortografia de ordinales", lambda d, s, z: prueba_r146_esqueleto(d), "falsador"),
 ]
 
 
