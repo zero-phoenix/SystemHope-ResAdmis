@@ -57,27 +57,5 @@ jobs:
 
       - name: El verificador distingue de verdad
         # Una regla que nunca falla no es una regla que se cumple: es una regla
-        # que no se esta ejecutando. R-110 estuvo asi, declarando OK sin
-        # comprobar nada, hasta que se leyeron sus bytes. Aqui se le da un
-        # documento que **debe** rechazar: si lo aprueba, el verificador miente.
-        run: |
-          python - <<'PY'
-          import sys, zipfile, shutil, glob
-          sys.path.insert(0, "scripts")
-          import verificar_admisorio as V
-          modelo = sorted(glob.glob("plantillas_maestras/**/*.docx", recursive=True))[0]
-          roto = "ci_documento_roto.docx"
-          shutil.copy2(modelo, roto)
-          with zipfile.ZipFile(roto) as z:
-              nombres, datos = z.namelist(), {n: z.read(n) for n in z.namelist()}
-          xml = datos["word/document.xml"].decode("utf-8")
-          xml = xml.replace("LUISA ANALI SILVA MALPARTIDA", "QUIEN SEA")
-          datos["word/document.xml"] = xml.encode("utf-8")
-          with zipfile.ZipFile(roto, "w", zipfile.ZIP_DEFLATED) as z:
-              for n in nombres:
-                  z.writestr(n, datos[n])
-          if V.verificar(roto):
-              print("El verificador aprobo un documento que debia rechazar.")
-              raise SystemExit(1)
-          print("El verificador rechaza lo que debe rechazar.")
-          PY
+        # que no se esta ejecutando. Se le da un documento que DEBE rechazar.
+        run: python scripts/prueba_verificador.py
