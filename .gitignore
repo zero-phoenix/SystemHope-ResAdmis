@@ -52,7 +52,10 @@ dist/
 .cursorrules
 .windsurfrules
 CLAUDE.md
-ANALISIS_*.md
+# Acotado el 15/09/2026: 'ANALISIS_*.md' bloqueaba tambien los analisis nuevos
+# de docs/. Se nombran los dos archivos historicos que habia que excluir.
+/ANALISIS_DIFERENCIAS_v103.md
+/ANALISIS_Y_MEJORAS.md
 RESUMEN_FINAL_*.md
 GENERAR_RESOLUCIONES_WORD.md
 GIT_COMMIT_INSTRUCTIONS.md
