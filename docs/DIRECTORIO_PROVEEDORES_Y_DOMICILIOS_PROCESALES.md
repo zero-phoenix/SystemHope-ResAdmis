@@ -78,7 +78,7 @@ A continuación se detalla la vía de notificación procesal institucional de lo
 | **Banco Pichincha S.A.** | 20100105862 | **Casilla Electrónica** | 5 días | SINE Indecopi (Casilla Institucional) |
 | **Banco GNB Perú S.A.** | 20513074495 | **Casilla Electrónica** | 5 días | SINE Indecopi (Casilla Institucional) |
 | **Banco de la Nación** | 20100030595 | **Casilla Electrónica** | 5 días | SINE Indecopi (Casilla Institucional) |
-| **Rímac Seguros y Reaseguros S.A.** | 20100041953 | **Correo Electrónico / Casilla** | 2 / 5 días | Correo formal o SINE según apersonamiento previo |
+| **Rímac Seguros y Reaseguros S.A.** | 20100041953 | **Correo Electrónico** | 2 días | Vía fija, medida en 137 de 137 párrafos de notificación del corpus (18/09/2026) |
 | **Banco de Crédito del Perú S.A. (BCP)** | 20100047218 | **Correo Electrónico / Casilla** | 2 / 5 días | Bandeja formal autorizada o SINE según corresponda |
 | **AFOCATs (Regionales / Provinciales)** | Varios | **Domicilio Procesal / Físico** | 2 días | Cédula física en sede institucional registrada |
 | **Comités CAFAE / Fondos Especiales** | Varios | **Domicilio Procesal / Físico** | 2 días | Cédula física en domicilio legal |

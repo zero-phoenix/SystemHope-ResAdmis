@@ -123,8 +123,22 @@ def prueba_r97_isomorfismo(doc) -> list[str]:
             nucleos_cons.append(re.sub(r"\s+", " ", m.group(1)).strip())
     nucleos_res = []
     for p in doc:
+        # Formato A/B (458 de 593): la imputacion va en vineta propia.
         m = re.search(
             r"Presunta infracci[oó]n .*?, en tanto (.+?)\s*\.\s*$", p.texto, re.S
+        )
+        if m:
+            nucleos_res.append(re.sub(r"\s+", " ", m.group(1)).strip())
+            continue
+        # Formato C (121 de 593): imputacion unica EMBEBIDA en el propio PRIMERO.
+        # Medido el 18/09/2026: la version anterior de esta prueba solo veia el
+        # formato de vineta y daba NO APTO a uno de cada cinco admisorios validos
+        # del corpus. Falsador de la correccion: un admisorio en formato C cuyo
+        # nucleo sea verbatim y que aun asi sea rechazado por R-97.
+        m = re.search(
+            r"^\s*PRIMERO\s*:.*?\bpor\s+(?:la\s+)?presunta[s]?\s+infracci[oó]n(?:es)?\b"
+            r".*?,\s*en tanto (.+?)\s*\.\s*$",
+            p.texto, re.S | re.I
         )
         if m:
             nucleos_res.append(re.sub(r"\s+", " ", m.group(1)).strip())
@@ -186,11 +200,17 @@ def prueba_r108_requerimiento(doc) -> list[str]:
 
 
 def prueba_r103_firma(doc) -> list[str]:
-    """Mandato del instructor (14/09/2026): firma unica.
+    """R-103 (mandato del instructor, 18/09/2026): matriz de firma.
 
-    Todos los admisorios firman LUISA ANALI SILVA MALPARTIDA con el cargo
-    'Secretaria Tecnica (e)'. Ninguno firma EVELING ROA QUISPE y ninguno usa
-    la designacion 'Ad Hoc'.
+    Eveling Roa Quispe firma como Secretaria Tecnica TODOS los admisorios,
+    salvo las denuncias contra Rimac, que firma Luisa Anali Silva Malpartida
+    como Secretaria Tecnica Ad Hoc. El sufijo '(e)' queda suprimido.
+
+    Este mandato deroga la firma unica del 14/09/2026 (R-127), que ademas el
+    corpus nunca corroboro: 494 de 593 plantillas firman Eveling Roa Quispe.
+
+    Falsador: un admisorio contra Rimac firmado por la titular, un admisorio
+    contra cualquier otro proveedor firmado Ad Hoc, o la aparicion de '(e)'.
     """
     texto_doc = sin_tildes(" ".join(p.texto for p in doc)).upper()
     denunciado = ""
@@ -199,23 +219,23 @@ def prueba_r103_firma(doc) -> list[str]:
         if t.startswith("DENUNCIADO"):
             denunciado = t
             break
-    if not denunciado:
-        return ["R-103: no se hallo la linea DENUNCIADO en el encabezado"]
+    es_rimac = "RIMAC" in denunciado
     fallos = []
-    if FIRMA_MANDATO not in texto_doc:
-        fallos.append(
-            "R-103: no firma %s (mandato del instructor del 14/09/2026)" % FIRMA_MANDATO
-        )
-    if CARGO_MANDATO not in texto_doc:
-        fallos.append("R-103: falta el cargo 'Secretaria Tecnica (e)' bajo el nombre")
-    if FIRMA_PROHIBIDA in texto_doc:
-        fallos.append(
-            "R-103: firma %s, prohibida por mandato del instructor" % FIRMA_PROHIBIDA
-        )
-    if "AD HOC" in texto_doc:
-        fallos.append("R-103: aparece una designacion 'Ad Hoc', prohibida por mandato")
+    if "SECRETARIA TECNICA (E)" in texto_doc:
+        fallos.append("R-103: el cargo lleva '(e)', suprimido por mandato del 18/09/2026")
+    if es_rimac:
+        if "LUISA ANALI SILVA MALPARTIDA" not in texto_doc:
+            fallos.append("R-103: denuncia contra Rimac y no firma LUISA ANALI SILVA MALPARTIDA")
+        if "SECRETARIA TECNICA AD HOC" not in texto_doc:
+            fallos.append("R-103: denuncia contra Rimac sin el cargo 'Secretaria Tecnica Ad Hoc'")
+        if "EVELING ROA QUISPE" in texto_doc:
+            fallos.append("R-103: denuncia contra Rimac firmada por EVELING ROA QUISPE")
+    else:
+        if "EVELING ROA QUISPE" not in texto_doc:
+            fallos.append("R-103: no firma EVELING ROA QUISPE (mandato del 18/09/2026)")
+        if "AD HOC" in texto_doc:
+            fallos.append("R-103: designacion 'Ad Hoc' fuera de una denuncia contra Rimac")
     return fallos
-
 
 def prueba_r104_negritas(doc) -> list[str]:
     """El rotulo ordinal de todo articulo resolutivo va en negrita, sin excepcion."""

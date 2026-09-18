@@ -52,7 +52,7 @@ datos ya estan hechos y no hay que rehacerlos.
 1. **PROHIBICIÓN ESTRICTA DE OCR (R-137):** Jamás transcribir denuncias con OCR clásico ni extractores que rompan coordenadas o inventen datos. **Toda** página de **todo** PDF del expediente se analiza con Google Lens / visión directa, esté escaneada o no, tenga capa de texto o no. No existe la excepción del «PDF nativo».
 2. **SOLO SE IMPUTA COMO IMPUTAN LOS MODELOS (R-143):** prohibido inventar combinaciones de artículos o mezclar imputaciones distintas en una sola. El corpus admite **64 combinaciones**, catalogadas en `docs/catalogo_imputaciones.json`. Si la que hace falta no está, se eleva al instructor.
 2. **TUO LPAG ACTUALIZADO:** Siempre citar el **Decreto Supremo 006-2026-JUS**. Prohibida cualquier mención al D.S. 004-2019-JUS.
-3. **PROHIBICIÓN DE 'INDUCCIÓN A ERROR':** Nunca imputar por el Artículo 3° ni emplear la frase 'inducción a error'. Todas las fallas de información se canalizan por los Artículos 1°, numeral 1, literal b) y 2° del Código de Protección y Defensa del Consumidor.
+3. **PROHIBICIÓN DE 'INDUCCIÓN A ERROR':** Nunca imputar por el artículo 3 ni emplear la frase 'inducción a error'. Todas las fallas de información se canalizan por el **artículo 1, numeral 1, literal b) y al artículo 2** del Código, que es la forma literal del corpus (192 imputaciones y 230 cierres de considerativa; «los artículos 1 y 2» aparece **0 veces en 593**). Prohibida la volada ordinal pegada a un número.
 4. **TIEMPOS VERBALES OBLIGATORIOS:**
    - **En Antecedentes / Hechos:** Pasado indicativo afirmativo ("señaló", "contrató", "solicitó"). PROHIBIDO usar la palabra 'denunciante' en el cuerpo narrativo; usar el nombre de pila o 'el señor / la señora [Apellido]'.
    - **En Imputación de Cargos:** Condicional obligatorio ("habría denegado", "habría omitido", "habría realizado cobros").
@@ -76,20 +76,52 @@ En la sección resolutiva final de todo admisorio, se coloca indefectiblemente e
 
 ### TIPO 2: VÍA CORREO ELECTRÓNICO (AUTORIZACIÓN EXPRESA - 2 DÍAS)
 *Para consumidores y proveedores con dirección electrónica autorizada:*
-> *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su[s] bandeja[s] de correo electrónico, efectúe[n] la confirmación de recepción de la notificación remitida por este despacho a su[s] correo[s] electrónico[s], de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle[s] conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
+> *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su[s] bandeja[s] de correo electrónico, efectúe[n] la confirmación de recepción de la notificación remitida por este despacho a su[s] correo[s] electrónico[s], de conformidad con el segundo párrafo del numeral 4 del artículo 20 del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle[s] conforme al numeral 1 del artículo 20 del citado cuerpo normativo."*
 
 ### TIPO 3: VÍA DOMICILIO PROCESAL / CÉDULA FÍSICA (2 DÍAS)
 *Para denunciantes sin correo, AFOCATs, fondos especiales (CAFAE) o proveedores sin casilla:*
-> *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su domicilio procesal, efectúe[n] la confirmación de recepción de la notificación remitida por este despacho a su domicilio procesal, de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle[s] conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
+> *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su domicilio procesal, señale[n] un correo electrónico autorizando recibir las notificaciones correspondientes por dicho medio."*
+
+> **Corrección medida (18/09/2026):** la versión anterior de este párrafo pedía un
+> **acuse de recibo** en el domicilio procesal. El corpus lo desmiente: de los 43
+> párrafos por domicilio procesal, **37 (86 %)** piden *señalar un correo
+> electrónico* y solo 6 piden acuse, tres de ellos malformados. Los modelos
+> `MODELO_1_DDO.docx` y `MODELO_2_DDOS.docx` confirman la forma correcta.
+> **La vía 3 no pide acuse: pide que se designe un correo.**
 
 ---
 
 ## 3. DOMICILIOS PROCESALES Y VÍAS OFICIALES POR PROVEEDOR
-- **Casilla Electrónica (SINE Indecopi):** Pacífico Compañía de Seguros, Mapfre Perú Compañía de Seguros, Interseguro Compañía de Seguros, La Positiva Seguros y Reaseguros, BNP Paribas Cardif, Chubb Perú, Quálitas Compañía de Seguros, Protecta Compañía de Seguros, Crecer Seguros, Vivir Seguros Compañía de Seguros de Vida, Banco BBVA Perú, Scotiabank Perú, Interbank, Empresa de Créditos Santander Consumo Perú, Banco Falabella, Banco Ripley, Banco Pichincha, Banco GNB.
+
+> **Mandato del instructor (18/09/2026), corroborado por el corpus:** la vía de
+> cada proveedor es **fija**, no depende de apersonamiento previo.
+
+- **Casilla Electrónica (SINE Indecopi) — 5 días:** **Pacífico Compañía de Seguros
+  (152 de 152)**, **Interseguro Compañía de Seguros (67 de 67)**, Mapfre Perú
+  Compañía de Seguros (100 de 100), La Positiva Seguros y Reaseguros (48 de 48),
+  La Positiva Vida (12 de 12), Chubb Perú (11 de 11), Protecta (3 de 3), Quálitas,
+  BNP Paribas Cardif, Crecer Seguros, Vivir Seguros, Banco BBVA Perú, Empresa de
+  Créditos Santander Consumo Perú, Banco Falabella, Diners Club Perú.
+- **Correo electrónico autorizado — 2 días:** **Rímac Seguros y Reaseguros
+  (137 de 137)**, Banco de Crédito del Perú — BCP (28 de 29), Scotiabank Perú
+  (7 de 7), Interbank (7 de 7), Banco Ripley (2 de 2).
+- **Domicilio Procesal / Cédula Física — 2 días:** AFOCATs provinciales y
+  regionales, Comités de Administración CAFAE, corredores de seguros, talleres y
+  personas naturales denunciadas sin canal electrónico.
+
+> **Corrección medida (18/09/2026):** la versión anterior clasificaba a Rímac y al
+> BCP como «Correo Electrónico / Casilla, según apersonamiento previo». El corpus
+> no es ambiguo: **Rímac va por correo en 137 de 137** y el BCP en 28 de 29. La
+> ambigüedad no describía la práctica. Rímac figuraba además, por error, en la
+> lista de Casilla Electrónica.
+
 - **La cédula de notificación de la carpeta manda sobre esta lista (R-129):** de ella se
   toman las partes y el domicilio procesal; la vía que indique es la que se usa.
-- **Correo Electrónico Autorizado / Casilla:** Rímac Seguros y Reaseguros, Banco de Crédito del Perú (BCP).
-- **Domicilio Procesal / Cédula Física:** AFOCATs provinciales/regionales, Comités de Administración CAFAE, talleres y personas naturales denunciadas.
+- **Un ordinal por VÍA, no por parte (R-147, corregida el 18/09/2026):** dos partes
+  que comparten vía van **en el mismo ordinal**, con el verbo en plural y unidas
+  por «y a»/«y al» (93 plantillas). Dos vías distintas, dos ordinales (362
+  plantillas). Fundir dos vías distintas con «; y,» **no ocurre ni una sola vez en
+  1 087 párrafos de notificación**.
 
 ---
 
@@ -116,10 +148,13 @@ El repositorio contiene **605 plantillas Word (.docx) depuradas** en `plantillas
 ---
 
 ## 6. FIRMA DIGITAL ÚNICA Y VERIFICACIÓN (R-103, R-127)
-- **Mandato del instructor (14/09/2026): firma única.** Todos los admisorios firman
-  **LUISA ANALÍ SILVA MALPARTIDA**, cargo `Secretaria Técnica (e)`. **Nunca** EVELING ROA
-  QUISPE. **Nunca** designación `Ad Hoc`. Refrendo: se copia del control o de la cédula
-  del caso (observados: `LSQ/DCQ`, `LSQ/JCQ`); no se inventa.
+- **Mandato del instructor (18/09/2026): firma según el proveedor denunciado.**
+  **EVELING ROA QUISPE**, cargo `Secretaria Técnica`, firma **todos** los admisorios,
+  salvo las denuncias contra **Rímac**, que firma **LUISA ANALÍ SILVA MALPARTIDA**
+  con el cargo `Secretaria Técnica Ad Hoc`. **El sufijo `(e)` queda suprimido.**
+  Este mandato deroga la firma única del 14/09/2026, que el corpus nunca corroboró:
+  494 de 593 plantillas firman Eveling Roa Quispe. Refrendo: se copia del control o
+  de la cédula del caso; no se inventa.
 - **Isomorfismos Verbatim (R-97 / R-108):**
   - El núcleo fáctico de imputaciones es idéntico entre la considerativa (Sección II) y el resolutivo (`PRIMERO:`, etc.).
   - El requerimiento de información probatorio debe ser idéntico palabra por palabra entre la considerativa (Sección III) y el resolutivo (`QUINTO:`). Se verifica como **observación**: una divergencia no bloquea la entrega, se eleva al instructor.
