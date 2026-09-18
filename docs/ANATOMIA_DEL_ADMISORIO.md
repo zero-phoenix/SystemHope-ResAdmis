@@ -5,7 +5,7 @@
 
 ## 0. Primero, una corrección de censo
 
-De las **630 plantillas**, solo **603 son admisorios**. Las otras 27 son
+De las **593 plantillas** del árbol actual, **566 son admisorios**. Las otras 27 son
 resoluciones de confidencialidad (esquema `ANTECEDENTES / ANÁLISIS / SE RESUELVE`)
 y decretos cortos (`VISTO / CONSIDERANDO / SE HA RESUELTO`). Por eso ninguna
 medición de anatomía llega al 100 %: ese techo del ~96 % **no es incumplimiento,

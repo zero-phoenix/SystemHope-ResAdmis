@@ -1,6 +1,30 @@
 # DIRECTRICES MAESTRAS DEL SISTEMA (AGENTS.md)
 # SISTEMA DE EMISION DE RESOLUCIONES ADMISORIAS INDECOPI CC1
 
+```
+╔══════════════════════════════════════════════════════════════════════════════╗
+║  ANCLAJE OBLIGATORIO — LÉELO ANTES DE CUALQUIER OTRA COSA                    ║
+╠══════════════════════════════════════════════════════════════════════════════╣
+║  Este archivo solo gobierna si lo has cargado DESDE LA RAÍZ DE ESTE          ║
+║  REPOSITORIO. Antigravity arrancaba en `_ConfigIA/.resadmi`, una carpeta     ║
+║  con una sola subcarpeta, y desde ahí no existen ni AGENTS.md, ni scripts/,  ║
+║  ni plantillas_maestras/. Esa raíz equivocada es la causa raíz MEDIDA de     ║
+║  casi todos los fallos del agente (R-142).                                   ║
+║                                                                              ║
+║      Antigravity  →  Add Workspace  →  la raíz de SystemHope-ResAdmis        ║
+║                                                                              ║
+║  PRIMER COMANDO DE TODA SESIÓN, SIN EXCEPCIÓN:                               ║
+║      python scripts/comprobar_anclaje.py                                     ║
+║                                                                              ║
+║  Si devuelve error, PARA. No redactes. No busques los scripts con -Recurse.  ║
+║  No abras otro proyecto. Arregla el workspace y vuelve.                      ║
+║                                                                              ║
+║  `admisorio.py preparar` llama a esa comprobación y se detiene si falla:     ║
+║  no es un aviso que puedas olvidar, es una puerta cerrada.                   ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+```
+
+
 > **AUTORIDAD:** Indecopi Comisión de Protección al Consumidor  1 (CC1)  
 > **NORMA MARCO:** Decreto Supremo 006-2026-JUS  
 > **PROTOCOLO DE LECTURA (R-137):** cero OCR, **Google Lens en todas las páginas**, tengan o no capa de texto. `scripts/extraer_expediente.py` va primero, pero no para ahorrar lectura: da el número real de páginas (R-136), el dossier anclado y el texto embebido, que sirve de **contraste**. Si el volcado y lo que Lens ve discrepan, **manda Lens**.  
@@ -115,8 +139,42 @@ En la sección resolutiva final de todo admisorio, se coloca indefectiblemente e
 > ambigüedad no describía la práctica. Rímac figuraba además, por error, en la
 > lista de Casilla Electrónica.
 
+### La Casilla Electrónica tiene tres requisitos, y son condición NECESARIA (R-151)
+
+> **Mandato del instructor (18/09/2026).** Solo procede notificar a Casilla
+> Electrónica cuando el registro en el padrón de Términos y Condiciones está
+> **ACTIVO**, tiene **número de e-casilla** y tiene **teléfono móvil registrado y
+> no vacío**. Si falta cualquiera de los tres, **la casilla está prohibida** y la
+> parte se notifica por correo electrónico o por domicilio procesal.
+
+Es condición **necesaria, no suficiente**: estar habilitado no obliga a usar la
+casilla —eso lo fija la cédula (R-129)—, pero **no estarlo la prohíbe**.
+
+La lista viva está en **`docs/casillas_habilitadas.json`**, que produce
+`scripts/filtrar_casillas.py` desde el padrón. `verificar_admisorio.py` la lee y
+falsa cualquier admisorio que notifique a casilla a quien no la tiene habilitada.
+
+**El padrón no se versiona.** Trae 30 105 registros con DNI, nombres, correos y
+teléfonos de consumidores, y este repositorio es público. Solo se publica el
+veredicto por proveedor: ni una persona natural, ni un dato de contacto.
+
+Medido sobre el padrón del 17/09/2026: de 30 005 registros activos, **13 244
+(44 %) no tienen teléfono móvil**, luego no admiten casilla. Entre ellos:
+**Rímac Seguros y Reaseguros (de baja en el padrón)**, Banco de Crédito del Perú,
+Banco Ripley, Banco Pichincha (de baja), Financiera Proempresa, Fovipol y varias
+AFOCAT y Sub CAFAE. Los tres cruces coinciden con lo que el corpus ya medía: Rímac
+por correo en 137 de 137, el BCP en 28 de 29, Ripley en 2 de 2.
+
+Actualizar la lista tras recibir un padrón nuevo:
+
+```bash
+python scripts/filtrar_casillas.py <ReportePersonas....xlsx>
+python scripts/filtrar_casillas.py <ReportePersonas....xlsx> --verificar
+```
+
 - **La cédula de notificación de la carpeta manda sobre esta lista (R-129):** de ella se
-  toman las partes y el domicilio procesal; la vía que indique es la que se usa.
+  toman las partes y el domicilio procesal; la vía que indique es la que se usa,
+  **siempre que R-151 la permita**.
 - **Un ordinal por VÍA, no por parte (R-147, corregida el 18/09/2026):** dos partes
   que comparten vía van **en el mismo ordinal**, con el verbo en plural y unidas
   por «y a»/«y al» (93 plantillas). Dos vías distintas, dos ordinales (362
@@ -126,7 +184,7 @@ En la sección resolutiva final de todo admisorio, se coloca indefectiblemente e
 ---
 
 ## 4. TAXONOMÍA Y LOCALIZACIÓN DE PLANTILLAS
-El repositorio contiene **605 plantillas Word (.docx) depuradas** en `plantillas_maestras/`:
+El repositorio contiene **593 plantillas Word (.docx) depuradas** en `plantillas_maestras/`:
 - `01_seguro_vehicular` (174) | `02_seguro_vida` (134) | `03_seguro_desgravamen` (66)
 - `04_seguro_proteccion_tarjetas_y_dinero` (37) | `05_soat_y_afocat` (43) | `06_seguro_hogar_e_inmuebles` (20)
 - `07_seguro_sctr` (18) | `08_seguro_salud_eps_oncologico` (12) | `09_seguro_patrimonial_caucion_rc` (10)
@@ -138,7 +196,9 @@ El repositorio contiene **605 plantillas Word (.docx) depuradas** en `plantillas
 
 ## 5. PARÁMETROS DE ESTILO VISUAL CC1
 - **Fuente:** `Arial Narrow` (11 pt cuerpo de texto, 8 pt notas al pie y encabezados).
-- **Márgenes A4:** Superior 2.5 cm, Inferior 2.5 cm, Izquierdo 3.0 cm, Derecho 2.5 cm.
+- **Márgenes A4:** Superior 2,5 cm, Inferior 2,5 cm, Izquierdo 3,0 cm, **Derecho 3,0 cm**
+  (medido: 113 de 116 secciones del corpus; el valor 2,5 que figuraba aquí estaba falsado
+  y hacía fallar R-144, que sí está implementada en el verificador).
 - **Interlineado:** Sencillo 1.0, espaciado `0 pt antes / 0 pt después`.
 - **Sangrías Institucionales:**
   - Hechos: Izquierda `0.79"` (2.0 cm), Francesa `-0.39"` (-1.0 cm).
@@ -213,7 +273,7 @@ Se entrega con `APTO`, pegando la salida literal.
   COM y una causa medida de cuelgue.
 - **Velocidad con calidad:** un admisorio son **cuatro pasos y ≤ 12 llamadas** (F3 a F5 y
   F14 de `docs/PLAN_VELOCIDAD_SIN_COLGARSE.md`). Prohibido releer lo ya leído o abrir las
-  605 plantillas a mano: la base se elige por índice en una llamada.
+  593 plantillas a mano: la base se elige por índice en una llamada.
 - **La ley de la latencia (R-134, medida):** la sesión del Exp. 3054-2026 duró 1178 s con
   **67 llamadas reales** — **17,6 s por llamada, haga o no trabajo**; los huecos de
   decisión suman 6 s en total. El cómputo útil de un admisorio es ~12 s. Luego

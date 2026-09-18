@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 # Version and metadata
-VERSION = "2.0.0"
+VERSION = "2.1.0"
 AUTHOR = "SystemHope / Indecopi CC1 Phoenix"
 LPAG_NORM = "Decreto Supremo 006-2026-JUS"
 REPO_URL = "https://github.com/zero-phoenix/SystemHope-ResAdmis"
@@ -93,7 +93,7 @@ def cmd_info(args: argparse.Namespace) -> int:
     print(" • Tipografía Oficial: Arial Narrow 11 pt (Cuerpo) / 8 pt (Pies y Notas)")
     print(" • Formato de Moneda: S/ X XXX,XX o US$ X XXX,XX (Espacio para miles, coma decimal)")
     print(" • Reglas Popperianas: R-01 a R-95 activas (Cero inducción a error, condicional habría)")
-    print(" • Vías de Notificación: 3 párrafos resolutivos literales estrictos (Casilla, Correo, Cédula)")
+    print(" • Vías de Notificación: 3 párrafos literales. Casilla solo con padrón activo, e-casilla y teléfono (R-151)")
     print(f" • Catálogo de Plantillas: {len(templates)} plantillas Word (.docx) indexadas y depuradas")
     print(f" • Directorio de Proveedores: {len(providers)} entidades aseguradoras y financieras registradas")
     print(" • Modo de Ejecución: Autónomo (CLI / Servidor MCP para AI IDEs Desktop)")
@@ -344,20 +344,24 @@ En la sección resolutiva final de todo admisorio, se coloca indefectiblemente e
 ### TIPO 1: VÍA CASILLA ELECTRÓNICA (SINE INDECOPI - 5 DÍAS)
 *Para compañías de seguros y bancos afiliados obligatoriamente:*
 > *"requerir a [PROVEEDOR(ES)] para que efectúe[n] el acuse de recibo mediante la confirmación de recepción de la notificación remitida por este despacho a su[s] Casilla[s] Electrónica[s], dentro de los cinco (5) primeros días hábiles siguientes a la fecha en que recibe[n] la notificación."*
+>
+> **R-151:** solo procede si el proveedor figura habilitado en `docs/casillas_habilitadas.json`.
 
 ### TIPO 2: VÍA CORREO ELECTRÓNICO (AUTORIZACIÓN EXPRESA - 2 DÍAS)
 *Para consumidores y proveedores con dirección electrónica autorizada:*
 > *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su[s] bandeja[s] de correo electrónico, efectúe[n] la confirmación de recepción de la notificación remitida por este despacho a su[s] correo[s] electrónico[s], de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle[s] conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
 
 ### TIPO 3: VÍA DOMICILIO PROCESAL / CÉDULA FÍSICA (2 DÍAS)
-*Para denunciantes sin correo, AFOCATs, fondos especiales (CAFAE) o proveedores sin casilla:*
+*Para denunciantes sin correo, AFOCATs, fondos especiales (CAFAE) o proveedores sin casilla. El corpus no pide acuse aquí: pide señalar un correo (37 de 43):*
 > *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su domicilio procesal, efectúe[n] la confirmación de recepción de la notificación remitida por este despacho a su domicilio procesal, de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle[s] conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
 
 ---
 
 ## 3. DOMICILIOS PROCESALES Y VÍAS OFICIALES POR PROVEEDOR
-- **Casilla Electrónica (SINE Indecopi):** Pacífico Compañía de Seguros, Mapfre Perú Compañía de Seguros, Interseguro Compañía de Seguros, La Positiva Seguros y Reaseguros, BNP Paribas Cardif, Chubb Perú, Quálitas Compañía de Seguros, Protecta Compañía de Seguros, Crecer Seguros, Banco BBVA Perú, Scotiabank Perú, Interbank, Empresa de Créditos Santander Consumo Perú, Banco Falabella, Banco Ripley, Banco Pichincha, Banco GNB.
-- **Correo Electrónico Autorizado / Casilla:** Rímac Seguros y Reaseguros, Banco de Crédito del Perú (BCP).
+- **Casilla Electrónica (5 días)** — solo con padrón ACTIVO, número de e-casilla y teléfono móvil no vacío (R-151): Pacífico, Mapfre Perú, Interseguro, La Positiva (Seguros y Vida), Chubb Perú, Protecta, Quálitas, Crecer Seguros, Vivir Seguros, BNP Paribas Cardif, Banco BBVA Perú, Banco Falabella, Banco GNB, Interbank, Banco Santander Perú, Empresa de Créditos Santander Consumo, Diners Club Perú, Autoplan, Pandero.
+- **Correo electrónico (2 días)** — no admiten casilla: **Rímac Seguros y Reaseguros (de baja en el padrón)**, Banco de Crédito del Perú, Banco Ripley, Banco Pichincha (de baja), Scotiabank.
+- **Domicilio procesal (2 días):** AFOCAT sin teléfono, Sub CAFAE, Financiera Proempresa, Fovipol, corredores de seguros y personas naturales denunciadas.
+- La lista viva es `docs/casillas_habilitadas.json`. **La cédula manda sobre ella (R-129), pero R-151 es condición necesaria: sin los tres requisitos la casilla está prohibida.**
 - **Domicilio Procesal / Cédula Física:** AFOCATs provinciales/regionales, Comités de Administración CAFAE, talleres y personas naturales denunciadas.
 
 ---

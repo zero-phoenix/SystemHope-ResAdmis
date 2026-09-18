@@ -9,7 +9,7 @@ Paquete principal. Los módulos clave son:
 - ``gui``           — interfaz Tkinter para el ejecutable.
 """
 
-__version__ = "2.0.0"
+__version__ = "2.1.0"
 __all__ = [
     "rules_engine",
     "system_prompt",

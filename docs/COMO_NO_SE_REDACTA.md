@@ -28,7 +28,7 @@ traslado de otra comisión.
 
 | ✗ No | ✓ Sí | Evidencia |
 |---|---|---|
-| `tras el rechazo` | `luego de el rechazo` | **0 de 593** usan «tras» |
+| `tras el rechazo` | `luego del rechazo` | **0 de 593** usan «tras» |
 | `su esposa presentó` | `su cónyuge presentó` | **0 de 593** usan «esposo/a» |
 | `el difunto`, `el occiso`, `el finado` | `el causante` | **1 de 593** |
 | `el doctor indicó` | `el médico indicó` | **1 de 593** |

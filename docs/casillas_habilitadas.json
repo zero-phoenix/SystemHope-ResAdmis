@@ -1,0 +1,190 @@
+{
+ "_regla": "Solo procede la Casilla Electronica con estado ACTIVA, numero de e-casilla y telefono movil no vacio. Condicion NECESARIA: la cedula decide la via (R-129), pero sin los tres requisitos la casilla esta prohibida.",
+ "_fuente": "Padron de aceptacion de TyC de la Casilla Electronica del Indecopi. El padron NO se versiona: contiene datos personales y este repositorio es publico. Aqui solo constan personas juridicas proveedoras de la CC1 y su veredicto.",
+ "_universo": {
+  "ACTIVA": 30005,
+  "DE BAJA": 99,
+  "con_telefono": 16860,
+  "sin_telefono": 13244
+ },
+ "_habilitados": 29,
+ "_no_habilitados": 15,
+ "proveedores": {
+  "ASOC DE FONDOS CONTRA ACCIDENTES DE TRANSITO  AFOCAT NSTRA SRA DE LA ASUNCIO": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "ASOCIAC  FONDO CONTRA ACCIDEN  DE TRANS  DE LA REGION AREQ  Y ANEX    AFOCAT RAVISUR": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "ASOCIACION FONDO CONTRA ACCIDENTES DE TRANSITO LIDER PERU": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "ASOCIACION FONDO CONTRA ACCIDENTES DE TRANSITO LIMA METROPOLITANA AFOCAT LIMA METROPOLITANA": {
+   "casilla_habilitada": false,
+   "motivo": "sin teléfono móvil registrado"
+  },
+  "ASOCIACION FONDO CONTRA ACCIDENTES DE TRANSITO MACRO REGION CENTRO NOR ORIENTE": {
+   "casilla_habilitada": false,
+   "motivo": "sin teléfono móvil registrado"
+  },
+  "ASOCIACION FONDO CONTRA ACCIDENTES DE TRANSITO PREMIUM   AFOCAT PREMIUM": {
+   "casilla_habilitada": false,
+   "motivo": "sin teléfono móvil registrado"
+  },
+  "AUTOPLAN EMPRESA ADMINISTRADORA DE FONDOS COLECTIVOS S A": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "BANCO BBVA PERU": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "BANCO DE CREDITO DEL PERU": {
+   "casilla_habilitada": false,
+   "motivo": "sin teléfono móvil registrado"
+  },
+  "BANCO DE LA NACION": {
+   "casilla_habilitada": false,
+   "motivo": "de baja en el padrón"
+  },
+  "BANCO FALABELLA PERU S A": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "BANCO GNB PERU S A": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "BANCO INTERNACIONAL DEL PERU INTERBANK": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "BANCO PICHINCHA": {
+   "casilla_habilitada": false,
+   "motivo": "de baja en el padrón"
+  },
+  "BANCO RIPLEY PERU S A": {
+   "casilla_habilitada": false,
+   "motivo": "sin teléfono móvil registrado"
+  },
+  "BANCO SANTANDER PERU S A": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "BBVA CONSUMER FINANCE ENTIDAD DE DESARROLLO A LA PEQUENA Y MICRO EMPRESA EDPYME": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "BNP PARIBAS CARDIF S A  COMPANIA DE SEGUROS Y REASEGUROS": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "BNP PARIBAS CARDIF SERVICIOS S A C": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "CAJA MUNICIPAL DE AHORRO Y CREDITO CUSCO S A    CMAC CUSCO S A": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "CAJA MUNICIPAL DE AHORRO Y CREDITO DE AREQUIPA S A    CAJA AREQUIPA": {
+   "casilla_habilitada": false,
+   "motivo": "de baja en el padrón"
+  },
+  "CAJA MUNICIPAL DE AHORRO Y CREDITO DE ICA SA": {
+   "casilla_habilitada": false,
+   "motivo": "sin teléfono móvil registrado"
+  },
+  "CENTRO FEDERADO DE EMPLEADOS DEL BANCO BBVA PERU": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "CHUBB PERU S A  COMPANIA DE SEGUROS Y REASEGUROS": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "CRECER SEGUROS S A  COMPANIA DE SEGUROS": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "DINERS CLUB PERU S A": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "EMPRESA DE CREDITOS SANTANDER CONSUMO PERU S A": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "FINANCIERA PROEMPRESA S A": {
+   "casilla_habilitada": false,
+   "motivo": "sin teléfono móvil registrado"
+  },
+  "FONDO DE EMPLEADOS DEL BANCO DE LA NACION": {
+   "casilla_habilitada": false,
+   "motivo": "sin teléfono móvil registrado"
+  },
+  "FONDO DE VIVIENDA POLICIAL  FOVIPOL": {
+   "casilla_habilitada": false,
+   "motivo": "sin teléfono móvil registrado"
+  },
+  "INTERSEGURO COMPANIA DE SEGUROS S A": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "LA POSITIVA SEGUROS Y REASEGUROS S A A": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "LA POSITIVA VIDA SEGUROS Y REASEGUROS": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "MAPFRE PERU COMPANIA DE SEGUROS Y REASEGUROS S A": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "MAPFRE PERU VIDA COMPANIA DE SEGUROS Y REASEGUROS": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "PACIFICO COMPANIA DE SEGUROS Y REASEGUROS": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "PANDERO S A  EAFC": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "PROTECTA S A  COMPANIA DE SEGUROS": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "QUALITAS COMPANIA DE SEGUROS S A": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "RIMAC SEGUROS Y REASEGUROS": {
+   "casilla_habilitada": false,
+   "motivo": "de baja en el padrón"
+  },
+  "SANTANDER FINANCIAMIENTOS S A": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  },
+  "SUB CAFAE  DEL HOSPITAL NACIONAL DOCENTE MADRE NINO SAN BARTOLOME": {
+   "casilla_habilitada": false,
+   "motivo": "sin teléfono móvil registrado"
+  },
+  "SUB CAFAE ICA SUB REGIONAL DE EDUCACION": {
+   "casilla_habilitada": false,
+   "motivo": "sin teléfono móvil registrado"
+  },
+  "VIVIR SEGUROS COMPANIA DE SEGUROS DE VIDA S A": {
+   "casilla_habilitada": true,
+   "motivo": "activa, con casilla y con teléfono"
+  }
+ }
+}

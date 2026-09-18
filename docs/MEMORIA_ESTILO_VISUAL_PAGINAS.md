@@ -76,7 +76,7 @@
 - `I.    HECHOS`
 - `II.   DE LA ADMISIÓN A TRÁMITE DE LA DENUNCIA`
 - `III.  REQUERIMIENTO DE INFORMACIÓN`
-- `RESUELVE:`
+- `RESOLUCIÓN DE LA SECRETARÍA TÉCNICA`  ← medido: 591 de 593. `RESUELVE:` aparece **0 veces**
   - Formato: Negrita, mayúsculas, sangría izquierda `0 cm`. Espacio antes de título: 1 línea en blanco.
 
 ### 4.3. Considerandos y Narrativa de Hechos
@@ -132,10 +132,16 @@
 
 - **Matriz de firma:**
 
-  | Proveedor denunciado | Firmante | Cargo | Iniciales |
-  |---|---|---|---|
-  | Rímac Seguros y Reaseguros S.A. | `LUISA ANALÍ SILVA MALPARTIDA` | `Secretaria Técnica Ad Hoc` | `LSQ/DCQ` |
-  | Cualquier otro proveedor | `EVELING ROA QUISPE` | `Secretaria Técnica` | según especialista instructor |
+  | Proveedor denunciado | Firmante | Cargo |
+  |---|---|---|
+  | Rímac Seguros y Reaseguros S.A. | `LUISA ANALÍ SILVA MALPARTIDA` | `Secretaria Técnica Ad Hoc` |
+  | Cualquier otro proveedor | `EVELING ROA QUISPE` | `Secretaria Técnica` |
+
+  > **Mandato del instructor (18/09/2026).** El sufijo `(e)` queda suprimido.
+  > Esta matriz deroga la firma única del 14/09/2026 (R-127), que el corpus
+  > nunca corroboró: **494 de 593** plantillas firman Eveling Roa Quispe.
+  > **El refrendo no se fija aquí:** se copia del control o de la cédula del
+  > caso. Inventarlo es exactamente lo que el sistema prohíbe.
 
 - **Centrado, cuatro líneas:**
   ```text
@@ -157,7 +163,7 @@
 
 Antes de entregar cualquier resolución generada:
 1. [ ] Papel configurado en A4 (21 x 29.7 cm).
-2. [ ] Márgenes exactos: Izq 3.0 cm, Der 2.5 cm, Sup 2.5 cm, Inf 2.5 cm.
+2. [ ] Márgenes exactos: Izq 3,0 cm, **Der 3,0 cm**, Sup 2,5 cm, Inf 2,5 cm (113 de 116 secciones).
 3. [ ] 100% tipografía `Arial Narrow` (11 pt cuerpo, 8 pt notas al pie y pies de página).
 4. [ ] Encabezado con logo INDECOPI y pie con código `M-CPC-01/03`.
 5. [ ] Sangrías escalonadas verificadas: Hechos a `0.79"/-0.39"`, Resolutivo a `0.39"/-0.39"`.

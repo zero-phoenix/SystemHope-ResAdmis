@@ -80,3 +80,12 @@ plantillas_maestras/**/test_*.docx
 # del repositorio. El utillaje vigente esta en scripts/.
 /*.py
 automatizacion_antigravity/MEMORIA_ESTILO_VISUAL_PAGINAS.md
+
+# Padron de aceptacion de TyC de la Casilla Electronica.
+# 30 105 registros con DNI, nombres, correos y telefonos de consumidores.
+# Este repositorio es publico: el padron NO entra jamas. De el solo se publica
+# docs/casillas_habilitadas.json, que genera scripts/filtrar_casillas.py y que
+# no contiene ni una persona natural ni un solo dato de contacto.
+ReportePersonas*.xls*
+*AceptacionBajaTyC*
+padron_casillas*

@@ -4,6 +4,52 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [2.1.0] - 2026-09-18 (CASILLA HABILITADA, ANCLAJE DEL AGENTE Y 15 CONTRADICCIONES ELIMINADAS)
+
+### Added
+- **R-151 — la Casilla Electrónica tiene tres requisitos.** Solo procede con padrón
+  ACTIVO, número de e-casilla y teléfono móvil no vacío. Condición necesaria, no
+  suficiente: la cédula sigue fijando la vía (R-129), pero sin los tres requisitos
+  la casilla está prohibida. Lo comprueba `prueba_r151_casilla_habilitada`.
+- `scripts/filtrar_casillas.py` + `docs/casillas_habilitadas.json`: la lista viva de
+  proveedores habilitados. El padrón **no se versiona** (30 105 registros con datos
+  personales); se publica solo el veredicto por proveedor.
+- **R-152 — el agente trabaja anclado o no trabaja.** `scripts/comprobar_anclaje.py`
+  es una puerta, no un aviso: `admisorio.py preparar` la llama y se detiene si falla.
+  Punteros en `.antigravity/` y `.agent/` que no repiten ni una regla.
+- `docs/CONTRADICCIONES_RESUELTAS.md`: las quince, con la cifra que dirime cada una.
+
+### Fixed — el instrumento
+- **R-97** no reconocía la imputación **en línea**, embebida en el PRIMERO, que usan
+  **121 de 593** plantillas: daba NO APTO a uno de cada cinco admisorios válidos.
+- **R-103** exigía una firma única que el corpus nunca corroboró (**494 de 593**
+  firman Eveling Roa Quispe). Pasa a la matriz del 18/09/2026: Eveling en todo,
+  salvo Rímac, que firma Analí Silva Malpartida **Ad Hoc**; sin sufijo `(e)`.
+- `UNDECIMO` y `DUODECIMO` salían en la lista global `ORDINALES` del propio
+  verificador, que a la vez los rechaza (0 de 593).
+
+### Fixed — la doctrina
+- Censo real: **593** plantillas (decía 620, 605 y 630 en tres sitios distintos).
+- Margen derecho **3,0 cm** (113 de 116 secciones); la lectura de arranque decía 2,5.
+- `RESUELVE:` **no existe** (0 de 593): es `RESOLUCIÓN DE LA SECRETARÍA TÉCNICA` (591).
+- La volada `artículo 20°`: **0 de 1 166** ocurrencias la llevan.
+- `los artículos 1 y 2`: **0 de 593**; la forma es `artículo 1, numeral 1, literal b)
+  y al artículo 2` (192 imputaciones, 230 cierres de considerativa).
+- La vía por domicilio procesal **no pide acuse**: pide señalar un correo (37 de 43).
+- **R-87 derogada**: la falsan R-110 y R-148 (el 60 % narra en indicativo directo).
+- El artículo 24 lo prescribía la tabla de 44 y R-143 lo rechaza siempre.
+- `remitir` prohibido por R-149 (4 contra 591). Retirado el tope de «6 páginas».
+- Vías por proveedor: fijas y medidas, sin «según apersonamiento previo».
+- El motor `src/systemhope_engine.py` llevaba su propia copia envejecida de las vías.
+
+### Security
+- `.gitignore` bloquea el padrón de TyC por tres patrones. Verificado: no entra.
+
+### Measured
+Dos fuentes independientes —el padrón de TyC y el corpus de 593 plantillas— coinciden
+en los tres cruces posibles: Rímac por correo 137/137 y de baja en el padrón; BCP
+28/29 y sin teléfono; Ripley 2/2 y sin teléfono.
+
 ## [1.0.6] - 2026-07-19 (CORRECCIONES CRÍTICAS - Caracteres Basura, Decreto Vigente, Resaltados)
 
 ### Fixed - CRÍTICO

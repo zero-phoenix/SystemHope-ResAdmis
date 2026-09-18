@@ -26,7 +26,7 @@ que era expediente real, sedimento o contradicción:
 | 16 scripts de `scripts/` con rutas de otra máquina | Análisis puntual ya consumido en `docs/` |
 | `.cursorrules`, `.windsurfrules`, `CLAUDE.md` | **Contradicción**: predicaban «visión solo en páginas sin capa de texto», doctrina que R-137 derogó |
 
-### 2. Las 630 plantillas llevaban el nombre de un consumidor real
+### 2. Las plantillas llevaban el nombre de un consumidor real
 
 Medido sobre una muestra de 40: **39 identificaban a una persona**. Ampliado a
 todas: **630 de 630**, con 6.869 sustituciones aplicadas.
@@ -83,7 +83,7 @@ nunca falla no es una regla que se cumple: es una regla que no se está ejecutan
 
 | | |
 |---|---:|
-| Plantillas maestras anonimizadas | 620 |
+| Plantillas maestras anonimizadas | 593 |
 | Ramas taxonómicas | 17 |
 | Herramientas en `scripts/` | 19 |
 | Reglas con falsador | 58 |

@@ -34,9 +34,8 @@ ORDINALES = [
     "OCTAVO",
     "NOVENO",
     "DECIMO",
-    "UNDECIMO",
-    "DUODECIMO",
-]
+]  # R-146: UNDECIMO y DUODECIMO no existen en el corpus (0 de 593);
+   # se componen DECIMO PRIMERO y DECIMO SEGUNDO
 
 # R-103 (mandato del instructor, 14/09/2026): TODOS los admisorios firman
 # LUISA ANALI SILVA MALPARTIDA como Secretaria Tecnica (e). Nunca Evelyn y
@@ -197,6 +196,51 @@ def prueba_r108_requerimiento(doc) -> list[str]:
         "R-108: inciso de la considerativa ausente en la resolutiva: %.70s..." % c
         for c in faltan
     ]
+
+
+def prueba_r151_casilla_habilitada(doc) -> list[str]:
+    """R-151 (mandato del instructor, 18/09/2026): la Casilla Electronica exige
+    padron ACTIVO, numero de e-casilla y telefono movil no vacio.
+
+    Es condicion NECESARIA, no suficiente: la cedula sigue fijando la via
+    (R-129), pero notificar a casilla a quien no cumple los tres requisitos es
+    un acto de notificacion invalido.
+
+    Fuente: docs/casillas_habilitadas.json, derivado del padron de aceptacion de
+    TyC. El padron no se versiona porque trae datos personales.
+
+    Falsador: un ordinal que notifique a Casilla Electronica a un proveedor que
+    docs/casillas_habilitadas.json marca como no habilitado.
+    """
+    ruta = pathlib_Path(__file__).resolve().parent.parent / "docs" / "casillas_habilitadas.json"
+    if not ruta.exists():
+        return []  # sin padron filtrado no se puede falsar: no se inventa una infraccion
+    import json as _json
+    try:
+        datos = _json.loads(ruta.read_text(encoding="utf-8"))
+    except Exception:
+        return []
+    vetados = [n for n, v in datos.get("proveedores", {}).items()
+               if not v.get("casilla_habilitada")]
+    fallos = []
+    for p in doc:
+        t = p.texto
+        if "Casilla Electr" not in t:
+            continue
+        # un mismo ordinal puede nombrar a varias partes: se miran todas
+        for m in re.finditer(r"requerir a(?:l)?\s+(.{3,140}?)\s+para que", t):
+            crudo = m.group(1).strip()
+            parte = re.sub(r"\s+", " ",
+                           re.sub(r"[^A-Z0-9 ]", " ", sin_tildes(crudo).upper())).strip()
+            for veto in vetados:
+                nucleo = " ".join(veto.split()[:3])
+                if nucleo and nucleo in parte:
+                    motivo = datos["proveedores"][veto].get("motivo", "no habilitado")
+                    fallos.append(
+                        "R-151: se notifica a Casilla Electronica a '%s', que no la tiene "
+                        "habilitada (%s)" % (crudo, motivo))
+                    break
+    return fallos
 
 
 def prueba_r103_firma(doc) -> list[str]:
@@ -612,6 +656,7 @@ PRUEBAS = [
     ("R-108 espejo del requerimiento de informacion", lambda d, s, z: prueba_r108_requerimiento(d), "observacion"),
     ("R-110 modo verbal en hechos", lambda d, s, z: prueba_r110_modo_verbal(d), "falsador"),
     ("R-143 imputaciones del catalogo", lambda d, s, z: prueba_r143_imputaciones(d), "falsador"),
+    ("R-151 casilla electronica habilitada", lambda d, s, z: prueba_r151_casilla_habilitada(d), "falsador"),
     ("R-144 fuente, alineacion, interlineado y encuadre", lambda d, s, z: prueba_r144_formato(z), "falsador"),
     ("R-146 esqueleto y ortografia de ordinales", lambda d, s, z: prueba_r146_esqueleto(d), "falsador"),
     ("R-148 lexico invariante", lambda d, s, z: prueba_r148_lexico(d), "falsador"),

@@ -405,7 +405,7 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
 
 - R-85: **PROHIBICIÓN CATEGÓRICA DE 'INDUCCIÓN A ERROR':** Bajo ninguna circunstancia se imputará la figura de 'inducción al error' ni el Artículo 3 del Código. Cualquier defecto, falta o inexactitud en la información comercial se canaliza exclusivamente por el **Artículo 1°, numeral 1, literal b) y Artículo 2° del Código**.
 - R-86: **HECHOS SIN LA PALABRA 'DENUNCIANTE' NI SU NOMBRE:** Dado que la narración de los hechos es antecedida obligatoriamente por la frase *"el/la denunciante señaló lo siguiente:"*, queda estrictamente prohibido usar la palabra 'denunciante' o el nombre propio dentro de los párrafos de hechos. Se emplean directamente verbos afirmativos en tercera persona (ej. *"presentó"*, nunca *"se presentó"*).
-- R-87: **PROHIBICIÓN DE CONDICIONALES EN HECHOS ('HABRÍA'):** En la sección de HECHOS está terminantemente prohibido usar 'habría' o 'habrían'. Los hechos reflejan la versión del denunciante y se narran en tiempo pasado afirmativo (ej. *"presentó la solicitud"*, *"denegó la cobertura"*). El condicional 'habría' es de uso exclusivo para las imputaciones de la Secretaría Técnica.
+- R-87: **PROHIBICIÓN DE CONDICIONALES EN HECHOS ('HABRÍA'):** **[DEROGADA el 18/09/2026 — la medición la falsó]** ~~En la sección de HECHOS está terminantemente prohibido usar 'habría' o 'habrían'~~. **El documento de control sí lo usa** (R-110) y **el 60 % del corpus narra en indicativo directo con el alias** (R-148). Conviven las dos formas: atribución al denunciante y narración directa. Lo único prohibido es el indicativo asertivo que atribuya al proveedor un hecho no probado. Los hechos reflejan la versión del denunciante y se narran en tiempo pasado afirmativo (ej. *"presentó la solicitud"*, *"denegó la cobertura"*). El condicional 'habría' es de uso exclusivo para las imputaciones de la Secretaría Técnica.
 - R-88: **INICIO ESTRICTO DE PÁRRAFO CON FECHA:** Todo párrafo de hechos debe iniciar con la fecha precedida del artículo 'El' (ej. *"El 14 de agosto de 2024,"*). Colocar directamente el número del día y año (sin palabras superfluas como 'día' o 'año'). Si no hay fecha para un hecho previo crucial (como suscripción de contrato), iniciar como: *"Con anterioridad a [fecha del párrafo posterior],"*.
 - R-89: **FORMATO DE MONEDA MONOLÍTICO:** En montos en soles (`S/`) o dólares (`US$`), está prohibido el uso de punto `.` en cualquier posición y prohibida la coma `,` en números enteros. Solo se permite coma para decimales y espacio para separar miles (ejemplo exacto: `S/ 2 618,00` o `US$ 1 500,00`).
 - R-90: **PROHIBICIONES LÉXICAS Y REEMPLAZOS OBLIGATORIOS:**
@@ -1192,3 +1192,68 @@ El mapa visual completo esta en `docs/ANATOMIA_DEL_ADMISORIO.md`.
     EVELING ROA QUISPE». Es falso para el corpus --lo hacen **494 de 593**-- y solo
     era cierto para los admisorios que generamos nosotros. La regla estaba mal
     enunciada y se corrige aqui.
+
+
+---
+
+## R-151 — LA CASILLA ELECTRONICA TIENE TRES REQUISITOS
+
+**Mandato del instructor, 18/09/2026.**
+
+Solo procede notificar a Casilla Electronica cuando el registro en el padron de
+aceptacion de Terminos y Condiciones cumple **los tres**:
+
+1. estado **ACTIVA** (no de baja),
+2. **numero de e-casilla**,
+3. **telefono movil registrado y no vacio**.
+
+Si falta cualquiera, la casilla esta **prohibida**: la parte se notifica por
+correo electronico o por domicilio procesal, segun la cedula.
+
+**Condicion necesaria, no suficiente.** Estar habilitado no obliga a usar la
+casilla —la via la fija la cedula (R-129)—, pero no estarlo la prohibe.
+
+**Medicion (padron del 17/09/2026, 30 104 registros):** 13 244 registros activos
+(44 %) no tienen telefono movil. Entre los proveedores de la CC1 **no admiten
+casilla**: Rimac Seguros y Reaseguros (de baja), Banco de Credito del Peru,
+Banco Ripley, Banco Pichincha (de baja), Financiera Proempresa, Fovipol, Caja
+Arequipa (de baja), Caja Ica, tres AFOCAT y dos Sub CAFAE.
+
+**Corroboracion independiente.** El padron y el corpus de 593 plantillas son dos
+fuentes distintas y coinciden en las tres que se pueden cruzar: Rimac por correo
+137 de 137, BCP 28 de 29, Ripley 2 de 2. Dos instrumentos independientes que
+miden lo mismo es la mejor corroboracion que este sistema puede dar.
+
+**Fuente publicada:** `docs/casillas_habilitadas.json`, generado por
+`scripts/filtrar_casillas.py`. El padron **no se versiona**: trae datos
+personales de consumidores y el repositorio es publico.
+
+*Falsador:* un admisorio que notifique a Casilla Electronica a un proveedor que
+`docs/casillas_habilitadas.json` marca como no habilitado. Lo comprueba
+`prueba_r151_casilla_habilitada` en `scripts/verificar_admisorio.py`, y se
+verifico en los dos sentidos: caza los originales de los expedientes 2939 y 3057
+—que notificaban a Rimac por casilla— y deja pasar los doce corregidos.
+
+---
+
+## R-152 — EL AGENTE TRABAJA ANCLADO AL REPOSITORIO O NO TRABAJA
+
+**18/09/2026.** Consecuencia operativa de R-142.
+
+`AGENTS.md` solo gobierna si se ha cargado desde la raiz de este repositorio.
+Antigravity arrancaba en `_ConfigIA/.resadmi`, y desde ahi no existen ni las
+reglas, ni los scripts, ni las plantillas.
+
+La version anterior confiaba en un archivo de redireccion. Eso es una
+**instruccion**, y este sistema tiene medido lo que valen las instrucciones que
+dependen de que el agente se acuerde: se le ordeno leer con Lens y la tanda
+siguiente entrego con cero toques a imagen.
+
+Ahora es una **puerta**: `scripts/comprobar_anclaje.py` verifica la raiz y el
+directorio de trabajo, y `admisorio.py preparar` —el paso 1 de todo flujo— la
+llama y **se detiene** si falla. Hay ademas punteros en `.antigravity/` y
+`.agent/` que no repiten ni una regla: solo dicen donde estan y que hay que
+pararse.
+
+*Falsador:* un admisorio producido por un flujo que arranco fuera del
+repositorio sin que la puerta lo detuviera.

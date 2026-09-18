@@ -40,6 +40,7 @@ jobs:
           pyinstaller --onefile --clean --name systemhope-engine `
             --add-data "docs/plantillas_maestras_index.json;docs" `
             --add-data "docs/directorio_proveedores_domicilios.json;docs" `
+            --add-data "docs/casillas_habilitadas.json;docs" `
             --add-data "docs/MATRIZ_MAESTRA_PHOENYX_POPPERIANA.md;docs" `
             --add-data "docs/DIRECTORIO_PROVEEDORES_Y_DOMICILIOS_PROCESALES.md;docs" `
             --add-data "docs/MEMORIA_ESTILO_VISUAL_PAGINAS.md;docs" `
@@ -65,6 +66,8 @@ jobs:
             RESUMEN_EJECUTIVO.md, `
             docs/plantillas_maestras_index.json, `
             docs/directorio_proveedores_domicilios.json, `
+            docs/casillas_habilitadas.json, `
+            docs/CONTRADICCIONES_RESUELTAS.md, `
             docs/DIRECTORIO_PROVEEDORES_Y_DOMICILIOS_PROCESALES.md, `
             docs/INDICE_TAXONOMICO_PLANTILLAS_MAESTRAS.md, `
             docs/MEMORIA_ESTILO_VISUAL_PAGINAS.md, `
@@ -79,69 +82,90 @@ jobs:
           tag_name: v2.0.${{ github.run_number }}
           name: "SystemHope ResAdmis v2.0.${{ github.run_number }} - Engine & Persistent Memory"
           body: |
-            # SystemHope ResAdmis v2.0.${{ github.run_number }}
+            # SystemHope ResAdmis v2.1.${{ github.run_number }}
 
-            Motor ejecutable, catalogo de **620 plantillas Word anonimizadas** y la
-            memoria de reglas del sistema, para que un agente redactor opere de forma
+            Motor ejecutable, **593 plantillas Word anonimizadas** y la memoria de
+            reglas del sistema, para que un agente redactor opere de forma
             determinista y verificable.
 
-            ## Lo nuevo, y es una limpieza de fondo
+            ## La Casilla Electronica tiene tres requisitos (R-151)
 
-            ### Las 630 plantillas llevaban el nombre de un consumidor real
-            Medido sobre una muestra de 40: **39 identificaban a una persona**. Ampliado
-            a todas: **630 de 630**, 6.869 sustituciones aplicadas. Anonimizarlas no las
-            degrada, las mejora: un modelo que dice «el senor Espinoza» invita al
-            reemplazo a ciegas; uno que dice «el senor [APELLIDO]» obliga a rellenar
-            desde la cedula, que es la fuente correcta. Se conservan polizas, fechas,
-            montos y articulos.
+            Solo procede notificar a Casilla Electronica cuando el padron de
+            Terminos y Condiciones esta **ACTIVO**, hay **numero de e-casilla** y
+            hay **telefono movil no vacio**. Si falta cualquiera de los tres, la
+            casilla esta **prohibida**.
 
-            ### El repositorio publicaba lo que no debia
-            De **1.481 archivos rastreados a 725**. Fuera los expedientes reales, los
-            admisorios emitidos, un XLSX de personas, 31 bases de datos, 47 scripts de
-            un solo uso y 16 herramientas con rutas de otra maquina. Nada se borro del
-            disco del instructor: lo que se retira es la publicacion.
+            Medido sobre el padron del 17/09/2026: de 30 005 registros activos,
+            **13 244 (44 %) no tienen telefono**. Entre los proveedores de la CC1
+            no admiten casilla **Rimac Seguros y Reaseguros (de baja)**, el Banco
+            de Credito del Peru, Banco Ripley, Banco Pichincha (de baja),
+            Financiera Proempresa, Fovipol y varias AFOCAT y Sub CAFAE.
 
-            ### Reglas contradictorias retiradas
-            `.cursorrules`, `.windsurfrules` y `CLAUDE.md` predicaban «vision solo en
-            paginas sin capa de texto», la doctrina que **R-137 derogo**. Un repositorio
-            que contradice sus reglas vigentes le da al agente permiso escrito para
-            incumplirlas. La fuente de reglas es `AGENTS.md`, y una sola. Por eso este
-            paquete ya no los incluye.
+            **Dos fuentes independientes coinciden.** El padron y el corpus de 593
+            plantillas se midieron por separado y dan lo mismo en los tres cruces
+            posibles: Rimac por correo 137 de 137, BCP 28 de 29, Ripley 2 de 2.
 
-            ### Tres barreras de calidad, no una
-            - `verificar_admisorio.py` — la forma.
-            - `construir_admisorio.py` — que no sobreviva nada de la plantilla de origen.
-            - `auditar_admisorio.py` — **que cada dato exista en el expediente**. Nueva.
-              En su primer barrido sobre cuatro admisorios ya dados por buenos encontro
-              cuatro fechas sin ancla, un ordinal que contradecia a su cedula y dos
-              apellidos inventados.
+            El padron **no se versiona**: trae 30 105 registros con DNI, nombres,
+            correos y telefonos de consumidores, y este repositorio es publico. Se
+            publica solo el veredicto por proveedor, en `docs/casillas_habilitadas.json`.
 
-            ### El sistema se comprueba a si mismo
-            `autocomprobacion.py`, en cada push. Cuatro pruebas, cada una nacida de un
-            fallo real: ninguna expresion regular con un caracter de retroceso donde
-            debe ir un limite de palabra (paso **tres veces**, y la peor dejo R-110
-            declarando OK sin comprobar nada); ninguna plantilla con datos personales;
-            todos los modulos compilan; ningun artefacto de trabajo rastreado. CI ademas
-            le entrega al verificador un documento que **debe** rechazar: una regla que
-            nunca falla no es una regla que se cumple.
+            ## El agente trabaja anclado, o no trabaja (R-152)
 
-            ### Supervision de agentes
-            `docs/SUPERVISION_DE_AGENTES.md` y `scripts/orquestar.py`: como se lanza un
-            caso, como se corrige al agente **mientras trabaja**, que medir y cuando
-            intervenir. Con los dos catalogos de fallos medidos: los del agente y los
-            del supervisor.
+            `AGENTS.md` solo gobierna si se carga desde la raiz del repositorio.
+            Antigravity arrancaba en `_ConfigIA/.resadmi`, y desde ahi no existen
+            ni las reglas, ni los scripts, ni las plantillas: esa raiz equivocada
+            es la causa raiz medida de casi todos sus fallos.
+
+            La version anterior confiaba en un archivo de redireccion, que es una
+            instruccion. Ahora es una **puerta**: `scripts/comprobar_anclaje.py`
+            verifica la raiz y el directorio de trabajo, y `admisorio.py preparar`
+            la llama y **se detiene** si falla.
+
+            ## Quince contradicciones eliminadas
+
+            El repositorio se contradecia a si mismo, y un repositorio que
+            contradice sus reglas vigentes le da al agente permiso escrito para
+            incumplirlas. Se dirimieron **midiendo**, no opinando:
+
+            - **Censo:** el arbol tiene **593** plantillas. El README decia 620,
+              AGENTS 605 y el resumen 630.
+            - **Margen derecho:** 3,0 cm en 113 de 116 secciones. AGENTS y el
+              checklist de la memoria conservaban el 2,5 que R-144 ya rechazaba.
+            - **`RESUELVE:`** no existe: **0 de 593**. El corpus escribe
+              `RESOLUCION DE LA SECRETARIA TECNICA` (591).
+            - **La volada `articulo 20`:** ninguna de las **1 166** ocurrencias la
+              lleva, y el boilerplate obligatorio la prescribia.
+            - **`los articulos 1 y 2`:** 0 de 593. La forma es `articulo 1,
+              numeral 1, literal b) y al articulo 2` (192).
+            - **Via por domicilio procesal:** no pide acuse, pide **senalar un
+              correo** (37 de 43).
+            - **R-87** («prohibido *habria* en hechos») queda derogada: la falsan
+              R-110 y R-148 —el 60 % del corpus narra en indicativo directo—.
+            - **Articulo 24:** la tabla de 44 infracciones lo prescribia y R-143
+              lo rechaza siempre, porque no existe en el catalogo.
+            - **`remitir`:** prescrito en la matriz y prohibido por R-149
+              (4 contra 591).
+            - **El tope de «6 paginas justas»** no tenia una sola cifra detras.
+            - **La matriz de firma** pasa a ser la del 18/09/2026: Eveling Roa
+              Quispe firma todo, salvo Rimac, que firma Luisa Anali Silva
+              Malpartida **Ad Hoc**. Sin sufijo `(e)`.
+
+            ## Dos fallos del instrumento, no de los documentos
+
+            - **R-97** no reconocia la imputacion **en linea**, embebida en el
+              propio PRIMERO, que usan **121 de 593** plantillas: daba NO APTO a
+              uno de cada cinco admisorios validos del corpus.
+            - **R-103** exigia una firma unica que el corpus nunca corroboro:
+              **494 de 593** plantillas firman Eveling Roa Quispe.
 
             ## Reglas que no se negocian
             - **Cero OCR, Google Lens en todas las paginas** (R-137).
-            - **Las partes son exactamente las de la cedula** (R-138).
-            - **Ni Word ni scratch** (R-139).
-            - **Prohibido generar PDF.** El entregable es `.docx`, con el nombre
-              `ADM <EXPEDIENTE> R<N>.docx`.
+            - **Las partes son exactamente las de la cedula** (R-138), y la
+              casilla exige ademas R-151.
+            - **Un ordinal por VIA, no por parte** (R-147): fundir dos vias
+              distintas con «; y,» no ocurre **ni una vez en 1 087 parrafos**.
+            - **Ni Word ni scratch** (R-139). **Prohibido generar PDF.**
             - **Nada que no conste en el expediente.**
-
-            ## Lo que sigue sin resolver
-            El historial de este repositorio contiene los expedientes que hoy se
-            retiran. Retirarlos del arbol no los quita del historial.
 
           files: |
             dist/systemhope-engine.exe

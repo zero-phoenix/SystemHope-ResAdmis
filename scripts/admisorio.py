@@ -36,6 +36,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ / "scripts"))
 
+import comprobar_anclaje  # noqa: E402
 import estado_word  # noqa: E402
 import extraer_expediente  # noqa: E402
 import guardia_admisorio  # noqa: E402
@@ -78,9 +79,20 @@ def _texto_plantilla(ruta: Path) -> str:
     return re.sub(r"<[^>]+>", "", xml)
 
 
+def _exigir_anclaje() -> None:
+    """Puerta de R-142: sin anclaje no se prepara nada."""
+    problemas = comprobar_anclaje.comprobar(estricto=False)
+    if problemas:
+        print(comprobar_anclaje.REMEDIO.replace("{raiz}", f"{str(RAIZ):<70}"))
+        for x in problemas:
+            print(f"  - {x}")
+        raise SystemExit(2)
+
+
 def preparar(
     carpeta: Path, contiene: str | None, rama: str | None, sujeto: str | None
 ) -> int:
+    _exigir_anclaje()
     t0 = time.time()
     carpeta = carpeta.resolve()
 
