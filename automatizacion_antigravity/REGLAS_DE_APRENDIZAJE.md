@@ -1257,3 +1257,35 @@ pararse.
 
 *Falsador:* un admisorio producido por un flujo que arranco fuera del
 repositorio sin que la puerta lo detuviera.
+
+---
+
+## R-153 — CALIBRACION DE NOTAS AL PIE: SUPERINDICE EXPLICITO Y ESTILO REFDENOTAALPIE
+
+**21/09/2026.** Mandato estricto de forma, diseño y encuadre visual.
+
+En la renderización tipográfica de Microsoft Word y visores de documentos, una llamada de nota al pie (`<w:footnoteReference>`) o su referencia dentro del cuerpo de notas (`<w:footnoteRef/>`) puede descender a la línea base y mostrarse al tamaño regular del texto (p. ej., `Código)2,` en lugar de `Código)²,`) si el run no declara explícitamente la elevación vertical.
+
+**Invariante técnica XML:**
+1. En `word/document.xml`: todo run `<w:r>` que contenga `<w:footnoteReference>` debe contener en su `<w:rPr>`:
+   - `<w:rStyle w:val="Refdenotaalpie"/>`
+   - `<w:vertAlign w:val="superscript"/>`
+2. En `word/footnotes.xml`: todo run `<w:r>` que contenga `<w:footnoteRef/>` debe contener en su `<w:rPr>`:
+   - `<w:rStyle w:val="Refdenotaalpie"/>`
+   - `<w:vertAlign w:val="superscript"/>`
+   - `<w:sz w:val="16"/>` (equivalente a 8 pt)
+3. En `word/styles.xml`: los estilos de carácter `Refdenotaalpie` y `FootnoteReference` deben tener definido `<w:vertAlign w:val="superscript"/>`.
+
+*Falsador:* cualquier documento en el cual una llamada de nota al pie o número de nota al pie carezca de `<w:vertAlign w:val="superscript"/>`. Lo comprueba y refuta `prueba_r153_superindice_notas` en `scripts/verificar_admisorio.py`.
+
+---
+
+## R-154 — PROHIBICION TOTAL DE RESALTADOS DE COLOR
+
+**21/09/2026.** Mandato estricto de acabado institucional y diseño profesional.
+
+Queda estrictamente prohibida la presencia de etiquetas `<w:highlight>` en cualquier archivo XML del paquete `.docx` (`document.xml`, `footnotes.xml`, `header*.xml`, `footer*.xml`, `styles.xml`, etc.). Ningún texto, variable o número de folio puede entregarse con sombreado o resaltado amarillo, verde o de cualquier color.
+
+El normalizador popperiano `scripts/normalizar_plantillas_popperianas.py` purgó 848 etiquetas de resaltado en las 596 plantillas del repositorio, eliminando de raíz la herencia de marcas residuales de edición.
+
+*Falsador:* la detección de al menos una etiqueta `<w:highlight>` en cualquier parte XML del `.docx`. Lo comprueba y refuta `prueba_r154_cero_resaltados` en `scripts/verificar_admisorio.py`.

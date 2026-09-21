@@ -46,8 +46,8 @@ CATALOGO = RAIZ / "docs" / "catalogo_imputaciones.json"
 # en tanto...», sin «tipificado». Un patron que solo cubriera la primera dejaria
 # sin vigilar justo donde el cargo se formula.
 RE_IMPUTACION = re.compile(
-    "Presunta infracci[oó]n\s+(.{8,260}?)"
-    "(?:,?\s+en tanto|\.\s|;|$)",
+    r"Presunta infracci[oó]n\s+(.{8,260}?)"
+    r"(?:,?\s+en tanto|\.\s|;|$)",
     re.I,
 )
 RE_ARTICULO = re.compile(r"art[ií]culos?\s*([\d°º.,\s y]+)", re.I)
