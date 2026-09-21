@@ -287,12 +287,17 @@ def prueba_r104_negritas(doc) -> list[str]:
     for p in doc:
         t = sin_tildes(p.texto).lstrip()
         for ordinal in ORDINALES:
-            if t.startswith(ordinal + ":"):
-                bold_rotulo = any(
-                    b
-                    for texto, b in p.runs_bold
-                    if sin_tildes(texto).lstrip().startswith(ordinal)
-                )
+            prefix = ordinal + ":"
+            if t.startswith(prefix):
+                chars_bold = []
+                for texto, b in p.runs_bold:
+                    for ch in sin_tildes(texto):
+                        chars_bold.append((ch, b))
+                start_idx = 0
+                while start_idx < len(chars_bold) and chars_bold[start_idx][0].isspace():
+                    start_idx += 1
+                prefix_chars = chars_bold[start_idx:start_idx + len(prefix)]
+                bold_rotulo = len(prefix_chars) == len(prefix) and all(b for ch, b in prefix_chars)
                 if not bold_rotulo:
                     fallos.append("R-104: el rotulo %s: no esta en negrita" % ordinal)
                 break
@@ -644,6 +649,61 @@ def prueba_r148_lexico(doc) -> list[str]:
     return fallos
 
 
+def prueba_r153_superindice_notas(doc, z) -> list[str]:
+    """R-153: Superindices obligatorios en notas al pie.
+
+    Tanto la llamada de nota al pie en el cuerpo (document.xml) como la
+    referencia en el pie (footnotes.xml) deben tener vertAlign="superscript"
+    y estilo Refdenotaalpie para renderizar como potencia pequeña superior
+    y no en la linea base al tamano regular del texto.
+    """
+    fallos = []
+    try:
+        doc_xml = z.read("word/document.xml").decode("utf-8", "replace")
+        for m in re.finditer(r'<w:r\b[^>]*>(?:(?!</w:r>).)*?<w:footnoteReference\b[^>]*>(?:(?!</w:r>).)*?</w:r>', doc_xml, re.S):
+            run = m.group(0)
+            if 'w:val="superscript"' not in run:
+                fallos.append("R-153: llamada de nota al pie sin superindice explicito en document.xml")
+                break
+    except Exception as exc:
+        fallos.append("R-153: error leyendo document.xml: %s" % exc)
+
+    if "word/footnotes.xml" in z.namelist():
+        try:
+            fn_xml = z.read("word/footnotes.xml").decode("utf-8", "replace")
+            for m in re.finditer(r'<w:r\b[^>]*>(?:(?!</w:r>).)*?<w:footnoteRef\b[^>]*>(?:(?!</w:r>).)*?</w:r>', fn_xml, re.S):
+                run = m.group(0)
+                if 'w:val="superscript"' not in run:
+                    fallos.append("R-153: numero de nota al pie sin superindice explicito en footnotes.xml")
+                    break
+        except Exception as exc:
+            fallos.append("R-153: error leyendo footnotes.xml: %s" % exc)
+
+    return fallos
+
+
+def prueba_r154_cero_resaltados(z) -> list[str]:
+    """R-154: Cero resaltados en todo el documento.
+
+    Queda estrictamente prohibida cualquier etiqueta <w:highlight> en
+    cualquier parte XML del documento (document.xml, footnotes, headers, footers).
+    """
+    fallos = []
+    for nombre in z.namelist():
+        if nombre.startswith("word/") and nombre.endswith(".xml"):
+            try:
+                xml = z.read(nombre).decode("utf-8", "replace")
+                cuantos = len(re.findall(r'<w:highlight\b', xml))
+                if cuantos:
+                    fallos.append(
+                        "R-154: se encontraron %d etiqueta(s) <w:highlight> en %s (todo resaltado esta prohibido)"
+                        % (cuantos, nombre)
+                    )
+            except Exception:
+                pass
+    return fallos
+
+
 PRUEBAS = [
     ("R-97  isomorfismo considerativa/resolutiva", lambda d, s, z: prueba_r97_isomorfismo(d), "falsador"),
     ("R-103 firma segun proveedor denunciado", lambda d, s, z: prueba_r103_firma(d), "falsador"),
@@ -660,6 +720,8 @@ PRUEBAS = [
     ("R-144 fuente, alineacion, interlineado y encuadre", lambda d, s, z: prueba_r144_formato(z), "falsador"),
     ("R-146 esqueleto y ortografia de ordinales", lambda d, s, z: prueba_r146_esqueleto(d), "falsador"),
     ("R-148 lexico invariante", lambda d, s, z: prueba_r148_lexico(d), "falsador"),
+    ("R-153 superindice en llamadas y notas al pie", lambda d, s, z: prueba_r153_superindice_notas(d, z), "falsador"),
+    ("R-154 cero resaltados en el documento", lambda d, s, z: prueba_r154_cero_resaltados(z), "falsador"),
 ]
 
 

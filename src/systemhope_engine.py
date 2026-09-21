@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 # Version and metadata
-VERSION = "2.1.0"
+VERSION = "2.2.0"
 AUTHOR = "SystemHope / Indecopi CC1 Phoenix"
 LPAG_NORM = "Decreto Supremo 006-2026-JUS"
 REPO_URL = "https://github.com/zero-phoenix/SystemHope-ResAdmis"

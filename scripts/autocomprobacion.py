@@ -58,7 +58,10 @@ ARTEFACTOS = (
 
 
 def texto_docx(ruta: Path) -> str:
-    with zipfile.ZipFile(ruta) as z:
+    p_str = str(ruta.resolve())
+    if sys.platform == "win32" and not p_str.startswith("\\\\?\\"):
+        p_str = "\\\\?\\" + p_str
+    with zipfile.ZipFile(p_str) as z:
         partes = [
             z.read(n).decode("utf-8", "replace")
             for n in z.namelist()

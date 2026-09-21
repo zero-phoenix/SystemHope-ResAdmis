@@ -203,7 +203,8 @@ El repositorio contiene **593 plantillas Word (.docx) depuradas** en `plantillas
 - **Sangrías Institucionales:**
   - Hechos: Izquierda `0.79"` (2.0 cm), Francesa `-0.39"` (-1.0 cm).
   - Resolutivo: Izquierda `0.39"` (1.0 cm), Francesa `-0.39"` (-1.0 cm).
-- **Notas al Pie:** Formato con *One Dot Leader* (`\u2024`). Pie institucional: `M-CPC-01/03`.
+- **Notas al Pie (R-106, R-153):** Formato con *One Dot Leader* (`\u2024`). Tanto la llamada de nota al pie en el cuerpo (`<w:footnoteReference>`) como la referencia en el pie (`<w:footnoteRef/>`) deben tener explícitamente formato de superíndice (`<w:vertAlign w:val="superscript"/>`) y estilo `Refdenotaalpie`. Tamaño de nota al pie: 8 pt (`<w:sz w:val="16"/>`). Pie institucional: `M-CPC-01/03`.
+- **Cero Resaltados (R-154):** Queda estrictamente prohibida cualquier etiqueta `<w:highlight>` en todo el documento. Ningún texto puede entregarse con resaltado o sombreado de color.
 
 ---
 

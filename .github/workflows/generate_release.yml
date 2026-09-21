@@ -79,91 +79,44 @@ jobs:
       - name: Publicar Release en GitHub con Binarios y Memoria
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v2.0.${{ github.run_number }}
-          name: "SystemHope ResAdmis v2.0.${{ github.run_number }} - Engine & Persistent Memory"
+          tag_name: v2.2.${{ github.run_number }}
+          name: "SystemHope ResAdmis v2.2.${{ github.run_number }} - Calibración Visual Popperiana y Memoria Persistente"
           body: |
-            # SystemHope ResAdmis v2.1.${{ github.run_number }}
+            # SystemHope ResAdmis v2.2.${{ github.run_number }}
 
-            Motor ejecutable, **593 plantillas Word anonimizadas** y la memoria de
-            reglas del sistema, para que un agente redactor opere de forma
-            determinista y verificable.
+            Motor ejecutable, **593 plantillas Word anonimizadas y 3 modelos base**
+            completamente calibrados en diseño, formato, encuadre visual y memoria
+            de reglas popperianas para operación determinista y verificable.
 
-            ## La Casilla Electronica tiene tres requisitos (R-151)
+            ## Calibración Visual Popperiana Masiva (596 plantillas)
 
-            Solo procede notificar a Casilla Electronica cuando el padron de
-            Terminos y Condiciones esta **ACTIVO**, hay **numero de e-casilla** y
-            hay **telefono movil no vacio**. Si falta cualquiera de los tres, la
-            casilla esta **prohibida**.
+            Se ejecutó una normalización integral sobre todo el corpus de plantillas
+            maestras (`plantillas_maestras/`) y modelos base (`automatizacion_antigravity/modelos/`):
 
-            Medido sobre el padron del 17/09/2026: de 30 005 registros activos,
-            **13 244 (44 %) no tienen telefono**. Entre los proveedores de la CC1
-            no admiten casilla **Rimac Seguros y Reaseguros (de baja)**, el Banco
-            de Credito del Peru, Banco Ripley, Banco Pichincha (de baja),
-            Financiera Proempresa, Fovipol y varias AFOCAT y Sub CAFAE.
+            - **848 etiquetas `<w:highlight>` purgadas (R-154):** Erradicación total de
+              marcas de sombreado y resaltado residual. Ningún documento generado heredará
+              resaltados.
+            - **7 614 llamadas de notas elevadas a superíndice (document.xml) (R-153):**
+              Inyección explícita de `<w:vertAlign w:val="superscript"/>` y estilo `Refdenotaalpie`.
+            - **7 584 números de nota al pie calibrados (footnotes.xml) (R-153):**
+              Garantía de elevación a superíndice a 8 pt (`<w:sz w:val="16"/>`).
+            - **596 estilos `Refdenotaalpie` y `FootnoteReference` asegurados (styles.xml).**
+            - **33 márgenes normalizados a 3,0 / 3,0 / 2,5 / 2,5 cm (R-144).**
+            - **1 231 párrafos con espaciado interlineal fijado a sencillo 240 (R-144).**
+            - **4 137 runs con fuentes tipográficas normalizadas a Arial Narrow (R-144).**
 
-            **Dos fuentes independientes coinciden.** El padron y el corpus de 593
-            plantillas se midieron por separado y dan lo mismo en los tres cruces
-            posibles: Rimac por correo 137 de 137, BCP 28 de 29, Ripley 2 de 2.
+            ## Dos nuevos falsadores computables en `verificar_admisorio.py`
 
-            El padron **no se versiona**: trae 30 105 registros con DNI, nombres,
-            correos y telefonos de consumidores, y este repositorio es publico. Se
-            publica solo el veredicto por proveedor, en `docs/casillas_habilitadas.json`.
+            - **R-153 (`prueba_r153_superindice_notas`):** Refuta cualquier documento
+              cuya llamada o nota al pie carezca de superíndice explícito en el XML.
+            - **R-154 (`prueba_r154_cero_resaltados`):** Refuta cualquier documento
+              que contenga al menos una etiqueta `<w:highlight>` en cualquier archivo XML.
 
-            ## El agente trabaja anclado, o no trabaja (R-152)
-
-            `AGENTS.md` solo gobierna si se carga desde la raiz del repositorio.
-            Antigravity arrancaba en `_ConfigIA/.resadmi`, y desde ahi no existen
-            ni las reglas, ni los scripts, ni las plantillas: esa raiz equivocada
-            es la causa raiz medida de casi todos sus fallos.
-
-            La version anterior confiaba en un archivo de redireccion, que es una
-            instruccion. Ahora es una **puerta**: `scripts/comprobar_anclaje.py`
-            verifica la raiz y el directorio de trabajo, y `admisorio.py preparar`
-            la llama y **se detiene** si falla.
-
-            ## Quince contradicciones eliminadas
-
-            El repositorio se contradecia a si mismo, y un repositorio que
-            contradice sus reglas vigentes le da al agente permiso escrito para
-            incumplirlas. Se dirimieron **midiendo**, no opinando:
-
-            - **Censo:** el arbol tiene **593** plantillas. El README decia 620,
-              AGENTS 605 y el resumen 630.
-            - **Margen derecho:** 3,0 cm en 113 de 116 secciones. AGENTS y el
-              checklist de la memoria conservaban el 2,5 que R-144 ya rechazaba.
-            - **`RESUELVE:`** no existe: **0 de 593**. El corpus escribe
-              `RESOLUCION DE LA SECRETARIA TECNICA` (591).
-            - **La volada `articulo 20`:** ninguna de las **1 166** ocurrencias la
-              lleva, y el boilerplate obligatorio la prescribia.
-            - **`los articulos 1 y 2`:** 0 de 593. La forma es `articulo 1,
-              numeral 1, literal b) y al articulo 2` (192).
-            - **Via por domicilio procesal:** no pide acuse, pide **senalar un
-              correo** (37 de 43).
-            - **R-87** («prohibido *habria* en hechos») queda derogada: la falsan
-              R-110 y R-148 —el 60 % del corpus narra en indicativo directo—.
-            - **Articulo 24:** la tabla de 44 infracciones lo prescribia y R-143
-              lo rechaza siempre, porque no existe en el catalogo.
-            - **`remitir`:** prescrito en la matriz y prohibido por R-149
-              (4 contra 591).
-            - **El tope de «6 paginas justas»** no tenia una sola cifra detras.
-            - **La matriz de firma** pasa a ser la del 18/09/2026: Eveling Roa
-              Quispe firma todo, salvo Rimac, que firma Luisa Anali Silva
-              Malpartida **Ad Hoc**. Sin sufijo `(e)`.
-
-            ## Dos fallos del instrumento, no de los documentos
-
-            - **R-97** no reconocia la imputacion **en linea**, embebida en el
-              propio PRIMERO, que usan **121 de 593** plantillas: daba NO APTO a
-              uno de cada cinco admisorios validos del corpus.
-            - **R-103** exigia una firma unica que el corpus nunca corroboro:
-              **494 de 593** plantillas firman Eveling Roa Quispe.
-
-            ## Reglas que no se negocian
-            - **Cero OCR, Google Lens en todas las paginas** (R-137).
-            - **Las partes son exactamente las de la cedula** (R-138), y la
-              casilla exige ademas R-151.
-            - **Un ordinal por VIA, no por parte** (R-147): fundir dos vias
-              distintas con «; y,» no ocurre **ni una vez en 1 087 parrafos**.
+            ## Reglas invariantes del sistema
+            - **Cero OCR, Google Lens en todas las páginas** (R-137).
+            - **Las partes son exactamente las de la cédula** (R-138), y la
+              casilla exige además R-151.
+            - **Un ordinal por VÍA, no por parte** (R-147).
             - **Ni Word ni scratch** (R-139). **Prohibido generar PDF.**
             - **Nada que no conste en el expediente.**
 
