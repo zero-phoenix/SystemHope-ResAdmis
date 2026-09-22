@@ -4,6 +4,22 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [2.3.2] - 2026-09-22 (INDIVIDUALIZACIÓN MULTI-PROVEEDOR, ADMISORIOS AD HOC Y PURGA TOTAL DE MODELOS BASE)
+
+### Added
+- **Estándar de Individualización Multi-Proveedor (Falsador de Imputación Concreta):** Desglose atómico de conductas por proveedor, erradicando el conectivo promiscuo «y/o» y elevando cada negativa en fecha/sede cierta a cargo autónomo (arts. 1.1.b y 2°).
+- **Subsunción Específica de Reclamos:** Obligatoriedad de calificar deficiencias del Libro de Reclamaciones bajo el **numeral 88.1 del artículo 88°** (lex specialis).
+- **Bifurcación de Requerimientos Probatorios:** Separación de los incisos probatorios en ordinales independientes: `QUINTO` (Aseguradora) y `SEXTO` (Entidad Financiera), reflejando con exactitud la considerativa (R-108).
+- **Régimen de Firma Ad Hoc (R-103):** Firma formal de Luisa Analí Silva Malpartida como Secretaria Técnica Ad Hoc en denuncias contra Rímac Seguros.
+- **Alineación Vertical por Tabuladores (`\t:\t`):** Armonización de los dos puntos del encabezado en una columna visual fija.
+
+### Fixed
+- **Purga de Modelos Base:** Erradicados patrones anómalos (`dfdfdf`, `(((N)))`, `(NNN)`) en `MODELO_1_DDO.docx`, `MODELO_2_DDOS.docx` y `plantilla_base_2026.docx`.
+- **Falsador R-108:** Actualizado para validar requerimientos probatorios individualizados distribuidos en múltiples párrafos y ordinales (`QUINTO` y `SEXTO`).
+- **Falsador R-155:** Actualizado para admitir la fórmula de traslado de denuncia interpuesta de la CC1.
+- **Falsador R-110:** Reconocimiento de atribución contextual derivada del encabezado de denuncia.
+- **Superíndices XML (R-153):** Inyección estricta de `<w:vertAlign w:val="superscript"/>` en llamadas de notas al pie.
+
 ## [2.1.0] - 2026-09-18 (CASILLA HABILITADA, ANCLAJE DEL AGENTE Y 15 CONTRADICCIONES ELIMINADAS)
 
 ### Added

@@ -160,29 +160,34 @@ def prueba_r97_isomorfismo(doc) -> list[str]:
 
 def prueba_r108_requerimiento(doc) -> list[str]:
     """La lista de incisos del REQUERIMIENTO DE INFORMACION (considerativa) debe
-    repetirse verbatim en el articulo resolutivo que la ordena."""
+    repetirse verbatim en el articulo resolutivo que la ordena. Soporta requerimiento
+    unico o individualizado por proveedor (QUINTO y SEXTO)."""
 
     def incisos(texto):
+        t_norm = texto.replace("–", "-").replace("—", "-")
         return [
             re.sub(r"\s+", " ", x).strip()
-            for x in re.findall(r"\((?:i|ii|iii|iv)\)\s*([^;]+)", texto)
+            for x in re.findall(r"\((?:i|ii|iii|iv)\)\s*([^;]+)", t_norm)
         ]
 
     cons = []
     res = []
+    en_considerativa = False
+    en_requerimiento_cons = False
     for p in doc:
         t = sin_tildes(p.texto)
-        if "conviene requerir" in t and "cumpla con" in t:
-            cons = incisos(p.texto)
-            if not cons:
-                return [
-                    "R-108: el REQUERIMIENTO DE INFORMACION anuncia 'cumpla con lo siguiente:' y no formula ningun inciso"
-                ]
-        if (
-            re.match(r"\s*(QUINTO|CUARTO|SEXTO)\s*:", sin_tildes(p.texto))
-            and "cumpla con" in t
-        ):
-            res = incisos(p.texto)
+        if "DE LA ADMISION A TRAMITE" in t.upper():
+            en_considerativa = True
+        if en_considerativa and ("REQUERIMIENTO DE INFORMACION" in t.upper() or ("conviene requerir" in t and ("cumpla con" in t or "cumplan con" in t))):
+            en_requerimiento_cons = True
+        if en_requerimiento_cons:
+            if "RESOLUCION DE LA SECRETARIA TECNICA" in t.upper() or t.startswith("PRIMERO"):
+                en_requerimiento_cons = False
+            else:
+                cons.extend(incisos(p.texto))
+        if re.match(r"\s*(QUINTO|CUARTO|SEXTO)\s*:", t) and ("cumpla con" in t or "cumplan con" in t):
+            res.extend(incisos(p.texto))
+
     if not cons:
         return [
             "R-108: no existe el parrafo de REQUERIMIENTO DE INFORMACION en la considerativa"
@@ -393,6 +398,7 @@ def prueba_r110_modo_verbal(doc) -> list[str]:
         r"(?:[oó]|aron|ieron|uvo|izo|ab[ií]a)\b")
     fallos = []
     dentro = False
+    atribucion_contextual = False
     for p in doc:
         t = p.texto.strip()
         if sin_tildes(t).upper().startswith("HECHOS"):
@@ -400,9 +406,15 @@ def prueba_r110_modo_verbal(doc) -> list[str]:
             continue
         if sin_tildes(t).upper().startswith("DE LA ADMISION A TRAMITE"):
             break
-        if not dentro or p.ilvl != 2 or p.vacio:
+        if not dentro or p.vacio:
             continue
-        if atribucion.search(t) or potencial.search(t):
+        if atribucion.search(t):
+            if t.endswith(":") or "denunci" in t.lower():
+                atribucion_contextual = True
+            continue
+        if p.ilvl != 2 and not p.numerado:
+            continue
+        if atribucion_contextual or potencial.search(t):
             continue
         m = proveedor_activo.search(t)
         if m:
@@ -732,8 +744,8 @@ def prueba_r155_formula_traslado(doc) -> list[str]:
         fallos.append("R-155: contiene formula derogada con cita al articulo 233 / numeral 233.1")
 
     # 2. Requisitos estrictos de la formula R-155
-    if not re.search(r"correr\s+traslado\s+de\s+la\s+presente\s+resoluci[oó]n\s+a\s+", texto, re.IGNORECASE):
-        fallos.append("R-155: debe iniciar con 'correr traslado de la presente resolucion a [DENUNCIADO]'")
+    if not re.search(r"correr\s+traslado\s+de\s+(?:la\s+presente\s+resoluci[oó]n|la\s+denuncia\s+interpuesta.*?)\s+a\s+", texto, re.IGNORECASE):
+        fallos.append("R-155: debe iniciar con 'correr traslado de la presente resolucion a [DENUNCIADO]' o 'correr traslado de la denuncia interpuesta... a [DENUNCIADO]'")
 
     if not re.search(
         r"art[íi]culo\s+26[°º]?\s+de\s+la\s+Ley\s+sobre\s+Facultades,\s+Normas\s+y\s+Organizaci[oó]n\s+del\s+Indecopi,\s+aprobado\s+por\s+Decreto\s+Legislativo\s+N[°º]?\s*807",

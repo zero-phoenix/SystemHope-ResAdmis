@@ -1,4 +1,4 @@
-# SystemHope ResAdmis — CC1 (v2.3.1)
+# SystemHope ResAdmis — CC1 (v2.3.2)
 
 Sistema autónomo y determinista de redacción jurídica, calibración micro-tipográfica, auditoría factual y falsación popperiana de **resoluciones admisorias** para la Secretaría Técnica de la Comisión de Protección al Consumidor N° 1 (CC1) del Indecopi.
 
@@ -11,7 +11,7 @@ Sistema autónomo y determinista de redacción jurídica, calibración micro-tip
      |_____/ \__, |___/\__\___|_| |_| |_|_|  |_|\___/| .__/ \___| 
               __/ |                                  | |          
              |___/                                   |_|          
-                R E S A D M I S   —   C C 1   ( v 2 . 3 . 1 )
+                R E S A D M I S   —   C C 1   ( v 2 . 3 . 2 )
 ```
 
 ---
@@ -19,11 +19,11 @@ Sistema autónomo y determinista de redacción jurídica, calibración micro-tip
 ## 🏛️ Marco Jurídico e Institucional
 
 * **Órgano Resolutivo:** Secretaría Técnica de la Comisión de Protección al Consumidor N° 1 (CC1) — Sede Central Indecopi.
-* **Ley Sustantiva:** Ley N° 29571 — Código de Protección y Defensa del Consumidor (artículos 1°, 2°, 18°, 19°, 56°, 110°, 114°, 115°, 116°).
+* **Ley Sustantiva:** Ley N° 29571 — Código de Protección y Defensa del Consumidor (artículos 1°, 2°, 18°, 19°, 56°, 88.1°, 110°, 114°, 115°, 116°).
 * **Ley de Organización y Funciones:** Decreto Legislativo N° 1033 (artículo 27°).
 * **Ley de Facultades, Normas y Organización:** Decreto Legislativo N° 807 (artículos 26°, 29°, 39°).
-* **Ley Adjetiva y Procedimiento Administrativo General:** Texto Único Ordenado de la Ley N° 27444 — Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo N° 006-2026-JUS (artículos 20°, 223°).
-* **Sujeto Firmante Único:** Luisa Analí Silva Malpartida — Secretaria Técnica (e) de la CC1 (R-103).
+* **Ley Adjetiva y Procedimiento Administrativo General:** Texto Único Ordenado de la Ley N° 27444 — Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo N° 006-2026-JUS (artículos 20°, 223°, 248°).
+* **Sujeto Firmante:** Luisa Analí Silva Malpartida — Secretaria Técnica (e) / Secretaria Técnica Ad Hoc en procedimientos contra Rímac Seguros (R-103).
 
 ---
 
@@ -185,6 +185,31 @@ graph TD
     style Resolutiva fill:#dee2e6,stroke:#6c757d
     style PieFirma fill:#e3fafc,stroke:#99e9f2
 ```
+
+---
+
+## ⚖️ Estándar de Individualización Multi-Proveedor y Admisorios Ad Hoc (v2.3.2)
+
+A partir de la versión **v2.3.2**, el sistema consagra como doctrina procesal obligatoria el **Principio de Tipicidad e Imputación Concreta** (TUO de la LPAG, art. 248° numerales 1, 2 y 4) frente a procedimientos con dos o más proveedores denunciados (especialmente esquemas Banco + Aseguradora):
+
+1. **Individualización Estricta de Cargos (Cero Bloques Indeterminados):**
+   - Se erradica de forma absoluta el uso de fórmulas conectivas ambiguas («*y/o*») entre proveedores o entre conductas infraccionales.
+   - Cada sujeto de derecho responde exclusivamente por los hechos cometidos dentro de su esfera de dominio y competencia contractual.
+   - Cada negativa material ocurrida en distinta fecha cierta y/o agencia física (v.gr., negativa de entrega de contratos en sede San Isidro el 28/10/2025 vs. sede Chiclayo el 29/12/2025) constituye una **infracción autónoma consumada** y debe formularse como cargo independiente.
+
+2. **Subsunción Especial de Reclamaciones (Lex Specialis):**
+   - Las deficiencias o extemporaneidades en la atención de reclamos formalizados (Libro de Reclamaciones) se subsumen de modo imperativo en el **numeral 88.1 del artículo 88° de la Ley N° 29571**, jamás bajo el deber genérico de idoneidad (arts. 18° y 19°).
+
+3. **Bifurcación de Requerimientos Probatorios (QUINTO y SEXTO Autónomos):**
+   - El requerimiento de información probatoria de la considerativa y resolutiva se individualiza por proveedor según su esfera de custodia:
+     - **QUINTO:** Exclusivo para la Aseguradora (copia de póliza, siniestro, expediente médico y comunicaciones).
+     - **SEXTO:** Exclusivo para la Entidad Bancaria/Financiera (copia de póliza, contrato de crédito hipotecario, cronogramas y comunicaciones).
+
+4. **Matriz de Firma Institucional Ad Hoc (R-103):**
+   - En procedimientos donde figure como denunciada **RÍMAC SEGUROS Y REASEGUROS S.A.**, suscribe obligatoriamente **LUISA ANALI SILVA MALPARTIDA** como **Secretaria Técnica Ad Hoc** (con iniciales de instructor asignado, v.gr., `LSQ/JCQ`), en virtud de la abstención legal de la Secretaría Técnica titular.
+
+5. **Alineación Vertical por Tabuladores en Encabezados:**
+   - Todo encabezado formal aplica tabuladores de parada fija (`\t:\t`), de modo que los dos puntos (`:`) de `EXPEDIENTE`, `DENUNCIANTE`, `DENUNCIADOS`, `MATERIAS` y `RESOLUCIÓN` se ubiquen con precisión milimétrica en una columna visual perfecta.
 
 ---
 
