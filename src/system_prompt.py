@@ -204,7 +204,7 @@ Devuelves EXCLUSIVAMENTE JSON con las claves:
     "PRIMERO": "admitir a trámite... por lo siguiente:\\n(i) Presunta infracción a...\\n(ii) Presunta infracción a...",
     "SEGUNDO": "tener por ofrecidos los medios probatorios...",
     "TERCERO": "requerir a [denunciado]... (i) acreditar MYPE...",
-    "CUARTO": "correr traslado...",
+    "CUARTO": "correr traslado de la presente resolución a [denunciado] para que, de conformidad con lo dispuesto por el artículo 26° de la Ley sobre Facultades, Normas y Organización del Indecopi, aprobado por Decreto Legislativo N° 8079, presente [o presenten] sus descargos sobre la imputación de cargos realizada en un plazo no mayor a cinco (5) días hábiles contado a partir del día siguiente de la notificación de la presente resolución, vencido el cual, el Secretario Técnico declarará en rebeldía a los denunciados que no lo hubieran presentado. Debe precisarse que de conformidad con lo establecido por el artículo 223° del Texto Único Ordenado de la Ley N° 27444, Ley del Procedimiento Administrativo General, las alegaciones y los hechos relevantes de la reclamación, salvo que hayan sido específicamente negadas en la contestación, se tendrán por aceptadas o meritadas como ciertas.",
     "QUINTO": "requerir a [denunciado]... [transcripción de req_info]",
     "DÉCIMO": "requerir a [partes]... [notificación correo D.S. 006-2026-JUS 2 días]",
     "DÉCIMO PRIMERO": "requerir a [partes]... [notificación casilla 5 días]"

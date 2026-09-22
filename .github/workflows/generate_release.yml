@@ -79,38 +79,37 @@ jobs:
       - name: Publicar Release en GitHub con Binarios y Memoria
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v2.2.${{ github.run_number }}
-          name: "SystemHope ResAdmis v2.2.${{ github.run_number }} - Calibración Visual Popperiana y Memoria Persistente"
+          tag_name: v2.3.${{ github.run_number }}
+          name: "SystemHope ResAdmis v2.3.${{ github.run_number }} - Fórmula Canónica de Traslado y Descargos (R-155)"
           body: |
-            # SystemHope ResAdmis v2.2.${{ github.run_number }}
+            # SystemHope ResAdmis v2.3.${{ github.run_number }}
 
             Motor ejecutable, **593 plantillas Word anonimizadas y 3 modelos base**
-            completamente calibrados en diseño, formato, encuadre visual y memoria
-            de reglas popperianas para operación determinista y verificable.
+            completamente calibrados con la nueva fórmula obligatoria de traslado
+            y descargos (R-155), derogando de forma absoluta las fórmulas históricas previas.
 
-            ## Calibración Visual Popperiana Masiva (596 plantillas)
+            ## Fórmula Obligatoria de Traslado y Descargos (R-155)
+            
+            Se adoptó la fórmula canónica obligatoria para el traslado de resolución y descargos
+            en las 596 plantillas del repositorio (`plantillas_maestras/` y `automatizacion_antigravity/modelos/`),
+            erradicando cualquier rastro de las fórmulas históricas A y B:
+            - **Traslado de la resolución:** Notificación formal de la resolución admisoria a los denunciados.
+            - **Cita legal estricta:** Artículo 26° de la Ley sobre Facultades, Normas y Organización del Indecopi (D.L. 807).
+            - **Plazo uniforme y cómputo:** Cinco (5) días hábiles contado a partir del día siguiente de la notificación.
+            - **Apercibimiento formal de rebeldía:** Declaración de rebeldía por el Secretario Técnico.
+            - **Presunción de veracidad legal:** Aplicación del artículo 223° del TUO de la Ley N° 27444 (LPAG).
+            - **Distinción gramatical rigurosa:** Singular (`presente`) para 1 denunciado (120 plantillas) vs. Plural (`presenten`) para 2 o más denunciados (474 plantillas).
 
-            Se ejecutó una normalización integral sobre todo el corpus de plantillas
-            maestras (`plantillas_maestras/`) y modelos base (`automatizacion_antigravity/modelos/`):
+            ## Falsador Computable R-155 en `verificar_admisorio.py`
+            - **R-155 (`prueba_r155_formula_traslado`):** Refuta cualquier admisorio que contenga
+              las fórmulas derogadas ("contados desde la notificación" o cita al artículo 233) o
+              que altere la redacción literal de los descargos y apercibimientos.
 
-            - **848 etiquetas `<w:highlight>` purgadas (R-154):** Erradicación total de
-              marcas de sombreado y resaltado residual. Ningún documento generado heredará
-              resaltados.
-            - **7 614 llamadas de notas elevadas a superíndice (document.xml) (R-153):**
-              Inyección explícita de `<w:vertAlign w:val="superscript"/>` y estilo `Refdenotaalpie`.
-            - **7 584 números de nota al pie calibrados (footnotes.xml) (R-153):**
-              Garantía de elevación a superíndice a 8 pt (`<w:sz w:val="16"/>`).
+            ## Calibración Visual Popperiana Previa (R-153 y R-154)
+            - **848 etiquetas `<w:highlight>` purgadas (R-154):** Cero resaltados en todo el corpus.
+            - **7 614 llamadas de notas elevadas a superíndice (document.xml) (R-153).**
+            - **7 584 números de nota al pie calibrados (footnotes.xml) (R-153).**
             - **596 estilos `Refdenotaalpie` y `FootnoteReference` asegurados (styles.xml).**
-            - **33 márgenes normalizados a 3,0 / 3,0 / 2,5 / 2,5 cm (R-144).**
-            - **1 231 párrafos con espaciado interlineal fijado a sencillo 240 (R-144).**
-            - **4 137 runs con fuentes tipográficas normalizadas a Arial Narrow (R-144).**
-
-            ## Dos nuevos falsadores computables en `verificar_admisorio.py`
-
-            - **R-153 (`prueba_r153_superindice_notas`):** Refuta cualquier documento
-              cuya llamada o nota al pie carezca de superíndice explícito en el XML.
-            - **R-154 (`prueba_r154_cero_resaltados`):** Refuta cualquier documento
-              que contenga al menos una etiqueta `<w:highlight>` en cualquier archivo XML.
 
             ## Reglas invariantes del sistema
             - **Cero OCR, Google Lens en todas las páginas** (R-137).

@@ -113,6 +113,16 @@ En la sección resolutiva final de todo admisorio, se coloca indefectiblemente e
 > `MODELO_1_DDO.docx` y `MODELO_2_DDOS.docx` confirman la forma correcta.
 > **La vía 3 no pide acuse: pide que se designe un correo.**
 
+### 2.1 FÓRMULA OBLIGATORIA DE TRASLADO DE RESOLUCIÓN Y DESCARGOS (R-155)
+> **Mandato del instructor (21/09/2026):** Quedan derogadas de forma absoluta e irrevocable las fórmulas históricas previas (A: contados desde la notificación; y B: cita al artículo 233 / numeral 233.1).
+> El artículo de traslado (`CUARTO:` o `QUINTO:`) **NUNCA debe quedar vacío**, empleando obligatoria y literalmente la fórmula canónica R-155:
+>
+> - **Para 1 denunciado (Singular):**
+>   `CUARTO: correr traslado de la presente resolución a [DENUNCIADO] para que, de conformidad con lo dispuesto por el artículo 26° de la Ley sobre Facultades, Normas y Organización del Indecopi, aprobado por Decreto Legislativo N° 8079, presente sus descargos sobre la imputación de cargos realizada en un plazo no mayor a cinco (5) días hábiles contado a partir del día siguiente de la notificación de la presente resolución, vencido el cual, el Secretario Técnico declarará en rebeldía a los denunciados que no lo hubieran presentado. Debe precisarse que de conformidad con lo establecido por el artículo 223° del Texto Único Ordenado de la Ley N° 27444, Ley del Procedimiento Administrativo General, las alegaciones y los hechos relevantes de la reclamación, salvo que hayan sido específicamente negadas en la contestación, se tendrán por aceptadas o meritadas como ciertas.`
+>
+> - **Para 2 o más denunciados (Plural):**
+>   `[CUARTO o QUINTO]: correr traslado de la presente resolución a [DENUNCIADO 1] y [DENUNCIADO 2] para que, de conformidad con lo dispuesto por el artículo 26° de la Ley sobre Facultades, Normas y Organización del Indecopi, aprobado por Decreto Legislativo N° 8079, presenten sus descargos sobre la imputación de cargos realizada en un plazo no mayor a cinco (5) días hábiles contado a partir del día siguiente de la notificación de la presente resolución, vencido el cual, el Secretario Técnico declarará en rebeldía a los denunciados que no lo hubieran presentado. Debe precisarse que de conformidad con lo establecido por el artículo 223° del Texto Único Ordenado de la Ley N° 27444, Ley del Procedimiento Administrativo General, las alegaciones y los hechos relevantes de la reclamación, salvo que hayan sido específicamente negadas en la contestación, se tendrán por aceptadas o meritadas como ciertas.`
+
 ---
 
 ## 3. DOMICILIOS PROCESALES Y VÍAS OFICIALES POR PROVEEDOR

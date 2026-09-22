@@ -704,6 +704,70 @@ def prueba_r154_cero_resaltados(z) -> list[str]:
     return fallos
 
 
+def prueba_r155_formula_traslado(doc) -> list[str]:
+    """R-155: Mandato obligatorio de formula literal de traslado de resolucion y descargos.
+
+    Deroga de manera formal e irrevocable las formulas historicas A y B.
+    Exige la formula canonica R-155 con apercibimiento de rebeldia y presuncion de veracidad
+    segun el articulo 223 del TUO de la LPAG (Ley 27444).
+    """
+    p_traslado = None
+    for p in doc:
+        if "correr traslado" in p.texto.lower():
+            p_traslado = p
+            break
+
+    if p_traslado is None:
+        return ["R-155: no se hallo el articulo resolutivo de correr traslado"]
+
+    texto = p_traslado.texto
+    fallos = []
+
+    # 1. Deteccion de formulas derogadas
+    if re.search(r"contados?\s+desde\s+(?:la\s+notificaci[oó]n|el\s+d[íi]a\s+siguiente)", texto, re.IGNORECASE):
+        if not re.search(r"contado\s+a\s+partir\s+del\s+d[íi]a\s+siguiente\s+de\s+la\s+notificaci[oó]n", texto, re.IGNORECASE):
+            fallos.append("R-155: contiene formula derogada de computo de plazo ('contados desde la notificacion')")
+
+    if re.search(r"\bart[íi]culo\s+233\b|numeral\s+233\.1", texto, re.IGNORECASE):
+        fallos.append("R-155: contiene formula derogada con cita al articulo 233 / numeral 233.1")
+
+    # 2. Requisitos estrictos de la formula R-155
+    if not re.search(r"correr\s+traslado\s+de\s+la\s+presente\s+resoluci[oó]n\s+a\s+", texto, re.IGNORECASE):
+        fallos.append("R-155: debe iniciar con 'correr traslado de la presente resolucion a [DENUNCIADO]'")
+
+    if not re.search(
+        r"art[íi]culo\s+26[°º]?\s+de\s+la\s+Ley\s+sobre\s+Facultades,\s+Normas\s+y\s+Organizaci[oó]n\s+del\s+Indecopi,\s+aprobado\s+por\s+Decreto\s+Legislativo\s+N[°º]?\s*807",
+        texto,
+        re.IGNORECASE,
+    ):
+        fallos.append("R-155: falta citar articulo 26 de la Ley sobre Facultades... aprobado por Decreto Legislativo N 807")
+
+    if not re.search(
+        r"presente[n]?\s+sus\s+descargos\s+sobre\s+la\s+imputaci[oó]n\s+de\s+cargos\s+realizada\s+en\s+un\s+plazo\s+no\s+mayor\s+a\s+cinco\s+\(5\)\s+d[íi]as\s+h[áa]biles\s+contado\s+a\s+partir\s+del\s+d[íi]a\s+siguiente\s+de\s+la\s+notificaci[oó]n\s+de\s+la\s+presente\s+resoluci[oó]n",
+        texto,
+        re.IGNORECASE,
+    ):
+        fallos.append(
+            "R-155: falta redaccion exacta de descargos: 'presente [o presenten] sus descargos sobre la imputacion de cargos realizada en un plazo no mayor a cinco (5) dias habiles contado a partir del dia siguiente de la notificacion de la presente resolucion'"
+        )
+
+    if not re.search(
+        r"el\s+Secretario\s+T[ée]cnico\s+declarar[áa]\s+en\s+rebeld[íi]a\s+a\s+los\s+denunciados\s+que\s+no\s+lo\s+hubieran\s+presentado",
+        texto,
+        re.IGNORECASE,
+    ):
+        fallos.append("R-155: falta apercibimiento textual: 'el Secretario Tecnico declarara en rebeldia a los denunciados que no lo hubieran presentado'")
+
+    if not re.search(
+        r"art[íi]culo\s+223[°º]?\s+del\s+Texto\s+[UÚ]nico\s+Ordenado\s+de\s+la\s+Ley\s+N[°º]?\s*27444,\s+Ley\s+del\s+Procedimiento\s+Administrativo\s+General,\s+las\s+alegaciones\s+y\s+los\s+hechos\s+relevantes\s+de\s+la\s+reclamaci[oó]n,\s+salvo\s+que\s+hayan\s+sido\s+espec[íi]ficamente\s+negadas\s+en\s+la\s+contestaci[oó]n,\s+se\s+tendr[áa]n\s+por\s+aceptadas\s+o\s+meritadas\s+como\s+ciertas",
+        texto,
+        re.IGNORECASE,
+    ):
+        fallos.append("R-155: falta cita y presuncion legal del articulo 223 del TUO de la Ley N 27444")
+
+    return fallos
+
+
 PRUEBAS = [
     ("R-97  isomorfismo considerativa/resolutiva", lambda d, s, z: prueba_r97_isomorfismo(d), "falsador"),
     ("R-103 firma segun proveedor denunciado", lambda d, s, z: prueba_r103_firma(d), "falsador"),
@@ -722,6 +786,7 @@ PRUEBAS = [
     ("R-148 lexico invariante", lambda d, s, z: prueba_r148_lexico(d), "falsador"),
     ("R-153 superindice en llamadas y notas al pie", lambda d, s, z: prueba_r153_superindice_notas(d, z), "falsador"),
     ("R-154 cero resaltados en el documento", lambda d, s, z: prueba_r154_cero_resaltados(z), "falsador"),
+    ("R-155 formula canonica de traslado y descargos", lambda d, s, z: prueba_r155_formula_traslado(d), "falsador"),
 ]
 
 

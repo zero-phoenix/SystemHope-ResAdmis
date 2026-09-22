@@ -144,7 +144,7 @@ def main():
     p.paragraph_format.space_before = Pt(0)
     p.paragraph_format.space_after = Pt(0)
     add_run(p, "CUARTO: ", bold=True)
-    add_run(p, "correr traslado de la denuncia interpuesta el 19 de marzo de 2026, a Interseguro Compañía de Seguros S.A., para que, de conformidad con lo dispuesto por el artículo 26° de la Ley sobre Facultades, Normas y Organización del Indecopi, aprobada por Decreto Legislativo 807, presente sus descargos en un plazo no mayor de cinco (5) días hábiles contados desde la notificación.")
+    add_run(p, "correr traslado de la presente resolución a Interseguro Compañía de Seguros S.A. para que, de conformidad con lo dispuesto por el artículo 26° de la Ley sobre Facultades, Normas y Organización del Indecopi, aprobado por Decreto Legislativo N° 8079, presente sus descargos sobre la imputación de cargos realizada en un plazo no mayor a cinco (5) días hábiles contado a partir del día siguiente de la notificación de la presente resolución, vencido el cual, el Secretario Técnico declarará en rebeldía a los denunciados que no lo hubieran presentado. Debe precisarse que de conformidad con lo establecido por el artículo 223° del Texto Único Ordenado de la Ley N° 27444, Ley del Procedimiento Administrativo General, las alegaciones y los hechos relevantes de la reclamación, salvo que hayan sido específicamente negadas en la contestación, se tendrán por aceptadas o meritadas como ciertas.")
     add_blank(doc)
     
     p = doc.add_paragraph()

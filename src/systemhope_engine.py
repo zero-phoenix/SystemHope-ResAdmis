@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 # Version and metadata
-VERSION = "2.2.0"
+VERSION = "2.3.0"
 AUTHOR = "SystemHope / Indecopi CC1 Phoenix"
 LPAG_NORM = "Decreto Supremo 006-2026-JUS"
 REPO_URL = "https://github.com/zero-phoenix/SystemHope-ResAdmis"
@@ -92,8 +92,9 @@ def cmd_info(args: argparse.Namespace) -> int:
     print(" • Protocolo de Entrada: ESTRICTO CERO OCR (Solo Google Lens / Vision Multimodal)")
     print(" • Tipografía Oficial: Arial Narrow 11 pt (Cuerpo) / 8 pt (Pies y Notas)")
     print(" • Formato de Moneda: S/ X XXX,XX o US$ X XXX,XX (Espacio para miles, coma decimal)")
-    print(" • Reglas Popperianas: R-01 a R-95 activas (Cero inducción a error, condicional habría)")
+    print(" • Reglas Popperianas: R-01 a R-155 activas (Cero inducción a error, condicional habría)")
     print(" • Vías de Notificación: 3 párrafos literales. Casilla solo con padrón activo, e-casilla y teléfono (R-151)")
+    print(" • Traslado y Descargos: Fórmula obligatoria canónica R-155 (Derogadas fórmulas A y B)")
     print(f" • Catálogo de Plantillas: {len(templates)} plantillas Word (.docx) indexadas y depuradas")
     print(f" • Directorio de Proveedores: {len(providers)} entidades aseguradoras y financieras registradas")
     print(" • Modo de Ejecución: Autónomo (CLI / Servidor MCP para AI IDEs Desktop)")

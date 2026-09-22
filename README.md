@@ -44,9 +44,9 @@ siguiente entregó con cero toques a imagen.
 
 | | |
 |---|---|
-| **593 plantillas maestras y modelos base** (`plantillas_maestras/`) | Admisorios reales **anonimizados**, normalizados y calibrados al 100 % en diseño, márgenes, superíndices (R-153) y cero resaltados (R-154) |
-| **22 herramientas** (`scripts/`) | Triaje, construcción, verificación, auditoría, normalización popperiana, orquestación, vigilancia, anclaje y filtrado del padrón |
-| **62 reglas** (`automatizacion_antigravity/REGLAS_DE_APRENDIZAJE.md`) | Cada una con su **falsador**: la observación concreta que la refutaría |
+| **593 plantillas maestras y modelos base** (`plantillas_maestras/`) | Admisorios reales **anonimizados**, normalizados y calibrados al 100 % en diseño, márgenes, superíndices (R-153), cero resaltados (R-154) y fórmula obligatoria de traslado y descargos (R-155) |
+| **23 herramientas** (`scripts/`) | Triaje, construcción, verificación, auditoría, normalización popperiana, orquestación, vigilancia, anclaje y filtrado del padrón |
+| **63 reglas** (`automatizacion_antigravity/REGLAS_DE_APRENDIZAJE.md`) | Cada una con su **falsador**: la observación concreta que la refutaría |
 | **Documentación** (`docs/`) | Índice taxonómico, vías de notificación, casillas habilitadas, contradicciones resueltas, plan de velocidad y manual de supervisión |
 
 ## El ciclo de un admisorio
@@ -149,6 +149,7 @@ su cédula y dos apellidos inventados.
 - **Prohibido generar PDF.** El entregable es `.docx`.
 - **Llamadas y notas al pie en superíndice estricto (R-153).** Toda llamada y referencia debe llevar `vertAlign="superscript"` y estilo `Refdenotaalpie` a 8 pt.
 - **Cero resaltados en todo el corpus (R-154).** 0 etiquetas `<w:highlight>` en cualquier archivo XML del documento.
+- **Fórmula obligatoria de traslado y descargos (R-155).** Derogadas las fórmulas previas A y B. Traslado de la resolución con apercibimiento de rebeldía y cita al artículo 223° del TUO de la LPAG (Ley 27444).
 - **Nada que no conste en el expediente.** Un dato sin ancla se eleva, no se
   rellena.
 

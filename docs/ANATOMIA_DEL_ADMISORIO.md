@@ -141,6 +141,7 @@ Por eso un admisorio tiene 10, 11 o 12 ordinales: **uno por parte a notificar**.
 | R-144 | Fuente, alineación, interlineado y encuadre |
 | R-145 | Sub-incisos en romanos minúsculos `(i) (ii)` |
 | R-146 | Secuencia de ordinales y su ortografía forense |
+| R-155 | Fórmula obligatoria de traslado y descargos con apercibimiento y art. 223 LPAG |
 
 **No parametrizable, y conviene decirlo:** cuál de las 64 imputaciones corresponde
 a los hechos de un expediente concreto. Eso es subsunción, es criterio jurídico, y

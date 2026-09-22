@@ -210,7 +210,7 @@ def _default_resolutivos(caso):
         "PRIMERO": f"admitir a trámite la denuncia del {fecha} interpuesta por {denunciante} contra {denunciado}, por lo siguiente:",
         "SEGUNDO": f"tener por ofrecidos los medios probatorios presentados en el escrito de denuncia del {fecha}.",
         "TERCERO": f"requerir a {denunciado} que cumpla con lo siguiente:",
-        "CUARTO": f"correr traslado de la denuncia interpuesta el {fecha} a {denunciado}, para que, de conformidad con lo dispuesto por el artículo 26 de la Ley sobre Facultades, Normas y Organización del Indecopi, aprobada por Decreto Legislativo 807, presente sus descargos en un plazo no mayor de cinco (5) días hábiles contados desde la notificación.",
+        "CUARTO": f"correr traslado de la presente resolución a {denunciado} para que, de conformidad con lo dispuesto por el artículo 26° de la Ley sobre Facultades, Normas y Organización del Indecopi, aprobado por Decreto Legislativo N° 8079, presente sus descargos sobre la imputación de cargos realizada en un plazo no mayor a cinco (5) días hábiles contado a partir del día siguiente de la notificación de la presente resolución, vencido el cual, el Secretario Técnico declarará en rebeldía a los denunciados que no lo hubieran presentado. Debe precisarse que de conformidad con lo establecido por el artículo 223° del Texto Único Ordenado de la Ley N° 27444, Ley del Procedimiento Administrativo General, las alegaciones y los hechos relevantes de la reclamación, salvo que hayan sido específicamente negadas en la contestación, se tendrán por aceptadas o meritadas como ciertas.",
         "QUINTO": f"{caso.get('req_info', '')}",
     }
 

@@ -61,7 +61,7 @@ Unificación del PRIMERO Resolutivo: El punto PRIMERO de la Resolución de la Se
 Tipificación de Solicitud Histórica de Documentos: Si el consumidor solicita documentos históricos (ej. un estado de cuenta de hace años) y el proveedor no los remite, se tipifica como infracción al Deber de Información (Art. 1°, numeral 1, literal b y Art. 2°), NO como Idoneidad ni como la obligación sectorial de remisión periódica mensual.
 Formato Estricto de Viñetas Resolutivas: En la sección RESOLUCIÓN (punto PRIMERO), las viñetas de las imputaciones admitidas NO deben empezar simplemente con la norma abreviada ("A los artículos..."). Deben empezar obligatoriamente con la frase formal y la norma legal completa: "Presunta infracción a [norma] de la Ley N° 29571, Código de Protección y Defensa del Consumidor, en tanto [Nombre Completo del Proveedor]...".
 Orden Lógico de Viñetas Resolutivas: En el punto PRIMERO, las imputaciones deben agruparse por NORMA INFRINGIDA, no cronológicamente. Primero todas las imputaciones por Idoneidad (Arts. 18° y 19°), luego Métodos Coercitivos (Art. 56°), y finalmente Deber de Información (Arts. 1° y 2°).
-Precisión Resolutiva en SEGUNDO y CUARTO: El punto SEGUNDO (medios probatorios) debe mencionar las fechas exactas del escrito de denuncia y su subsanación. El punto CUARTO (traslado) TAMBIÉN debe incluir expresamente las fechas exactas (ej. "correr traslado de la denuncia interpuesta el [fecha], subsanado mediante escrito del [fecha], a [Proveedores]").
+Precisión Resolutiva en SEGUNDO y CUARTO: El punto SEGUNDO (medios probatorios) debe mencionar las fechas exactas del escrito de denuncia y su subsanación. El punto CUARTO (traslado) se rige obligatoria y exclusivamente por la fórmula literal canónica R-155 (traslado de la presente resolución con apercibimiento de rebeldía y cita al artículo 223° del TUO de la LPAG, quedando derogadas las fórmulas históricas anteriores).
 El Filtro MYPE (Inclusión Obligatoria): NUNCA se debe eliminar la viñeta que requiere la acreditación de micro/pequeña empresa (MYPE) en el requerimiento general (TERCERO), sin importar si los denunciados son manifiestamente grandes corporaciones (Bancos, Aseguradoras). Es un requerimiento de inclusión obligatoria y universal por estricto rigor procedimental ("en caso califique...").
 Reiteración de Requerimientos Específicos: Los requerimientos específicos detallados para cada proveedor en la Sección III NO se resumen con una referencia cruzada en la parte resolutiva (PROHIBIDO usar "cumpla con lo requerido en el numeral 11"). En los numerales respectivos de la Resolución (ej. QUINTO y SEXTO), se DEBEN volver a transcribir literalmente todas las viñetas del requerimiento para cada proveedor.
 Formato de Notas al Pie (Alineación y Espaciado): Las notas al pie deben tener una alineación de sangría francesa (Hanging Indent) perfecta. El número de la nota debe estar alineado al margen izquierdo (LeftIndent=1cm, FirstLineIndent=-1cm), seguido de una tabulación explícita (	) antes del texto. Todas las líneas del párrafo de la nota deben alinearse exactamente a 1 cm. Además, debe existir un espacio en blanco (SpaceAfter = 10pt) entre cada nota al pie para separar visualmente las referencias.
@@ -1289,3 +1289,36 @@ Queda estrictamente prohibida la presencia de etiquetas `<w:highlight>` en cualq
 El normalizador popperiano `scripts/normalizar_plantillas_popperianas.py` purgó 848 etiquetas de resaltado en las 596 plantillas del repositorio, eliminando de raíz la herencia de marcas residuales de edición.
 
 *Falsador:* la detección de al menos una etiqueta `<w:highlight>` en cualquier parte XML del `.docx`. Lo comprueba y refuta `prueba_r154_cero_resaltados` en `scripts/verificar_admisorio.py`.
+
+---
+
+## R-155 — FORMULA OBLIGATORIA DE TRASLADO DE RESOLUCION Y DESCARGOS (DEROGACION DE FORMULAS HISTORICAS A Y B)
+
+**21/09/2026.** Mandato imperativo del instructor.
+
+Quedan formalmente derogadas e invalidadas todas las fórmulas históricas de traslado:
+1. **Fórmula A (derogada):** fórmula estándar que rezaba `"...correr traslado de la denuncia interpuesta el [FECHA], a [DENUNCIADO], para que... presente [o presenten] sus descargos en un plazo no mayor de cinco (5) días hábiles contados desde la notificación."`
+2. **Fórmula B (derogada):** fórmula con cita desfasada o errónea al artículo 233 / numeral 233.1 de la LPAG.
+
+**Regla de Oro R-155:** El artículo resolutivo de traslado (habitualmente `CUARTO:` o `QUINTO:`) **NUNCA debe quedar vacío**, y debe redactarse **literal e invariablemente** con arreglo a las siguientes dos fórmulas oficiales:
+
+### A. Para un solo denunciado (Singular):
+> `CUARTO: correr traslado de la presente resolución a [DENUNCIADO] para que, de conformidad con lo dispuesto por el artículo 26° de la Ley sobre Facultades, Normas y Organización del Indecopi, aprobado por Decreto Legislativo N° 8079, presente sus descargos sobre la imputación de cargos realizada en un plazo no mayor a cinco (5) días hábiles contado a partir del día siguiente de la notificación de la presente resolución, vencido el cual, el Secretario Técnico declarará en rebeldía a los denunciados que no lo hubieran presentado. Debe precisarse que de conformidad con lo establecido por el artículo 223° del Texto Único Ordenado de la Ley N° 27444, Ley del Procedimiento Administrativo General, las alegaciones y los hechos relevantes de la reclamación, salvo que hayan sido específicamente negadas en la contestación, se tendrán por aceptadas o meritadas como ciertas.`
+
+### B. Para dos o más denunciados (Plural):
+> `[CUARTO o QUINTO]: correr traslado de la presente resolución a [DENUNCIADO 1] y [DENUNCIADO 2] para que, de conformidad con lo dispuesto por el artículo 26° de la Ley sobre Facultades, Normas y Organización del Indecopi, aprobado por Decreto Legislativo N° 8079, presenten sus descargos sobre la imputación de cargos realizada en un plazo no mayor a cinco (5) días hábiles contado a partir del día siguiente de la notificación de la presente resolución, vencido el cual, el Secretario Técnico declarará en rebeldía a los denunciados que no lo hubieran presentado. Debe precisarse que de conformidad con lo establecido por el artículo 223° del Texto Único Ordenado de la Ley N° 27444, Ley del Procedimiento Administrativo General, las alegaciones y los hechos relevantes de la reclamación, salvo que hayan sido específicamente negadas en la contestación, se tendrán por aceptadas o meritadas como ciertas.`
+
+**Exigencias de Formato Institucional:**
+- Rótulo ordinal en negrita (`CUARTO:` o `QUINTO:`).
+- Cuerpo del párrafo sin negrita.
+- Tipografía `Arial Narrow` 10 pt.
+- Interlineado sencillo (línea 240).
+- Alineación justificada (`both`).
+- Sangría resolutiva institucional (`left="567"`, `hanging="567"`).
+
+*Falsador:* cualquier documento que:
+1. Omita el artículo resolutivo de traslado.
+2. Contenga la fórmula derogada de cómputo `"contados desde la notificación"` o cita al `"numeral 233.1"` / `"artículo 233"`.
+3. Altere la redacción literal de los descargos, el apercibimiento de rebeldía por el Secretario Técnico, o la cita legal al artículo 223° del TUO de la LPAG (Ley 27444).
+Lo comprueba y refuta `prueba_r155_formula_traslado` en `scripts/verificar_admisorio.py`.
+
