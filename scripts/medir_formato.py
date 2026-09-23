@@ -15,7 +15,7 @@ propio archivo, que es exacta, local y privada.
           se declara «escaneada: solo lectura visual».
 
 Con --perfil se construye el perfil canonico CC1 a partir de las plantillas
-(docs/estilo_cc1.json); con --comparar se contrasta un documento con ese perfil.
+(docs/estilo_formato.json); con --comparar se contrasta un documento con ese perfil.
 
 Uso:
     python scripts/medir_formato.py <archivo.docx|archivo.pdf>
@@ -36,7 +36,7 @@ from pathlib import Path
 from xml.etree import ElementTree as ET
 
 RAIZ = Path(__file__).resolve().parent.parent
-PERFIL = RAIZ / "docs" / "estilo_cc1.json"
+PERFIL = RAIZ / "docs" / "estilo_formato.json"
 W = "{http://schemas.openxmlformats.org/wordprocessingml/2006/main}"
 TWIP_CM = 1 / 567.0
 

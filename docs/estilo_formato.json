@@ -1,0 +1,58 @@
+{
+ "fuente": "Moda por documento sobre 574 plantillas (scripts/medir_formato.py --perfil)",
+ "fuentes_por_caracter": {
+  "canonico": "Arial Narrow",
+  "documentos": 574,
+  "de": 574
+ },
+ "tamanos_medio_punto": {
+  "canonico": "(defecto 22)",
+  "documentos": 550,
+  "de": 574
+ },
+ "alineacion": {
+  "canonico": "both",
+  "documentos": 574,
+  "de": 574
+ },
+ "interlineado_240=sencillo": {
+  "canonico": "240",
+  "documentos": 571,
+  "de": 574
+ },
+ "espaciado_antes": {
+  "canonico": "0",
+  "documentos": 574,
+  "de": 574
+ },
+ "espaciado_despues": {
+  "canonico": "0",
+  "documentos": 574,
+  "de": 574
+ },
+ "sangria_izquierda_twips": {
+  "canonico": "567",
+  "documentos": 571,
+  "de": 574
+ },
+ "sangria_francesa_twips": {
+  "canonico": "567",
+  "documentos": 574,
+  "de": 574
+ },
+ "margenes_cm": {
+  "canonico": {
+   "bottom": 2.5,
+   "left": 3.0,
+   "right": 3.0,
+   "top": 2.5
+  },
+  "documentos": 574,
+  "de": 574
+ },
+ "notas_tamano": {
+  "canonico": "16",
+  "documentos": 436,
+  "de": 574
+ }
+}

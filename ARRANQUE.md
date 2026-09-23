@@ -15,6 +15,7 @@ powershell -NoProfile -ExecutionPolicy Bypass -Command "irm https://raw.githubus
 ```
 - Deja todo en `%USERPROFILE%\SystemHope\`: `python\` (Python portátil, sin OCR), `git\`,
   `repo\` (reglas, scripts y plantillas) y `casos\`.
+- Empieza con un **DIAGNÓSTICO PREVIO**: si ya hubo admisorios en esta PC, versión local frente a GitHub (si está desactualizada, se actualiza sola) e integridad del sistema. **Resúmeselo al usuario en 2 líneas.**
 - Termina con `LISTO`. Si dice `NO LISTO`, informa al usuario de lo que falta y para.
 - Si la red bloquea GitHub, pide al usuario que descargue
   `https://github.com/zero-phoenix/SystemHope-ResAdmis/releases/latest/download/SystemHope-Portable-win64.zip`,
@@ -50,8 +51,11 @@ Si el paso 1 mostró `Remesa: SIN FECHA`, **pregunta al usuario la fecha de emis
 Sigue el flujo de `AGENTS.md` §1:
 1. `admisorio.py preparar <carpeta>`: filtra con `--denunciados`, `--sujeto` y `--subtipo` según el caso.
 2. Lectura visual de **cada** captura de `_paginas\`: llena `_LECTURA.md` con lo que ves, **nunca** con el texto seleccionable.
-3. `construir_admisorio.py --mapa <mapa.json>`: el mapa va en la carpeta del caso.
-4. `admisorio.py entregar "<carpeta>\ADM <EXP> R<N>.docx" --recepcion DD/MM/AAAA`.
+   - Fechas: escrito de parte = fecha de su **firma digital**; resolución, memorándum o documento de traslado = **fecha de emisión escrita en el texto**.
+   - Denunciados: los **definitivos** tras la resolución de requerimiento y su absolución.
+3. **OBLIGATORIO: las 10 plantillas más similares.** Escribe `_CASO.json` y ejecuta `similares.py <carpeta>`. Completa el «Por qué» de las 10 en `_SIMILARES.md`, con detalle técnico de las imputaciones. Muéstraselo al usuario. **Nunca** cites una plantilla que el script no listó.
+4. `construir_admisorio.py --mapa <mapa.json>`: el mapa va en la carpeta del caso y la base es una de las 10.
+5. `admisorio.py entregar "<carpeta>\ADM <EXP> R<N>.docx" --recepcion DD/MM/AAAA`.
 
 Solo está entregado si la salida dice **ENTREGABLE** y el verificador **APTO**. Pega esa salida
 literal y la ruta del `.docx`.
@@ -63,6 +67,9 @@ Si el usuario te dice **expresamente** que un admisorio ya está corregido y te 
 3. **No** lo subas a ningún sitio ni lo mezcles con el repositorio: su incorporación como plantilla la hace el instructor con el procedimiento del repositorio.
 
 ## Prohibido
+- **Modificar el repositorio** (scripts, reglas, datos). Si ves un error del sistema, repórtalo. `entregar` detecta cualquier cambio.
+- **Fabricar documentos del expediente** (cédulas, escritos). Si falta una cédula, la vía de notificación sale del historial del proveedor (skill `partes-y-notificacion`).
+- Escribir scripts propios para inspeccionar plantillas: usa `inspeccionar_docx.py`. Cada llamada cuesta tiempo; el objetivo es ≤ 12.
 - OCR en cualquier forma.
 - Generar PDF.
 - Abrir Word por COM.

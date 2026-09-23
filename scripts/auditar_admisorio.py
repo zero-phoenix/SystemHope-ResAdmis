@@ -58,6 +58,7 @@ import config_sistema  # noqa: E402
 FECHAS_PROPIAS = tuple(f for f in (
     config_sistema.fecha_emision(),  # fecha de emision de la remesa (D2, config/remesa.json)
     "2 de setiembre de 2010",    # publicacion de la Ley 29571
+    "2 de octubre de 2010",      # vigencia de la Ley 29571 (aporte de Antigravity, 2898-2026)
     "2 de julio de 2013",        # publicacion de la Ley 30056
     "30 de abril de 2026",       # publicacion del D.S. 006-2026-JUS
     "18 de abril de 1996",       # Decreto Legislativo 807

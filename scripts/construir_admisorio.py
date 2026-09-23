@@ -62,7 +62,10 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 
 RE_PARRAFO = re.compile(r"<w:p\b[^>]*>.*?</w:p>", re.S)
-RE_TEXTO = re.compile(r"(<w:t(?:\s[^>]*)?>)(.*?)(</w:t>)", re.S)
+# `[^>/]`: una etiqueta autocerrada `<w:t xml:space="preserve"/>` no abre texto;
+# con `[^>]` se tomaba por apertura y se comia hasta el siguiente </w:t>.
+# Correccion detectada por Antigravity en el Exp. 2898-2026 (23/09/2026).
+RE_TEXTO = re.compile(r"(<w:t(?:\s[^>/]*)?>)(.*?)(</w:t>)", re.S)
 # Ojo: `<w:t[^>]*>` tambien captura `<w:tab>` y `<w:tabs>`, y entonces el "texto"
 # del parrafo se llena de XML crudo. Costo medido: 14 reemplazos del Exp. 3122-2026
 # declarados inexistentes cuando si estaban.

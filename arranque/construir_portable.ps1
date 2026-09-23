@@ -29,6 +29,9 @@ Expand-Archive mingit.zip portable/git -Force
 git archive --format=zip -o repo.zip HEAD -- . ':!docs/capturas_referenciales'
 Expand-Archive repo.zip portable/repo -Force
 Set-Content portable/VERSION.txt $Version
+Push-Location portable/repo
+../python/python.exe scripts/integridad.py --generar
+Pop-Location
 
 Push-Location portable/repo
 try {

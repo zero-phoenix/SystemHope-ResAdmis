@@ -16,14 +16,15 @@ Un `ADM <EXP> R<N>.docx` que el verificador declare **APTO** y `entregar` declar
    - Las candidatas marcadas **APTA** (0 falsadores) van primero. Elige una APTA de la misma rama, el mismo número de denunciados y la misma clase de denunciante.
    - La carpeta física de la plantilla **no** indica el número de denunciados; el índice sí.
 4. **Leer**: abre **cada** PNG de `_paginas/` (captura de la página completa) y llena su fila de `_LECTURA.md` con lo que ves, incluidos formato, sellos, firmas y resaltados. Cero OCR; el texto seleccionable solo sirve para contrastar.
-5. **Anclar los datos** de cada documento:
+5. **Las 10 plantillas más similares (obligatorio)**: `_CASO.json` y `scripts/similares.py <carpeta>`; justifica cada una en `_SIMILARES.md` (imputaciones: norma, sujeto, conducta y fecha; hechos; partes). La base sale de esas 10.
+6. **Anclar los datos** de cada documento (escrito de parte = fecha de su FIRMA DIGITAL; documento de Indecopi = fecha de emisión del texto):
    - denuncia: fecha y hechos;
    - subsanación o escritos complementarios: fecha;
    - memorándum o documento de traslado: número, fecha de emisión y fecha de recepción en CC1;
    - cédula: partes, vía de cada parte y número de resolución;
    - resolución de programación de audiencia de conciliación: es anterior y no se cita como hecho.
-6. **Redactar el mapa** (`mapa.json`, en la carpeta del caso) sobre la plantilla y construir con `scripts/construir_admisorio.py --mapa`.
-7. **Entregar**: `scripts/admisorio.py entregar "<docx>" --recepcion DD/MM/AAAA`. Si algo falla, corrige y repite. No entregues sin ENTREGABLE.
+7. **Redactar el mapa** (`mapa.json`, en la carpeta del caso) sobre la plantilla y construir con `scripts/construir_admisorio.py --mapa`.
+8. **Entregar**: `scripts/admisorio.py entregar "<docx>" --recepcion DD/MM/AAAA`. Si algo falla, corrige y repite. No entregues sin ENTREGABLE.
 
 ## Estructura (orden fijo)
 Encabezado:

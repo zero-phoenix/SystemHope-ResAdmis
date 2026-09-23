@@ -118,6 +118,27 @@ def preparar(
             )
         return 3
 
+    # Inventario de lo que el USUARIO entrego: todo documento nuevo que aparezca
+    # despues (una cedula, un escrito) lo fabrico el agente, y `entregar` lo
+    # rechaza. Medido en el Exp. 2898-2026: el agente creo una «CEDULAS.docx»
+    # con el RUC de la aseguradora como numero de casilla.
+    inv = carpeta / "_INVENTARIO.json"
+    if not inv.exists():
+        import hashlib
+
+        inv.write_text(
+            json.dumps(
+                {
+                    p.name: hashlib.sha256(p.read_bytes()).hexdigest()
+                    for p in sorted(carpeta.iterdir())
+                    if p.is_file() and not p.name.startswith("_")
+                },
+                ensure_ascii=False,
+                indent=1,
+            ),
+            encoding="utf-8",
+        )
+
     extraer_expediente.informe(carpeta, volcar=True)
     inventario, _dossier = extraer_expediente.triaje(carpeta)
     sin_texto = sum(len(i["sin_texto"]) for i in inventario)
@@ -175,14 +196,21 @@ def preparar(
         ]
     if denunciados:
         candidatas = [
-            f for f in candidatas
-            if (f.get("denunciados", {}).get("n", 0) >= 3 if denunciados >= 3 else f.get("denunciados", {}).get("n", 0) == denunciados)
+            f
+            for f in candidatas
+            if (
+                f.get("denunciados", {}).get("n", 0) >= 3
+                if denunciados >= 3
+                else f.get("denunciados", {}).get("n", 0) == denunciados
+            )
         ]
     if subtipo:
         candidatas = [f for f in candidatas if subtipo in f.get("subtipos", [])]
     elif fichas and "subtipos" in fichas[0]:
         candidatas = [f for f in candidatas if not f.get("subtipos")]
-    candidatas.sort(key=lambda f: (not f.get("apta_como_base", False), len(f.get("falsadores", []))))
+    candidatas.sort(
+        key=lambda f: (not f.get("apta_como_base", False), len(f.get("falsadores", [])))
+    )
     if contiene:
         aguja = contiene.lower()
         filtradas = []
@@ -263,6 +291,85 @@ def _lecturas_copiadas(carpeta: Path, vistas: dict[str, str]) -> list[str]:
     return copiadas
 
 
+def _control_del_caso(docx: Path) -> list[str]:
+    """Controles que dependen del caso y no solo del .docx (supervision 2898-2026).
+
+    - integridad: el agente no modifico el sistema;
+    - _CASO.json: existe y declara los escritos y los denunciados definitivos;
+    - todos los escritos (denuncia, subsanacion, complementarios) se citan con su
+      fecha en la apertura de HECHOS y en PRIMERO;
+    - _SIMILARES.md: 10 plantillas REALES del indice, cada una justificada;
+    - ningun documento del expediente fabricado (cedulas, escritos).
+    """
+
+    import integridad
+    import similares
+
+    carpeta = docx.parent
+    fallos: list[str] = []
+    _titulo("CONTROLES DEL CASO")
+    mods = integridad.comprobar()
+    if mods:
+        fallos.append(
+            "el sistema fue modificado (%s): reinstala y REPORTA el error en vez de editar"
+            % ", ".join(mods[:3])
+        )
+    caso_p = carpeta / "_CASO.json"
+    if not caso_p.exists():
+        fallos.append("falta _CASO.json (ver scripts/similares.py -h)")
+        caso = {}
+    else:
+        caso = json.loads(caso_p.read_text(encoding="utf-8"))
+    doc, _s, _z = verificar_admisorio.leer_documento(str(docx))
+    textos = [p.texto for p in doc]
+    apertura = next((t for t in textos if t.strip().startswith("Mediante")), "")
+    primero = next((t for t in textos if t.strip().startswith("PRIMERO")), "")
+    for e in caso.get("escritos", []):
+        f = e.get("fecha", "")
+        if f and f not in apertura:
+            fallos.append(
+                "el escrito '%s' del %s no se cita en la apertura de HECHOS"
+                % (e.get("tipo", "?"), f)
+            )
+        if f and f not in primero:
+            fallos.append(
+                "el escrito '%s' del %s no se cita en PRIMERO" % (e.get("tipo", "?"), f)
+            )
+    fallos += similares.justificacion_completa(carpeta)
+    sim = carpeta / "_SIMILARES.md"
+    if sim.exists():
+        reales = {f["archivo"] for f in json.loads(INDICE.read_text(encoding="utf-8"))}
+        citadas = re.findall(r"(TPL_[A-Z0-9_]+\.docx)", sim.read_text(encoding="utf-8"))
+        falsas = sorted({c for c in citadas if c not in reales})
+        if falsas:
+            fallos.append(
+                "_SIMILARES.md cita plantillas que NO existen: %s"
+                % ", ".join(falsas[:4])
+            )
+    inv = carpeta / "_INVENTARIO.json"
+    if inv.exists():
+        originales = json.loads(inv.read_text(encoding="utf-8"))
+        for p in carpeta.iterdir():
+            if (
+                p.is_file()
+                and p.suffix.lower() in (".pdf", ".docx", ".doc")
+                and not p.name.startswith("_")
+                and p.name not in originales
+                and p.resolve() != docx.resolve()
+            ):
+                fallos.append(
+                    "documento que no entrego el usuario: %s (prohibido fabricar documentos del expediente)"
+                    % p.name
+                )
+    for f in fallos:
+        print("  FALLA  " + f)
+    if not fallos:
+        print(
+            "  OK     integridad, _CASO.json, escritos citados, 10 similares reales y justificadas, sin documentos fabricados."
+        )
+    return fallos
+
+
 def entregar(docx: Path, caso: str | None, recepcion: str | None = None) -> int:
     t0 = time.time()
     docx = docx.resolve()
@@ -270,6 +377,8 @@ def entregar(docx: Path, caso: str | None, recepcion: str | None = None) -> int:
 
     if not verificar_admisorio.verificar(str(docx)):
         fallas.append("verificar_admisorio: NO APTO")
+
+    fallas += _control_del_caso(docx)
 
     _titulo("GUARDIA DE DATOS PERSONALES")
     fugas = guardia_admisorio.revisar([str(docx)])
@@ -418,8 +527,13 @@ def main(argv: list[str]) -> int:
         "--sujeto",
         help="varon | mujer | sucesion_intestada | herederos_no_acreditados | conyuges | persona_juridica | asociacion | varios | mixto",
     )
-    p.add_argument("--denunciados", type=int, help="Numero real de denunciados (1, 2, 3 = 3 o mas)")
-    p.add_argument("--subtipo", help="confidencialidad | inclusion_de_oficio (sin esto se excluyen)")
+    p.add_argument(
+        "--denunciados", type=int, help="Numero real de denunciados (1, 2, 3 = 3 o mas)"
+    )
+    p.add_argument(
+        "--subtipo",
+        help="confidencialidad | inclusion_de_oficio (sin esto se excluyen)",
+    )
 
     e = sub.add_parser(
         "entregar", help="Verificador + guardia + restricciones, en una llamada"
@@ -434,7 +548,12 @@ def main(argv: list[str]) -> int:
     args = ap.parse_args(argv[1:])
     if args.orden == "preparar":
         return preparar(
-            Path(args.carpeta), args.contiene, args.rama, args.sujeto, args.denunciados, args.subtipo
+            Path(args.carpeta),
+            args.contiene,
+            args.rama,
+            args.sujeto,
+            args.denunciados,
+            args.subtipo,
         )
     return entregar(Path(args.docx), args.caso, args.recepcion)
 
