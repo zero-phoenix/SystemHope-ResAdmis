@@ -830,8 +830,10 @@
   ],
   "nota_traslado": "directa",
   "firma": "ad_hoc",
-  "falsadores": [],
-  "apta_como_base": true
+  "falsadores": [
+   "R-106"
+  ],
+  "apta_como_base": false
  },
  {
   "id": 19,
@@ -1765,6 +1767,7 @@
   "nota_traslado": "directa",
   "firma": "titular",
   "falsadores": [
+   "R-106",
    "R-164"
   ],
   "apta_como_base": false
@@ -1946,10 +1949,8 @@
   ],
   "nota_traslado": "memorandum",
   "firma": "titular",
-  "falsadores": [
-   "R-159"
-  ],
-  "apta_como_base": false
+  "falsadores": [],
+  "apta_como_base": true
  },
  {
   "id": 39,
@@ -2233,6 +2234,7 @@
   "nota_traslado": "memorandum",
   "firma": "ad_hoc",
   "falsadores": [
+   "R-106",
    "R-97"
   ],
   "apta_como_base": false
@@ -2424,6 +2426,7 @@
   "firma": "titular",
   "falsadores": [
    "R-164",
+   "R-170",
    "R-97"
   ],
   "apta_como_base": false
@@ -2605,10 +2608,12 @@
     "conjunta": false
    }
   ],
-  "nota_traslado": "directa",
+  "nota_traslado": "documento_traslado",
   "firma": "titular",
   "falsadores": [
-   "R-165"
+   "R-106",
+   "R-165",
+   "R-167"
   ],
   "apta_como_base": false
  },
@@ -2987,6 +2992,7 @@
   "nota_traslado": "directa",
   "firma": "titular",
   "falsadores": [
+   "R-106",
    "R-143"
   ],
   "apta_como_base": false
@@ -3259,6 +3265,7 @@
   "nota_traslado": "directa",
   "firma": "titular",
   "falsadores": [
+   "R-106",
    "R-164",
    "R-97"
   ],
@@ -3469,6 +3476,7 @@
   "nota_traslado": "directa",
   "firma": "ad_hoc",
   "falsadores": [
+   "R-106",
    "R-97"
   ],
   "apta_como_base": false
@@ -3536,8 +3544,10 @@
   ],
   "nota_traslado": "directa",
   "firma": "ad_hoc",
-  "falsadores": [],
-  "apta_como_base": true
+  "falsadores": [
+   "R-106"
+  ],
+  "apta_como_base": false
  },
  {
   "id": 70,
@@ -3592,8 +3602,10 @@
   ],
   "nota_traslado": "directa",
   "firma": "titular",
-  "falsadores": [],
-  "apta_como_base": true
+  "falsadores": [
+   "R-106"
+  ],
+  "apta_como_base": false
  },
  {
   "id": 71,
@@ -3744,8 +3756,10 @@
   ],
   "nota_traslado": "directa",
   "firma": "ad_hoc",
-  "falsadores": [],
-  "apta_como_base": true
+  "falsadores": [
+   "R-106"
+  ],
+  "apta_como_base": false
  },
  {
   "id": 74,
@@ -3878,6 +3892,7 @@
   "nota_traslado": "directa",
   "firma": "titular",
   "falsadores": [
+   "R-106",
    "R-97"
   ],
   "apta_como_base": false
@@ -3941,6 +3956,7 @@
   "nota_traslado": "directa",
   "firma": "titular",
   "falsadores": [
+   "R-106",
    "R-164"
   ],
   "apta_como_base": false
@@ -4424,10 +4440,8 @@
   ],
   "nota_traslado": "directa",
   "firma": "titular",
-  "falsadores": [
-   "R-167"
-  ],
-  "apta_como_base": false
+  "falsadores": [],
+  "apta_como_base": true
  },
  {
   "id": 86,
@@ -5459,10 +5473,8 @@
   ],
   "nota_traslado": "directa",
   "firma": "ad_hoc",
-  "falsadores": [
-   "R-167"
-  ],
-  "apta_como_base": false
+  "falsadores": [],
+  "apta_como_base": true
  },
  {
   "id": 104,
@@ -7570,10 +7582,8 @@
   ],
   "nota_traslado": "directa",
   "firma": "ad_hoc",
-  "falsadores": [
-   "R-167"
-  ],
-  "apta_como_base": false
+  "falsadores": [],
+  "apta_como_base": true
  },
  {
   "id": 145,
@@ -8544,10 +8554,8 @@
   ],
   "nota_traslado": "directa",
   "firma": "ad_hoc",
-  "falsadores": [
-   "R-167"
-  ],
-  "apta_como_base": false
+  "falsadores": [],
+  "apta_como_base": true
  },
  {
   "id": 163,
@@ -9006,8 +9014,10 @@
   ],
   "nota_traslado": "directa",
   "firma": "titular",
-  "falsadores": [],
-  "apta_como_base": true
+  "falsadores": [
+   "R-106"
+  ],
+  "apta_como_base": false
  },
  {
   "id": 175,
@@ -9068,6 +9078,7 @@
   "nota_traslado": "documento_traslado",
   "firma": "titular",
   "falsadores": [
+   "R-106",
    "R-164"
   ],
   "apta_como_base": false
@@ -10385,10 +10396,8 @@
   ],
   "nota_traslado": "memorandum",
   "firma": "titular",
-  "falsadores": [
-   "R-159"
-  ],
-  "apta_como_base": false
+  "falsadores": [],
+  "apta_como_base": true
  },
  {
   "id": 199,
@@ -11549,8 +11558,7 @@
   "nota_traslado": "directa",
   "firma": "titular",
   "falsadores": [
-   "R-143",
-   "R-167"
+   "R-143"
   ],
   "apta_como_base": false
  },
@@ -11621,8 +11629,10 @@
   "imputaciones": [],
   "nota_traslado": "directa",
   "firma": "titular",
-  "falsadores": [],
-  "apta_como_base": true
+  "falsadores": [
+   "R-106"
+  ],
+  "apta_como_base": false
  },
  {
   "id": 223,
@@ -11837,8 +11847,10 @@
   "imputaciones": [],
   "nota_traslado": "directa",
   "firma": "titular",
-  "falsadores": [],
-  "apta_como_base": true
+  "falsadores": [
+   "R-106"
+  ],
+  "apta_como_base": false
  },
  {
   "id": 227,
@@ -12937,10 +12949,8 @@
   ],
   "nota_traslado": "documento_traslado",
   "firma": "titular",
-  "falsadores": [
-   "R-159"
-  ],
-  "apta_como_base": false
+  "falsadores": [],
+  "apta_como_base": true
  },
  {
   "id": 252,
@@ -13131,8 +13141,7 @@
   "nota_traslado": "memorandum",
   "firma": "titular",
   "falsadores": [
-   "R-143",
-   "R-159"
+   "R-143"
   ],
   "apta_como_base": false
  },
@@ -13443,7 +13452,6 @@
   "firma": "titular",
   "falsadores": [
    "R-143",
-   "R-159",
    "R-97"
   ],
   "apta_como_base": false
@@ -14783,7 +14791,6 @@
   "nota_traslado": "memorandum",
   "firma": "titular",
   "falsadores": [
-   "R-159",
    "R-97"
   ],
   "apta_como_base": false
@@ -15223,10 +15230,8 @@
   ],
   "nota_traslado": "memorandum",
   "firma": "titular",
-  "falsadores": [
-   "R-159"
-  ],
-  "apta_como_base": false
+  "falsadores": [],
+  "apta_como_base": true
  },
  {
   "id": 290,
@@ -15848,7 +15853,8 @@
   "nota_traslado": "directa",
   "firma": "titular",
   "falsadores": [
-   "R-159"
+   "R-159",
+   "R-167"
   ],
   "apta_como_base": false
  },
@@ -16015,7 +16021,6 @@
   "firma": "ad_hoc",
   "falsadores": [
    "R-143",
-   "R-159",
    "R-164"
   ],
   "apta_como_base": false
@@ -17598,7 +17603,8 @@
   "nota_traslado": "memorandum",
   "firma": "ad_hoc",
   "falsadores": [
-   "R-159"
+   "R-159",
+   "R-167"
   ],
   "apta_como_base": false
  },
@@ -17881,7 +17887,8 @@
   "nota_traslado": "directa",
   "firma": "titular",
   "falsadores": [
-   "R-164"
+   "R-164",
+   "R-170"
   ],
   "apta_como_base": false
  },
@@ -17989,6 +17996,7 @@
   "nota_traslado": "directa",
   "firma": "titular",
   "falsadores": [
+   "R-106",
    "R-143",
    "R-164"
   ],
@@ -18280,6 +18288,7 @@
   "nota_traslado": "directa",
   "firma": "titular",
   "falsadores": [
+   "R-106",
    "R-164",
    "R-97"
   ],
@@ -18800,7 +18809,8 @@
   "nota_traslado": "directa",
   "firma": "titular",
   "falsadores": [
-   "R-159"
+   "R-159",
+   "R-167"
   ],
   "apta_como_base": false
  },
@@ -19196,6 +19206,7 @@
    "R-146",
    "R-159",
    "R-164",
+   "R-167",
    "R-97"
   ],
   "apta_como_base": false
@@ -20664,8 +20675,10 @@
   "imputaciones": [],
   "nota_traslado": "directa",
   "firma": "ad_hoc",
-  "falsadores": [],
-  "apta_como_base": true
+  "falsadores": [
+   "R-106"
+  ],
+  "apta_como_base": false
  },
  {
   "id": 383,
@@ -21901,10 +21914,8 @@
   ],
   "nota_traslado": "memorandum",
   "firma": "titular",
-  "falsadores": [
-   "R-159"
-  ],
-  "apta_como_base": false
+  "falsadores": [],
+  "apta_como_base": true
  },
  {
   "id": 410,
@@ -25999,10 +26010,8 @@
   ],
   "nota_traslado": "documento_traslado",
   "firma": "titular",
-  "falsadores": [
-   "R-159"
-  ],
-  "apta_como_base": false
+  "falsadores": [],
+  "apta_como_base": true
  },
  {
   "id": 492,
@@ -26277,7 +26286,8 @@
    "R-104",
    "R-106",
    "R-159",
-   "R-164"
+   "R-164",
+   "R-167"
   ],
   "apta_como_base": false
  },
@@ -28204,8 +28214,10 @@
   "imputaciones": [],
   "nota_traslado": "directa",
   "firma": "titular",
-  "falsadores": [],
-  "apta_como_base": true
+  "falsadores": [
+   "R-106"
+  ],
+  "apta_como_base": false
  },
  {
   "id": 532,
@@ -28239,8 +28251,10 @@
   "imputaciones": [],
   "nota_traslado": "directa",
   "firma": "ad_hoc",
-  "falsadores": [],
-  "apta_como_base": true
+  "falsadores": [
+   "R-106"
+  ],
+  "apta_como_base": false
  },
  {
   "id": 533,
@@ -28377,8 +28391,7 @@
   "firma": "titular",
   "falsadores": [
    "R-143",
-   "R-164",
-   "R-167"
+   "R-164"
   ],
   "apta_como_base": false
  },
@@ -29739,6 +29752,7 @@
   "nota_traslado": "directa",
   "firma": "titular",
   "falsadores": [
+   "R-106",
    "R-143"
   ],
   "apta_como_base": false

@@ -71,7 +71,9 @@ def texto_docx(ruta: Path) -> str:
 
 def sin_retrocesos() -> list[str]:
     fallos = []
-    for py in sorted((RAIZ / "scripts").glob("*.py")) + sorted(
+    # rglob: el retroceso de `migraciones/notas_traslado.py` (23/09/2026) paso
+    # inadvertido porque solo se miraba el primer nivel de scripts/.
+    for py in sorted((RAIZ / "scripts").rglob("*.py")) + sorted(
         (RAIZ / "src").glob("*.py")
     ):
         crudo = py.read_bytes()
@@ -183,6 +185,33 @@ def cero_ocr() -> list[str]:
     return fallos
 
 
+def sin_elementtree_escribiendo() -> list[str]:
+    """ElementTree renombra los prefijos (w14 -> ns2) y Word declara el .docx
+    «contenido no legible»: fue la causa de las 577 plantillas corruptas de la
+    v2.3.0. Leer con ElementTree vale; escribir XML de Word con el, no."""
+    fallos = []
+    for py in sorted((RAIZ / "scripts").rglob("*.py")):
+        t = py.read_text(encoding="utf-8", errors="replace")
+        if re.search(r"\b(?:ET|ElementTree)\.tostring\(|\.write\([^)]*xml_declaration", t):
+            fallos.append("%s serializa XML con ElementTree" % py.relative_to(RAIZ))
+    return fallos
+
+
+def plantillas_abren_en_word() -> list[str]:
+    """R-168 sobre todo el corpus: espacios de nombres completos."""
+    import zipfile
+
+    sys.path.insert(0, str(RAIZ / "scripts"))
+    import reparar_espacios_nombres as R
+
+    fallos = []
+    for d in sorted((RAIZ / "plantillas_maestras").rglob("*.docx")):
+        with zipfile.ZipFile(d) as z:
+            if R.necesita(z):
+                fallos.append("%s: espacios de nombres rotos" % d.name)
+    return fallos[:10]
+
+
 def main() -> int:
     bloques = (
         ("Sin retrocesos en expresiones regulares", sin_retrocesos),
@@ -190,6 +219,8 @@ def main() -> int:
         ("Todos los modulos compilan", modulos_compilan),
         ("Sin artefactos de trabajo rastreados", sin_artefactos),
         ("Cero OCR (R-137)", cero_ocr),
+        ("Nunca ElementTree escribiendo .docx", sin_elementtree_escribiendo),
+        ("Plantillas que Word abre (R-168)", plantillas_abren_en_word),
     )
     print("=" * 78)
     print("AUTOCOMPROBACION DEL REPOSITORIO")

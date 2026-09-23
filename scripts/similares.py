@@ -9,6 +9,8 @@ los DEFINITIVOS tras la resolucion de requerimiento y el escrito que la absuelve
 
     {
       "resolucion": 2,
+      "carpeta_origen": "C:/Users/.../Expedientes/2898-2026",
+      "traslado": null,
       "escritos": [{"tipo": "denuncia", "fecha": "12 de agosto de 2026"},
                    {"tipo": "subsanacion", "fecha": "22 de setiembre de 2026"}],
       "rama": "01_seguro_vehicular",
@@ -23,6 +25,14 @@ los DEFINITIVOS tras la resolucion de requerimiento y el escrito que la absuelve
          "norma": "art.18|art.19"}
       ]
     }
+
+`carpeta_origen`: donde el usuario tiene los documentos; `entregar` copia alli
+el Word. `traslado`: null si la denuncia se presento en CC1 (entonces NINGUNA
+nota al pie sobre su presentacion); si llego derivada y el usuario entrego el
+documento: {"documento": "MEMORANDUM 001950-2025-PS1/INDECOPI", "fecha":
+"3 de setiembre de 2025", "recibida": "3 de setiembre de 2025"}. Caso
+particular (desacumulacion, Hoja de Tramite): ademas "nota" con el texto literal
+en la forma de las plantillas, que debe contener documento, fecha y recibida.
 
 `norma` es opcional: la norma de docs/tabla_tipificacion.json que el agente
 propone para esa conducta; si se da, pesa la coincidencia de norma.

@@ -55,7 +55,7 @@ Sigue el flujo de `AGENTS.md` §1:
    - Denunciados: los **definitivos** tras la resolución de requerimiento y su absolución.
 3. **OBLIGATORIO: las 10 plantillas más similares.** Escribe `_CASO.json` y ejecuta `similares.py <carpeta>`. Completa el «Por qué» de las 10 en `_SIMILARES.md`, con detalle técnico de las imputaciones. Muéstraselo al usuario. **Nunca** cites una plantilla que el script no listó.
 4. `construir_admisorio.py --mapa <mapa.json>`: el mapa va en la carpeta del caso y la base es una de las 10.
-5. `admisorio.py entregar "<carpeta>\ADM <EXP> R<N>.docx" --recepcion DD/MM/AAAA`.
+5. `admisorio.py entregar "<carpeta>\ADM <EXP> R<N>.docx" --recepcion DD/MM/AAAA`. Si es ENTREGABLE, copia el Word a la carpeta donde el usuario tiene los documentos (`carpeta_origen` de `_CASO.json`).
 
 Solo está entregado si la salida dice **ENTREGABLE** y el verificador **APTO**. Pega esa salida
 literal y la ruta del `.docx`.
@@ -66,7 +66,10 @@ Si el usuario te dice **expresamente** que un admisorio ya está corregido y te 
 2. Resume, sección por sección, qué cambió y qué regla lo explica.
 3. **No** lo subas a ningún sitio ni lo mezcles con el repositorio: su incorporación como plantilla la hace el instructor con el procedimiento del repositorio.
 
-## Prohibido
+## Prohibido (haz solo lo que se hace)
+- Cualquier comando fuera de: `comprobar_entorno`, `comprobar_anclaje`, `config_sistema`, `admisorio.py preparar|entregar`, `similares`, `construir_admisorio`, `inspeccionar_docx`, `plazos`. Ni `editar_cedulas` ni `python -c`.
+- Hacer cédulas, borradores o cualquier archivo distinto del único `ADM <EXP> R<N>.docx`.
+- Notas al pie sobre la presentación de la denuncia («Denuncia presentada …», «Mesa de Partes …»).
 - **Modificar el repositorio** (scripts, reglas, datos). Si ves un error del sistema, repórtalo. `entregar` detecta cualquier cambio.
 - **Fabricar documentos del expediente** (cédulas, escritos). Si falta una cédula, la vía de notificación sale del historial del proveedor (skill `partes-y-notificacion`).
 - Escribir scripts propios para inspeccionar plantillas: usa `inspeccionar_docx.py`. Cada llamada cuesta tiempo; el objetivo es ≤ 12.
