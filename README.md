@@ -1,39 +1,33 @@
 # SystemHope ResAdmis v3
 
+> **Agente (Google Antigravity): si el usuario te pegó el enlace de este repositorio para redactar un admisorio, NO sigas leyendo aquí. Lee y ejecuta, en orden, [`ARRANQUE.md`](https://github.com/zero-phoenix/SystemHope-ResAdmis/blob/main/ARRANQUE.md) (texto plano: https://raw.githubusercontent.com/zero-phoenix/SystemHope-ResAdmis/main/ARRANQUE.md).**
+
 Sistema para que **Google Antigravity** redacte las resoluciones de **admisión a trámite e
 imputación de cargos** de la Comisión de Protección al Consumidor 1 (CC1) de Indecopi en
 materia de **seguros**, con un verificador que rechaza lo que no se ajusta a la práctica medida
 de la Comisión.
 
 - **Reglas**: [`AGENTS.md`](AGENTS.md) es la única fuente vigente. Tiene menos de 12 000 caracteres, el límite de reglas de Antigravity.
-- **Redactor**: Google Antigravity con el modelo de [`config/modelo.json`](config/modelo.json) (Gemini 3.8 Flash High o superior).
-- **Estado**: la parte 1 del plan v3 está aplicada. El uso desde cualquier PC con Python y Git portátiles llega en la parte 2.
+- **Redactor**: Google Antigravity con Gemini 3.8 Flash High o el modelo superior vigente.
+- **Cualquier PC**: en una conversación nueva de Antigravity, pega `https://github.com/zero-phoenix/SystemHope-ResAdmis/blob/main/ARRANQUE.md` y adjunta los PDF del expediente. [`ARRANQUE.md`](ARRANQUE.md) instala Python y Git portátiles en `%USERPROFILE%\SystemHope\` (sin administrador) y guía al agente.
+- **Skills de Antigravity**: `.agents/skills/` (flujo, imputaciones, partes y notificación, confidencialidad).
 
 ## Uso (desde la raíz del repositorio)
 
 ```bash
 pip install -r requirements.txt
 python scripts/comprobar_anclaje.py
-python scripts/config_sistema.py --fecha "25 de setiembre de 2026"   # fecha de la remesa
 python scripts/admisorio.py preparar <carpeta_del_expediente>
 #  -> lectura visual de cada página (_paginas/*.png) y _LECTURA.md
 python scripts/construir_admisorio.py --mapa <mapa.json>
-python scripts/admisorio.py entregar "<carpeta>/ADM <EXP> R<N>.docx" --recepcion DD/MM/AAAA
+python scripts/admisorio.py entregar "<carpeta>/ADM <EXP> R<N>.docx"
 ```
 
 Utilidades:
-- `scripts/plazos.py --desde DD/MM/AAAA` calcula el plazo de 20 días hábiles con los feriados del Perú. Se informa, no va en la resolución.
 - `scripts/inspeccionar_docx.py <docx> [--diff <control>]` inspecciona o compara documentos.
+- `scripts/medir_formato.py <docx|pdf> [--comparar]` mide la huella de formato sin OCR (estructura del archivo).
+- `scripts/clasificar_corpus.py` clasifica las plantillas por contenido (denunciantes, denunciados, vías, subtipos, calidad).
 - `scripts/prueba_verificador.py` somete al verificador a mutaciones: cada regla debe rechazar su error.
-
-## Configuración única (`config/`)
-
-| Archivo | Qué fija |
-|---|---|
-| `remesa.json` | Fecha de emisión de toda la remesa. Si está vacía, el agente la pregunta. |
-| `firmas.json` | Firma según el denunciado: Eveling Roa Quispe, Secretaria Técnica; si hay Rímac, Luisa Analí Silva Malpartida, Secretaria Técnica Ad Hoc. |
-| `modelo.json` | Modelo redactor exigido. |
-| `feriados_peru.json` | Días no laborables adicionales. Los feriados nacionales se calculan solos. |
 
 ## Datos de referencia (`docs/`)
 
@@ -41,7 +35,9 @@ Utilidades:
 |---|---|
 | `tabla_tipificacion.json` | Tabla de hechos infractores y tipificación del instructor: lista **cerrada** de artículos imputables. |
 | `catalogo_imputaciones.json` | Formas literales de imputación del corpus, depuradas contra la tabla. |
-| `plantillas_maestras_index.json` | Índice de las **578 plantillas** de `plantillas_maestras/`. |
+| `plantillas_maestras_index.json` | Índice de las **574 plantillas** de `plantillas_maestras/`. |
+| `estilo_cc1.json` | Perfil de formato medido del corpus (`scripts/medir_formato.py`). |
+| `IMPUTACIONES_ANALITICO.md` | Cómo se redacta cada imputación, por qué y qué no hacer (medido). |
 | `directorio_proveedores_domicilios.json` | Vía de notificación histórica de cada proveedor. |
 | `casillas_habilitadas.json` | Proveedores con casilla electrónica habilitada (R-151). |
 
@@ -52,19 +48,29 @@ Utilidades:
 - Márgenes de 2,5 cm arriba y abajo y 3,0 cm a los lados.
 - Pie `M-CPC-01/03`, notas en superíndice, sin resaltados.
 
-## Plantillas por rama (578)
+## Plantillas por rama (574)
 
-| Rama | N | Rama | N |
-|---|---|---|---|
-| 01 vehicular | 168 | 10 sepelio | 7 |
-| 02 vida | 131 | 11 accidentes personales | 7 |
-| 03 desgravamen | 59 | 12 transporte y carga | 3 |
-| 04 protección de tarjetas y dinero | 35 | 13 múltiple y equipos | 4 |
-| 05 SOAT y AFOCAT | 43 | 14 desempleo | 2 |
-| 06 hogar e inmuebles | 20 | 15 sistema previsional | 1 |
-| 07 SCTR | 18 | 16 temas administrativos financieros | 4 |
-| 08 salud, EPS y oncológico | 12 | 17 no especificado | 56 |
-| 09 patrimonial, caución y RC | 8 | | |
+| Rama | N |
+|---|---|
+| 01 seguro vehicular | 167 |
+| 02 seguro vida | 130 |
+| 03 seguro desgravamen | 59 |
+| 04 seguro proteccion tarjetas y dinero | 35 |
+| 05 soat y afocat | 43 |
+| 06 seguro hogar e inmuebles | 19 |
+| 07 seguro sctr | 18 |
+| 08 seguro salud eps oncologico | 12 |
+| 09 seguro patrimonial caucion rc | 8 |
+| 10 seguro sepelio | 7 |
+| 11 seguro accidentes personales | 7 |
+| 12 seguro transporte y carga | 3 |
+| 13 seguro multiple y equipos | 4 |
+| 14 seguro desempleo | 2 |
+| 15 sistema previsional afp onp | 1 |
+| 16 temas administrativos financieros | 4 |
+| 17 seguro no especificado | 55 |
+
+Por contenido (índice v3): 457 con 1 denunciado, 102 con 2, 15 con 3 o más; 23 con confidencialidad; 336 aptas como base (0 falsadores).
 
 ## Integración continua
 

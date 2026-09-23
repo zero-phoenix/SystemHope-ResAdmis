@@ -1354,3 +1354,15 @@ Lo comprueba y refuta `prueba_r155_formula_traslado` en `scripts/verificar_admis
 
 ### Firma (R-103 ratificada)
 - Eveling Roa Quispe, Secretaria Técnica; si entre los denunciados esta Rímac, Luisa Analí Silva Malpartida, Secretaria Técnica Ad Hoc. Nunca «(e)». Se normalizaron 427 bloques de firma (incluidos los historicos de María Graciela Rejas Jiménez y Judith Alcalde Briceño) para que ninguna plantilla ensene una firma no vigente.
+
+
+## MANDATOS DEL INSTRUCTOR DEL 23/09/2026 (segunda tanda, v3 parte 2)
+
+- **R-156 ampliada**: ningun «N°/Nº/Nro./N./N» ante un numero en ningun contexto.
+- **R-161**: «de 2025» (nunca «del 2025»), «recibida» (nunca «recepcionada»), mes en minuscula. Nota al pie 1 canonica: «Denuncia remitida a esta Comision mediante [MEMORANDUM | Documento de Traslado] [numero] de fecha [fecha], recibida el [fecha].»
+- **R-143 (clausulas abusivas)**: siempre numeral 49.1 del articulo 49 + literal del articulo 50 (ineficacia absoluta) o 51 (relativa).
+- **R-143 (documentos contractuales)**: a la firma → literal e) del art. 47; despues, a pedido → art. 1, numeral 1, literal b) y art. 2. Solicitud de gestion mal atendida → idoneidad; solicitud de informacion/copias → informacion; si vienen en la misma carta, dos imputaciones.
+- **Informacion**: siempre la forma de los modelos, «el artículo 1, numeral 1, literal b) y al artículo 2».
+- **Firma**: «LUISA ANALÍ SILVA MALPARTIDA» con tilde; Ad Hoc solo con Rimac, tambien en cedulas; nunca «(e)».
+- **Confidencialidad**: 23 admisorios con PRIMERO de confidencialidad se conservan como subtipo (skill `confidencialidad`).
+- **Admisorio corregido por el instructor**: solo cuando el instructor lo dice expresamente y da la ruta; se compara con `inspeccionar_docx --diff`.

@@ -1,6 +1,6 @@
 {
  "fuente": "normas/Tabla de Hechos Infractores y Tipificación.pdf (mandato del instructor, 23/09/2026)",
- "regla": "Solo se imputa por los artículos de esta tabla, en la forma literal de las plantillas. Nunca artículo 3. Artículo 24 solo si el reclamo se interpuso ante un proveedor NO regulado por el sistema financiero; si está regulado, numeral 88.1 del artículo 88.",
+ "regla": "Solo se imputa por los articulos de esta tabla, en la forma literal de las plantillas (docs/catalogo_imputaciones.json). Nunca articulo 3. Articulo 24 solo si el reclamo se interpuso ante un proveedor NO regulado por el sistema financiero; si esta regulado, numeral 88.1 del articulo 88. Clausulas abusivas: siempre numeral 49.1 del articulo 49 junto al literal del articulo 50 o 51. Una SOLICITUD de gestion atendida de forma inadecuada es idoneidad (articulos 18 y 19); una SOLICITUD de informacion o de copias es informacion (articulo 1, numeral 1, literal b) y articulo 2). Si una misma carta contiene ambas, se imputan por separado.",
  "prohibidas": [
   "art.3"
  ],
@@ -87,18 +87,24 @@
   },
   {
    "item": 12,
-   "hecho": "Falta de entrega de documentación contractual (contrato, hoja resumen, póliza, condiciones)",
+   "hecho": "Falta de entrega de documentación contractual A LA FIRMA del contrato (contrato, hoja resumen, póliza, condiciones generales)",
    "normas": [
-    "art.47|lit.e",
+    "art.47|lit.e"
+   ]
+  },
+  {
+   "item": "12b",
+   "hecho": "Falta de entrega de documentación contractual DESPUÉS de firmado el contrato, cuando el consumidor la solicita (copia de contrato o póliza, requerimiento de información sobre sus productos)",
+   "normas": [
     "art.1|art.2|lit.b|num.1"
    ]
   },
   {
    "item": 13,
-   "hecho": "Cláusulas abusivas: ineficacia absoluta (50) / relativa (51)",
+   "hecho": "Cláusulas abusivas: SIEMPRE numeral 49.1 del artículo 49 y el literal del artículo 50 (ineficacia absoluta) o del artículo 51 (ineficacia relativa)",
    "normas": [
-    "art.50",
-    "art.51"
+    "art.49|art.50|lit.*|num.49.1",
+    "art.49|art.51|lit.*|num.49.1"
    ]
   },
   {
@@ -267,13 +273,6 @@
    "normas": [
     "art.18|art.19"
    ]
-  },
-  {
-   "item": 44,
-   "hecho": "Falta de remisión del certificado o póliza pese a requerimiento posterior a la contratación",
-   "normas": [
-    "art.18|art.20"
-   ]
   }
  ],
  "normas_admitidas": [
@@ -281,14 +280,13 @@
   "art.151",
   "art.152",
   "art.18|art.19",
-  "art.18|art.20",
   "art.1|art.2|lit.b|num.1",
   "art.24",
   "art.38",
   "art.41",
   "art.47|lit.e",
-  "art.50",
-  "art.51",
+  "art.49|art.50|lit.*|num.49.1",
+  "art.49|art.51|lit.*|num.49.1",
   "art.56|lit.b",
   "art.56|lit.c",
   "art.56|lit.d",
@@ -306,5 +304,8 @@
   "art.61|art.62|lit.d",
   "art.61|art.62|lit.h",
   "art.88|num.88.1"
- ]
+ ],
+ "patrones": {
+  "lit.*": "cualquier literal a) a h) del articulo; admite varios literales"
+ }
 }

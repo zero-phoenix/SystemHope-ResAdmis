@@ -90,7 +90,12 @@ def _exigir_anclaje() -> None:
 
 
 def preparar(
-    carpeta: Path, contiene: str | None, rama: str | None, sujeto: str | None
+    carpeta: Path,
+    contiene: str | None,
+    rama: str | None,
+    sujeto: str | None,
+    denunciados: int | None = None,
+    subtipo: str | None = None,
 ) -> int:
     _exigir_anclaje()
     t0 = time.time()
@@ -168,6 +173,16 @@ def preparar(
         candidatas = [
             f for f in candidatas if sujeto.lower() == f["sujeto_tipo"].lower()
         ]
+    if denunciados:
+        candidatas = [
+            f for f in candidatas
+            if (f.get("denunciados", {}).get("n", 0) >= 3 if denunciados >= 3 else f.get("denunciados", {}).get("n", 0) == denunciados)
+        ]
+    if subtipo:
+        candidatas = [f for f in candidatas if subtipo in f.get("subtipos", [])]
+    elif fichas and "subtipos" in fichas[0]:
+        candidatas = [f for f in candidatas if not f.get("subtipos")]
+    candidatas.sort(key=lambda f: (not f.get("apta_como_base", False), len(f.get("falsadores", []))))
     if contiene:
         aguja = contiene.lower()
         filtradas = []
@@ -181,7 +196,17 @@ def preparar(
         print('  Filtro por texto: "%s"' % contiene)
     print("  %d de %d plantillas cumplen el filtro." % (len(candidatas), len(fichas)))
     for f in candidatas[:10]:
-        print("    %-22s %-34s %s" % (f["rama"], f["materia"][:34], f["archivo"]))
+        print(
+            "    %s %-22s %-30s ddos=%s %-24s %s"
+            % (
+                "APTA" if f.get("apta_como_base") else "    ",
+                f["rama"],
+                f["materia"][:30],
+                f.get("denunciados", {}).get("n", "?"),
+                f["sujeto_tipo"][:24],
+                f["archivo"],
+            )
+        )
     if len(candidatas) > 10:
         print("    ... y %d mas (afina el filtro)" % (len(candidatas) - 10))
 
@@ -389,7 +414,12 @@ def main(argv: list[str]) -> int:
     p.add_argument("carpeta")
     p.add_argument("--contiene", help="Filtra plantillas cuyo texto contenga la frase")
     p.add_argument("--rama", help="Rama taxonomica, p. ej. 02_seguro_vida")
-    p.add_argument("--sujeto", help="varon | mujer | persona_juridica")
+    p.add_argument(
+        "--sujeto",
+        help="varon | mujer | sucesion_intestada | herederos_no_acreditados | conyuges | persona_juridica | asociacion | varios | mixto",
+    )
+    p.add_argument("--denunciados", type=int, help="Numero real de denunciados (1, 2, 3 = 3 o mas)")
+    p.add_argument("--subtipo", help="confidencialidad | inclusion_de_oficio (sin esto se excluyen)")
 
     e = sub.add_parser(
         "entregar", help="Verificador + guardia + restricciones, en una llamada"
@@ -403,7 +433,9 @@ def main(argv: list[str]) -> int:
 
     args = ap.parse_args(argv[1:])
     if args.orden == "preparar":
-        return preparar(Path(args.carpeta), args.contiene, args.rama, args.sujeto)
+        return preparar(
+            Path(args.carpeta), args.contiene, args.rama, args.sujeto, args.denunciados, args.subtipo
+        )
     return entregar(Path(args.docx), args.caso, args.recepcion)
 
 

@@ -28,7 +28,6 @@ Uso:
 
 from __future__ import annotations
 
-import importlib
 import re
 import subprocess
 import sys
@@ -120,7 +119,9 @@ def modulos_compilan() -> list[str]:
         try:
             compile(py.read_text(encoding="utf-8"), str(py), "exec")
         except SyntaxError as exc:
-            fallos.append("%s no compila: linea %s, %s" % (py.name, exc.lineno, exc.msg))
+            fallos.append(
+                "%s no compila: linea %s, %s" % (py.name, exc.lineno, exc.msg)
+            )
     return fallos
 
 
@@ -142,12 +143,53 @@ def sin_artefactos() -> list[str]:
     return fallos
 
 
+OCR_PROHIBIDO = re.compile(
+    r"\b(?:import|from)\s+(?:pytesseract|easyocr|paddleocr|ocrmypdf|rapidocr\w*|doctr|kraken)\b"
+    r"|get_textpage_ocr|\.ocr_page\(|tesseract_cmd"
+)
+
+
+def cero_ocr() -> list[str]:
+    """R-137: la lectura es visual (captura completa de cada pagina); nunca OCR.
+
+    Ningun script puede importar un motor de OCR ni pedirselo a PyMuPDF, y
+    requirements.txt no puede instalarlo.
+    """
+    fallos = []
+    for ruta in sorted((RAIZ / "scripts").rglob("*.py")) + sorted(
+        (RAIZ / "src").rglob("*.py")
+    ):
+        if ruta.name == "autocomprobacion.py":
+            continue
+        texto = ruta.read_text(encoding="utf-8", errors="replace")
+        m = OCR_PROHIBIDO.search(texto)
+        if m:
+            fallos.append("%s usa OCR: '%s'" % (ruta.relative_to(RAIZ), m.group(0)))
+    req = (
+        (RAIZ / "requirements.txt")
+        .read_text(encoding="utf-8", errors="replace")
+        .lower()
+    )
+    for lib in (
+        "pytesseract",
+        "easyocr",
+        "paddleocr",
+        "ocrmypdf",
+        "rapidocr",
+        "python-doctr",
+    ):
+        if re.search(r"^\s*%s\b" % lib, req, re.M):
+            fallos.append("requirements.txt instala %s (OCR prohibido)" % lib)
+    return fallos
+
+
 def main() -> int:
     bloques = (
         ("Sin retrocesos en expresiones regulares", sin_retrocesos),
         ("Plantillas sin datos personales", plantillas_anonimas),
         ("Todos los modulos compilan", modulos_compilan),
         ("Sin artefactos de trabajo rastreados", sin_artefactos),
+        ("Cero OCR (R-137)", cero_ocr),
     )
     print("=" * 78)
     print("AUTOCOMPROBACION DEL REPOSITORIO")

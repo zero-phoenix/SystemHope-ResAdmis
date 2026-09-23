@@ -59,3 +59,9 @@ jobs:
         # Una regla que nunca falla no es una regla que se cumple: es una regla
         # que no se esta ejecutando. Se le da un documento que DEBE rechazar.
         run: python scripts/prueba_verificador.py
+
+      - name: Paquete portatil (se construye y se prueba; no se publica)
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./arranque/construir_portable.ps1 -Version "ci-${{ github.run_number }}"

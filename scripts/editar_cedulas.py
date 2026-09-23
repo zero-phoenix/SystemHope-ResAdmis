@@ -4,8 +4,9 @@
 
 Mandato del instructor (14/09/2026):
   - todas las cedulas llevan `Lima, <fecha de config/remesa.json>` (D2, 23/09/2026);
-  - ninguna firma EVELING ROA QUISPE: todas firman LUISA ANALI SILVA MALPARTIDA
-    con el cargo `Secretaria Tecnica (e)`.
+  - firma segun config/firmas.json (R-103): Eveling Roa Quispe, Secretaria
+    Tecnica; si Rimac es denunciado, Luisa Anali Silva Malpartida, Secretaria
+    Tecnica Ad Hoc. Nunca "(e)" (el mandato del 14/09/2026 esta derogado).
 
 Ademas, la cedula es la **fuente de verdad** de dos datos del admisorio (R-129):
 el **numero de resolucion** y la **via de notificacion de cada parte**, que es
@@ -38,10 +39,17 @@ import config_sistema  # noqa: E402
 # D2 (23/09/2026): la fecha ya no se escribe aqui; es la de config/remesa.json.
 FECHA_MANDATO = config_sistema.fecha_emision()
 if not FECHA_MANDATO:
-    raise SystemExit("Falta la fecha de la remesa: python scripts/config_sistema.py --fecha \"D de mes de AAAA\"")
-FIRMA_NUEVA = "LUISA ANALI SILVA MALPARTIDA"
-FIRMA_VIEJA = "EVELING ROA QUISPE"
-CARGO_NUEVO = "Secretaria Técnica (e)"
+    raise SystemExit(
+        'Falta la fecha de la remesa: python scripts/config_sistema.py --fecha "D de mes de AAAA"'
+    )
+# Firma (R-103, ratificada el 23/09/2026 tambien para las cedulas): la de
+# config/firmas.json segun las partes; Luisa Anali Silva Malpartida firma como
+# Ad Hoc solo si Rimac es denunciado. Nunca "(e)".
+FIRMANTES = (
+    "EVELING ROA QUISPE",
+    "LUISA ANALI SILVA MALPARTIDA",
+    "LUISA ANALÍ SILVA MALPARTIDA",
+)
 
 MESES = (
     "enero|febrero|marzo|abril|mayo|junio|julio|agosto|"
@@ -53,7 +61,7 @@ RE_TEXTO = re.compile(r"(<w:t(?:\s[^>]*)?>)(.*?)(</w:t>)", re.S)
 # Ojo: `<w:t[^>]*>` tambien captura `<w:tab>` y `<w:tabs>`, y entonces el "texto"
 # del parrafo se llena de XML crudo. Costo medido: 14 reemplazos del Exp. 3122-2026
 # declarados inexistentes cuando si estaban.
-RE_CARGO = re.compile(r"^secretar[ií]a? t[eé]cnica\s*$", re.I)
+RE_CARGO = re.compile(r"^secretar[ií]a? t[eé]cnica(?:\s*\(e\)|\s+ad hoc)?\s*$", re.I)
 # La cedula escribe el ordinal con la ordinal masculina (Nº), no con el
 # simbolo de grado (N°). Se aceptan ambos, y tambien 'N.' o 'N' a secas.
 RE_RESOLUCION = re.compile(r"Resolución\s+N[°º.⁰]?\s*(\d+)", re.I)
@@ -87,9 +95,14 @@ def reescribir_parrafo(parrafo: str, nuevo: str) -> str:
 
 def editar_xml(xml: str) -> tuple[str, dict[str, int]]:
     cuenta = {"fechas": 0, "firma": 0, "cargo": 0}
+    nombre, cargo = config_sistema.firma_para(re.sub(r"<[^>]+>", " ", xml))
+    cuenta["nombre"], cuenta["cargo_texto"] = nombre, cargo
 
     xml, cuenta["fechas"] = RE_FECHA.subn(FECHA_MANDATO, xml)
-    xml, cuenta["firma"] = re.subn(re.escape(FIRMA_VIEJA), FIRMA_NUEVA, xml)
+    for firmante in FIRMANTES:
+        if firmante != nombre:
+            xml, n = re.subn(re.escape(firmante), nombre, xml)
+            cuenta["firma"] += n
 
     piezas: list[str] = []
     fin = 0
@@ -97,7 +110,7 @@ def editar_xml(xml: str) -> tuple[str, dict[str, int]]:
         parrafo = m.group(0)
         if RE_CARGO.match(texto_parrafo(parrafo).strip()):
             piezas.append(xml[fin : m.start()])
-            piezas.append(reescribir_parrafo(parrafo, CARGO_NUEVO))
+            piezas.append(reescribir_parrafo(parrafo, cargo))
             fin = m.end()
             cuenta["cargo"] += 1
     piezas.append(xml[fin:])
@@ -157,8 +170,8 @@ este expediente se emite con ese ordinal, no con otro.
 ## Fecha y firma (mandato del instructor)
 
 - `Lima, {FECHA_MANDATO}` — {cuenta['fechas']} fecha(s) sustituida(s).
-- `{FIRMA_NUEVA}` / `{CARGO_NUEVO}` — {cuenta['firma']} firma(s) y
-  {cuenta['cargo']} cargo(s) sustituido(s). Ninguna cédula firma {FIRMA_VIEJA}.
+- `{cuenta['nombre']}` / `{cuenta['cargo_texto']}` (config/firmas.json) — {cuenta['firma']} firma(s) y
+  {cuenta['cargo']} cargo(s) sustituido(s). Nunca «(e)».
 
 ## Prohibido
 
@@ -213,7 +226,7 @@ def procesar(base: Path, aplicar: bool, respaldo: Path | None) -> int:
 
         estado = "OK"
         if (
-            FIRMA_VIEJA in nuevo
+            "(e)" in re.sub(r"<[^>]+>", "", nuevo)
             or RE_FECHA.search(nuevo)
             and FECHA_MANDATO not in nuevo
         ):

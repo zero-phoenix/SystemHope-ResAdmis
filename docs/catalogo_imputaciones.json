@@ -1,1554 +1,18 @@
 {
- "combinaciones": [
-  {
-   "deber": "deber de idoneidad,",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 1430,
-   "literal": "presunta infracción al deber de idoneidad, tipificado en los artículos 18 y 19 del Código . ",
-   "plantillas": [
-    "TPL_1015_2026_SEGURO_VEHICULAR_ANULACION_INDEBIDA_BANCO_VARON_R2.docx",
-    "TPL_2138_2025_SEGURO_VEHICULAR_ANULACION_INDEBIDA_BANCO_VARON_R1.docx",
-    "TPL_1935_2025_SEGURO_VEHICULAR_ANULACION_INDEBIDA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1948_2025_SEGURO_VEHICULAR_ANULACION_INDEBIDA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1605_2025_SEGURO_VEHICULAR_CLAUSULA_ABUSIVA_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulos 18 y 19 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 1243,
-   "literal": "Presunta infracción a los artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor , en tanto",
-   "plantillas": [
-    "TPL_1015_2026_SEGURO_VEHICULAR_ANULACION_INDEBIDA_BANCO_VARON_R2.docx",
-    "TPL_2138_2025_SEGURO_VEHICULAR_ANULACION_INDEBIDA_BANCO_VARON_R1.docx",
-    "TPL_1935_2025_SEGURO_VEHICULAR_ANULACION_INDEBIDA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1948_2025_SEGURO_VEHICULAR_ANULACION_INDEBIDA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1605_2025_SEGURO_VEHICULAR_CLAUSULA_ABUSIVA_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "deber de informacion,",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 232,
-   "literal": "presunta infracción al deber de información, tipificado en el artículo 1, numeral 1, literal b) y al artículo 2 del Código . ",
-   "plantillas": [
-    "TPL_2138_2025_SEGURO_VEHICULAR_ANULACION_INDEBIDA_BANCO_VARON_R1.docx",
-    "TPL_1935_2025_SEGURO_VEHICULAR_ANULACION_INDEBIDA_ASEGURADORA_VARON_R1.docx",
-    "TPL_0031_2026_SEGURO_VEHICULAR_CLAUSULA_ABUSIVA_ASEGURADORA_VARON_R1.docx",
-    "TPL_2347_2026_SEGURO_VEHICULAR_CLAUSULA_ABUSIVA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1519_2025_SEGURO_VEHICULAR_DISCRIMINACION_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "articulo 1, numeral 1, literal b) y al articulo 2 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 193,
-   "literal": "Presunta infracción al artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1935_2025_SEGURO_VEHICULAR_ANULACION_INDEBIDA_ASEGURADORA_VARON_R1.docx",
-    "TPL_0031_2026_SEGURO_VEHICULAR_CLAUSULA_ABUSIVA_ASEGURADORA_VARON_R1.docx",
-    "TPL_2347_2026_SEGURO_VEHICULAR_CLAUSULA_ABUSIVA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1519_2025_SEGURO_VEHICULAR_DISCRIMINACION_ASEGURADORA_MUJER_R2.docx",
-    "TPL_2141_2025_SEGURO_VEHICULAR_DISCRIMINACION_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "numeral 88.1 del articulo 88 del codigo",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 161,
-   "literal": "presunta infracción al numeral 88.1 del artículo 88 del Código . ",
-   "plantillas": [
-    "TPL_2138_2025_SEGURO_VEHICULAR_ANULACION_INDEBIDA_BANCO_VARON_R1.docx",
-    "TPL_0798_2026_SEGURO_VEHICULAR_CLAUSULA_ABUSIVA_ASEGURADORA_VARON_R2.docx",
-    "TPL_1771_2025_SEGURO_VEHICULAR_CONTRATACION_NO_CONSENTIDA_BANCO_VARON_R2.docx",
-    "TPL_0545_2026_SEGURO_VEHICULAR_FALTA_ATENCION_O_DEMORA_RECLAMO_ASEGURADORA_VARON_R90.docx",
-    "TPL_1173_2026_SEGURO_VEHICULAR_FALTA_ATENCION_O_DEMORA_RECLAMO_ASEGURADORA_MUJER_R3.docx"
-   ]
-  },
-  {
-   "deber": "numeral 88.1 del articulo 88 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 138,
-   "literal": "Presunta infracción al numeral 88.1 del artículo 88 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_0798_2026_SEGURO_VEHICULAR_CLAUSULA_ABUSIVA_ASEGURADORA_VARON_R2.docx",
-    "TPL_1771_2025_SEGURO_VEHICULAR_CONTRATACION_NO_CONSENTIDA_BANCO_VARON_R2.docx",
-    "TPL_0545_2026_SEGURO_VEHICULAR_FALTA_ATENCION_O_DEMORA_RECLAMO_ASEGURADORA_VARON_R90.docx",
-    "TPL_0919_2026_SEGURO_VEHICULAR_FALTA_ATENCION_O_DEMORA_RECLAMO_ASEGURADORA_VARON_R2.docx",
-    "TPL_1513_2025_SEGURO_VEHICULAR_FALTA_ATENCION_O_DEMORA_RECLAMO_ASEGURADORA_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "de los articulos 18 y 19 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 92,
-   "literal": "Presunta infracción de los artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1091_2025_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.docx",
-    "TPL_0861_2025_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R1.docx",
-    "TPL_0367_2026_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R80.docx",
-    "TPL_0933_2025_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R2.docx",
-    "TPL_1112_2025_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R190.docx"
-   ]
-  },
-  {
-   "deber": "deber de entregar a los usuarios copia de los contratos y demas documentacion relacionada con dichos actos juridicos,",
-   "normas": [
-    "art.47",
-    "lit.e"
-   ],
-   "frecuencia": 67,
-   "literal": "presunta infracción al deber de entregar a los usuarios copia de los contratos y demás documentación relacionada con dichos actos jurídicos, tipificado en el literal e) del artículo 47 del Código . ",
-   "plantillas": [
-    "TPL_1015_2026_SEGURO_VEHICULAR_ANULACION_INDEBIDA_BANCO_VARON_R2.docx",
-    "TPL_1771_2025_SEGURO_VEHICULAR_CONTRATACION_NO_CONSENTIDA_BANCO_VARON_R2.docx",
-    "TPL_0787_2026_SEGURO_VEHICULAR_FALTA_ENTREGA_POLIZA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1455_2026_SEGURO_VEHICULAR_FALTA_RENOVACION_POLIZA_BANCO_VARON_R1.docx",
-    "TPL_0458_2026_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "literal e) del articulo 47 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.47",
-    "lit.e"
-   ],
-   "frecuencia": 59,
-   "literal": "Presunta infracción al literal e) del artículo 47 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1015_2026_SEGURO_VEHICULAR_ANULACION_INDEBIDA_BANCO_VARON_R2.docx",
-    "TPL_1771_2025_SEGURO_VEHICULAR_CONTRATACION_NO_CONSENTIDA_BANCO_VARON_R2.docx",
-    "TPL_0787_2026_SEGURO_VEHICULAR_FALTA_ENTREGA_POLIZA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1455_2026_SEGURO_VEHICULAR_FALTA_RENOVACION_POLIZA_BANCO_VARON_R1.docx",
-    "TPL_0458_2026_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulos 18 y 19 de la ley 29571 , codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 45,
-   "literal": "Presunta infracción a los artículos 18 y 19 de la Ley 29571 , Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1176_2026_SEGURO_VEHICULAR_DEFICIENTE_GESTION_SINIESTRO_ASEGURADORA_MUJER_R2.docx",
-    "TPL_2141_2025_SEGURO_VEHICULAR_DISCRIMINACION_ASEGURADORA_MUJER_R2.docx",
-    "TPL_1036_2026_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_BANCO_VARON_R1.docx",
-    "TPL_1963_2026_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R2.docx",
-    "TPL_1949_2025_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R319.docx"
-   ]
-  },
-  {
-   "deber": "literal g) del articulo 56 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.56",
-    "lit.g"
-   ],
-   "frecuencia": 34,
-   "literal": "Presunta infracción al literal g) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor , en tanto",
-   "plantillas": [
-    "TPL_0031_2026_SEGURO_VEHICULAR_CLAUSULA_ABUSIVA_ASEGURADORA_VARON_R1.docx",
-    "TPL_3381_2025_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R2.docx",
-    "TPL_0722_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R2.docx",
-    "TPL_1231_2026_SEGURO_VIDA_ANULACION_INDEBIDA_ASEGURADORA_VARON_R2.docx",
-    "TPL_1868_2025_SEGURO_VIDA_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "deber de idoneidad ,",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 31,
-   "literal": "presunta infracción al deber de idoneidad , tipificado en los artículos 18 y 19 del Código . ",
-   "plantillas": [
-    "TPL_2595_2025_SEGURO_VEHICULAR_FALTA_ATENCION_O_DEMORA_RECLAMO_ASEGURADORA_MUJER_R1.docx",
-    "TPL_1091_2025_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.docx",
-    "TPL_0861_2025_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R1.docx",
-    "TPL_0933_2025_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R2.docx",
-    "TPL_0934_2025_SEGURO_VIDA_ANULACION_INDEBIDA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "numeral 88.1 del articulo 88 de la ley 29571 , codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 26,
-   "literal": "Presunta infracción al numeral 88.1 del artículo 88 de la Ley 29571 , Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1173_2026_SEGURO_VEHICULAR_FALTA_ATENCION_O_DEMORA_RECLAMO_ASEGURADORA_MUJER_R3.docx",
-    "TPL_1689_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R2.docx",
-    "TPL_2373_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1231_2026_SEGURO_VIDA_ANULACION_INDEBIDA_ASEGURADORA_VARON_R2.docx",
-    "TPL_1361_2026_SEGURO_VIDA_FALTA_ENTREGA_POLIZA_ASEGURADORA_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "articulo 1, numeral 1, literal b) y al articulo 2 de la ley 29571 , codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 24,
-   "literal": "Presunta infracción al artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571 , Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1948_2025_SEGURO_VEHICULAR_ANULACION_INDEBIDA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1036_2026_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_BANCO_VARON_R1.docx",
-    "TPL_1447_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1689_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R2.docx",
-    "TPL_2487_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON.docx"
-   ]
-  },
-  {
-   "deber": "deber de proteccion contra los metodos comerciales coercitivos,",
-   "normas": [
-    "art.56",
-    "lit.g"
-   ],
-   "frecuencia": 19,
-   "literal": "presunta infracción al deber de protección contra los métodos comerciales coercitivos, tipificado en literal g) del artículo 56 del Código . ",
-   "plantillas": [
-    "TPL_0031_2026_SEGURO_VEHICULAR_CLAUSULA_ABUSIVA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1868_2025_SEGURO_VIDA_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R1.docx",
-    "TPL_2672_2025_SEGURO_VIDA_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R1.docx",
-    "TPL_2428_2025_SEGURO_DESGRAVAMEN_ANULACION_INDEBIDA_BANCO_VARON_R2.docx",
-    "TPL_1394_2025_SEGURO_DESGRAVAMEN_FALTA_ATENCION_O_DEMORA_RECLAMO_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "literal b) del articulo 56 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.56",
-    "lit.b"
-   ],
-   "frecuencia": 18,
-   "literal": "Presunta infracción al literal b) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor , en tanto",
-   "plantillas": [
-    "TPL_1771_2025_SEGURO_VEHICULAR_CONTRATACION_NO_CONSENTIDA_BANCO_VARON_R2.docx",
-    "TPL_0526_2026_SEGURO_VEHICULAR_FALTA_RENOVACION_POLIZA_ASEGURADORA_VARON_R1.docx",
-    "TPL_122_2026_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_BANCO_VARON_R1.docx",
-    "TPL_3246_2025_SEGURO_VIDA_COBRO_INDEBIDO_PRIMAS_ASEGURADORA_MUJER_R1.docx",
-    "TPL_2947_2025_SEGURO_VIDA_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de proteccion contra los metodos comerciales coercitivos ,",
-   "normas": [
-    "art.56",
-    "lit.g"
-   ],
-   "frecuencia": 17,
-   "literal": "presunta infracción al deber de protección contra los métodos comerciales coercitivos , tipificado en literal g) del artículo 56 del Código . ",
-   "plantillas": [
-    "TPL_3381_2025_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R2.docx",
-    "TPL_0722_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R2.docx",
-    "TPL_1231_2026_SEGURO_VIDA_ANULACION_INDEBIDA_ASEGURADORA_VARON_R2.docx",
-    "TPL_2947_2025_SEGURO_VIDA_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R2.docx",
-    "TPL_2825_2025_SEGURO_DESGRAVAMEN_FALTA_ENTREGA_POLIZA_BANCO_SUCESION_INTESTADA_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de proteccion contra los metodos comerciales coercitivos,",
-   "normas": [
-    "art.56",
-    "lit.b"
-   ],
-   "frecuencia": 13,
-   "literal": "presunta infracción al deber de protección contra los métodos comerciales coercitivos, tipificado en literal b) del artículo 56 del Código . ",
-   "plantillas": [
-    "TPL_0526_2026_SEGURO_VEHICULAR_FALTA_RENOVACION_POLIZA_ASEGURADORA_VARON_R1.docx",
-    "TPL_3246_2025_SEGURO_VIDA_COBRO_INDEBIDO_PRIMAS_ASEGURADORA_MUJER_R1.docx",
-    "TPL_1814_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_ANULACION_INDEBIDA_ASEGURADORA_MUJER_R1.docx",
-    "TPL_3339_2025_SEGURO_SEPELIO_CONTRATACION_NO_CONSENTIDA_ASEGURADORA_VARON_R2.docx",
-    "TPL_2273_2025_SEGURO_MULTIPLE_Y_EQUIPOS_CONTRATACION_NO_CONSENTIDA_BANCO_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 38 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.38"
-   ],
-   "frecuencia": 12,
-   "literal": "Presunta infracción al artículo 38 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_3044_2025_SEGURO_VEHICULAR_DISCRIMINACION_ASEGURADORA_VARON_R1.docx",
-    "TPL_2264_2025_SEGURO_VIDA_ANULACION_INDEBIDA_ASEGURADORA_MUJER_R1.docx",
-    "TPL_1738_2025_SEGURO_VIDA_DISCRIMINACION_ASEGURADORA_MUJER_R2.docx",
-    "TPL_2349_2026_SEGURO_DESGRAVAMEN_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R0281.docx",
-    "TPL_1513_2026_SEGURO_PROTECCION_TARJETAS_Y_DINERO_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "literal c) del articulo 56 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.56",
-    "lit.c"
-   ],
-   "frecuencia": 10,
-   "literal": "Presunta infracción al literal c) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor , en tanto",
-   "plantillas": [
-    "TPL_1455_2026_SEGURO_VEHICULAR_FALTA_RENOVACION_POLIZA_BANCO_VARON_R1.docx",
-    "TPL_0691_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx",
-    "TPL_3413_2025_SEGURO_VIDA_ANULACION_INDEBIDA_ASEGURADORA_MUJER_R1.docx",
-    "TPL_2156_2025_SEGURO_VIDA_LIQUIDACION_O_PAGO_MENOR_ASEGURADORA_VARON_R2.docx",
-    "TPL_2806_2025_SEGURO_VIDA_MATERIA_GENERAL_ASEGURATIVA_BANCO_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "[apellido] articulos 18 y 19 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 10,
-   "literal": "Presunta infracción a [APELLIDO] artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_266_2026_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.docx",
-    "TPL_0816_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R2.docx",
-    "TPL_2634_2025_SEGURO_VIDA_LIQUIDACION_O_PAGO_MENOR_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "obligacion de los proveedores para resolver los reclamos en el plazo legal establecido,",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 10,
-   "literal": "presunta infracción a la obligación de los proveedores para resolver los reclamos en el plazo legal establecido, tipificado en el numeral 88.1 del artículo 88 del Código . ",
-   "plantillas": [
-    "TPL_2806_2025_SEGURO_VIDA_MATERIA_GENERAL_ASEGURATIVA_BANCO_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 38 del codigo",
-   "normas": [
-    "art.38"
-   ],
-   "frecuencia": 9,
-   "literal": "presunta infracción al artículo 38 del Código . ",
-   "plantillas": [
-    "TPL_1692_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx",
-    "TPL_2349_2026_SEGURO_DESGRAVAMEN_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R0281.docx",
-    "TPL_1513_2026_SEGURO_PROTECCION_TARJETAS_Y_DINERO_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R1.docx",
-    "TPL_1514_2026_SEGURO_PROTECCION_TARJETAS_Y_DINERO_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R1.docx",
-    "TPL_1477_2026_SOAT_Y_AFOCAT_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 150 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.150"
-   ],
-   "frecuencia": 8,
-   "literal": "Presunta infracción al artículo 150 de la Ley 29571, Código de Protección y Defensa del Consumidor , en tanto",
-   "plantillas": [
-    "TPL_0787_2026_SEGURO_VEHICULAR_FALTA_ENTREGA_POLIZA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1091_2025_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1397_2025_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1410_2025_SEGURO_VIDA_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R1.docx",
-    "TPL_718_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_NEGATIVA_COBERTURA_BANCO_VARON_R5.docx"
-   ]
-  },
-  {
-   "deber": "uso del libro de reclamaciones,",
-   "normas": [
-    "art.150"
-   ],
-   "frecuencia": 5,
-   "literal": "presunta infracción al uso del libro de reclamaciones, tipificado en el artículo 150 del Código . ",
-   "plantillas": [
-    "TPL_1091_2025_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1397_2025_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1410_2025_SEGURO_VIDA_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R1.docx",
-    "TPL_0880_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_MATERIA_GENERAL_ASEGURATIVA_BANCO_VARON_R1.docx",
-    "TPL_0880_2025_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_BANCO_VARON_R1.DOCX"
-   ]
-  },
-  {
-   "deber": "articulos 18 y 19 del codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 5,
-   "literal": "Presunta infracción a los artículos 18 y 19 del Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2145_2025_SEGURO_VIDA_LIQUIDACION_O_PAGO_MENOR_ASEGURADORA_MUJER_R2.docx",
-    "TPL_0904_2025_SEGURO_DESGRAVAMEN_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_SUCESION_INTESTADA_R1.docx"
-   ]
-  },
-  {
-   "deber": "deber de idoneidad , tipi ficado en los articulos 18 y 19 del codigo",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 5,
-   "literal": "presunta infracción al deber de idoneidad , tipi ficado en los artículos 18 y 19 del Código. ",
-   "plantillas": [
-    "TPL_1005_2025_SEGURO_VIDA_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R1.docx",
-    "TPL_1004_2025_SOAT_Y_AFOCAT_FALTA_EVALUACION_INVALIDEZ_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 150 del codigo",
-   "normas": [
-    "art.150"
-   ],
-   "frecuencia": 4,
-   "literal": "presunta infracción al artículo 150 del Código . ",
-   "plantillas": [
-    "TPL_0787_2026_SEGURO_VEHICULAR_FALTA_ENTREGA_POLIZA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1692_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx",
-    "TPL_2307_2026_SEGURO_PROTECCION_TARJETAS_Y_DINERO_NEGATIVA_COBERTURA_BANCO_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "literal e) del articulo 47 de la ley 29571 , codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.47",
-    "lit.e"
-   ],
-   "frecuencia": 4,
-   "literal": "Presunta infracción al literal e) del artículo 47 de la Ley 29571 , Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1260_2026_SEGURO_VIDA_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R2.docx",
-    "TPL_1733_2026_SEGURO_PROTECCION_TARJETAS_Y_DINERO_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1508_2026_SEGURO_NO_ESPECIFICADO_FALTA_ENTREGA_POLIZA_BANCO_VARON_R2.docx",
-    "TPL_1733_2026_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.DOCX"
-   ]
-  },
-  {
-   "deber": "articulo 152 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.152"
-   ],
-   "frecuencia": 4,
-   "literal": "Presunta infracción al artículo 152 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1850_2026_SEGURO_PROTECCION_TARJETAS_Y_DINERO_ANULACION_INDEBIDA_BANCO_MUJER_R2.docx",
-    "TPL_1912_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1912_2025_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.DOCX"
-   ]
-  },
-  {
-   "deber": "articulo 150 la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.150"
-   ],
-   "frecuencia": 4,
-   "literal": "Presunta infracción al artículo 150 la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_0880_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_MATERIA_GENERAL_ASEGURATIVA_BANCO_VARON_R1.docx",
-    "TPL_880_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_MATERIA_GENERAL_ASEGURATIVA_BANCO_VARON_R4.docx",
-    "TPL_0880_2025_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_BANCO_VARON_R1.DOCX",
-    "TPL_880_2025_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_BANCO_VARON_R4.DOCX"
-   ]
-  },
-  {
-   "deber": "articulo 18 y articulo 19 de la ley 29571",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 4,
-   "literal": "Presunta infracción al artículo 18 y artículo 19 de la Ley 29571, en tanto",
-   "plantillas": [
-    "TPL_2227_2025_SEGURO_SCTR_FALTA_ATENCION_O_DEMORA_RECLAMO_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "articulo 61 y el literal a) del articulo 62 del codigo",
-   "normas": [
-    "art.61",
-    "art.62",
-    "lit.a"
-   ],
-   "frecuencia": 4,
-   "literal": "presunta infracción al artículo 61 y el literal a) del artículo 62 del Código. ",
-   "plantillas": [
-    "TPL_226_2026_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_BANCO_SUCESION_INTESTADA_R3.docx"
-   ]
-  },
-  {
-   "deber": "articulo 61 y al literal a) del articulo 62 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.61",
-    "art.62",
-    "lit.a"
-   ],
-   "frecuencia": 4,
-   "literal": "Presunta infracción al artículo 61 y al literal a) del artículo 62 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_226_2026_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_BANCO_SUCESION_INTESTADA_R3.docx"
-   ]
-  },
-  {
-   "deber": "del articulo 18 y 19 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 3,
-   "literal": "Presunta infracción del artículo 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2773_2025_SEGURO_VIDA_COBRO_INDEBIDO_PRIMAS_BANCO_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 18 y 19 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 3,
-   "literal": "Presunta infracción al artículo 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2947_2025_SEGURO_VIDA_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "literal g) del articulo 56 de la ley 29571 , codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.56",
-    "lit.g"
-   ],
-   "frecuencia": 3,
-   "literal": "Presunta infracción al literal g) del artículo 56 de la Ley 29571 , Código de Protección y Defensa del Consumidor , en tanto",
-   "plantillas": [
-    "TPL_2428_2025_SEGURO_DESGRAVAMEN_ANULACION_INDEBIDA_BANCO_VARON_R2.docx",
-    "TPL_2061_2026_SEGURO_PROTECCION_TARJETAS_Y_DINERO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R2.docx",
-    "TPL_2061_2026_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R2.DOCX"
-   ]
-  },
-  {
-   "deber": "l articulo 1, numeral 1, literal b) y al articulo 2 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 3,
-   "literal": "Presunta infracción a l artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2428_2025_SEGURO_DESGRAVAMEN_ANULACION_INDEBIDA_BANCO_VARON_R2.docx",
-    "TPL_1871_2025_SEGURO_DESGRAVAMEN_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.docx",
-    "TPL_0696_2025_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "de los articulos 18 y 19 de la ley 29571 , codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 3,
-   "literal": "Presunta infracción de los artículos 18 y 19 de la Ley 29571 , Código de Protección y Defensa del Consumidor , en tanto",
-   "plantillas": [
-    "TPL_1254_2025_SEGURO_SCTR_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R1.docx",
-    "TPL_1294_2025_SEGURO_SCTR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "deber de proteccion contra los metodos comerciales,",
-   "normas": [
-    "art.56",
-    "lit.b"
-   ],
-   "frecuencia": 2,
-   "literal": "presunta infracción al deber de protección contra los métodos comerciales, tipificado en literal b) del artículo 56 del Código. ",
-   "plantillas": [
-    "TPL_1771_2025_SEGURO_VEHICULAR_CONTRATACION_NO_CONSENTIDA_BANCO_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "l numeral 88.1 del articulo 88 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 2,
-   "literal": "Presunta infracción a l numeral 88.1 del artículo 88 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1513_2025_SEGURO_VEHICULAR_FALTA_ATENCION_O_DEMORA_RECLAMO_ASEGURADORA_VARON_R2.docx",
-    "TPL_2156_2025_SEGURO_VIDA_LIQUIDACION_O_PAGO_MENOR_ASEGURADORA_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "articulos 18 y 19 de la ley 29571",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 2,
-   "literal": "Presunta infracción a los artículos 18 y 19 de la Ley 29571, en tanto",
-   "plantillas": [
-    "TPL_2121_2025_SEGURO_VEHICULAR_FALTA_RENOVACION_POLIZA_BANCO_VARON_R2.docx",
-    "TPL_2227_2025_SEGURO_SCTR_FALTA_ATENCION_O_DEMORA_RECLAMO_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "articulo 1 , numeral 1, literal b) y al articulo 2 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 2,
-   "literal": "Presunta infracción al artículo 1 , numeral 1, literal b) y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2190_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R2.docx",
-    "TPL_2010_2026_SEGURO_DESGRAVAMEN_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R227.docx"
-   ]
-  },
-  {
-   "deber": "articulos 18 y 19 de la ley 29571, del codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 2,
-   "literal": "Presunta infracción a los artículos 18 y 19 de la Ley 29571, del Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2903_2025_SEGURO_VIDA_COBRO_INDEBIDO_PRIMAS_BANCO_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "numeral 88.1 del articulo 88 d el codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 2,
-   "literal": "Presunta infracción al numeral 88.1 del artículo 88 d el Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2903_2025_SEGURO_VIDA_COBRO_INDEBIDO_PRIMAS_BANCO_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "deber de proteccion contra los metodos comerciales coercitivos ,",
-   "normas": [
-    "art.56",
-    "lit.b"
-   ],
-   "frecuencia": 2,
-   "literal": "presunta infracción al deber de protección contra los métodos comerciales coercitivos , tipificado en el literal b) del artículo 56 del Código . ",
-   "plantillas": [
-    "TPL_2540_2025_SEGURO_VIDA_CONTRATACION_NO_CONSENTIDA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1890_2025_SEGURO_NO_ESPECIFICADO_CONTRATACION_NO_CONSENTIDA_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de proteccion contra los metodos comerciales coercitivos,",
-   "normas": [
-    "art.56",
-    "lit.c"
-   ],
-   "frecuencia": 2,
-   "literal": "presunta infracción al deber de protección contra los métodos comerciales coercitivos, tipificado en literal c) del artículo 56 del Código . ",
-   "plantillas": [
-    "TPL_2156_2025_SEGURO_VIDA_LIQUIDACION_O_PAGO_MENOR_ASEGURADORA_VARON_R2.docx",
-    "TPL_2436_2026_SEGURO_SEPELIO_COBRO_INDEBIDO_PRIMAS_ASEGURADORA_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de proteccion contra los metodos comerciales,",
-   "normas": [
-    "art.56",
-    "lit.g"
-   ],
-   "frecuencia": 2,
-   "literal": "presunta infracción al deber de protección contra los métodos comerciales, tipificado en literal g) del artículo 56 del Código . ",
-   "plantillas": [
-    "TPL_1752_2025_SEGURO_DESGRAVAMEN_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R2.docx",
-    "TPL_1169_2025_SEGURO_SALUD_EPS_ONCOLOGICO_DISCRIMINACION_BANCO_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 152 del codigo",
-   "normas": [
-    "art.152"
-   ],
-   "frecuencia": 2,
-   "literal": "presunta infracción al artículo 152 del Código . ",
-   "plantillas": [
-    "TPL_1850_2026_SEGURO_PROTECCION_TARJETAS_Y_DINERO_ANULACION_INDEBIDA_BANCO_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "proteccion contra los metodos comerciales agresivos o enganosos ,",
-   "normas": [
-    "art.58"
-   ],
-   "frecuencia": 2,
-   "literal": "presunta infracción a la protección contra los métodos comerciales agresivos o engañosos , tipificado en el artículo 58 del Código . ",
-   "plantillas": [
-    "TPL_0731_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_CONTRATACION_NO_CONSENTIDA_BANCO_MUJER_R1.docx",
-    "TPL_0731_2025_SEGURO_NO_ESPECIFICADO_CONTRATACION_NO_CONSENTIDA_BANCO_MUJER_R1.DOCX"
-   ]
-  },
-  {
-   "deber": "proteccion contra los metodos comerciales agresivos o enganosos,",
-   "normas": [
-    "art.58"
-   ],
-   "frecuencia": 2,
-   "literal": "presunta infracción a la protección contra los métodos comerciales agresivos o engañosos, tipificado en el artículo 58 del Có digo . ",
-   "plantillas": [
-    "TPL_0731_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_CONTRATACION_NO_CONSENTIDA_BANCO_MUJER_R1.docx",
-    "TPL_0731_2025_SEGURO_NO_ESPECIFICADO_CONTRATACION_NO_CONSENTIDA_BANCO_MUJER_R1.DOCX"
-   ]
-  },
-  {
-   "deber": "l articulo 58 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.58"
-   ],
-   "frecuencia": 2,
-   "literal": "Presunta infracción a l artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_0731_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_CONTRATACION_NO_CONSENTIDA_BANCO_MUJER_R1.docx",
-    "TPL_0731_2025_SEGURO_NO_ESPECIFICADO_CONTRATACION_NO_CONSENTIDA_BANCO_MUJER_R1.DOCX"
-   ]
-  },
-  {
-   "deber": "articulo 58 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.58"
-   ],
-   "frecuencia": 2,
-   "literal": "Presunta infracción al artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_0731_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_CONTRATACION_NO_CONSENTIDA_BANCO_MUJER_R1.docx",
-    "TPL_0731_2025_SEGURO_NO_ESPECIFICADO_CONTRATACION_NO_CONSENTIDA_BANCO_MUJER_R1.DOCX"
-   ]
-  },
-  {
-   "deber": "l articulo 150 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.150"
-   ],
-   "frecuencia": 2,
-   "literal": "Presunta infracción a l artículo 150 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_0718_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_NEGATIVA_COBERTURA_BANCO_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "l articulo 152 del codigo",
-   "normas": [
-    "art.152"
-   ],
-   "frecuencia": 2,
-   "literal": "presunta infracción a l artículo 152 del Código . ",
-   "plantillas": [
-    "TPL_1912_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx",
-    "TPL_1912_2025_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.DOCX"
-   ]
-  },
-  {
-   "deber": "deber de proteccion contra los metodos comerciales coercitivos,",
-   "normas": [
-    "art.150"
-   ],
-   "frecuencia": 2,
-   "literal": "presunta infracción al deber de protección contra los métodos comerciales coercitivos, tipificado en el artículo 150 del Código . ",
-   "plantillas": [
-    "test_102.docx",
-    "TPL_2262_2026_SEGURO_HOGAR_E_INMUEBLES_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de idoneidad y a las disposiciones sobre libro de reclamaciones,",
-   "normas": [
-    "art.150"
-   ],
-   "frecuencia": 2,
-   "literal": "Presunta infracción al deber de idoneidad y a las disposiciones sobre Libro de Reclamaciones, tipificada en el artículo 150 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "test_102.docx",
-    "TPL_2262_2026_SEGURO_HOGAR_E_INMUEBLES_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de proteccion contra los metodos comerciales coercitivos ,",
-   "normas": [
-    "art.56",
-    "lit.c"
-   ],
-   "frecuencia": 2,
-   "literal": "presunta infracción al deber de protección contra los métodos comerciales coercitivos , tipificado en literal c) del artículo 56 del Código . ",
-   "plantillas": [
-    "TPL_1150_2025_SEGURO_SEPELIO_MODIFICACION_UNILATERAL_ASEGURADORA_MUJER_R1.docx",
-    "TPL_2834_2025_SISTEMA_PREVISIONAL_AFP_ONP_NEGATIVA_COBERTURA_BANCO_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "numeral 88.1 del articulo 88 , de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al numeral 88.1 del artículo 88 , de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2138_2025_SEGURO_VEHICULAR_ANULACION_INDEBIDA_BANCO_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "deber de idoneidad,",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de idoneidad, tipificado en el artículo 1, numeral 1, literal b) y al artículo 2 del Código . ",
-   "plantillas": [
-    "TPL_1948_2025_SEGURO_VEHICULAR_ANULACION_INDEBIDA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "literal e) del articulo 47 del codigo",
-   "normas": [
-    "art.47",
-    "lit.e"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al literal e) del artículo 47 del Código . ",
-   "plantillas": [
-    "TPL_1519_2025_SEGURO_VEHICULAR_DISCRIMINACION_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "literal e) del articulo 47 del codigo de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.47",
-    "lit.e"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al literal e) del artículo 47 del Código de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1519_2025_SEGURO_VEHICULAR_DISCRIMINACION_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "l articulo 38 del codigo",
-   "normas": [
-    "art.38"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción a l artículo 38 del Código . ",
-   "plantillas": [
-    "TPL_3044_2025_SEGURO_VEHICULAR_DISCRIMINACION_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 1, numeral 1, literal b), y al articulo 2 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al artículo 1, numeral 1, literal b), y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_3018_2025_SEGURO_VEHICULAR_LIQUIDACION_O_PAGO_MENOR_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de idoneidad,",
-   "normas": [
-    "art.58",
-    "lit.e",
-    "num.58.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de idoneidad, tipificado en el literal e) del numeral 58.1 del artículo 58 del Código . ",
-   "plantillas": [
-    "TPL_1259_2025_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "literal e) del numeral 58.1 del articulo 58 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.58",
-    "lit.e",
-    "num.58.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al literal e) del numeral 58.1 del artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1259_2025_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de idoneidad ,",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de idoneidad , tipificado en el numeral 88.1 del artículo 88 del Código . ",
-   "plantillas": [
-    "TPL_0933_2025_SEGURO_VEHICULAR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "articulo 38 de la ley 29571, codigo de proteccion y defensa del consumidor, e n tanto qualitas compania de seguros s.a",
-   "normas": [
-    "art.38"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al artículo 38 de la Ley 29571, Código de Protección y Defensa del Consumidor, e n tanto Quálitas Compañía de Seguros S.A. ",
-   "plantillas": [
-    "TPL_1692_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 38 de la ley 29571, codigo de proteccion y defensa del consumidor, e n tanto eurostar motors s.a.c",
-   "normas": [
-    "art.38"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al artículo 38 de la Ley 29571, Código de Protección y Defensa del Consumidor, e n tanto Eurostar Motors S.A.C. ",
-   "plantillas": [
-    "TPL_1692_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 150 de la ley 29571, codigo de proteccion y defensa del consumidor, en la medida que eurostar motors s.a.c",
-   "normas": [
-    "art.150"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al artículo 150 de la Ley 29571, Código de Protección y Defensa del Consumidor, en la medida que Eurostar Motors S.A.C. ",
-   "plantillas": [
-    "TPL_1692_2026_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "deber de idoneidad, tipificado el numeral 88.1 del articulo 88 del codigo",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de idoneidad, tipificado el numeral 88.1 del artículo 88 del Código . ",
-   "plantillas": [
-    "TPL_3537_2025_SEGURO_VEHICULAR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de proteccion contra los metodos comerciales coercitivos ,",
-   "normas": [
-    "art.38"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de protección contra los métodos comerciales coercitivos , tipificado en el artículo 38 del Código . ",
-   "plantillas": [
-    "TPL_2264_2025_SEGURO_VIDA_ANULACION_INDEBIDA_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "numeral 88.1 del articulo 88 de la ley n 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al numeral 88.1 del artículo 88 de la Ley N 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1903_2025_SEGURO_VIDA_ANULACION_INDEBIDA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 58, literal b), de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.58",
-    "lit.b"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al artículo 58, literal b), de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_3307_2025_SEGURO_VIDA_ANULACION_INDEBIDA_ASEGURADORA_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de informacion,",
-   "normas": [
-    "art.58",
-    "lit.b",
-    "num.58.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de información, tipificado en el literal b) del numeral 58.1 del artículo 58 del Código . ",
-   "plantillas": [
-    "TPL_2466_2025_SEGURO_VIDA_COBRO_INDEBIDO_PRIMAS_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "literal b) del numeral 58.1 del articulo 58 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.58",
-    "lit.b",
-    "num.58.1"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al literal b) del numeral 58.1 del artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2466_2025_SEGURO_VIDA_COBRO_INDEBIDO_PRIMAS_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "tipificad a en el numeral 88.1 del articulo 88 d el codigo",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción tipificad a en el numeral 88.1 del artículo 88 d el Código . ",
-   "plantillas": [
-    "TPL_2903_2025_SEGURO_VIDA_COBRO_INDEBIDO_PRIMAS_BANCO_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "tipificad a en el numeral 88.1 del articulo 88 del codigo",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción tipificad a en el numeral 88.1 del artículo 88 del Código . ",
-   "plantillas": [
-    "TPL_2903_2025_SEGURO_VIDA_COBRO_INDEBIDO_PRIMAS_BANCO_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "de l articulo 1, numeral 1, literal b) y al articulo 2 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción de l artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2596_2025_SEGURO_VIDA_COBRO_INDEBIDO_PRIMAS_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "literal b) del articulo 56de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.56",
-    "lit.b"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al literal b) del artículo 56de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2540_2025_SEGURO_VIDA_CONTRATACION_NO_CONSENTIDA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "deber de proteccion contra [apellido] metodos comerciales coercitivos,",
-   "normas": [
-    "art.58",
-    "lit.c"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de protección contra [APELLIDO] métodos comerciales coercitivos, tipificado en literal c) del artículo 58 del Código. ",
-   "plantillas": [
-    "TPL_2634_2025_SEGURO_VIDA_LIQUIDACION_O_PAGO_MENOR_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "literal c ) del articulo 58 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.58"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al literal c ) del artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2634_2025_SEGURO_VIDA_LIQUIDACION_O_PAGO_MENOR_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 58, literal f) del codigo",
-   "normas": [
-    "art.58",
-    "lit.f"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al artículo 58, literal f) del Código . ",
-   "plantillas": [
-    "TPL_1476_2026_SEGURO_VIDA_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 58 , literal f) de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.58",
-    "lit.f"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al artículo 58 , literal f) de la Ley 29571, Código de Protección y Defensa del Consumidor , en tanto",
-   "plantillas": [
-    "TPL_1476_2026_SEGURO_VIDA_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulos 18 y 19 a la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción a los artículos 18 y 19 a la Ley 29571, Código de Protección y Defensa del Consumidor , en tanto",
-   "plantillas": [
-    "TPL_2698_2025_SEGURO_VIDA_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "l articulo 56, literal c) de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.56",
-    "lit.c"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción a l artículo 56, literal c) de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1551_2025_SEGURO_VIDA_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de atencion de reclamos ,",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de atención de reclamos , tipificado en el numeral 88.1 del artículo 88 del Código . ",
-   "plantillas": [
-    "TPL_0906_2025_SEGURO_VIDA_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "literal b) del articulo 58 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.58",
-    "lit.b"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al literal b) del artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1892_2026_SEGURO_VIDA_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "del literal e) del articulo 47 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.47",
-    "lit.e"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción del literal e) del artículo 47 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2603_2025_SEGURO_VIDA_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 56 , literal b) del codigo",
-   "normas": [
-    "art.56",
-    "lit.b"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al artículo 56 , literal b) del Código . ",
-   "plantillas": [
-    "TPL_1621_2025_SEGURO_VIDA_MODIFICACION_UNILATERAL_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "l articulo 56 , literal b), de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.56",
-    "lit.b"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción a l artículo 56 , literal b), de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1621_2025_SEGURO_VIDA_MODIFICACION_UNILATERAL_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulos 18 y 19 la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción a los artículos 18 y 19 la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2947_2025_SEGURO_VIDA_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de resolver los reclamos de productos o servicios financieros y de seguros ,",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de resolver los reclamos de productos o servicios financieros y de seguros , tipificado en e l numeral 88.1 del artículo 88 del Código . ",
-   "plantillas": [
-    "TPL_0866_2025_SEGURO_DESGRAVAMEN_FALTA_ATENCION_O_DEMORA_RECLAMO_BANCO_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "numeral 88.1 d el articulo 88 d e la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.88",
-    "num.88.1"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al numeral 88.1 d el artículo 88 d e la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_0866_2025_SEGURO_DESGRAVAMEN_FALTA_ATENCION_O_DEMORA_RECLAMO_BANCO_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 1, numeral 1, literal b) y al articulo 2 de la ley 29571, codigo de proteccion y defensa del consumi dor",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumi dor, en tanto",
-   "plantillas": [
-    "TPL_1549_2025_SEGURO_DESGRAVAMEN_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R3.docx"
-   ]
-  },
-  {
-   "deber": "deber de proteccion contra los metodos comerciales coercitivos ,",
-   "normas": [
-    "art.56",
-    "lit.e"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de protección contra los métodos comerciales coercitivos , tipificado en literal e) del artículo 56 del Código . ",
-   "plantillas": [
-    "TPL_1850_2026_SEGURO_PROTECCION_TARJETAS_Y_DINERO_ANULACION_INDEBIDA_BANCO_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "literal e) del articulo 56 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.56",
-    "lit.e"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al literal e) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1850_2026_SEGURO_PROTECCION_TARJETAS_Y_DINERO_ANULACION_INDEBIDA_BANCO_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de proteccion de los intereses sociales y economicos ,",
-   "normas": [
-    "art.38"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de protección de los intereses sociales y económicos , tipificado en el artículo 38 del Código . ",
-   "plantillas": [
-    "TPL_2746_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_DISCRIMINACION_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "deber de proteccion contra los metodos comerciales ,",
-   "normas": [
-    "art.56",
-    "lit.g"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de protección contra los métodos comerciales , tipificado en literal g) del artículo 56 del Código . ",
-   "plantillas": [
-    "TPL_1039_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_FALTA_EVALUACION_INVALIDEZ_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 150 de la ley 29571, codigo de proteccion y defensa del consumidor , codigo de proteccion y defensa del consumi",
-   "normas": [
-    "art.150"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al artículo 150 de la Ley 29571, Código de Protección y Defensa del Consumidor , Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2307_2026_SEGURO_PROTECCION_TARJETAS_Y_DINERO_NEGATIVA_COBERTURA_BANCO_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "condiciones y especificaciones del libro de reclamaciones,",
-   "normas": [
-    "art.150"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción a las condiciones y especificaciones del libro de reclamaciones, tipificado en el artículo 150 del Código. ",
-   "plantillas": [
-    "TPL_718_2025_SEGURO_PROTECCION_TARJETAS_Y_DINERO_NEGATIVA_COBERTURA_BANCO_VARON_R5.docx"
-   ]
-  },
-  {
-   "deber": "derechos de los consumidores,",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción a los derechos de los consumidores, tipificado en e l artículo 1, numeral 1, literal b) y al artículo 2 del Código . ",
-   "plantillas": [
-    "TPL_2674_2025_SOAT_Y_AFOCAT_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "los articulos 18 y 19 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción los artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_245_2026_SEGURO_SCTR_FALTA_EVALUACION_INVALIDEZ_ASEGURADORA_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de idoneidad,",
-   "normas": [
-    "art.56",
-    "lit.g"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de idoneidad, tipificado en el literal g) del artículo 56 del Código . ",
-   "plantillas": [
-    "TPL_2874_2025_SEGURO_SCTR_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulos 18 y 19 de la ley 29571, codigo de proteccion y defensa del consumidor , en el banco bbva peru s.a",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción a los artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor , en el Banco BBVA Perú S.A. ",
-   "plantillas": [
-    "TPL_2116_2026_SEGURO_SALUD_EPS_ONCOLOGICO_FALTA_ATENCION_O_DEMORA_RECLAMO_BANCO_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de idoneidad,",
-   "normas": [
-    "art.58",
-    "num.58.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de idoneidad, tipificado en el numeral 58.1 del artículo 58 del Código . ",
-   "plantillas": [
-    "TPL_2707_2025_SEGURO_SALUD_EPS_ONCOLOGICO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "numeral 58.1 del articulo 58 la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.58",
-    "num.58.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al numeral 58.1 del artículo 58 la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2707_2025_SEGURO_SALUD_EPS_ONCOLOGICO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de idoneidad,",
-   "normas": [
-    "art.150"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de idoneidad, tipificado en el artículo 150 del Código. ",
-   "plantillas": [
-    "TPL_0161_2026_TEMAS_ADMINISTRATIVOS_FINANCIEROS_FALTA_ATENCION_O_DEMORA_RECLAMO_ASEGURADORA_VARIOS_R1.docx"
-   ]
-  },
-  {
-   "deber": "presunta infraccion al articulo 1, numeral 1, literal b) y al articulo 2 de la ley 29571, codigo de proteccion y defensa",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción a Presunta infracción al artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_1472_2025_TEMAS_ADMINISTRATIVOS_FINANCIEROS_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "deber de idoneidad,",
-   "normas": [
-    "art.38"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de idoneidad, tipificado en el artículo 38 del Código . ",
-   "plantillas": [
-    "TPL_1705_2025_TEMAS_ADMINISTRATIVOS_FINANCIEROS_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R282.docx"
-   ]
-  },
-  {
-   "deber": "proteccion contra los metodos comerciales agresivos o enganosos,",
-   "normas": [
-    "art.18",
-    "art.19"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción a la protección contra los métodos comerciales agresivos o engañosos, tipificado en los artículos 18 y 19 del Código . ",
-   "plantillas": [
-    "TPL_1748_2025_SEGURO_NO_ESPECIFICADO_CONTRATACION_NO_CONSENTIDA_BANCO_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "prohibicion de discriminacion,",
-   "normas": [
-    "art.38"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción a la prohibición de discriminación, tipificada en el artículo 38 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2282_2026_SEGURO_NO_ESPECIFICADO_LIQUIDACION_O_PAGO_MENOR_ASEGURADORA_MUJER_R2.docx"
-   ]
-  },
-  {
-   "deber": "articulo 1, numeral 1, literal b) y al articulo 2 de la ley 29571, codigo de proteccion y defensa del consumidor , el ba",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor , el Banco BBVA Perú S.A. ",
-   "plantillas": [
-    "TPL_3124_2025_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_BANCO_VARON_R2.docx"
-   ]
-  },
-  {
-   "deber": "literal b) del articulo 56 de la ley 29571 , codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.56",
-    "lit.b"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al literal b) del artículo 56 de la Ley 29571 , Código de Protección y Defensa del Consumidor , en tanto",
-   "plantillas": [
-    "TPL_2025_2025_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R1.docx"
-   ]
-  },
-  {
-   "deber": "deber de informacion ,",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de información , tipificado en el artículo 1, numeral 1, literal b) y al artículo 2 de l Código . ",
-   "plantillas": [
-    "TPL_0620_2025_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "deber de entregar a los usuarios copia de los contratos y demas documentacion relacionada con dichos actos juridicos ,",
-   "normas": [
-    "art.47",
-    "lit.e"
-   ],
-   "frecuencia": 1,
-   "literal": "presunta infracción al deber de entregar a los usuarios copia de los contratos y demás documentación relacionada con dichos actos jurídicos , tipificado en el literal e) del artículo 47 del Código . ",
-   "plantillas": [
-    "TPL_0620_2025_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.docx"
-   ]
-  },
-  {
-   "deber": "articulo 1 , numeral 1, literal b), y al articulo 2 de la ley 29571, codigo de proteccion y defensa del consumidor",
-   "normas": [
-    "art.1",
-    "art.2",
-    "lit.b",
-    "num.1"
-   ],
-   "frecuencia": 1,
-   "literal": "Presunta infracción al artículo 1 , numeral 1, literal b), y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
-   "plantillas": [
-    "TPL_2030_2025_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R2.docx"
-   ]
-  }
- ],
+ "fuente": "Medido sobre 574 plantillas por scripts/analizar_imputaciones.py; normas de docs/tabla_tipificacion.json.",
+ "regla": "Solo se imputa por los articulos de esta tabla, en la forma literal de las plantillas (docs/catalogo_imputaciones.json). Nunca articulo 3. Articulo 24 solo si el reclamo se interpuso ante un proveedor NO regulado por el sistema financiero; si esta regulado, numeral 88.1 del articulo 88. Clausulas abusivas: siempre numeral 49.1 del articulo 49 junto al literal del articulo 50 o 51. Una SOLICITUD de gestion atendida de forma inadecuada es idoneidad (articulos 18 y 19); una SOLICITUD de informacion o de copias es informacion (articulo 1, numeral 1, literal b) y articulo 2). Si una misma carta contiene ambas, se imputan por separado.",
  "normas_admitidas": [
   "art.150",
   "art.151",
   "art.152",
   "art.18|art.19",
-  "art.18|art.20",
   "art.1|art.2|lit.b|num.1",
   "art.24",
   "art.38",
   "art.41",
   "art.47|lit.e",
-  "art.50",
-  "art.51",
+  "art.49|art.50|lit.*|num.49.1",
+  "art.49|art.51|lit.*|num.49.1",
   "art.56|lit.b",
   "art.56|lit.c",
   "art.56|lit.d",
@@ -1567,22 +31,1718 @@
   "art.61|art.62|lit.h",
   "art.88|num.88.1"
  ],
- "normas_en_consulta": [
-  "art.1|art.49|art.51|lit.a",
-  "art.1|art.49|art.5|lit.a",
-  "art.49.1|art.51|lit.a",
-  "art.49|art.50|lit.a",
-  "art.49|art.50|lit.a|num.49.1",
-  "art.49|art.50|lit.b|num.49.1",
-  "art.49|art.50|lit.d|num.49.1",
-  "art.49|art.50|num.49.1",
-  "art.49|art.51",
-  "art.49|art.51|lit.a",
-  "art.49|art.51|lit.a|lit.d|num.49.1",
-  "art.49|art.51|lit.d",
-  "art.49|num.49.1",
-  "num.49",
-  "num.49.1"
- ],
- "nota": "Depurado el 23/09/2026 contra docs/tabla_tipificacion.json. Solo quedan combinaciones de la tabla. Las del articulo 49 (clausulas abusivas) quedan en consulta al instructor. Se eliminaron el art. 3 (prohibido) y el ruido de extraccion (art.5, art.8, art.111, art.29571, etc.)."
+ "normas_en_consulta": [],
+ "patrones": {
+  "lit.*": "cualquier literal a) a h) del articulo; admite varios literales"
+ },
+ "normas": {
+  "art.150": {
+   "hechos_de_la_tabla": [
+    "Libro de reclamaciones: falta de atención, sin aviso, sin libro, especificaciones, acceso"
+   ],
+   "fundamento": "art. 150: Libro de reclamaciones",
+   "frecuencia": {
+    "resolutivo": 11,
+    "considerativa": 11
+   },
+   "considerativa_canonica": "al uso del libro de reclamaciones",
+   "considerativa_variantes": [
+    {
+     "forma": "al artículo 150 del Código",
+     "frecuencia": 4
+    },
+    {
+     "forma": "al deber de protección contra los métodos comerciales coercitivos",
+     "frecuencia": 1
+    },
+    {
+     "forma": "al deber de idoneidad",
+     "frecuencia": 1
+    }
+   ],
+   "resolutivo_apertura_canonica": "Presunta infracción al artículo 150 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [
+    {
+     "forma": "Presunta infracción al artículo 150 la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    },
+    {
+     "forma": "Presunta infracción al artículo 150 de la Ley 29571, Código de Protección y Defensa del Consumidor, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    },
+    {
+     "forma": "Presunta infracción al deber de idoneidad y a las disposiciones sobre Libro de Reclamaciones, tipificada en el artículo 150 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    }
+   ],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 3,
+    "proveedor nombrado": 2,
+    "dos proveedores nombrados": 2,
+    "«el proveedor denunciado»": 2,
+    "otro": 1
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "2 denunciado(s) → proveedor nombrado": 2,
+    "2 denunciado(s) → dos proveedores nombrados": 2,
+    "1 denunciado(s) → «el proveedor denunciado»": 2,
+    "2 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 2,
+    "2 denunciado(s) → otro": 1,
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 1
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "no habría tenido su libro de",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "no habría contado con un Libro",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "habría establecido una limitación inadecuada",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "no habría facilitado el acceso directo",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "no habría cumplido con entregar su",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "no habría cumplido con contar con",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría entregado el libro de",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría condicionado el registro de",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 1,
+    "sin_condicional": 1,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al artículo 150 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Autofondo S.A.C. habría establecido una limitación inadecuada al denunciante al exigir la aceptación de términos y condiciones sin permitir su visualización previa para interponer reclamos a través de su página web.",
+    "Presunta infracción al artículo 150 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto La Positiva Seguros y Reaseguros S.A. no habría facilitado el acceso directo al Libro de Reclamaciones en su página web, al redirigir al denunciante a un contacto vía aplicativo WhatsApp en lugar del formulario correspondiente.",
+    "Presunta infracción al artículo 150 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el proveedor denunciado no habría tenido su libro de reclamaciones virtual habilitado el 11 y 12 de agosto de 2025 para que el denunciante pueda interponer su reclamo.",
+    "Presunta infracción al artículo 150 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la Empresa de Créditos Santander Consumo Perú S.A. - Empresa de Créditos Santander Consumo Perú no habría tenido su libro de reclamaciones virtual habilitado el 26 de enero de 2025 para que el denunciante pueda interponer su reclamo ante el siniestro sufrido."
+   ]
+  },
+  "art.151": {
+   "hechos_de_la_tabla": [
+    "Libro de reclamaciones: aviso no exhibido"
+   ],
+   "fundamento": "art. 151: Exhibición del libro de reclamaciones",
+   "frecuencia": {
+    "resolutivo": 0,
+    "considerativa": 0
+   },
+   "considerativa_canonica": null,
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": null,
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {},
+   "sujetos_segun_numero_de_denunciados": {},
+   "conductas_frecuentes": [],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": []
+  },
+  "art.152": {
+   "hechos_de_la_tabla": [
+    "Libro de reclamaciones: negativa de entrega del libro",
+    "Libro de reclamaciones: negativa de entregar constancia"
+   ],
+   "fundamento": "art. 152: Entrega del libro de reclamaciones",
+   "frecuencia": {
+    "resolutivo": 3,
+    "considerativa": 3
+   },
+   "considerativa_canonica": "al artículo 152 del Código",
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": "Presunta infracción al artículo 152 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 2,
+    "proveedor nombrado": 1
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "2 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 2,
+    "2 denunciado(s) → proveedor nombrado": 1
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría negado en setiembre de",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría negado el acceso al",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría negado injustificadamente a entregar",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al artículo 152 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el Banco Falabella Perú S.A. habría negado en setiembre de 2024 el acceso al Libro de Reclamaciones solicitado por la denunciante en sus oficinas ubicadas en un centro comercial del distrito y provincia de Huacho, departamento de Lima.",
+    "Presunta infracción al artículo 152 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Honesty S.A.C. habría negado injustificadamente a entregar al denunciante el Libro de Reclamaciones, pese a su solicitud."
+   ]
+  },
+  "art.18|art.19": {
+   "hechos_de_la_tabla": [
+    "Falta de medidas de seguridad: operaciones no reconocidas, alertas, fraude, clonación",
+    "Cálculo indebido de deuda, cobros indebidos, no autorizados o en exceso",
+    "Imputación indebida de pagos",
+    "Impedimento de pagos adelantados o anticipados",
+    "Tasas de interés sin considerar límites del BCR",
+    "Falta de envío de estados de cuenta",
+    "Bloqueo o cierre injustificado de cuenta o depósitos",
+    "Emisión indebida de talonario de cheques",
+    "Reporte indebido ante centrales de riesgo",
+    "Reprogramación de deuda pactada",
+    "Libro de reclamaciones: modificación indebida de una hoja",
+    "Seguros: falta de otorgamiento, rechazo injustificado, cobertura parcial, liquidación inadecuada, falta de anulación, anulación indebida, renovación automática"
+   ],
+   "fundamento": "Deber de idoneidad: correspondencia entre lo que el consumidor espera y lo que recibe (art. 18) y responsabilidad del proveedor por ella (art. 19).",
+   "frecuencia": {
+    "resolutivo": 1261,
+    "considerativa": 1312
+   },
+   "considerativa_canonica": "al deber de idoneidad",
+   "considerativa_variantes": [
+    {
+     "forma": "a la protección contra los métodos comerciales agresivos o engañosos",
+     "frecuencia": 1
+    }
+   ],
+   "resolutivo_apertura_canonica": "Presunta infracción a los artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [
+    {
+     "forma": "Presunta infracción de los artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 101
+    },
+    {
+     "forma": "Presunta infracción al deber de idoneidad, tipificada en los artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 13
+    },
+    {
+     "forma": "Presunta infracción a [APELLIDO] artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 10
+    },
+    {
+     "forma": "Presunta infracción a los artículos 18 y 19 del Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 4
+    },
+    {
+     "forma": "Presunta infracción a los artículos 18 y 19 a la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 4
+    },
+    {
+     "forma": "Presunta infracción al artículo 18 y artículo 19 de la Ley 29571, en tanto",
+     "frecuencia": 4
+    },
+    {
+     "forma": "Presunta infracción del artículo 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 3
+    }
+   ],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 834,
+    "dos proveedores nombrados": 171,
+    "proveedor nombrado": 148,
+    "«los proveedores denunciados»": 50,
+    "otro": 26,
+    "«el proveedor denunciado»": 12
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 742,
+    "2 denunciado(s) → dos proveedores nombrados": 107,
+    "2 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 85,
+    "2 denunciado(s) → proveedor nombrado": 84,
+    "3+ denunciado(s) → dos proveedores nombrados": 53,
+    "2 denunciado(s) → «los proveedores denunciados»": 50,
+    "3+ denunciado(s) → proveedor nombrado": 43,
+    "1 denunciado(s) → proveedor nombrado": 21,
+    "1 denunciado(s) → otro": 16,
+    "1 denunciado(s) → «el proveedor denunciado»": 12,
+    "1 denunciado(s) → dos proveedores nombrados": 11,
+    "3+ denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 7,
+    "2 denunciado(s) → otro": 6,
+    "3+ denunciado(s) → otro": 4
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "no habría cumplido con brindar una",
+     "frecuencia": 76
+    },
+    {
+     "conducta": "habría negado injustificadamente a otorgar",
+     "frecuencia": 59
+    },
+    {
+     "conducta": "habría negado injustificadamente al denunciante",
+     "frecuencia": 35
+    },
+    {
+     "conducta": "habría negado injustificadamente a la",
+     "frecuencia": 32
+    },
+    {
+     "conducta": "habría negado injustificadamente la cobertura",
+     "frecuencia": 16
+    },
+    {
+     "conducta": "no habría cumplido con atender la",
+     "frecuencia": 16
+    },
+    {
+     "conducta": "no habría cumplido con otorgar al",
+     "frecuencia": 16
+    },
+    {
+     "conducta": "habría negado de manera injustificada",
+     "frecuencia": 14
+    },
+    {
+     "conducta": "habría anulado indebidamente la Póliza",
+     "frecuencia": 13
+    },
+    {
+     "conducta": "habría elaborado un informe de",
+     "frecuencia": 13
+    },
+    {
+     "conducta": "no habría cumplido con gestionar oportunamente",
+     "frecuencia": 11
+    },
+    {
+     "conducta": "no habrían cumplido con brindar una",
+     "frecuencia": 11
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 17,
+    "sin_condicional": 20,
+    "con_'y/o'": 2
+   },
+   "ejemplos": [
+    "Presunta infracción a los artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto los proveedores denunciados no habrían cumplido con gestionar la solicitud del denunciante de ejercer su derecho de cancelar o sustituir la Póliza del Seguro Vehicular asociado al crédito vehicular CCV****8280, pese a la solicitud del denunciante.",
+    "Presunta infracción a los artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el Banco de Crédito del Perú S.A. habría derivado indebidamente a Pacífico Compañía de Seguros y Reaseguros S.A. la solicitud del denunciante a ejercer su derecho de cancelar o sustituir la Póliza del Seguro Vehicular asociado al crédito vehicular CCV****8280.",
+    "Presunta infracción a los artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el Banco de Crédito del Perú S.A. habría mantenido indebidamente el cobro continuo de las primas de la Póliza del Seguro Vehicular asociado al crédito vehicular CCV****8280, sin otorgar al denunciante una posibilidad de elección de cancelación o sustitución del referido seguro.",
+    "Presunta infracción a los artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Pacífico Compañía de Seguros y Reaseguros S.A. habría imposibilitado que el denunciante ejerza su derecho de elección respecto a la cancelación o sustitución de la Póliza del Seguro Vehicular asociado al crédito vehicular CCV****8280."
+   ]
+  },
+  "art.1|art.2|lit.b|num.1": {
+   "hechos_de_la_tabla": [
+    "Atención de requerimientos de información",
+    "Incumplimiento de la obligación de informar en general",
+    "Falta de entrega de documentación contractual DESPUÉS de firmado el contrato, cuando el consumidor la solicita (copia de contrato o póliza, requerimiento de información sobre sus productos)"
+   ],
+   "fundamento": "Derecho a acceder a informacion oportuna, suficiente, veraz y facilmente accesible (art. 1, numeral 1, literal b) y deber de informacion relevante (art. 2).",
+   "frecuencia": {
+    "resolutivo": 218,
+    "considerativa": 228
+   },
+   "considerativa_canonica": "al deber de información",
+   "considerativa_variantes": [
+    {
+     "forma": "al deber de idoneidad",
+     "frecuencia": 1
+    },
+    {
+     "forma": "a los derechos de los consumidores",
+     "frecuencia": 1
+    }
+   ],
+   "resolutivo_apertura_canonica": "Presunta infracción al artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [
+    {
+     "forma": "Presunta infracción al artículo 1, numeral 1, literal b), y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 2
+    },
+    {
+     "forma": "Presunta infracción del artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    }
+   ],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 146,
+    "dos proveedores nombrados": 26,
+    "proveedor nombrado": 23,
+    "«los proveedores denunciados»": 10,
+    "otro": 9,
+    "«el proveedor denunciado»": 3
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 128,
+    "2 denunciado(s) → dos proveedores nombrados": 18,
+    "2 denunciado(s) → proveedor nombrado": 15,
+    "2 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 15,
+    "2 denunciado(s) → «los proveedores denunciados»": 10,
+    "3+ denunciado(s) → proveedor nombrado": 6,
+    "3+ denunciado(s) → dos proveedores nombrados": 6,
+    "1 denunciado(s) → otro": 5,
+    "2 denunciado(s) → otro": 4,
+    "1 denunciado(s) → «el proveedor denunciado»": 3,
+    "3+ denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 3,
+    "1 denunciado(s) → dos proveedores nombrados": 2,
+    "1 denunciado(s) → proveedor nombrado": 2
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "no habría cumplido con informar oportunamente",
+     "frecuencia": 27
+    },
+    {
+     "conducta": "no habría cumplido con informar a",
+     "frecuencia": 18
+    },
+    {
+     "conducta": "no habría cumplido con informar al",
+     "frecuencia": 9
+    },
+    {
+     "conducta": "no habría cumplido con brindar información",
+     "frecuencia": 8
+    },
+    {
+     "conducta": "no habría informado oportunamente al denunciante",
+     "frecuencia": 7
+    },
+    {
+     "conducta": "no habría cumplido con brindar una",
+     "frecuencia": 6
+    },
+    {
+     "conducta": "habría brindado información contradictoria al",
+     "frecuencia": 6
+    },
+    {
+     "conducta": "habría brindado información contradictoria a",
+     "frecuencia": 6
+    },
+    {
+     "conducta": "habría brindado información incorrecta al",
+     "frecuencia": 4
+    },
+    {
+     "conducta": "no habría informado oportunamente a la",
+     "frecuencia": 4
+    },
+    {
+     "conducta": "habría brindado información incorrecta a",
+     "frecuencia": 4
+    },
+    {
+     "conducta": "no habría informado de manera clara",
+     "frecuencia": 3
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 1,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora no habría brindado una respuesta adecuada a la solicitud de información del denunciante del 9 de julio de 2025.",
+    "Presunta infracción al artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la Empresa de Créditos Santander Consumo Perú S.A. no habría cumplido con informar a Mapfre Perú Compañía de Seguros y Reaseguros S.A. sobre los pagos realizados por el denunciante desde marzo de 2023 a julio de 2024.",
+    "Presunta infracción al artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora no habría informado de manera clara y oportuna al denunciante sobre la gestión y estado de la atención del Siniestro 1001365154 derivado del siniestro ocurrido el 5 de noviembre de 2025.",
+    "Presunta infracción al artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto un corredor de seguros de la compañía aseguradora, le habría informado incorrectamente al denunciante que el uso comercial para transporte a empresas estaba amparado en el Seguro Vehicular - Póliza 3012500019696."
+   ]
+  },
+  "art.24": {
+   "hechos_de_la_tabla": [
+    "Atención de reclamos ante proveedor NO regulado por el sistema financiero (excepcional)"
+   ],
+   "fundamento": "art. 24: Servicio de atención de reclamos",
+   "frecuencia": {
+    "resolutivo": 0,
+    "considerativa": 0
+   },
+   "considerativa_canonica": null,
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": null,
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {},
+   "sujetos_segun_numero_de_denunciados": {},
+   "conductas_frecuentes": [],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": []
+  },
+  "art.38": {
+   "hechos_de_la_tabla": [
+    "Discriminación / trato diferenciado"
+   ],
+   "fundamento": "art. 38: Prohibición de discriminación de consumidores",
+   "frecuencia": {
+    "resolutivo": 15,
+    "considerativa": 15
+   },
+   "considerativa_canonica": "al artículo 38 del Código",
+   "considerativa_variantes": [
+    {
+     "forma": "al deber de protección contra los métodos comerciales coercitivos",
+     "frecuencia": 1
+    },
+    {
+     "forma": "al deber de protección de los intereses sociales y económicos",
+     "frecuencia": 1
+    }
+   ],
+   "resolutivo_apertura_canonica": "Presunta infracción al artículo 38 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [
+    {
+     "forma": "Presunta infracción a la prohibición de discriminación, tipificada en el artículo 38 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    }
+   ],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 13,
+    "proveedor nombrado": 2
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 13,
+    "2 denunciado(s) → proveedor nombrado": 2
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría tenido un trato discriminatorio",
+     "frecuencia": 12
+    },
+    {
+     "conducta": "habría discriminado a la denunciante",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría generado una condición discriminatoria",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría tenido un trato diferenciado",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al artículo 38 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría tenido un trato discriminatorio con el denunciante, al señalarle que era un requisito consignar en la denuncia policial que el vehículo con Placa de Rodaje APS386 se encontraba asegurado con la Póliza 3012500011421, pese a no ser un requisito exigido a otros consumidores.",
+    "Presunta infracción al artículo 38 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Eurostar Motors S.A.C. habría tenido un trato discriminatorio a la parte denunciante al negarle inicialmente la atención programada el 27 de enero de 2026, en un contexto en el que existía un procedimiento administrativo anterior en trámite contra el referido proveedor.",
+    "Presunta infracción al artículo 38 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría discriminado a la denunciante al anular la Póliza 230099347.",
+    "Presunta infracción al artículo 38 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría tenido un trato discriminatorio con la denunciante, al negarle la renovación de su Seguro Vida Ley Ex Trabajador – Póliza 6170910100026 por un supuesto aumento del riesgo de ocurrencia de siniestro por su edad."
+   ]
+  },
+  "art.41": {
+   "hechos_de_la_tabla": [
+    "Trato preferente"
+   ],
+   "fundamento": "art. 41: Trato preferente de gestantes, niñas, niños, adultos mayores y personas con discapacidad",
+   "frecuencia": {
+    "resolutivo": 0,
+    "considerativa": 0
+   },
+   "considerativa_canonica": null,
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": null,
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {},
+   "sujetos_segun_numero_de_denunciados": {},
+   "conductas_frecuentes": [],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": []
+  },
+  "art.47|lit.e": {
+   "hechos_de_la_tabla": [
+    "Falta de entrega de documentación contractual A LA FIRMA del contrato (contrato, hoja resumen, póliza, condiciones generales)"
+   ],
+   "fundamento": "art. 47: Protección mínima del contrato de consumo",
+   "frecuencia": {
+    "resolutivo": 63,
+    "considerativa": 66
+   },
+   "considerativa_canonica": "al deber de entregar a los usuarios copia de los contratos y demás documentación relacionada con dichos actos jurídicos",
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": "Presunta infracción al literal e) del artículo 47 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [
+    {
+     "forma": "Presunta infracción al literal e) del artículo 47 del Código de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    },
+    {
+     "forma": "Presunta infracción del literal e) del artículo 47 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    }
+   ],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 41,
+    "«los proveedores denunciados»": 10,
+    "dos proveedores nombrados": 7,
+    "proveedor nombrado": 4,
+    "otro": 1
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 40,
+    "2 denunciado(s) → «los proveedores denunciados»": 10,
+    "2 denunciado(s) → dos proveedores nombrados": 5,
+    "2 denunciado(s) → proveedor nombrado": 4,
+    "3+ denunciado(s) → dos proveedores nombrados": 1,
+    "1 denunciado(s) → dos proveedores nombrados": 1,
+    "2 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 1,
+    "1 denunciado(s) → otro": 1
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "no habría cumplido oportunamente con entregar",
+     "frecuencia": 20
+    },
+    {
+     "conducta": "no habría cumplido con entregar oportunamente",
+     "frecuencia": 12
+    },
+    {
+     "conducta": "no habría cumplido con entregar a",
+     "frecuencia": 6
+    },
+    {
+     "conducta": "no habría cumplido con entregar al",
+     "frecuencia": 5
+    },
+    {
+     "conducta": "no habrían cumplido oportunamente con entregar",
+     "frecuencia": 5
+    },
+    {
+     "conducta": "no habrían cumplido con entregar al",
+     "frecuencia": 4
+    },
+    {
+     "conducta": "no habría entregado oportunamente al denunciante",
+     "frecuencia": 3
+    },
+    {
+     "conducta": "no habrían cumplido con entregar oportunamente",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "no habría remitido a la denunciante",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "no habría entregado oportunamente al denunciante,",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "no habría cumplido con enviar de",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "no habrían cumplido con entregar a",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al literal e) del artículo 47 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto los proveedores denunciados no habrían cumplido con entregar al denunciante los documentos contractuales de la Póliza del Seguro Vehicular asociado al crédito vehicular CCV****8280.",
+    "Presunta infracción al literal e) del artículo 47 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Rímac Seguros y Reaseguros S.A. no habría cumplido oportunamente con entregar al denunciante la Póliza 00110991764000013875.",
+    "Presunta infracción al literal e) del artículo 47 del Código de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora no habría cumplido con entregar a la contratante la póliza completa del Seguro Vehicular 2010209580 al momento de la contratación.",
+    "Presunta infracción al literal e) del artículo 47 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto La Positiva Seguros y Reaseguros S.A. no habría cumplido oportunamente con entregar al denunciante los documentos contractuales de la Póliza 230206880 del Seguro Vehicular."
+   ]
+  },
+  "art.49|art.50|lit.*|num.49.1": {
+   "hechos_de_la_tabla": [
+    "Cláusulas abusivas: SIEMPRE numeral 49.1 del artículo 49 y el literal del artículo 50 (ineficacia absoluta) o del artículo 51 (ineficacia relativa)"
+   ],
+   "fundamento": "art. 49: Definición de cláusulas abusivas; art. 50: Cláusulas abusivas de ineficacia absoluta",
+   "frecuencia": {
+    "resolutivo": 4,
+    "considerativa": 1
+   },
+   "considerativa_canonica": "a la disposición sobre cláusulas abusivas",
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": "Presunta infracción al numeral 49.1 del artículo 49 y al literal a) del artículo 50 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [
+    {
+     "forma": "Presunta infracción al numeral 49.1 del artículo 49 y al literal d) del artículo 50 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    },
+    {
+     "forma": "Presunta infracción al numeral 49.1 del artículo 49 y al literal b) del artículo 50 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    }
+   ],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 4
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 4
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría incluido una cláusula abusiva",
+     "frecuencia": 3
+    },
+    {
+     "conducta": "habría consignado en la Póliza",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al numeral 49.1 del artículo 49 y al literal d) del artículo 50 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría consignado en la Póliza 3012400007616 una cláusula abusiva relacionada a que la rehabilitación del seguro operaría únicamente al día siguiente del pago correspondiente."
+   ]
+  },
+  "art.49|art.51|lit.*|num.49.1": {
+   "hechos_de_la_tabla": [
+    "Cláusulas abusivas: SIEMPRE numeral 49.1 del artículo 49 y el literal del artículo 50 (ineficacia absoluta) o del artículo 51 (ineficacia relativa)"
+   ],
+   "fundamento": "art. 49: Definición de cláusulas abusivas; art. 51: Cláusulas abusivas de ineficacia relativa",
+   "frecuencia": {
+    "resolutivo": 2,
+    "considerativa": 2
+   },
+   "considerativa_canonica": "al numeral 49.1 del artículo 49 y al literal a) y literal d) del artículo 51 del Código",
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": "Presunta infracción al numeral 49.1 del artículo 49 y al literal a) y literal d) del artículo 51 de la Ley 29571, en tanto",
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 2
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 2
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría utilizado una cláusula abusiva",
+     "frecuencia": 2
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 2,
+    "sin_condicional": 0,
+    "con_'y/o'": 1
+   },
+   "ejemplos": [
+    "Presunta infracción al numeral 49.1 del artículo 49 y al literal a) y literal d) del artículo 51 de la Ley 29571, en tanto la compañía aseguradora habría utilizado una cláusula abusiva en la Póliza 3012300029505 relacionado a la exclusión de cobertura referida a seguir conduciendo el vehículo luego del impacto, agravando el daño causado."
+   ]
+  },
+  "art.56|lit.b": {
+   "hechos_de_la_tabla": [
+    "Métodos comerciales coercitivos: atribución indebida de productos o deuda, afiliación indebida de seguro"
+   ],
+   "fundamento": "art. 56: Métodos comerciales coercitivos",
+   "frecuencia": {
+    "resolutivo": 26,
+    "considerativa": 27
+   },
+   "considerativa_canonica": "al deber de protección contra los métodos comerciales coercitivos",
+   "considerativa_variantes": [
+    {
+     "forma": "al deber de protección contra los métodos comerciales",
+     "frecuencia": 3
+    },
+    {
+     "forma": "al artículo 56, literal b) del Código",
+     "frecuencia": 1
+    }
+   ],
+   "resolutivo_apertura_canonica": "Presunta infracción al literal b) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [
+    {
+     "forma": "Presunta infracción al artículo 56, literal b), de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    },
+    {
+     "forma": "Presunta infracción al literal b) del artículo 56de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    }
+   ],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 16,
+    "dos proveedores nombrados": 6,
+    "«los proveedores denunciados»": 4
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 12,
+    "2 denunciado(s) → dos proveedores nombrados": 5,
+    "2 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 4,
+    "2 denunciado(s) → «los proveedores denunciados»": 4,
+    "1 denunciado(s) → dos proveedores nombrados": 1
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría contratado indebidamente a favor",
+     "frecuencia": 7
+    },
+    {
+     "conducta": "habría atribuido indebidamente al denunciante",
+     "frecuencia": 3
+    },
+    {
+     "conducta": "habría atribuido indebidamente la Póliza",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "habrían afiliado a la denunciante",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "habría gestionado indebidamente la contratación",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría contratado a favor del",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría condicionado indebidamente al denunciante",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría afiliado de manera indebida,",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habrían atribuido indebidamente al denunciante",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría emitido indebidamente la Póliza",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría empleado métodos comerciales coercitivos",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría gestionado indebidamente de manera",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al literal b) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el Banco BBVA Perú S.A. habría gestionado indebidamente la contratación de la Póliza 00110991764000013875 a favor del denunciante, pese a no tener su consentimiento.",
+    "Presunta infracción al literal b) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Rímac Seguros y Reaseguros S.A. habría contratado a favor del denunciante la Póliza 00110991764000013875, pese a no tener su consentimiento.",
+    "Presunta infracción al literal b) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el Banco BBVA Perú S.A. habría condicionado indebidamente al denunciante a pagar US$65,00 por el endoso de la Póliza 0070183725 con la finalidad de anular la Póliza 00110991764000013875 emitida por Rímac Seguros y Reaseguros S.A..",
+    "Presunta infracción al literal b) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría atribuido indebidamente al denunciante la contratación de la Póliza 2011982532 del Seguro vehicular sin su consentimiento."
+   ]
+  },
+  "art.56|lit.c": {
+   "hechos_de_la_tabla": [
+    "Reprogramación de deuda unilateral",
+    "Métodos comerciales coercitivos: modificación unilateral del contrato"
+   ],
+   "fundamento": "art. 56: Métodos comerciales coercitivos",
+   "frecuencia": {
+    "resolutivo": 12,
+    "considerativa": 14
+   },
+   "considerativa_canonica": "al deber de protección contra los métodos comerciales coercitivos",
+   "considerativa_variantes": [
+    {
+     "forma": "al artículo 56, literal c) del Código",
+     "frecuencia": 1
+    }
+   ],
+   "resolutivo_apertura_canonica": "Presunta infracción al literal c) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [
+    {
+     "forma": "Presunta infracción al artículo 56, literal c) de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    },
+    {
+     "forma": "Presunta infracción al literal c) y d) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    }
+   ],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 9,
+    "«los proveedores denunciados»": 1,
+    "dos proveedores nombrados": 1
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 7,
+    "2 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 2,
+    "2 denunciado(s) → «los proveedores denunciados»": 1,
+    "3+ denunciado(s) → dos proveedores nombrados": 1
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría modificado unilateralmente las condiciones",
+     "frecuencia": 4
+    },
+    {
+     "conducta": "habría modificado unilateralmente y sin",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "habría hecho disposición de los",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habrían modificado unilateralmente la Póliza",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría modificado unilateralmente, sin el",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habrían incurrido en métodos comerciales",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría modificado unilateralmente el 16",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 1,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al literal c) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el Banco BBVA Perú S.A. habría hecho disposición de los fondos del denunciante para renovar la Póliza 2001-716888 del Seguro Vehicular mediante la emisión de la Póliza 0011-0960-400****258 el 12 de junio de 2024, pese a que la póliza inicial no contemplaba cláusula de renovación automática.",
+    "Presunta infracción al literal c) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría modificado unilateralmente las condiciones de la Póliza 2011855105 del Seguro Vehicular mediante la emisión de la póliza 2011948024 el 12 de agosto de 2025.",
+    "Presunta infracción al literal c) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría modificado unilateralmente las condiciones de acceso al Seguro de Vida al variar la edad máxima de contratación.",
+    "Presunta infracción al literal c) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría modificado unilateralmente y sin previa comunicación al denunciante la Póliza 50997557 respecto al monto de las primas."
+   ]
+  },
+  "art.56|lit.d": {
+   "hechos_de_la_tabla": [
+    "Métodos comerciales coercitivos: documentos completados de forma distinta a la acordada"
+   ],
+   "fundamento": "art. 56: Métodos comerciales coercitivos",
+   "frecuencia": {
+    "resolutivo": 1,
+    "considerativa": 1
+   },
+   "considerativa_canonica": "al deber de protección contra los métodos comerciales coercitivos",
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": "Presunta infracción al literal d) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {
+    "otro": 1
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "2 denunciado(s) → otro": 1
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría llenado de forma unilateral",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al literal d) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el personal de Scotiabank Perú S.A.A. habría llenado de forma unilateral los formularios del seguro de desgravamen del crédito hipotecario 94****26."
+   ]
+  },
+  "art.56|lit.e": {
+   "hechos_de_la_tabla": [
+    "Métodos comerciales coercitivos: limitaciones para poner fin al contrato o desvincularse"
+   ],
+   "fundamento": "art. 56: Métodos comerciales coercitivos",
+   "frecuencia": {
+    "resolutivo": 1,
+    "considerativa": 1
+   },
+   "considerativa_canonica": "al deber de protección contra los métodos comerciales coercitivos",
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": "Presunta infracción al literal e) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 1
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "2 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 1
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría establecido limitaciones injustificadas al",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": []
+  },
+  "art.56|lit.g": {
+   "hechos_de_la_tabla": [
+    "Métodos comerciales coercitivos: exigencia de documentación innecesaria"
+   ],
+   "fundamento": "art. 56: Métodos comerciales coercitivos",
+   "frecuencia": {
+    "resolutivo": 35,
+    "considerativa": 36
+   },
+   "considerativa_canonica": "al deber de protección contra los métodos comerciales coercitivos",
+   "considerativa_variantes": [
+    {
+     "forma": "al deber de protección contra los métodos comerciales",
+     "frecuencia": 3
+    },
+    {
+     "forma": "al literal g) del artículo 56 del Código",
+     "frecuencia": 1
+    },
+    {
+     "forma": "al deber de idoneidad",
+     "frecuencia": 1
+    }
+   ],
+   "resolutivo_apertura_canonica": "Presunta infracción al literal g) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 24,
+    "proveedor nombrado": 6,
+    "dos proveedores nombrados": 4,
+    "«los proveedores denunciados»": 1
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 20,
+    "2 denunciado(s) → dos proveedores nombrados": 4,
+    "2 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 4,
+    "2 denunciado(s) → proveedor nombrado": 3,
+    "3+ denunciado(s) → proveedor nombrado": 2,
+    "2 denunciado(s) → «los proveedores denunciados»": 1,
+    "1 denunciado(s) → proveedor nombrado": 1
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría condicionado la atención de",
+     "frecuencia": 7
+    },
+    {
+     "conducta": "habría exigido indebidamente al denunciante",
+     "frecuencia": 3
+    },
+    {
+     "conducta": "habría requerido indebidamente a la",
+     "frecuencia": 3
+    },
+    {
+     "conducta": "habría exigido indebidamente a la",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "habría requerido indebidamente al denunciante",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "habría exigido documentación no contemplada",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "habría solicitado de manera reiterada",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría condicionado al denunciante a",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría continuado exigiendo indebidamente al",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría solicitado indebidamente al denunciante",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría exigido documentación innecesaria para",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habrían requerido indebidamente a la",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al literal g) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría solicitado de manera reiterada documentación adicional para atender para la atención de la solicitud de otorgamiento de cobertura de la Póliza 2008953935 del Seguro vehicular, pese a que no obraba ni podía obrar en poder del denunciante.",
+    "Presunta infracción al literal g) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría exigido indebidamente a la denunciante el informe policial en virtud del siniestro 969390, pese a que se encontraba imposibilitada de obtenerlo, dilatando la activación de la cobertura de la Póliza 2101-1494398.",
+    "Presunta infracción al literal g) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría condicionado al denunciante a presentar su desistimiento de la cobertura de la Póliza 1368361 del Seguro vehicular para recuperar los restos del vehículo con Placa de Rodaje C1R-102 por el siniestro del 11 de enero de 2026.",
+    "Presunta infracción al literal g) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría exigido indebidamente al denunciante documentación vinculada al procedimiento de rehabilitación de la Póliza 206-000966/2 del Seguro de Vida el 5 de junio de 2025, pese a que el denunciante había remitido la referida documentación previamente."
+   ]
+  },
+  "art.58": {
+   "hechos_de_la_tabla": [
+    "Métodos comerciales agresivos o engañosos (verificar el supuesto específico)"
+   ],
+   "fundamento": "art. 58: Definición y alcances",
+   "frecuencia": {
+    "resolutivo": 2,
+    "considerativa": 2
+   },
+   "considerativa_canonica": "a la protección contra los métodos comerciales agresivos o engañosos",
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": "Presunta infracción al artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {
+    "dos proveedores nombrados": 2
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "2 denunciado(s) → dos proveedores nombrados": 2
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habrían atribuido indebidamente la Póliza",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría atribuido indebidamente la Póliza",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Mapfre Perú Compañía de Seguros y Reaseguros S.A. y Banco Ripley Perú S.A. habrían atribuido indebidamente la Póliza 8080071 a favor del denunciante, generando el descuento de las primas desde su tarjeta de crédito.",
+    "Presunta infracción al artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Mapfre Perú Compañía de Seguros y Reaseguros S.A. y Banco Ripley Perú S.A. habría atribuido indebidamente la Póliza 27330 a favor del denunciante, generando el descuento de las primas desde su tarjeta de crédito."
+   ]
+  },
+  "art.58|lit.b": {
+   "hechos_de_la_tabla": [
+    "Información errónea al contratar en fondos colectivos",
+    "Métodos comerciales agresivos o engañosos (verificar el supuesto específico)"
+   ],
+   "fundamento": "art. 58: Definición y alcances",
+   "frecuencia": {
+    "resolutivo": 1,
+    "considerativa": 2
+   },
+   "considerativa_canonica": "al literal b) del artículo 58 del Código",
+   "considerativa_variantes": [
+    {
+     "forma": "al deber de protección contra los métodos comerciales agresivos o engañosos",
+     "frecuencia": 1
+    }
+   ],
+   "resolutivo_apertura_canonica": "Presunta infracción al artículo 58, literal b), de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 1
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 1
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría desplegado una práctica comercial",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al artículo 58, literal b), de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría desplegado una práctica comercial engañosa el 30 de noviembre de 2022, al ofrecer la Póliza 1300025263 del Seguro de Vida con condiciones contractuales distintas a las que el denunciante finalmente suscribió."
+   ]
+  },
+  "art.58|lit.b|num.58.1": {
+   "hechos_de_la_tabla": [
+    "Métodos comerciales agresivos o engañosos (verificar el supuesto específico)"
+   ],
+   "fundamento": "art. 58: Definición y alcances",
+   "frecuencia": {
+    "resolutivo": 1,
+    "considerativa": 1
+   },
+   "considerativa_canonica": "al deber de información",
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": "Presunta infracción al literal b) del numeral 58.1 del artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 1
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 1
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría cambiado la información originalmente",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al literal b) del numeral 58.1 del artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría cambiado la información originalmente proporcionada a la denunciante al momento de adquirir la Póliza 07600013106, pues luego de su aceptación remitieron a su correo electrónicos el documento con condiciones distintas."
+   ]
+  },
+  "art.58|lit.c": {
+   "hechos_de_la_tabla": [
+    "Métodos comerciales agresivos o engañosos (verificar el supuesto específico)"
+   ],
+   "fundamento": "art. 58: Definición y alcances",
+   "frecuencia": {
+    "resolutivo": 1,
+    "considerativa": 1
+   },
+   "considerativa_canonica": "al deber de protección contra [APELLIDO] métodos comerciales coercitivos",
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": "Presunta infracción al literal c) del artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 1
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 1
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría realizado una práctica comercial",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al literal c) del artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría realizado una práctica comercial engañosa al omitir información a la denunciante sobre a imposibilidad de endosar el Seguro de Vida – Póliza 07800131249, induciéndola a error y adquirir el producto."
+   ]
+  },
+  "art.58|lit.e|num.58.1": {
+   "hechos_de_la_tabla": [
+    "Métodos comerciales agresivos o engañosos (verificar el supuesto específico)"
+   ],
+   "fundamento": "art. 58: Definición y alcances",
+   "frecuencia": {
+    "resolutivo": 0,
+    "considerativa": 1
+   },
+   "considerativa_canonica": "al deber de idoneidad",
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": null,
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {},
+   "sujetos_segun_numero_de_denunciados": {},
+   "conductas_frecuentes": [],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": []
+  },
+  "art.58|lit.f": {
+   "hechos_de_la_tabla": [
+    "Métodos comerciales agresivos o engañosos (verificar el supuesto específico)"
+   ],
+   "fundamento": "art. 58: Definición y alcances",
+   "frecuencia": {
+    "resolutivo": 1,
+    "considerativa": 1
+   },
+   "considerativa_canonica": "al artículo 58, literal f) del Código",
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": "Presunta infracción al artículo 58, literal f) de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {
+    "otro": 1
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → otro": 1
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría inducido indebidamente a la",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al artículo 58, literal f) de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto un representante de la compañía aseguradora habría inducido indebidamente a la denunciante a solicitar el rescate de la Póliza 153936 del Seguro de Vida Flex 80."
+   ]
+  },
+  "art.58|num.58.1": {
+   "hechos_de_la_tabla": [
+    "Métodos comerciales agresivos o engañosos (verificar el supuesto específico)"
+   ],
+   "fundamento": "art. 58: Definición y alcances",
+   "frecuencia": {
+    "resolutivo": 0,
+    "considerativa": 1
+   },
+   "considerativa_canonica": "al deber de idoneidad",
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": null,
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {},
+   "sujetos_segun_numero_de_denunciados": {},
+   "conductas_frecuentes": [],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": []
+  },
+  "art.61|art.62|lit.a": {
+   "hechos_de_la_tabla": [
+    "Cobranza: comunicaciones que aparentan escritos judiciales"
+   ],
+   "fundamento": "art. 61: Procedimientos de cobranza; art. 62: Métodos abusivos de cobranza",
+   "frecuencia": {
+    "resolutivo": 4,
+    "considerativa": 4
+   },
+   "considerativa_canonica": "al artículo 61 y el literal a) del artículo 62 del Código",
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": "Presunta infracción al artículo 61 y al literal a) del artículo 62 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {
+    "proveedor nombrado": 2,
+    "otro": 2
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "3+ denunciado(s) → proveedor nombrado": 2,
+    "3+ denunciado(s) → otro": 2
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría autorizado indebidamente que su",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "habría remitido indebidamente en octubre",
+     "frecuencia": 1
+    },
+    {
+     "conducta": "habría remitido indebidamente el 5",
+     "frecuencia": 1
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al artículo 61 y al literal a) del artículo 62 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Scotiabank Perú S.A.A. habría autorizado indebidamente que su agente de cobranza remitiera en octubre de 2025 una comunicación sin fecha aludiendo al inicio de un proceso judicial de ejecución de garantía hipotecaria respecto de la deuda del señor [APELLIDO] [APELLIDO] .",
+    "Presunta infracción al artículo 61 y al literal a) del artículo 62 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el Estudio Muñiz Sociedad Civil de Responsabilidad Limitada habría remitido indebidamente en octubre de 2025 una comunicación sin fecha aludiendo al inicio de un proceso judicial de ejecución de garantía hipotecaria respecto de la deuda del señor [APELLIDO] [APELLIDO] .",
+    "Presunta infracción al artículo 61 y al literal a) del artículo 62 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el Estudio Muñiz Sociedad Civil de Responsabilidad Limitada habría remitido indebidamente el 5 de noviembre de 2025 una comunicación aludiendo a un proceso judicial archivado respecto de la deuda del señor [APELLIDO] [APELLIDO] .",
+    "Presunta infracción al artículo 61 y al literal a) del artículo 62 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Scotiabank Perú S.A.A. habría autorizado indebidamente que su agente de cobranza remitiera una comunicación aludiendo a un proceso judicial archivado respecto de la deuda del señor [APELLIDO] [APELLIDO] ."
+   ]
+  },
+  "art.61|art.62|lit.b": {
+   "hechos_de_la_tabla": [
+    "Cobranza: llamadas y visitas fuera del horario legal"
+   ],
+   "fundamento": "art. 61: Procedimientos de cobranza; art. 62: Métodos abusivos de cobranza",
+   "frecuencia": {
+    "resolutivo": 0,
+    "considerativa": 0
+   },
+   "considerativa_canonica": null,
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": null,
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {},
+   "sujetos_segun_numero_de_denunciados": {},
+   "conductas_frecuentes": [],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": []
+  },
+  "art.61|art.62|lit.d": {
+   "hechos_de_la_tabla": [
+    "Cobranza: carteles o vestimenta inusual"
+   ],
+   "fundamento": "art. 61: Procedimientos de cobranza; art. 62: Métodos abusivos de cobranza",
+   "frecuencia": {
+    "resolutivo": 0,
+    "considerativa": 0
+   },
+   "considerativa_canonica": null,
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": null,
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {},
+   "sujetos_segun_numero_de_denunciados": {},
+   "conductas_frecuentes": [],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": []
+  },
+  "art.61|art.62|lit.h": {
+   "hechos_de_la_tabla": [
+    "Cobranza: apagado de motor"
+   ],
+   "fundamento": "art. 61: Procedimientos de cobranza; art. 62: Métodos abusivos de cobranza",
+   "frecuencia": {
+    "resolutivo": 0,
+    "considerativa": 0
+   },
+   "considerativa_canonica": null,
+   "considerativa_variantes": [],
+   "resolutivo_apertura_canonica": null,
+   "no_usar_aperturas_minoritarias": [],
+   "sujetos": {},
+   "sujetos_segun_numero_de_denunciados": {},
+   "conductas_frecuentes": [],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 0,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": []
+  },
+  "art.88|num.88.1": {
+   "hechos_de_la_tabla": [
+    "Atención de reclamos ante proveedor REGULADO por el sistema financiero (falta, demora, atención inadecuada o incompleta)"
+   ],
+   "fundamento": "art. 88: Reclamo de productos o servicios financieros y de seguros",
+   "frecuencia": {
+    "resolutivo": 167,
+    "considerativa": 168
+   },
+   "considerativa_canonica": "al numeral 88.1 del artículo 88 del Código",
+   "considerativa_variantes": [
+    {
+     "forma": "a la obligación de los proveedores para resolver los reclamos en el plazo legal establecido",
+     "frecuencia": 10
+    },
+    {
+     "forma": "al deber de idoneidad",
+     "frecuencia": 2
+    },
+    {
+     "forma": "",
+     "frecuencia": 2
+    },
+    {
+     "forma": "al deber de atención de reclamos",
+     "frecuencia": 1
+    },
+    {
+     "forma": "al deber de resolver los reclamos de productos o servicios financieros y de seguros",
+     "frecuencia": 1
+    }
+   ],
+   "resolutivo_apertura_canonica": "Presunta infracción al numeral 88.1 del artículo 88 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+   "no_usar_aperturas_minoritarias": [
+    {
+     "forma": "Presunta infracción al numeral 88.1 del artículo 88 del Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 2
+    },
+    {
+     "forma": "Presunta infracción al numeral 88.1 del artículo 88, de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto",
+     "frecuencia": 1
+    }
+   ],
+   "sujetos": {
+    "genérico («la compañía aseguradora», «el banco»…)": 115,
+    "proveedor nombrado": 19,
+    "otro": 12,
+    "dos proveedores nombrados": 11,
+    "«el proveedor denunciado»": 10
+   },
+   "sujetos_segun_numero_de_denunciados": {
+    "1 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 92,
+    "2 denunciado(s) → genérico («la compañía aseguradora», «el banco»…)": 23,
+    "2 denunciado(s) → proveedor nombrado": 13,
+    "1 denunciado(s) → «el proveedor denunciado»": 10,
+    "1 denunciado(s) → otro": 10,
+    "2 denunciado(s) → dos proveedores nombrados": 8,
+    "3+ denunciado(s) → proveedor nombrado": 4,
+    "3+ denunciado(s) → dos proveedores nombrados": 3,
+    "1 denunciado(s) → proveedor nombrado": 2,
+    "2 denunciado(s) → otro": 2
+   },
+   "conductas_frecuentes": [
+    {
+     "conducta": "habría brindado una respuesta inadecuada",
+     "frecuencia": 100
+    },
+    {
+     "conducta": "no habría cumplido con brindar una",
+     "frecuencia": 14
+    },
+    {
+     "conducta": "no habría brindado una respuesta adecuada",
+     "frecuencia": 11
+    },
+    {
+     "conducta": "no habría remitido al denunciante una",
+     "frecuencia": 7
+    },
+    {
+     "conducta": "no habría cumplido con atender adecuadamente",
+     "frecuencia": 3
+    },
+    {
+     "conducta": "no habría atendido adecuadamente el reclamo",
+     "frecuencia": 3
+    },
+    {
+     "conducta": "no habría brindado una respuesta dentro",
+     "frecuencia": 3
+    },
+    {
+     "conducta": "no habría cumplido brindar una respuesta",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "no habría brindado una respuesta oportuna",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "no habría cumplido con emitir una",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "no habría cumplido con entregar al",
+     "frecuencia": 2
+    },
+    {
+     "conducta": "no habría brindado una respuesta al",
+     "frecuencia": 2
+    }
+   ],
+   "defectos_medidos": {
+    "sin_'de la Ley 29571, Codigo...'": 2,
+    "sin_condicional": 0,
+    "con_'y/o'": 0
+   },
+   "ejemplos": [
+    "Presunta infracción al numeral 88.1 del artículo 88, de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Corredores de Seguros Falabella S.A.C. habría brindado una respuesta inadecuada al reclamo presentado por el denunciante mediante carta del 16 de junio de 2025.",
+    "Presunta infracción al numeral 88.1 del artículo 88 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría brindado una respuesta inadecuada al reclamo 26-SBS021815 presentado por el denunciante.",
+    "Presunta infracción al numeral 88.1 del artículo 88 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el Banco BBVA Perú S.A. habría brindado una respuesta inadecuada al reclamo presentado por el denunciante el 20 de diciembre de 2024.",
+    "Presunta infracción al numeral 88.1 del artículo 88 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el Banco BBVA Perú S.A. habría brindado una respuesta inadecuada al reclamo presentado por el denunciante el 24 de enero de 2025."
+   ]
+  }
+ },
+ "combinaciones_fuera_de_tabla": [
+  {
+   "normas": "art.49|art.50|lit.a",
+   "frecuencia": 22,
+   "ejemplo": "Presunta infracción al literal a) del artículo 50 y al artículo 49 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría incluido una cláusula abusiva en la Póliza 200895"
+  },
+  {
+   "normas": "art.49|art.50|lit.a|num.49.1.",
+   "frecuencia": 14,
+   "ejemplo": "Presunta infracción al numeral 49.1. del artículo 49 y al artículo 50 literal a) de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría incluido una cláusula abusiva en el"
+  },
+  {
+   "normas": "art.47",
+   "frecuencia": 9,
+   "ejemplo": "Presunta infracción al numeral e) del artículo 47 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora no habría cumplido con remitir oportunamente a la denunciante las condici"
+  },
+  {
+   "normas": "art.1|art.2|lit.b",
+   "frecuencia": 7,
+   "ejemplo": "Presunta infracción al artículo 1, literal b), y al artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Pacífico Compañía de Seguros y Reaseguros S.A. no habría cumplido con informar oport"
+  },
+  {
+   "normas": "art.111",
+   "frecuencia": 5,
+   "ejemplo": "Presunta infracción al artículo 111 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el señor [APELLIDO] sería responsable solidario de las presuntas infracciones cometidas por Rímac Seguros y Rea"
+  },
+  {
+   "normas": "art.61|art.62|lit.f",
+   "frecuencia": 4,
+   "ejemplo": "Presunta infracción al artículo 61 y el literal f) del artículo 62 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría enviado un personal de cobranzas al domicilio de "
+  },
+  {
+   "normas": "art.49|num.49.1.",
+   "frecuencia": 3,
+   "ejemplo": "Presunta infracción al numeral 49.1. del artículo 49 de la Ley 29571, Código de Protección y Defensa del Consumidor, en la medida que la compañía aseguradora habría aplicado una presunta cláusula abusiva en la Póliza del"
+  },
+  {
+   "normas": "art.56",
+   "frecuencia": 3,
+   "ejemplo": "Presunta infracción al numeral b) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría renovado indebidamente la Póliza Vehicular 2007869393, generando e"
+  },
+  {
+   "normas": "art.1|art.2|lit.b|num.1.1",
+   "frecuencia": 3,
+   "ejemplo": "Presunta infracción al numeral 1.1, literal b) del artículo 1 y el artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el Banco BBVA Perú S.A. no habría cumplido con informar a la parte de"
+  },
+  {
+   "normas": "art.56|lit.c|num.56.1",
+   "frecuencia": 3,
+   "ejemplo": "Presunta infracción al literal c) del numeral 56.1 del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría modificado unilateralmente la Póliza 6160013, al "
+  },
+  {
+   "normas": "art.56|lit.a",
+   "frecuencia": 2,
+   "ejemplo": "Presunta infracción al literal a) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Corredores de Seguros Falabella S.A.C. habría condicionado que el denunciante anule la Seguro Veh"
+  },
+  {
+   "normas": "art.1|art.2|lit.b|num.1.1|num.2.1",
+   "frecuencia": 2,
+   "ejemplo": "Presunta infracción al literal b) del numeral 1.1 del artículo 1 y el numeral 2.1 y 2.2 del artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora no habría cumplido c"
+  },
+  {
+   "normas": "art.49|art.51|lit.a",
+   "frecuencia": 2,
+   "ejemplo": "Presunta infracción al literal a) del artículo 51 y al artículo 49 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría incluido una cláusula abusiva en el Seguro Vehicu"
+  },
+  {
+   "normas": "art.49|art.51|lit.a|num.49.1.",
+   "frecuencia": 2,
+   "ejemplo": "Presunta infracción al numeral 49.1. del artículo 49 y al literal a) del artículo 51 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría incluido una cláusula abusiva e"
+  },
+  {
+   "normas": "art.62|lit.h",
+   "frecuencia": 2,
+   "ejemplo": "Presunta infracción al literal h) del artículo 62 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el Banco Internacional del Perú -Interbank S.A.A. habría realizado indebidamente llamadas de cobr"
+  },
+  {
+   "normas": "art.2",
+   "frecuencia": 2,
+   "ejemplo": "Presunta infracción al deber de información, tipificada en el artículo 2 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto La Positiva Seguros y Reaseguros S.A. no habría cumplido con informar las "
+  },
+  {
+   "normas": "art.38|num.1",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción en el numeral 1 del artículo 38 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría tenido un trato discriminatorio con el señor [APELLIDO] , al hac"
+  },
+  {
+   "normas": "art.17|art.49|art.51|lit.a|num.49.1",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción al numeral 49.1 del artículo 49 y al literal a) del artículo 51 de la Ley 29571, Código de Protección y Defensa del Consumidor, en la medida que la compañía aseguradora habría aplicado una presunta cl"
+  },
+  {
+   "normas": "art.25|art.49|art.51|lit.a|num.49.1",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción al numeral 49.1 del artículo 49 y al literal a) del artículo 51 de la Ley 29571, Código de Protección y Defensa del Consumidor, en la medida que la compañía aseguradora habría aplicado una presunta cl"
+  },
+  {
+   "normas": "art.4|art.49|art.51|lit.a|num.49.1",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción al numeral 49.1 del artículo 49 y al literal a) del artículo 51 de la Ley 29571, Código de Protección y Defensa del Consumidor, en la medida que la compañía aseguradora habría aplicado una presunta cl"
+  },
+  {
+   "normas": "art.49.1|art.51|lit.a",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción al artículo 49.1 y literal a) del artículo 51 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto BBVA Consumer Finance Entidad de Desarrollo a la Pequeña y Micro Empresa S.A. – E"
+  },
+  {
+   "normas": "art.49|art.51|lit.b",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción al artículo 49 y al literal b) del artículo 51 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría aplicado una cláusula abusiva en la Cláusula de G"
+  },
+  {
+   "normas": "art.49|art.50|lit.b|num.49.1.",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción al numeral 49.1. del artículo 49 y al literal b) del artículo 50 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría incluido una cláusula abusiva e"
+  },
+  {
+   "normas": "art.3",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción del artículo 3 del Código de Protección y Defensa del Consumidor, en tanto Pacífico Compañía de Seguros y Reaseguros S.A. y el Banco de Crédito del Perú S.A. no habrían cumplido con informar oportunam"
+  },
+  {
+   "normas": "art.88|num.1",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción en el artículo 88, numeral 1 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora no habría cumplido con atender el reclamo, presentado el 21 de febrero de "
+  },
+  {
+   "normas": "art.49|art.50|lit.h|num.49.1.",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción al numeral 49.1. del artículo 49 y al literal h) del artículo 50 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto Rímac Seguros y Reaseguros S.A. habría consignado una cláusula"
+  },
+  {
+   "normas": "art.57",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción al artículo 57 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría incurrido en prácticas abusivas al aprovecharse de la situación de vulnerabilidad"
+  },
+  {
+   "normas": "art.49|art.51|lit.d",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción al literal d) del artículo 51 y al artículo 49 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría incluido una cláusula abusiva en el Seguro Obliga"
+  },
+  {
+   "normas": "art.49|art.50|lit.e|num.49.1.",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción al numeral 49.1. del artículo 49 y al literal e) del artículo 50 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría aplicado una cláusula abusiva e"
+  },
+  {
+   "normas": "art.56|lit.g|num.56.1",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción al literal g) del numeral 56.1 del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora el 11 de febrero de 2025 habría requerido información no"
+  },
+  {
+   "normas": "art.1|lit.c",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción a los artículos 1 literal c), 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto el Banco de Crédito del Perú S.A. habría debitado indebidamente la suma de S/ 1 206,00 el"
+  },
+  {
+   "normas": "art.56|lit.c|num.56.1.",
+   "frecuencia": 1,
+   "ejemplo": "Presunta infracción al literal c) del numeral 56.1. del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto la compañía aseguradora habría modificado unilateralmente y sin autorización pr"
+  }
+ ]
 }

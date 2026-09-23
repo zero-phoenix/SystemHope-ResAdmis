@@ -4,6 +4,26 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.0.0-parte2] - 2026-09-23 (MEGAPLAN v3, PARTE 2: CORRECCIONES DE LA PARTE 1, CLASIFICACION POR CONTENIDO, FORMATO Y CUALQUIER PC)
+
+### Fixed (correcciones de la parte 1, mandatos del instructor)
+- Nunca «N°», «Nº», «Nro.», «N.» ni «N» ante un numero, **en ningun contexto** (expediente, poliza, documento de traslado...): 517 casos en cuerpo y notas.
+- Fechas «de 2025», nunca «del 2025» (1 964); mes en minuscula (1 160); «recibida», nunca «recepcionada» (122); «de fecha de fecha».
+- Clausulas abusivas: siempre «numeral 49.1 del articulo 49» con el literal del 50 o 51 (falsador en R-143).
+- Documentos contractuales: a la firma → 47 e); pedidos despues → art. 1.1 b) y art. 2 (el item 44 «18 y 20» queda sustituido). Solicitud de gestion → idoneidad; solicitud de informacion → informacion; misma carta → imputaciones separadas.
+- `editar_cedulas.py`: firma segun config (Ad Hoc solo con Rimac), nunca «(e)».
+- 4 versiones casi duplicadas del mismo expediente y resolucion retiradas (574 plantillas).
+- `catalogar_imputaciones.py --guardar` ya no puede regenerar el catalogo en bruto (reintroducia el art. 3).
+- Fecha, firma, modelo y plazo son mecanismos internos: fuera de la documentacion publica.
+
+### Added
+- **Catalogo analitico** (`scripts/analizar_imputaciones.py`, `docs/IMPUTACIONES_ANALITICO.md`): por norma, forma canonica en considerativa y resolutivo, fundamento, sujetos segun el numero de denunciados, conductas, variantes que NO se usan y defectos medidos; fundamento en el principio de tipicidad y la presuncion de licitud (numerales 4 y 9 del articulo 230 del TUO D.S. 006-2026-JUS).
+- **Indice v3 por contenido** (`scripts/clasificar_corpus.py`): denunciantes (clase y tratativa en hechos y resolutivo, incluidos varios, conyuges y herederos), denunciados (numero real, tipo, via), subtipos (confidencialidad 23, inclusion de oficio 17), imputaciones, nota al pie, firma, falsadores y `apta_como_base` (336). `preparar` filtra por `--denunciados`, `--sujeto`, `--subtipo` y ordena APTAS primero.
+- **Formato sin OCR** (`scripts/medir_formato.py`, `docs/estilo_cc1.json`): OOXML y objetos de texto PDF; perfil medido (sangrias 1,0/1,0 cm en 571 de 574); R-162 como observacion.
+- Falsadores R-161 (fechas y «recibida») y R-103 (ANALÍ con tilde); guarda «Cero OCR» en `autocomprobacion`; 12 mutaciones.
+- **Cualquier PC**: `ARRANQUE.md`, `arranque/instalar.ps1` (sin administrador; verifica SHA256; conserva la remesa), `arranque/construir_portable.ps1` (Python 3.12 embebido + dependencias + MinGit + repositorio, probado en CI y publicado en cada release), `scripts/comprobar_entorno.py`.
+- **Skills de Antigravity** en `.agents/skills/` (admisorio-flujo, imputaciones generada de las cifras, partes-y-notificacion, confidencialidad). Se retiran `.agent/` y `.antigravity/` (Antigravity no los carga; los workflows se retiran el 01/11/2026 en favor de las skills).
+
 ## [3.0.0-parte1] - 2026-09-23 (MEGAPLAN v3, PARTE 1: CORRECCIONES JURIDICAS, CONFIGURACION UNICA Y LIMPIEZA)
 
 ### Fixed

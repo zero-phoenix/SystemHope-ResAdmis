@@ -296,6 +296,9 @@ def prueba_r103_firma(doc) -> list[str]:
             "R-103: el cargo lleva '(e)', suprimido por mandato del 18/09/2026"
         )
     if es_rimac:
+        crudo = " ".join(p.texto for p in doc).upper()
+        if "LUISA ANALI " in crudo:
+            fallos.append("R-103: 'ANALÍ' se escribe siempre con tilde")
         if "LUISA ANALI SILVA MALPARTIDA" not in texto_doc:
             fallos.append(
                 "R-103: denuncia contra Rimac y no firma LUISA ANALI SILVA MALPARTIDA"
@@ -492,10 +495,10 @@ def prueba_r143_imputaciones(doc) -> list[str]:
 
     if not CATALOGO_IMPUTACIONES.exists():
         return []  # sin catalogo no se puede juzgar; no se inventa un veredicto
+    import analizar_imputaciones as AI
+
     catalogo = _json.loads(CATALOGO_IMPUTACIONES.read_text(encoding="utf-8"))
-    admitidas = set(catalogo["normas_admitidas"]) | set(
-        catalogo.get("normas_en_consulta", [])
-    )
+    admitidas = list(catalogo["normas_admitidas"])
 
     texto = re.sub(r"\s+", " ", " ".join(p.texto for p in doc))
     fallos = []
@@ -505,9 +508,16 @@ def prueba_r143_imputaciones(doc) -> list[str]:
         if not normas:
             continue
         clave = "|".join(normas)
-        if clave in admitidas or clave in vistas:
+        if AI.admite(clave, admitidas) or clave in vistas:
             continue
         vistas.add(clave)
+        if any(x in ("art.50", "art.51") for x in normas) and "num.49.1" not in normas:
+            fallos.append(
+                "R-143: clausula abusiva sin el numeral 49.1 del articulo 49; se invoca SIEMPRE "
+                "junto al literal del articulo 50 o 51: '%s'"
+                % re.sub(r"\s+", " ", m.group(0))[:110]
+            )
+            continue
         fallos.append(
             "R-143: la combinacion de normas '%s' no esta en docs/tabla_tipificacion.json. "
             "Solo se imputa por la tabla del instructor y en la forma de las plantillas; "
@@ -883,7 +893,10 @@ def prueba_r155_formula_traslado(doc) -> list[str]:
 
 
 RE_N_NORMA = re.compile(
-    r"\b(?:Ley|Decreto\s+(?:Supremo|Legislativo|de\s+Urgencia)|Directiva|Resoluci[oó]n|art[íi]culos?|numeral|inciso|literal)\s+(?:N[°º]|Nº|N\.º|Nro\.?|N\.|N)\s*\d"
+    # Mandato del 23/09/2026: en NINGUN contexto (norma, articulo, expediente,
+    # poliza, documento de traslado, memorandum, resolucion...).
+    r"\b(?:N[°º]|Nº|N\.\s?º|Nro\.?)\s*\d"
+    r"|(?<=[A-Za-zÁÉÍÓÚáéíóú\)] )N\.?\s+\d"
     r"|\b(?:art[íi]culos?|numeral)\s+\d+(?:\.\d+)*\s*[°º]",
     re.I,
 )
@@ -955,7 +968,7 @@ def prueba_r158_enmascarado(doc) -> list[str]:
 RE_NOTA_TRASLADO = re.compile(
     r"^Denuncia remitida a (?:esta Comisi[oó]n|la Comisi[oó]n de Protecci[oó]n al Consumidor 1) mediante "
     r"(?:MEMORANDUM|MEMOR[AÁ]NDUM|Memor[aá]ndum|DOCUMENTO DE TRASLADO|Documento de [Tt]raslado) \S+ "
-    r"de fecha \d{1,2} de [a-z]+ del? \d{4}, (?:recibida|recepcionada) el \d{1,2} de [a-z]+ del? \d{4}\.$"
+    r"de fecha \d{1,2} de [a-z]+ de \d{4}, recibida el \d{1,2} de [a-z]+ de \d{4}\.$"
 )
 
 
@@ -981,6 +994,32 @@ def prueba_r159_nota_traslado(z) -> list[str]:
     if not RE_NOTA_TRASLADO.match(notas[0]):
         return ["R-159: nota al pie 1 fuera de la forma literal: '%s'" % notas[0][:160]]
     return []
+
+
+MESES_RE = "enero|febrero|marzo|abril|mayo|junio|julio|agosto|setiembre|septiembre|octubre|noviembre|diciembre"
+RE_FECHA_MAL = re.compile(
+    r"\b(?:\d{1,2} de )?(?:%s) del (?:19|20)\d\d\b|\brecepcionad[ao]s?\b|\b\d{1,2} de (?:Enero|Febrero|Marzo|Abril|Mayo|Junio|Julio|Agosto|Setiembre|Septiembre|Octubre|Noviembre|Diciembre)\b"
+    % MESES_RE
+)
+
+
+def prueba_r161_fechas(doc, z) -> list[str]:
+    """R-161 (mandato del instructor, 23/09/2026): 'de 2025', nunca 'del 2025';
+    'recibida', nunca 'recepcionada'; el mes en minuscula. En cuerpo y notas."""
+    textos = [p.texto for p in doc]
+    try:
+        x = z.read("word/footnotes.xml").decode("utf-8", "replace")
+        textos.append(re.sub(r"<[^>]+>", "", x))
+    except KeyError:
+        pass
+    fallos = []
+    for t in textos:
+        for m in RE_FECHA_MAL.finditer(t):
+            fallos.append(
+                "R-161: '%s' (se escribe 'de AAAA', 'recibida' y el mes en minuscula)"
+                % m.group(0)
+            )
+    return fallos[:5]
 
 
 def prueba_r160_fecha_remesa(doc) -> list[str]:
@@ -1114,11 +1153,34 @@ PRUEBAS = [
         "falsador",
     ),
     (
+        "R-161 fechas 'de AAAA' y 'recibida'",
+        lambda d, s, z: prueba_r161_fechas(d, z),
+        "falsador",
+    ),
+    (
         "R-143b normas en consulta y articulo 24",
         lambda d, s, z: prueba_r143_consulta(d),
         "observacion",
     ),
+    (
+        "R-162 huella de formato frente al perfil CC1",
+        lambda d, s, z: prueba_r162_huella(z),
+        "observacion",
+    ),
 ]
+
+
+def prueba_r162_huella(z) -> list[str]:
+    """R-162 (F6): contraste con docs/estilo_cc1.json (moda medida del corpus):
+    fuente, tamano, alineacion, interlineado, sangrias, margenes, resaltados."""
+    import medir_formato
+
+    return [
+        "R-162: " + o
+        for o in medir_formato.comparar(
+            medir_formato.medir_docx(pathlib_Path(z.filename))
+        )
+    ]
 
 
 def verificar(ruta: str) -> bool:
