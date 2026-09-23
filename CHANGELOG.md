@@ -4,6 +4,31 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.0.0-parte1] - 2026-09-23 (MEGAPLAN v3, PARTE 1: CORRECCIONES JURIDICAS, CONFIGURACION UNICA Y LIMPIEZA)
+
+### Fixed
+- **R-155 segun la ley** en 594 documentos: «aprobada por Decreto Legislativo 807» (no «aprobado ... N° 8079»), «merituadas» (no «meritadas»), «artículo 26/223» y «Ley 27444» sin «N°» ni volada. El verificador **exigia** «meritadas» y aceptaba «8079».
+- **Singular/plural del traslado por el numero real de denunciados** (no por la carpeta): 388 corregidos; singular «al denunciado que no lo hubiera presentado» (P1).
+- **5 destinatarios de traslado corrompidos** (uno dirigido al propio denunciante) y 536 «S.A» sin punto final.
+- **Firma vigente** en 427 bloques (Eveling Roa Quispe; Rímac → Luisa Analí Silva Malpartida, Ad Hoc; sin «(e)»). `orquestar.py` y `preparar_remesa.py` ya no ordenan la firma derogada.
+- **«denunciante» en HECHOS** sustituido por la tratativa del encabezado en 130 casos (11 pendientes listados en `docs/migracion_v3_parte1_pendientes.txt`).
+- `systemhope_engine.py dump-memory` ya no puede sobrescribir `AGENTS.md` ni recrear `.cursorrules`/`CLAUDE.md`.
+- `DIRECTORIO`: la via 3 pide señalar un correo, no acuse. README: tipografia medida (Arial Narrow 11, sencillo), no Arial 10 / 1,15.
+- `requirements.txt` con las dependencias reales (PyMuPDF, pypdf, python-docx, lxml, Pillow, openpyxl); fuera pywin32, pdfplumber y pydantic.
+
+### Added
+- `docs/tabla_tipificacion.json` (tabla del instructor) como lista cerrada de articulos imputables; catalogo depurado 212 → 117 combinaciones (art. 3 y ruido fuera; art. 49 en consulta).
+- Falsadores R-156 (numeros de normas), R-157 (denunciante en hechos), R-158 (enmascarado), R-159 (nota al pie del traslado a CC1), R-160 (fecha de remesa), R-143b (consulta/art. 24).
+- `scripts/prueba_verificador.py`: 9 mutaciones, una por regla, que el verificador debe rechazar.
+- `config/remesa.json`, `config/firmas.json`, `config/modelo.json`, `config/feriados_peru.json` y `scripts/config_sistema.py`: fuente unica de fecha, firma y modelo.
+- `scripts/plazos.py`: 20 dias habiles con feriados nacionales del Peru (Semana Santa incluida).
+- `admisorio.py preparar` captura cada pagina completa y prepara `_LECTURA.md`; `entregar` rechaza filas vacias o copiadas del texto embebido e informa el plazo (`--recepcion`).
+
+### Removed
+- 13 plantillas duplicadas (rama 17 frente a rama 04) y 2 documentos que no eran admisorios (desacumulacion, conservacion de inadmisibilidad): el indice pasa a 578.
+- Codigo muerto de `src/` y `automatizacion_antigravity/*.py`, `systemhope-engine.spec` y configuraciones de ResAdmi: conservados en la rama `archivo-legado`.
+- AGENTS.md reescrito con solo lo vigente (9 608 caracteres, bajo el limite de 12 000 de Antigravity).
+
 ## [2.3.2] - 2026-09-22 (INDIVIDUALIZACIÓN MULTI-PROVEEDOR, ADMISORIOS AD HOC Y PURGA TOTAL DE MODELOS BASE)
 
 ### Added

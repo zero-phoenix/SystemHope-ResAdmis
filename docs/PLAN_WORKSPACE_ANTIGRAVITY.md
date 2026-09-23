@@ -1,5 +1,8 @@
 # PLAN — el workspace de Antigravity
 
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+
+
 > La causa raíz de casi todos los fallos del agente, y el plan para dejar de
 > parchearla. Escrito el 15/09/2026.
 

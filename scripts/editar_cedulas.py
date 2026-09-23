@@ -3,7 +3,7 @@
 """Edita las cedulas de notificacion de una remesa y levanta su censo.
 
 Mandato del instructor (14/09/2026):
-  - todas las cedulas llevan `Lima, 14 de setiembre de 2026`;
+  - todas las cedulas llevan `Lima, <fecha de config/remesa.json>` (D2, 23/09/2026);
   - ninguna firma EVELING ROA QUISPE: todas firman LUISA ANALI SILVA MALPARTIDA
     con el cargo `Secretaria Tecnica (e)`.
 
@@ -32,7 +32,13 @@ import zipfile
 from datetime import datetime
 from pathlib import Path
 
-FECHA_MANDATO = "14 de setiembre de 2026"
+sys.path.insert(0, str(Path(__file__).resolve().parent))
+import config_sistema  # noqa: E402
+
+# D2 (23/09/2026): la fecha ya no se escribe aqui; es la de config/remesa.json.
+FECHA_MANDATO = config_sistema.fecha_emision()
+if not FECHA_MANDATO:
+    raise SystemExit("Falta la fecha de la remesa: python scripts/config_sistema.py --fecha \"D de mes de AAAA\"")
 FIRMA_NUEVA = "LUISA ANALI SILVA MALPARTIDA"
 FIRMA_VIEJA = "EVELING ROA QUISPE"
 CARGO_NUEVO = "Secretaria Técnica (e)"

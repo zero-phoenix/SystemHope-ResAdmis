@@ -1,5 +1,8 @@
 # SUPERVISIÓN DE AGENTES REDACTORES
 
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+
+
 > Escrito el 15/09/2026 a partir de la primera remesa supervisada de punta a punta:
 > trece expedientes, un meta orquestador y Antigravity redactando.
 > Todo lo que hay aquí está medido. Lo que no pude medir, lo digo.

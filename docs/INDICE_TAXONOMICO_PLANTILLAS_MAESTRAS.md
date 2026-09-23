@@ -1,7 +1,10 @@
 # ÍNDICE TAXONÓMICO MAESTRO DE PLANTILLAS WORD (INDECOPI CC1)
 
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+
+
 > **ESTADO:** CATÁLOGO DE PRODUCCIÓN PARA GENERACIÓN AUTOMÁTICA  
-> **TOTAL DE PLANTILLAS DEPURADAS:** 605 archivos `.docx`  
+> **TOTAL DE PLANTILLAS DEPURADAS:** 578 archivos `.docx` (23/09/2026: fuera 13 duplicados exactos y 2 documentos que no eran admisorios). El conteo vivo está en `docs/plantillas_maestras_index.json`; los subtotales de abajo son históricos.  
 > **NORMATIVA LPAG APLICADA:** Decreto Supremo 006-2026-JUS (Vigente al 13 de setiembre de 2026)  
 > **DEPURACIÓN ORTOGRÁFICA:** Sanitización completa de mojibake y reglas léxicas popperianas aplicadas.
 

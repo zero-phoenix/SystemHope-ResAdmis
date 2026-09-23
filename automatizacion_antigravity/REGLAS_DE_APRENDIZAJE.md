@@ -51,7 +51,7 @@ Redacción Técnica de la PARTE RESOLUTIVA (PRIMERO): En el primer resolutivo de
 Redacción Técnica de REQUERIMIENTOS (SEXTO y SÉTIMO): Los requerimientos de información específicos a los denunciados (ej. "presentar contrato", "remitir grabaciones") NO deben redactarse de corrido en un solo bloque de texto continuo. Deben desglosarse forzosamente en viñetas (i), (ii), (iii)... con sangría colgante, igual que la sección de Hechos, para facilitar su lectura y control.
 Redacción de Medidas Correctivas y Costas/Costos: Las medidas correctivas NO deben redactarse de corrido. Deben desglosarse en incisos romanos (i), (ii), (iii)... dentro del párrafo. Al final del bloque, se debe añadir SIEMPRE la mención expresa a costas y costos. **El sentido de la mención no es fijo: se toma del petitorio del escrito de denuncia.** Si el denunciante los solicitó: "Asimismo, solicitó el reembolso de los costos y costas del presente procedimiento."; si no lo hizo: "Asimismo, no requirió de manera expresa el reembolso de costos y costas del presente procedimiento.". Fijar una de las dos formas como plantilla hace que el motor afirme un petitorio que el expediente puede contradecir.
 Estructura PARTE CONSIDERATIVA - ADMISIÓN A TRÁMITE: ¡CRÍTICO! A diferencia de los Hechos o Requerimientos, las imputaciones de la Admisión a Trámite NUNCA deben redactarse como una lista con viñetas bajo un solo numeral introductorio. CADA IMPUTACIÓN debe constituir un párrafo principal numerado independientemente (ej. numeral 3, 4, 5, 6, etc.). Todos esos párrafos deben usar la fórmula: "Asimismo, la Secretaría Técnica..., considera que el hecho denunciado, consistente en que [PROVEEDOR] [ACCIÓN] ; involucraría una presunta afectación a sus expectativas...".
-Notas al Pie Mixtas (Facultades de la Secretaría): La primera nota al pie de la sección "De la Admisión a Trámite" que sustente el "ejercicio de sus facultades", DEBE incluir obligatoriamente dos normas conjuntas: Primero, el Artículo 105° del Código (Ley N° 29571) y, segundo, el Artículo 27° de la Ley de Organización y Funciones del Indecopi (Ley N° 1033), copiando estrictamente la jurisprudencia de las plantillas.
+Notas al Pie Mixtas (Facultades de la Secretaría): La primera nota al pie de la sección "De la Admisión a Trámite" que sustente el "ejercicio de sus facultades", DEBE incluir obligatoriamente dos normas conjuntas: Primero, el Artículo 105° del Código (Ley N° 29571) y, segundo, el Artículo 27° de la Ley de Organización y Funciones del Indecopi (Decreto Legislativo 1033), copiando estrictamente la jurisprudencia de las plantillas.
 Tipificación de Afiliación sin Autorización (Métodos Coercitivos): Cuando un proveedor atribuye indebidamente la contratación de una póliza o servicio sin autorización expresa, la imputación NO DEBE tipificarse genéricamente como Idoneidad (Artículos 18° y 19°). Corresponde su tipificación estricta como presunta infracción al deber de protección contra los métodos comerciales coercitivos, tipificado en el literal b) del artículo 56° del Código.
 Tipificación de Envío de Información a Correo Erróneo (Deber de Información): Cuando el proveedor remite información de un servicio a un correo electrónico que no corresponde al denunciante, la conducta NO DEBE tipificarse como Idoneidad. Corresponde su tipificación estricta como presunta infracción al deber de información, tipificado en el artículo 1°, numeral 1, literal b) y al artículo 2° del Código.
 Conectores Lógicos en Admisión a Trámite: Al enumerar los distintos hechos denunciados en párrafos numerados consecutivos (ej. numerales 3, 4, 5, 6...), NO SE DEBE repetir monótonamente el conector "Asimismo". Se debe variar sistemáticamente la transición inicial usando conectores correlativos como "Además,", "Adicionalmente,", "Así también," y "Asimismo," para mantener la fluidez y calidad técnica de la resolución.
@@ -740,7 +740,7 @@ NUNCA utilices mayúsculas sostenidas para los nombres de las partes dentro del 
 > instructor manda sobre el control en firma y fecha; el control manda sobre la plantilla
 > en imputaciones, escrito y via de notificacion.
 
-- R-127: **FIRMA UNICA (MANDATO): TODOS FIRMAN ANALI, SECRETARIA TECNICA (e):**
+- R-127: **[DEROGADA por R-103 del 18/09/2026, ratificada el 23/09/2026 — ver config/firmas.json]** ~~FIRMA UNICA (MANDATO): TODOS FIRMAN ANALI, SECRETARIA TECNICA (e):~~
   - Todos los admisorios firman **LUISA ANALI SILVA MALPARTIDA** con el cargo
     `Secretaria Técnica (e)`. **Ninguno** firma EVELING ROA QUISPE. **Ninguno** usa la
     designacion `Ad Hoc`. Esta regla **sustituye a R-103**.
@@ -1294,6 +1294,8 @@ El normalizador popperiano `scripts/normalizar_plantillas_popperianas.py` purgó
 
 ## R-155 — FORMULA OBLIGATORIA DE TRASLADO DE RESOLUCION Y DESCARGOS (DEROGACION DE FORMULAS HISTORICAS A Y B)
 
+> **CORREGIDA EL 23/09/2026 (ver R-155bis al final).** El texto de abajo conserva la version del 21/09 como historial: contenia «Decreto Legislativo N° 8079», «meritadas», «aprobado» y la volada. La forma vigente esta en `AGENTS.md` §3.
+
 **21/09/2026.** Mandato imperativo del instructor.
 
 Quedan formalmente derogadas e invalidadas todas las fórmulas históricas de traslado:
@@ -1322,3 +1324,33 @@ Quedan formalmente derogadas e invalidadas todas las fórmulas históricas de tr
 3. Altere la redacción literal de los descargos, el apercibimiento de rebeldía por el Secretario Técnico, o la cita legal al artículo 223° del TUO de la LPAG (Ley 27444).
 Lo comprueba y refuta `prueba_r155_formula_traslado` en `scripts/verificar_admisorio.py`.
 
+
+
+---
+
+## MANDATOS DEL INSTRUCTOR DEL 23/09/2026 (v3, parte 1)
+
+### R-155bis — Formula de traslado corregida segun la ley
+- «aprobada por Decreto Legislativo **807**» (no «aprobado ... N° 8079»); «artículo 26»; «artículo 223 del Texto Único Ordenado de la Ley 27444»; «aceptadas o **merituadas** como ciertas» (texto del art. 223.1 del TUO D.S. 006-2026-JUS).
+- **Numero real de denunciados**, contado en el encabezado: 1 → «presente sus descargos ... declarará en rebeldía **al denunciado que no lo hubiera presentado**»; 2 o más → «presenten ... **a los denunciados que no lo hubieran presentado**».
+- Medido: el normalizador anterior decidia el numero por la carpeta y dejo **388** plantillas con el numero equivocado (369 de un solo denunciado en plural) y **5** con el destinatario corrompido (uno dirigido al propio denunciante). Corregidas por `scripts/migraciones/migrar_v3_parte1.py`.
+
+### R-156 — Numeros de normas sin «N°», «N», «Nº», «Nro.» ni «°»
+- «Ley 29571», «Decreto Legislativo 807», «artículo 26», «numeral 1.1 del artículo 51». Falsador: `prueba_r156_numero_de_norma`.
+
+### R-157 — Nunca «denunciante» en la narracion de los hechos
+- Se usa la tratativa del encabezado. Medido: 142 apariciones en 70 plantillas; 130 corregidas, 11 pendientes de revision (varios denunciantes o fuera de la narracion). Falsador: `prueba_r157_denunciante_en_hechos`.
+
+### R-158 — Enmascarado
+- La poliza nunca se enmascara. Tarjeta, credito, cuenta y prestamo: solo los digitos del medio. Falsador: `prueba_r158_enmascarado`.
+
+### R-159 — Nota al pie 1 del traslado a CC1
+- «Denuncia remitida a esta Comisión mediante [MEMORANDUM | Documento de Traslado] [numero] de fecha [fecha], recibida el [fecha].» (234 plantillas; variantes «recepcionada» y «del» toleradas mientras el instructor fija la canonica). El plazo de 20 dias habiles se calcula (`scripts/plazos.py`) y no se menciona.
+
+### R-160 — Fecha de emision unica por remesa en `config/remesa.json` (deroga la fecha fija de R-128).
+
+### R-143 (reforzada) — Imputacion cerrada por la tabla del instructor
+- Solo los articulos de `docs/tabla_tipificacion.json`. Nunca art. 3. Art. 24 solo ante proveedor no regulado por el sistema financiero; si esta regulado, numeral 88.1 del art. 88. Catalogo depurado: 212 → 117 combinaciones; las del art. 49 (clausulas abusivas) quedan en consulta.
+
+### Firma (R-103 ratificada)
+- Eveling Roa Quispe, Secretaria Técnica; si entre los denunciados esta Rímac, Luisa Analí Silva Malpartida, Secretaria Técnica Ad Hoc. Nunca «(e)». Se normalizaron 427 bloques de firma (incluidos los historicos de María Graciela Rejas Jiménez y Judith Alcalde Briceño) para que ninguna plantilla ensene una firma no vigente.

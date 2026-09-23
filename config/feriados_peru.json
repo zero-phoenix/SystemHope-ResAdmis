@@ -1,0 +1,5 @@
+{
+  "_nota": "Los feriados nacionales (incluida Semana Santa) los calcula scripts/plazos.py para cualquier ano. Aqui solo se anaden dias NO laborables decretados u otros cierres, y dias que excepcionalmente deban contarse como habiles. Formato AAAA-MM-DD.",
+  "no_laborables": [],
+  "habiles_forzados": []
+}

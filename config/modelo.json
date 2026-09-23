@@ -1,0 +1,6 @@
+{
+  "_nota": "Unico redactor en produccion: Google Antigravity. Si aparece un modelo Gemini superior, se agrega al inicio de 'aceptables' y se cambia 'minimo'. Este es el unico sitio que se toca.",
+  "minimo": "Gemini 3.8 Flash High",
+  "aceptables": ["Gemini 3.8 Flash High"],
+  "orquestar_modelo": "flash"
+}

@@ -1,30 +1,12 @@
-# ResAdmi Requirements
-# Actualizado: 2026-07-19
+# SystemHope ResAdmis - dependencias REALES del utillaje de scripts/ (23/09/2026).
+# Versiones probadas con Python 3.10 a 3.12. Sin OCR: ninguna libreria de OCR
+# (pytesseract, easyocr, paddleocr, ocrmypdf, rapidocr) entra jamas aqui (R-137).
+#
+#   pip install -r requirements.txt
 
-# Manipulación de documentos Word
-python-docx==0.8.11
-
-# Integración con Microsoft Word (Windows only)
-pywin32==305
-
-# Validación y configuración
-pydantic==2.0.0
-python-dotenv==1.0.0
-
-# Testing (opcional)
-pytest==7.4.0
-pytest-cov==4.1.0
-
-# Linting y formatting (opcional)
-black==23.7.0
-flake8==6.0.0
-
-# Logging mejorado (opcional)
-structlog==23.1.0
-
-# CLI mejorado (opcional)
-click==8.1.6
-typer==0.9.0
-
-# Extracción de PDF local
-pdfplumber==0.11.10
+PyMuPDF==1.28.0       # paginas reales, captura completa de cada pagina y contraste (extraer_expediente, admisorio)
+pypdf==6.19.0         # respaldo de lectura de PDF (extraer_expediente)
+python-docx==1.2.0    # inspeccion y pruebas de .docx
+lxml==6.1.1           # dependencia de python-docx
+Pillow==12.3.0        # sello de procedencia de imagenes (guardia_admisorio)
+openpyxl==3.1.5       # padron de casillas electronicas (filtrar_casillas)

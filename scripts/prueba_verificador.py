@@ -1,14 +1,15 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Comprueba que el verificador rechaza lo que debe rechazar.
+"""Comprueba que el verificador rechaza lo que debe rechazar (mutaciones).
 
 Una regla que nunca falla no es una regla que se cumple: es una regla que no se
 esta ejecutando. R-110 estuvo exactamente asi --sus cinco patrones tenian un
 caracter de retroceso donde debia ir un limite de palabra-- declarando `OK` sobre
 todos los documentos sin comprobar nada, hasta que se leyeron sus bytes.
 
-Esta prueba toma una plantilla buena, le rompe la firma a proposito y exige que el
-verificador la rechace. Si la aprueba, el verificador miente y CI se detiene.
+Se toma una plantilla que pasa las reglas probadas y, por cada regla, se le
+introduce UN error a proposito. Cada mutacion debe ser rechazada por SU regla.
+Si una sola sobrevive, el verificador miente y CI se detiene.
 
 Uso:
     python scripts/prueba_verificador.py
@@ -16,7 +17,7 @@ Uso:
 
 from __future__ import annotations
 
-import shutil
+import re
 import sys
 import tempfile
 import zipfile
@@ -27,44 +28,117 @@ sys.path.insert(0, str(RAIZ / "scripts"))
 
 import verificar_admisorio as V  # noqa: E402
 
-FIRMA = "LUISA ANALI SILVA MALPARTIDA"
+# (regla que debe caer, descripcion, patron a buscar en document.xml, reemplazo)
+MUTACIONES = [
+    ("R-103", "firma cambiada", r"EVELING ROA QUISPE", "QUIEN SEA"),
+    (
+        "R-155",
+        "errata 8079",
+        r"Decreto Legislativo 807,",
+        "Decreto Legislativo N° 8079,",
+    ),
+    ("R-155", "errata meritadas", r"merituadas", "meritadas"),
+    (
+        "R-155",
+        "plural con un solo denunciado",
+        r"presente sus descargos",
+        "presenten sus descargos",
+    ),
+    (
+        "R-155",
+        "rebeldia en plural con un solo denunciado",
+        r"al denunciado que no lo hubiera presentado",
+        "a los denunciados que no lo hubieran presentado",
+    ),
+    ("R-156", "N° ante una ley", r"Ley 29571", "Ley N° 29571"),
+    (
+        "R-157",
+        "denunciante en los hechos",
+        r"señalando lo siguiente",
+        "señalando el denunciante lo siguiente",
+    ),
+    (
+        "R-158",
+        "poliza enmascarada",
+        r"(Póliza )(\d{3})(\d{3,})",
+        r"\g<1>\g<2>****\g<3>",
+    ),
+    (
+        "R-143",
+        "imputacion por el articulo 3",
+        r"Presunta infracción a los artículos 18 y 19",
+        "Presunta infracción al artículo 3",
+    ),
+]
+REGLAS = sorted({m[0] for m in MUTACIONES})
+
+
+def texto_xml(ruta: Path) -> str:
+    with zipfile.ZipFile(ruta) as z:
+        return z.read("word/document.xml").decode("utf-8", "replace")
+
+
+def fallos_de(ruta: Path, regla: str) -> list[str]:
+    doc, secciones, z = V.leer_documento(str(ruta))
+    for nombre, fn, _tipo in V.PRUEBAS:
+        if nombre.startswith(regla + " ") or nombre.startswith(regla + "  "):
+            return fn(doc, secciones, z)
+    raise KeyError(regla)
+
+
+def elegir_base() -> Path | None:
+    for p in sorted((RAIZ / "plantillas_maestras").rglob("*")):
+        if p.suffix.lower() != ".docx":
+            continue
+        xml = texto_xml(p)
+        if not all(re.search(pat, xml) for _r, _d, pat, _s in MUTACIONES):
+            continue
+        if any(fallos_de(p, r) for r in REGLAS):
+            continue
+        return p
+    return None
+
+
+def mutar(base: Path, patron: str, sustituto: str, destino: Path) -> bool:
+    with zipfile.ZipFile(base) as z:
+        items = [(i, z.read(i.filename)) for i in z.infolist()]
+    hecho = False
+    with zipfile.ZipFile(destino, "w", zipfile.ZIP_DEFLATED) as zout:
+        for info, datos in items:
+            if info.filename == "word/document.xml":
+                xml = datos.decode("utf-8")
+                nuevo, n = re.subn(patron, sustituto, xml, count=1)
+                hecho = n > 0
+                datos = nuevo.encode("utf-8")
+            zout.writestr(info, datos)
+    return hecho
 
 
 def main() -> int:
-    plantillas = sorted((RAIZ / "plantillas_maestras").rglob("*.docx"))
-    modelo = next((p for p in plantillas if FIRMA in _texto(p)), None)
-    if modelo is None:
-        print("Ninguna plantilla lleva la firma mandada: no hay con que probar.")
+    base = elegir_base()
+    if base is None:
+        print("  FALLA  ninguna plantilla sirve de base limpia para las mutaciones.")
         return 1
-
-    destino = Path(tempfile.mkdtemp(prefix="prueba_ver_")) / "roto.docx"
-    shutil.copy2(modelo, destino)
-
-    with zipfile.ZipFile(destino) as z:
-        nombres = z.namelist()
-        datos = {n: z.read(n) for n in nombres}
-    xml = datos["word/document.xml"].decode("utf-8")
-    datos["word/document.xml"] = xml.replace(FIRMA, "QUIEN SEA").encode("utf-8")
-    with zipfile.ZipFile(destino, "w", zipfile.ZIP_DEFLATED) as z:
-        for n in nombres:
-            z.writestr(n, datos[n])
-
-    print("Documento de prueba: %s con la firma rota a proposito." % modelo.name[:50])
-    if V.verificar(str(destino)):
-        print()
-        print("  FALLA  el verificador aprobo un documento que debia rechazar.")
-        return 1
+    print("Base: %s" % base.name)
+    tmp = Path(tempfile.mkdtemp(prefix="prueba_ver_"))
+    malas = 0
+    for i, (regla, que, patron, sustituto) in enumerate(MUTACIONES):
+        destino = tmp / ("mutante_%02d.docx" % i)
+        if not mutar(base, patron, sustituto, destino):
+            print("  FALLA  %-6s %s: la mutacion no se pudo aplicar" % (regla, que))
+            malas += 1
+            continue
+        if fallos_de(destino, regla):
+            print("  OK     %-6s rechaza: %s" % (regla, que))
+        else:
+            print("  FALLA  %-6s APRUEBA un documento con: %s" % (regla, que))
+            malas += 1
     print()
-    print("  OK     el verificador rechaza lo que debe rechazar.")
+    if malas:
+        print("  %d mutacion(es) sobreviven: el verificador no distingue." % malas)
+        return 1
+    print("  El verificador rechaza las %d mutaciones." % len(MUTACIONES))
     return 0
-
-
-def _texto(ruta: Path) -> str:
-    try:
-        with zipfile.ZipFile(ruta) as z:
-            return z.read("word/document.xml").decode("utf-8", "replace")
-    except Exception:
-        return ""
 
 
 if __name__ == "__main__":

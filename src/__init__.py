@@ -1,21 +1,8 @@
-"""ResAdmi - Motor determinista para generación de resoluciones admisorias INDECOPI (CC1).
+"""SystemHope ResAdmis - motor de consulta (`src/systemhope_engine.py`).
 
-Paquete principal. Los módulos clave son:
-- ``rules_engine``  — validación determinista de las 80 reglas (R-01..R-80).
-- ``system_prompt`` — prompt blindado inyectado a la IA.
-- ``ai_client``     — cliente Z.ai GLM (con fallback configurable).
-- ``builder``       — clonado de plantilla base + inyección de texto.
-- ``footnote_injector`` — notas al pie nativas vía win32com.
-- ``gui``           — interfaz Tkinter para el ejecutable.
+El utillaje vivo esta en `scripts/`. El codigo de la aplicacion de escritorio
+antigua (GUI, cliente de IA, motor de reglas PHOENYX, inyector por win32com) se
+retiro de `main` el 23/09/2026 y se conserva en la rama `archivo-legado`.
 """
 
-__version__ = "2.1.0"
-__all__ = [
-    "rules_engine",
-    "system_prompt",
-    "ai_client",
-    "builder",
-    "footnote_injector",
-    "aprendizaje_reglas",
-    "extractor_pdfs",
-]
+__version__ = "3.0.0"

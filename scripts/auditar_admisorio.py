@@ -53,13 +53,15 @@ RE_CIFRA = re.compile(r"\b\d{5,}\b")
 # necesitan ancla. Sin esta lista, las fechas de publicacion de las leyes que todo
 # admisorio cita en sus notas al pie se declaran inventadas y ahogan los hallazgos
 # de verdad. Medido: 8 de los 12 «sin ancla» del Exp. 3122-2026 eran normativos.
-FECHAS_PROPIAS = (
-    "14 de setiembre de 2026",   # fecha de emision de la remesa (R-128)
+import config_sistema  # noqa: E402
+
+FECHAS_PROPIAS = tuple(f for f in (
+    config_sistema.fecha_emision(),  # fecha de emision de la remesa (D2, config/remesa.json)
     "2 de setiembre de 2010",    # publicacion de la Ley 29571
     "2 de julio de 2013",        # publicacion de la Ley 30056
     "30 de abril de 2026",       # publicacion del D.S. 006-2026-JUS
     "18 de abril de 1996",       # Decreto Legislativo 807
-)
+) if f)
 CIFRAS_PROPIAS = (
     "29571",   # Codigo de Proteccion y Defensa del Consumidor
     "30056",   # Ley de impulso al desarrollo productivo

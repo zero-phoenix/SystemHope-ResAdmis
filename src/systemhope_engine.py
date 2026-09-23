@@ -17,7 +17,7 @@ from pathlib import Path
 from typing import Any, Dict, List, Optional
 
 # Version and metadata
-VERSION = "2.3.2"
+VERSION = "3.0.0"
 AUTHOR = "SystemHope / Indecopi CC1 Phoenix"
 LPAG_NORM = "Decreto Supremo 006-2026-JUS"
 REPO_URL = "https://github.com/zero-phoenix/SystemHope-ResAdmis"
@@ -43,7 +43,7 @@ def get_resource_path(relative_path: str) -> Path:
 
 
 def load_template_index() -> List[Dict[str, Any]]:
-    """Loads the 605 template catalog index."""
+    """Loads the template catalog index (docs/plantillas_maestras_index.json)."""
     candidates = [
         get_resource_path("docs/plantillas_maestras_index.json"),
         APP_DIR / "plantillas_maestras_index.json",
@@ -308,124 +308,25 @@ def cmd_validate(args: argparse.Namespace) -> int:
 # SUBCOMMAND: DUMP-MEMORY (FOR ANY AI DESKTOP IDE)
 # ==============================================================================
 def cmd_dump_memory(args: argparse.Namespace) -> int:
-    out_dir = Path(args.dir or ".")
+    """Copia AGENTS.md (unica fuente de reglas) a un directorio de exportacion.
+
+    Antes regeneraba AGENTS.md desde un texto embebido y desactualizado (Interbank
+    por Casilla, acuse en la via 3, 605 plantillas) y, sin --dir, SOBRESCRIBIA el
+    AGENTS.md de la raiz y recreaba .cursorrules y CLAUDE.md, retirados el
+    15/09/2026. Ahora solo copia el archivo vigente y nunca escribe en la raiz.
+    """
+    out_dir = Path(args.dir or "dist/memoria")
+    raiz = get_resource_path("AGENTS.md").resolve().parent
+    if out_dir.resolve() == raiz:
+        print("dump-memory no escribe en la raiz del repositorio: use --dir <otro directorio>.")
+        return 2
     out_dir.mkdir(parents=True, exist_ok=True)
-
-    agents_md = f"""# DIRECTRICES MAESTRAS DEL SISTEMA (AGENTS.md)
-# SISTEMA DE EMISION DE RESOLUCIONES ADMISORIAS INDECOPI CC1
-
-> **AUTORIDAD:** Indecopi Comisión de Protección al Consumidor  1 (CC1)  
-> **NORMA MARCO:** {LPAG_NORM}  
-> **PROTOCOLO VISUAL:** ESTRICTO CERO OCR. Inspección exclusiva mediante Google Lens / Visión Multimodal.  
-> **REPOSITORIO:** {REPO_URL}
-
----
-
-## 1. REGLAS NO NEGOCIABLES (AXIOMAS POPPERIANOS)
-1. **PROHIBICIÓN ESTRICTA DE OCR:** Jamás transcribir denuncias con OCR clásico ni extractores que rompan coordenadas o inventen datos. Se analiza la imagen de la denuncia escaneada con Google Lens o modelos de visión directa.
-2. **TUO LPAG ACTUALIZADO:** Siempre citar el **Decreto Supremo 006-2026-JUS**. Prohibida cualquier mención al D.S. 004-2019-JUS.
-3. **PROHIBICIÓN DE 'INDUCCIÓN A ERROR':** Nunca imputar por el Artículo 3° ni emplear la frase 'inducción a error'. Todas las fallas de información se canalizan por los Artículos 1°, numeral 1, literal b) y 2° del Código de Protección y Defensa del Consumidor.
-4. **TIEMPOS VERBALES OBLIGATORIOS:**
-   - **En Antecedentes / Hechos:** Pasado indicativo afirmativo ("señaló", "contrató", "solicitó"). PROHIBIDO usar la palabra 'denunciante' en el cuerpo narrativo; usar el nombre de pila o 'el señor / la señora [Apellido]'.
-   - **En Imputación de Cargos:** Condicional obligatorio ("habría denegado", "habría omitido", "habría realizado cobros").
-5. **INVARIANTES LÉXICAS:**
-   - Usar `cónyuge` / `cónyuges` (PROHIBIDO: esposo/a).
-   - Usar `luego de` (PROHIBIDO: tras).
-   - Usar `esta` / `este` sin tilde diacrítica.
-   - Usar `médico` (PROHIBIDO: doctor/a o Dr.).
-   - Usar `vehículo con Placa de Rodaje []` (PROHIBIDO: carro, auto).
-6. **FORMATO MONETARIO MONOLÍTICO:**
-   - `S/ X XXX,XX` o `US$ X XXX,XX` (espacio para miles, coma decimal, nunca punto ni apóstrofe).
-
----
-
-## 2. LOS TRES PÁRRAFOS RESOLUTIVOS LITERALES DE NOTIFICACIÓN (SIN PARAFRASEAR)
-En la sección resolutiva final de todo admisorio, se coloca indefectiblemente el párrafo correspondiente a la vía legal de notificación:
-
-### TIPO 1: VÍA CASILLA ELECTRÓNICA (SINE INDECOPI - 5 DÍAS)
-*Para compañías de seguros y bancos afiliados obligatoriamente:*
-> *"requerir a [PROVEEDOR(ES)] para que efectúe[n] el acuse de recibo mediante la confirmación de recepción de la notificación remitida por este despacho a su[s] Casilla[s] Electrónica[s], dentro de los cinco (5) primeros días hábiles siguientes a la fecha en que recibe[n] la notificación."*
->
-> **R-151:** solo procede si el proveedor figura habilitado en `docs/casillas_habilitadas.json`.
-
-### TIPO 2: VÍA CORREO ELECTRÓNICO (AUTORIZACIÓN EXPRESA - 2 DÍAS)
-*Para consumidores y proveedores con dirección electrónica autorizada:*
-> *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su[s] bandeja[s] de correo electrónico, efectúe[n] la confirmación de recepción de la notificación remitida por este despacho a su[s] correo[s] electrónico[s], de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle[s] conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
-
-### TIPO 3: VÍA DOMICILIO PROCESAL / CÉDULA FÍSICA (2 DÍAS)
-*Para denunciantes sin correo, AFOCATs, fondos especiales (CAFAE) o proveedores sin casilla. El corpus no pide acuse aquí: pide señalar un correo (37 de 43):*
-> *"requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su domicilio procesal, efectúe[n] la confirmación de recepción de la notificación remitida por este despacho a su domicilio procesal, de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle[s] conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
-
----
-
-## 3. DOMICILIOS PROCESALES Y VÍAS OFICIALES POR PROVEEDOR
-- **Casilla Electrónica (5 días)** — solo con padrón ACTIVO, número de e-casilla y teléfono móvil no vacío (R-151): Pacífico, Mapfre Perú, Interseguro, La Positiva (Seguros y Vida), Chubb Perú, Protecta, Quálitas, Crecer Seguros, Vivir Seguros, BNP Paribas Cardif, Banco BBVA Perú, Banco Falabella, Banco GNB, Interbank, Banco Santander Perú, Empresa de Créditos Santander Consumo, Diners Club Perú, Autoplan, Pandero.
-- **Correo electrónico (2 días)** — no admiten casilla: **Rímac Seguros y Reaseguros (de baja en el padrón)**, Banco de Crédito del Perú, Banco Ripley, Banco Pichincha (de baja), Scotiabank.
-- **Domicilio procesal (2 días):** AFOCAT sin teléfono, Sub CAFAE, Financiera Proempresa, Fovipol, corredores de seguros y personas naturales denunciadas.
-- La lista viva es `docs/casillas_habilitadas.json`. **La cédula manda sobre ella (R-129), pero R-151 es condición necesaria: sin los tres requisitos la casilla está prohibida.**
-- **Domicilio Procesal / Cédula Física:** AFOCATs provinciales/regionales, Comités de Administración CAFAE, talleres y personas naturales denunciadas.
-
----
-
-## 4. TAXONOMÍA Y LOCALIZACIÓN DE PLANTILLAS
-El repositorio contiene **605 plantillas Word (.docx) depuradas** en `plantillas_maestras/`:
-- `01_seguro_vehicular` (174) | `02_seguro_vida` (134) | `03_seguro_desgravamen` (66)
-- `04_seguro_proteccion_tarjetas_y_dinero` (37) | `05_soat_y_afocat` (43) | `06_seguro_hogar_e_inmuebles` (20)
-- `07_seguro_sctr` (18) | `08_seguro_salud_eps_oncologico` (12) | `09_seguro_patrimonial_caucion_rc` (10)
-- `10_seguro_sepelio` (8) | `11_seguro_accidentes_personales` (7) | `12_seguro_transporte_y_carga` (6)
-- `13_seguro_multiple_y_equipos` (4) | `14_seguro_desempleo` (2) | `15_sistema_previsional_afp_onp` (2)
-- `16_temas_administrativos_financieros` (4) | `17_seguro_no_especificado` (58)
-
----
-
-## 5. PARÁMETROS DE ESTILO VISUAL CC1
-- **Fuente:** `Arial Narrow` (11 pt cuerpo de texto, 8 pt notas al pie y encabezados).
-- **Márgenes A4:** Superior 2.5 cm, Inferior 2.5 cm, Izquierdo 3.0 cm, Derecho 2.5 cm.
-- **Interlineado:** Sencillo 1.0, espaciado `0 pt antes / 0 pt después`.
-- **Sangrías Institucionales:**
-  - Hechos: Izquierda `0.79"` (2.0 cm), Francesa `-0.39"` (-1.0 cm).
-  - Resolutivo: Izquierda `0.39"` (1.0 cm), Francesa `-0.39"` (-1.0 cm).
-- **Notas al Pie:** Formato con *One Dot Leader* (`\\u2024`). Pie institucional: `M-CPC-01/03`.
-"""
-
-    cursorrules = f"""# Cursor Rules - ResAdmis INDECOPI CC1
-# NORMATIVA: {LPAG_NORM} | PROTOCOLO: CERO OCR (Solo Google Lens)
-
-1. Jamás uses OCR para leer expedientes o denuncias. Utiliza Google Lens / Visión Multimodal.
-2. La norma del TUO LPAG siempre es el Decreto Supremo 006-2026-JUS. Nunca 004-2019-JUS.
-3. Prohibido imputar por 'inducción a error' (Art. 3). Usa Arts. 1.1.b y 2 de Ley 29571.
-4. En imputaciones de cargos usa condicional 'habría'. En antecedentes usa pasado indicativo.
-5. Invariantes léxicas: cónyuge (no esposo), luego de (no tras), médico (no doctor), vehículo (no auto).
-6. Moneda: 'S/ X XXX,XX' (espacio para miles, coma decimal, sin puntos).
-7. Notificaciones finales: Colocar obligatoriamente uno de los 3 párrafos literales (Casilla 5 días / Correo 2 días D.S. 006-2026-JUS / Cédula Domicilio Procesal 2 días) sin parafrasear.
-8. Consulta plantillas_maestras/ según rama y materia antes de redactar.
-9. Valida siempre el documento final con: systemhope-engine validate <admisorio.docx>
-"""
-
-    claude_md = f"""# Claude Code Instructions - SystemHope ResAdmis CC1
-
-Este repositorio contiene el sistema automatizado de resoluciones admisorias de Indecopi CC1.
-
-## Comandos Principales
-- Ver catálogo y estado: `python -m src.systemhope_engine info`
-- Buscar plantillas: `python -m src.systemhope_engine templates --rama 03_seguro_desgravamen --materia negativa_cobertura`
-- Consultar vías de notificación: `python -m src.systemhope_engine notifications`
-- Auditar documento: `python -m src.systemhope_engine validate <archivo.docx>`
-- Exportar memoria completa a IDE: `python -m src.systemhope_engine dump-memory`
-
-## Reglas Críticas
-- **Cero OCR:** Siempre analizar capturas con Google Lens / Vision.
-- **LPAG 2026:** D.S.  006-2026-JUS.
-- **Cero Inducción a Error:** Arts. 1.1.b y 2 de Ley 29571.
-- **Notificaciones Finales:** 3 fórmulas literales estrictas (Casilla 5 días, Correo 2 días con apercibimiento, Domicilio Procesal 2 días con apercibimiento).
-- **Formato:** Arial Narrow 11 pt, notas 8 pt, sangrías CC1, pie institucional M-CPC-01/03.
-"""
-
-    (out_dir / "AGENTS.md").write_text(agents_md, encoding="utf-8")
-    (out_dir / ".cursorrules").write_text(cursorrules, encoding="utf-8")
-    (out_dir / ".windsurfrules").write_text(cursorrules, encoding="utf-8")
-    (out_dir / "CLAUDE.md").write_text(claude_md, encoding="utf-8")
-    print(f"✅ Archivos de memoria para AI IDEs generados exitosamente en: {out_dir.resolve()}")
+    origen = get_resource_path("AGENTS.md")
+    if not origen.exists():
+        print("No se encontro AGENTS.md.")
+        return 1
+    (out_dir / "AGENTS.md").write_text(origen.read_text(encoding="utf-8"), encoding="utf-8")
+    print(f"AGENTS.md vigente copiado a: {out_dir.resolve()}")
     return 0
 
 
@@ -452,7 +353,7 @@ def cmd_mcp(args: argparse.Namespace) -> int:
         },
         {
             "name": "search_templates",
-            "description": "Busca entre las 605 plantillas Word depuradas según rama, materia y proveedor.",
+            "description": "Busca entre las plantillas Word depuradas del indice según rama, materia y proveedor.",
             "inputSchema": {
                 "type": "object",
                 "properties": {
@@ -562,7 +463,7 @@ def main(argv: Optional[List[str]] = None) -> int:
     subparsers.add_parser("specs", help="Muestra la memoria de estilo visual y medidas de página")
 
     # templates
-    t_parser = subparsers.add_parser("templates", help="Busca y lista plantillas del catálogo de 605 modelos")
+    t_parser = subparsers.add_parser("templates", help="Busca y lista plantillas del catálogo del indice")
     t_parser.add_argument("--rama", help="Filtrar por rama de seguro (ej. 03_seguro_desgravamen)")
     t_parser.add_argument("--materia", help="Filtrar por materia denunciada (ej. negativa_cobertura)")
     t_parser.add_argument("--ddo", help="Filtrar por configuración de proveedor")
@@ -576,8 +477,8 @@ def main(argv: Optional[List[str]] = None) -> int:
     v_parser.add_argument("archivo", help="Ruta al archivo .docx a auditar")
 
     # dump-memory
-    m_parser = subparsers.add_parser("dump-memory", help="Genera archivos de memoria (AGENTS.md, .cursorrules, CLAUDE.md)")
-    m_parser.add_argument("--dir", help="Directorio destino (por defecto el actual)")
+    m_parser = subparsers.add_parser("dump-memory", help="Copia el AGENTS.md vigente a un directorio de exportacion (nunca a la raiz)")
+    m_parser.add_argument("--dir", help="Directorio destino (por defecto dist/memoria)")
 
     # mcp
     subparsers.add_parser("mcp", help="Inicia servidor MCP (Model Context Protocol) sobre stdio")
