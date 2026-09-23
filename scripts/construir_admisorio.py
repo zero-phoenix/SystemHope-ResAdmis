@@ -194,6 +194,12 @@ def por_longitud(reemplazos: dict[str, str]) -> list[tuple[str, str]]:
 
 
 def aplicar(xml: str, reemplazos: dict[str, str]) -> tuple[str, dict[str, int]]:
+    malos = [v for v in reemplazos.values() if re.search(r"__\S|\S__|\*\*[A-Za-zÁÉÍÓÚÑáéíóúñ]", v)]
+    if malos:
+        raise SystemExit(
+            "Reemplazo con marcas de markdown (%r): el subrayado y la negrita ya estan en "
+            "el formato de la plantilla; escribe solo el texto (R-177)." % malos[0][:60]
+        )
     hechos: dict[str, int] = {}
 
     # 1) Lo que este contiguo se sustituye directo: es lo barato y lo mas comun.
@@ -271,6 +277,28 @@ def aplicar(xml: str, reemplazos: dict[str, str]) -> tuple[str, dict[str, int]]:
 
 
 RE_NUMPR = re.compile("<w:numPr[ />]")
+
+
+RE_INICIALES = re.compile(r"[A-ZÑ]{2,5}(?:/[A-ZÑ]{2,5})+")
+
+
+def fijar_iniciales(xml: str) -> str:
+    """Las iniciales de redaccion («LSQ/DCQ») salen de config/firmas.json, no de la
+    plantilla: cada plantilla trae las de su redactor (LSM/JCQ, LGP/JCQ...)."""
+    try:
+        ini = json.loads((RAIZ / "config/firmas.json").read_text(encoding="utf-8")).get("iniciales")
+    except Exception:
+        ini = None
+    if not ini:
+        return xml
+
+    def _p(m):
+        p = m.group(0)
+        if RE_INICIALES.fullmatch(texto_parrafo(p).strip()):
+            return reescribir_parrafo(p, ini)
+        return p
+
+    return RE_PARRAFO.sub(_p, xml)
 
 
 def limpiar_vinetas_huerfanas(xml: str) -> tuple[str, int]:
@@ -460,6 +488,7 @@ def construir(mapa: dict) -> int:
         xml, parciales, alin = aplicar(xml, reemplazos)
         if n == "word/document.xml":
             xml, huerfanas = limpiar_vinetas_huerfanas(xml)
+            xml = fijar_iniciales(xml)
         datos[n] = xml.encode("utf-8")
         for k, v in parciales.items():
             hechos[k] = hechos.get(k, 0) + v

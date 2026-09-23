@@ -182,6 +182,9 @@ def main(argv: list[str]) -> int:
     )
     ap.add_argument("carpeta")
     ap.add_argument("--top", type=int, default=10)
+    ap.add_argument(
+        "--forzar", action="store_true", help="rehacer aunque ya este justificado"
+    )
     a = ap.parse_args(argv)
     carpeta = Path(a.carpeta).resolve()
     caso_p = carpeta / "_CASO.json"
@@ -192,6 +195,10 @@ def main(argv: list[str]) -> int:
         )
         return 2
     caso = json.loads(caso_p.read_text(encoding="utf-8"))
+    previo = carpeta / "_SIMILARES.md"
+    if previo.exists() and not a.forzar and not justificacion_completa(carpeta):
+        print("_SIMILARES.md ya esta justificado: no se sobrescribe (usa --forzar).")
+        return 0
     fichas = json.loads(INDICE.read_text(encoding="utf-8"))
     imps = {
         f["ruta_relativa"]: imputaciones_de(RAIZ / f["ruta_relativa"]) for f in fichas

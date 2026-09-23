@@ -1087,7 +1087,8 @@ def prueba_r164_negrita_solo_rotulo(doc) -> list[str]:
     PRIMERO: el parrafo entero en negrita (541 de 574).
     SEGUNDO a NOVENO: solo el rotulo (SEGUNDO 513, TERCERO 573, CUARTO 574,
     QUINTO 561, SEXTO 555, SETIMO 566, OCTAVO 569, NOVENO 572 de 574).
-    DECIMO en adelante: el corpus esta dividido; no se juzga.
+    DECIMO en adelante: solo el rotulo (303 frente a 111; normalizado en las 577,
+    migraciones/normalizar_rotulos.py, 23/09/2026).
     """
     fallos = []
     for ordinal, p in _ordinales(doc):
@@ -1096,7 +1097,7 @@ def prueba_r164_negrita_solo_rotulo(doc) -> list[str]:
         rotulo = len(re.match(r"\s*[A-ZÉÍ ]+:\s*", p.texto).group(0))
         if ordinal == "PRIMERO" and negrita < total - 3:
             fallos.append("R-164: PRIMERO va entero en negrita (541 de 574 plantillas)")
-        elif ordinal in ORDEN_ORDINALES[1:9] and negrita > rotulo + 2:
+        elif ordinal != "PRIMERO" and negrita > rotulo + 2:
             fallos.append("R-164: en %s solo el rotulo va en negrita" % ordinal)
     return fallos[:4]
 
@@ -1182,6 +1183,46 @@ def prueba_r171_encabezado(z) -> list[str]:
         if m and not re.match(r"^%s ?	: *	\S" % re.escape(m.group(1)), t):
             fallos.append("R-171: encabezado descuadrado: %r" % t[:70])
     return fallos
+
+
+def prueba_r174_tipografia(z) -> list[str]:
+    """R-174: cuerpo en Arial Narrow 11 pt (iniciales «LSQ/DCQ» en 8 pt); notas al
+    pie en Arial Narrow 8 pt, cada una seguida de una linea en blanco. Mandato del
+    instructor (23/09/2026); aplicado a las 577 plantillas."""
+    sys.path.insert(0, str(pathlib_Path(__file__).resolve().parent / "migraciones"))
+    import uniformar_tipografia as UT
+
+    x = z.read("word/document.xml").decode("utf-8", "replace")
+    try:
+        fx = z.read("word/footnotes.xml").decode("utf-8", "replace")
+    except KeyError:
+        fx = ""
+    return UT.falsar(x, fx)
+
+
+def prueba_r177_sin_marcas_markdown(doc) -> list[str]:
+    """R-177: el texto no lleva marcas de markdown («__A La Positiva__», «**x**»).
+    El subrayado y la negrita son formato del run, no caracteres: en el Exp.
+    2898-2026 el agente escribio «__A La Positiva__:» y Word mostro los guiones."""
+    fallos = []
+    for p in doc:
+        m = re.search(r"__\S|\S__|\*\*[A-Za-zÁÉÍÓÚÑáéíóúñ]", p.texto)
+        if m:
+            fallos.append("R-177: marca de markdown en el texto: '%s'" % p.texto[:80])
+    return fallos[:3]
+
+
+def prueba_r176_credito_enmascarado(doc) -> list[str]:
+    """R-176: numero de credito, tarjeta o cuenta con los digitos del medio
+    enmascarados (en el corpus: «100xxxxxx434», «34****83»). La poliza nunca."""
+    fallos = []
+    for p in doc:
+        for m in re.finditer(
+            r"\b(?:[Cc]r[ée]dito(?: [Vv]ehicular| [Hh]ipotecario| [Pp]ersonal)?|[Tt]arjeta(?: de [Cc]r[ée]dito)?|[Cc]uenta)(?: N[°º.]?)? (\d{5,})\b",
+            p.texto,
+        ):
+            fallos.append("R-176: %s sin enmascarar los digitos del medio" % m.group(0))
+    return fallos[:3]
 
 
 def prueba_r173_notas_traslado(z) -> list[str]:
@@ -1415,6 +1456,21 @@ PRUEBAS = [
     (
         "R-171 encabezado en columna",
         lambda d, s, z: prueba_r171_encabezado(z),
+        "falsador",
+    ),
+    (
+        "R-177 sin marcas de markdown",
+        lambda d, s, z: prueba_r177_sin_marcas_markdown(d),
+        "falsador",
+    ),
+    (
+        "R-176 credito enmascarado",
+        lambda d, s, z: prueba_r176_credito_enmascarado(d),
+        "falsador",
+    ),
+    (
+        "R-174 tipografia uniforme",
+        lambda d, s, z: prueba_r174_tipografia(z),
         "falsador",
     ),
     (

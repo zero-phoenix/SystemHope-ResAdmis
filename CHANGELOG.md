@@ -4,6 +4,28 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.0.0-parte2.3] - 2026-09-23 (TIPOGRAFIA UNICA, RAPIDEZ DE ANTIGRAVITY Y SEGUNDA PRUEBA 2898-2026)
+
+Segunda prueba desde cero (v3.0.58): 104,8 min y 527 pasos. Medido en la traza: los scripts tardan segundos; cada DECISION del modelo, 45-70 s. Evitables: 5 `-h`, 13 capturas una a una, 3+2 lecturas de JSON del repositorio, lectura de codigo y 6 grep, 25 sondeos de tareas.
+
+### Added (rapidez sin perder calidad)
+- `scripts/ficha_caso.py`: `preparar` escribe `_FICHA.md` (comandos exactos con rutas absolutas, fechas de firma digital, proveedores con casilla y via, tabla de tipificacion) y `_hojas/` (paginas de dos en dos). Reglas de ritmo en AGENTS.md y skill `admisorio-flujo`: sin `-h`, sin leer scripts/JSON, `WaitMsBeforeAsync` 120000, objetivo <= 25 decisiones.
+- `similares.py` no sobrescribe un `_SIMILARES.md` ya justificado (`--forzar`).
+
+### Fixed (revision del admisorio de la segunda prueba)
+- Reclamos omitidos: `entregar` se detiene si el expediente cita reclamos numerados y no hay imputacion por 88.1/24 (una por reclamo; o `reclamos_no_imputados` motivado).
+- Iniciales de redaccion desde `config/firmas.json` (LSQ/DCQ): las pone `construir_admisorio`, las exige `entregar`.
+- R-176: credito/tarjeta/cuenta con los digitos del medio enmascarados («Crédito vehicular 53685» -> «53*85»).
+- R-177: sin marcas de markdown en el texto («__A La Positiva__:» salio con guiones visibles); `construir_admisorio` rechaza esos reemplazos.
+- DECIMO en adelante: solo el rotulo en negrita (303 frente a 111), normalizado en las 577 (`migraciones/normalizar_rotulos.py`); R-164 lo exige. «REQUERIMIENTO DE INFORMACIÓN» con tilde (127 plantillas).
+
+### Fixed
+- Tipografia uniforme en las 577 plantillas (`migraciones/uniformar_tipografia.py`): el cuerpo mezclaba 11 pt con 540 000 caracteres forzados a 10 pt (el traslado entre ellos), 10,5 y 9 pt; las notas, 8, 7 y 7,5 pt; 2 212 notas sin la linea en blanco que llevan las otras 6 260. Norma: Arial Narrow; cuerpo 11 pt; iniciales («LSQ/DCQ») 8 pt; notas 8 pt, cada una seguida de una linea en blanco. El membrete no se toca.
+- `preparar` muestra la fecha de cada firma digital de los PDF (escritos de parte: firma de mesa de partes). Antigravity improvisaba `python -c` para leerla.
+
+### Added
+- Falsador R-174 (tipografia y espacio entre notas). 19 mutaciones, todas rechazadas.
+
 ## [3.0.0-parte2.2] - 2026-09-23 (WORD ILEGIBLE, FORMATO APLASTADO, NOTAS AL PIE Y «HAZ SOLO LO QUE SE HACE»)
 
 Observaciones del instructor sobre el admisorio de Antigravity del Exp. 2898-2026: Word decia «contenido no legible»; encabezado descuadrado; negrita y subrayado de parrafo entero; tres reclamos en una imputacion; una cedula que nadie pidio; una nota al pie «Denuncia presentada ... ante la Mesa de Partes» que nunca se pone.

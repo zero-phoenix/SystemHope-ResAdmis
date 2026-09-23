@@ -179,6 +179,8 @@ def cuerpo_nota(nota: dict, f: dict) -> str:
             rpr = _con_negrita(f["rpr"]) if estilo == "b" else f["rpr"]
             runs.append(_run(rpr, '<w:t xml:space="preserve">%s</w:t>' % _esc(t)))
         ps.append("<w:p>%s%s</w:p>" % (f["ppr"], "".join(runs)))
+    # Una linea en blanco tras cada nota, como todas (uniformar_tipografia, R-174).
+    ps.append("<w:p>%s</w:p>" % f["ppr"])
     return "".join(ps)
 
 

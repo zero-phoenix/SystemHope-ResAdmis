@@ -3267,6 +3267,7 @@
   "falsadores": [
    "R-106",
    "R-164",
+   "R-176",
    "R-97"
   ],
   "apta_como_base": false
@@ -3893,6 +3894,7 @@
   "firma": "titular",
   "falsadores": [
    "R-106",
+   "R-176",
    "R-97"
   ],
   "apta_como_base": false
