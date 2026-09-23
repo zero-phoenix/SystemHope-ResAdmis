@@ -1241,6 +1241,53 @@ def prueba_r180_numeracion_doble(doc) -> list[str]:
     ][:5]
 
 
+def prueba_r181_imputacion_sin_negrita(doc) -> list[str]:
+    """R-181: las imputaciones del resolutivo («Presunta infraccion…») no van en
+    negrita (0 de 574). En el Exp. 2898-2026 las dos añadidas por 88.1 salieron
+    enteras en negrita."""
+    fallos = []
+    for p in doc:
+        if not p.texto.strip().startswith("Presunta infracci"):
+            continue
+        total = sum(len(t) for t, _b in p.runs_bold)
+        negrita = sum(len(t) for t, b in p.runs_bold if b)
+        if total and negrita * 2 > total:
+            fallos.append("R-181: imputacion en negrita: '%s'" % p.texto[:60])
+    return fallos[:3]
+
+
+# Norma citada en la calificacion -> encabezado de su nota al pie. Solo las que el
+# corpus anota siempre (0 de 574 sin nota); 18/19 y 1-2 tienen excepciones.
+NORMAS_CON_NOTA = {
+    r"numeral 88\.1 del art[ií]culo 88": r"Art[ií]culo 88\b",
+    r"literal e\) del art[ií]culo 47": r"Art[ií]culo 47\b",
+    r"numeral 49\.1": r"Art[ií]culo 49\b",
+}
+
+
+def prueba_r182_nota_de_la_norma(doc, z) -> list[str]:
+    """R-182: la norma con que se califica un hecho (88.1, 47 e), 49.1) tiene su
+    nota al pie en el documento. En el Exp. 2898-2026 las dos imputaciones por
+    88.1 añadidas no la llevaban (usar `insertar_despues` con `nota`)."""
+    try:
+        fx = z.read("word/footnotes.xml").decode("utf-8", "replace")
+    except KeyError:
+        fx = ""
+    notas = "".join(re.findall(r"<w:t(?:\s[^>]*)?>([^<]*)</w:t>", fx))
+    fallos = set()
+    for p in doc:
+        if "corresponde calificar" not in p.texto:
+            continue
+        for norma, cabecera in NORMAS_CON_NOTA.items():
+            m = re.search(norma, p.texto)
+            if m and not re.search(cabecera, notas):
+                fallos.add(
+                    "R-182: se califica por «%s» y ninguna nota al pie la transcribe"
+                    % m.group(0)
+                )
+    return sorted(fallos)
+
+
 def prueba_r176_credito_enmascarado(doc) -> list[str]:
     """R-176: numero de credito, tarjeta o cuenta con los digitos del medio
     enmascarados (en el corpus: «100xxxxxx434», «34****83»). La poliza nunca."""
@@ -1500,6 +1547,16 @@ PRUEBAS = [
     (
         "R-180 numeracion no duplicada",
         lambda d, s, z: prueba_r180_numeracion_doble(d),
+        "falsador",
+    ),
+    (
+        "R-181 imputacion sin negrita",
+        lambda d, s, z: prueba_r181_imputacion_sin_negrita(d),
+        "falsador",
+    ),
+    (
+        "R-182 nota al pie de la norma imputada",
+        lambda d, s, z: prueba_r182_nota_de_la_norma(d, z),
         "falsador",
     ),
     (

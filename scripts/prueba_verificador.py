@@ -129,6 +129,12 @@ MUTACIONES = [
         r"\g<1>1. ",
     ),
     (
+        "R-181",
+        "imputacion del resolutivo entera en negrita",
+        r"(?s)<w:p[ >](?:(?!</w:p>).)*?<w:t[^>]*>Presunta infracci(?:(?!</w:p>).)*</w:p>",
+        lambda m: m.group(0).replace("<w:rPr>", "<w:rPr><w:b/>"),
+    ),
+    (
         "R-164",
         "DECIMO con el parrafo entero en negrita",
         r"(?s)<w:p[ >](?:(?!</w:p>).)*?<w:t[^>]*>D\u00c9CIMO(?:(?!</w:p>).)*</w:p>",

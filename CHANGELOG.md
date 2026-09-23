@@ -4,6 +4,15 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.0.0-parte2.6] - 2026-09-23 (REVISION DEL 2898-2026: IMPUTACIONES AÑADIDAS)
+
+Revision de pagina completa del Exp. 2898-2026 (APTO en v3.0.60): las dos imputaciones por 88.1 añadidas con `insertar_despues` salieron enteras en negrita en PRIMERO y sin la nota al pie que transcribe el articulo 88.
+
+### Added
+- R-181: las imputaciones del resolutivo («Presunta infraccion…») no van en negrita (0 de 574 plantillas).
+- R-182: si se califica por 88.1, literal e) del 47 o 49.1, alguna nota al pie transcribe ese articulo (0 de 574; 18-19 y 1-2 quedan fuera: el corpus tiene 11 excepciones).
+- `prueba_verificador`: 25 mutaciones, todas rechazadas.
+
 ## [3.0.0-parte2.5] - 2026-09-23 (CORREGIR UN WORD DADO SIN ROMPERLO)
 
 Correccion del Exp. 2835-2026 (Word del instructor, R4 inadmisibilidad sin efecto, firma Ad Hoc). Antigravity entrego tres versiones: 15:56 con `document.xml` reescrito por ElementTree (prefijos `ns0:`, `w14` sin declarar: Word no lo abre y el verificador moria con una traza); 15:59 APTA pero con «9.La Secretaria…» y «(v)en caso…» pegados; 16:15 reconstruida sobre una plantilla con la numeracion duplicada («1. 1. Mediante…», «3. II. DE LA INADMISIBILIDAD») y APTA.
