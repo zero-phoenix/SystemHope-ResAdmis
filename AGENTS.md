@@ -1,6 +1,6 @@
 # AGENTS.md — Admisorios CC1 Indecopi (seguros). Reglas vigentes v3
 
-Única fuente de reglas **vigentes** (historial: `CHANGELOG.md`).
+Única fuente de reglas **vigentes**.
 Redactor: **Google Antigravity con el modelo de `config/modelo.json`** (Gemini 3.8 Flash High o superior).
 
 ## 0. Arranque
@@ -15,7 +15,7 @@ Redactor: **Google Antigravity con el modelo de `config/modelo.json`** (Gemini 3
 1. `python scripts/admisorio.py preparar <carpeta>` — capturas, `_LECTURA.md` y **`_FICHA.md`**: comandos exactos, firmas digitales, proveedores (casilla y vía) y tipificación. **Ritmo**: cada decisión cuesta ~50 s; no uses `-h`, no leas scripts ni JSON del repositorio, abre las `_hojas/` en una sola vuelta y usa `WaitMsBeforeAsync` 120000.
 2. **Lectura visual** de `_hojas/` (dos páginas por imagen): una fila por página en `_LECTURA.md`. Cero OCR; si el texto embebido discrepa, manda la imagen.
 2b. **OBLIGATORIO — las 10 plantillas más similares.** Escribe `_CASO.json` (`carpeta_origen`, `traslado`, escritos con su fecha, denunciados DEFINITIVOS, conductas y norma; formato en `scripts/similares.py -h`) y ejecuta `python scripts/similares.py <carpeta>`. Completa en `_SIMILARES.md` el «Por qué» de las 10: qué imputaciones (norma, sujeto, conducta), hechos y partes coinciden o difieren y qué tomarás de cada una. Solo plantillas que el script lista: citar una que no existe bloquea la entrega. La base se elige entre ellas.
-3. `python scripts/construir_admisorio.py --mapa <mapa.json>` sobre la plantilla elegida (sin Word, sin win32com, sin PDF).
+3. `python scripts/construir_admisorio.py --mapa <mapa.json>` sobre la plantilla elegida; para corregir un Word dado, ese Word es la plantilla. Sin Word, win32com ni PDF.
 4. `python scripts/admisorio.py entregar "<carpeta>/ADM <EXP> R<N>.docx" --recepcion DD/MM/AAAA` — debe decir **ENTREGABLE** y el verificador **APTO**; copia el Word a `carpeta_origen`. Pega la salida literal.
 
 Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de resolución que fija la cédula. Nunca PDF.
