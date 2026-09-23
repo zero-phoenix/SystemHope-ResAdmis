@@ -307,8 +307,8 @@ Arregla primero los reemplazos fallidos: un dato duro suele seguir dentro porque
 la frase que lo contenia no se sustituyo.
 
 INVARIANTES: partes procesales exactamente las de la cedula, una sola via cada una
-(R-138). Fecha: Lima, 14 de setiembre de 2026. Firma: LUISA ANALI SILVA
-MALPARTIDA, Secretaria Tecnica (e). Es la Resolucion N {res}.
+(R-138). Fecha: Lima, {fecha}. Firma: la de config/firmas.json segun el
+denunciado (R-103; Rimac -> Secretaria Tecnica Ad Hoc; nunca "(e)"). Es la Resolucion {res}.
 NO INVENTES: dato que no veas en una pagina se declara pendiente del instructor.
 
 ENTREGABLE, con este nombre exacto:
@@ -341,7 +341,10 @@ def lanzar(expediente: str, modelo: str) -> int:
 
     res = resolucion_de_cedula(carpeta)
     env = entorno()
+    import config_sistema
+
     prompt = ENCARGO.format(
+        fecha=config_sistema.fecha_emision() or "(PREGUNTA LA FECHA AL INSTRUCTOR ANTES DE REDACTAR)",
         exp=expediente,
         carpeta=carpeta,
         raiz=RAIZ,
@@ -414,7 +417,14 @@ def main(argv: list[str]) -> int:
     sub.add_parser("sanear", help="Declara workspaces ajenos y deja la redireccion")
     p = sub.add_parser("lanzar", help="Lanza un expediente con el encargo canonico")
     p.add_argument("expediente")
-    p.add_argument("--modelo", default="pro", choices=("flash_lite", "flash", "pro"))
+    import config_sistema
+
+    p.add_argument(
+        "--modelo",
+        default=config_sistema.modelo().get("orquestar_modelo", "flash"),
+        choices=("flash_lite", "flash", "pro"),
+        help="Por defecto el de config/modelo.json (Gemini 3.8 Flash High)",
+    )
     c = sub.add_parser("corregir", help="Envia una correccion a una conversacion viva")
     c.add_argument("conversacion")
     c.add_argument("mensaje", nargs="?", default="")

@@ -1,5 +1,8 @@
 # ANÁLISIS VISUAL DEL CORPUS
 
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+
+
 > 1.042 capturas referenciales en `docs/capturas_referenciales/`, una por celda de
 > **rama × materia × tipo de denunciado × sujeto** (205 celdas, hasta 3 documentos
 > y 3 páginas por celda). Leídas con visión directa, **cero OCR**.

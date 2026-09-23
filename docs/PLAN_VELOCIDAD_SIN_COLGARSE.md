@@ -1,5 +1,8 @@
 # MEGA PLAN — VELOCIDAD SIN COLGARSE NI PERDER CALIDAD
 
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+
+
 > Encargo del instructor, 14/09/2026, al abrir el tercer caso de prueba (3054-2026).
 > Aplica a Antigravity y a cualquier agente que redacte un admisorio.
 

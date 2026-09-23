@@ -31,7 +31,7 @@ jobs:
         # ejecutarse no debe inventar una infraccion.
         run: |
           python -m pip install --upgrade pip
-          pip install pillow python-docx
+          pip install -r requirements.txt
 
       - name: Determinar el rango que anade este push
         id: rango

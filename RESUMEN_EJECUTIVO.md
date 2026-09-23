@@ -1,90 +1,16 @@
-# Resumen ejecutivo — estado del sistema
+# Resumen ejecutivo — SystemHope ResAdmis v3 (23/09/2026)
 
-> Actualizado el 15/09/2026, tras la primera remesa supervisada de punta a punta y
-> la depuración del repositorio. Todo lo que se afirma aquí está medido; lo que no
-> se pudo medir se declara como tal.
+**Qué es:** el sistema con el que Google Antigravity (Gemini 3.8 Flash High o superior) redacta las resoluciones de admisión a trámite e imputación de cargos de la CC1 de Indecopi (seguros), y el verificador que decide si una resolución es entregable.
 
-## Qué es esto
+**Parte 1 del plan v3 (aplicada):**
+- **Fórmula de traslado R-155 corregida** según la ley en todo el corpus: «aprobada por Decreto Legislativo 807», «merituadas», sin «N°» ni volada. Antes, el verificador exigía el error.
+- **Singular y plural por el número real de denunciados**: 388 plantillas tenían el número equivocado (369 de un solo denunciado en plural) y 5 tenían el destinatario del traslado corrompido.
+- **Imputación cerrada**: solo por la tabla de tipificación del instructor (`docs/tabla_tipificacion.json`). Nunca el art. 3; el art. 24 solo ante un proveedor no regulado.
+- **Firma vigente en todas las plantillas** (427 bloques normalizados). La fecha de emisión, la firma y el modelo se leen de `config/`.
+- **Nuevas reglas con falsador**: números de normas sin «N°» (R-156), sin «denunciante» en los hechos (R-157), enmascarado (R-158), nota al pie del traslado a CC1 (R-159) y fecha de la remesa (R-160). El plazo de 20 días hábiles se calcula con `scripts/plazos.py`.
+- **Lectura visual verificable**: `preparar` captura cada página completa y prepara `_LECTURA.md`; `entregar` rechaza filas vacías o copiadas del texto embebido.
+- **Limpieza**: 578 plantillas (fuera 13 duplicados y 2 documentos que no eran admisorios). AGENTS.md cabe en el límite de Antigravity. El código muerto pasó a la rama `archivo-legado`.
 
-Un sistema de apoyo a la redacción de resoluciones admisorias de la CC1 del
-Indecopi. Un agente redacta; el repositorio aporta las plantillas, las reglas y las
-barreras que impiden que salga un documento con datos que no existen.
-
-## Lo que cambió en esta versión
-
-### 1. Depuración: de 1.481 archivos publicados a 725
-
-Se retiró del repositorio —**sin borrar nada del disco del instructor**— todo lo
-que era expediente real, sedimento o contradicción:
-
-| Retirado | Por qué |
-|---|---|
-| `ADMI + CONFI/`, `Modelos al 30-06-26/` | Expedientes y modelos reales, incluida una carpeta llamada `CONFI` |
-| `productos (resoluciones)...`, `casos/`, `casos_de_prueba/` | Admisorios emitidos con datos de consumidores |
-| Un `.xlsx` de personas, 31 `.db`, 20 `.pyc`, `build/`, `dist/`, `temp_docx/` | Sedimento |
-| 47 scripts sueltos en la raíz (`test_xml8.py`, `test_del7.py`, …) | Exploración de un solo uso |
-| 16 scripts de `scripts/` con rutas de otra máquina | Análisis puntual ya consumido en `docs/` |
-| `.cursorrules`, `.windsurfrules`, `CLAUDE.md` | **Contradicción**: predicaban «visión solo en páginas sin capa de texto», doctrina que R-137 derogó |
-
-### 2. Las plantillas llevaban el nombre de un consumidor real
-
-Medido sobre una muestra de 40: **39 identificaban a una persona**. Ampliado a
-todas: **630 de 630**, con 6.869 sustituciones aplicadas.
-
-Anonimizar no las degrada, las **mejora**: un modelo que dice «el señor Espinoza»
-invita al reemplazo a ciegas —de ahí salieron apellidos quimera como «Pablo
-Santiago Cornejo Canal»—; uno que dice «el señor [APELLIDO]» obliga a rellenar
-desde la cédula, que es la fuente correcta. Se conservan pólizas, fechas, montos y
-artículos: una plantilla sin sus hechos no sirve de plantilla.
-
-### 3. Tres barreras de calidad, no una
-
-| Barrera | Qué ve | Qué no ve |
-|---|---|---|
-| `verificar_admisorio.py` | La forma | Que los datos existan |
-| `construir_admisorio.py` | Residuo de la plantilla de origen | Un dato que no viene de ningún sitio |
-| `auditar_admisorio.py` | **Que cada dato exista en el expediente** | La coherencia jurídica |
-
-La tercera, en su primer barrido sobre cuatro admisorios ya dados por buenos,
-encontró cuatro fechas sin ancla, un ordinal que contradecía a su cédula y dos
-apellidos inventados.
-
-### 4. El sistema se comprueba a sí mismo
-
-`scripts/autocomprobacion.py`, que CI ejecuta en cada push. Cuatro pruebas, cada
-una nacida de un fallo real:
-
-- ninguna expresión regular con un carácter de retroceso donde debe ir un límite de
-  palabra —pasó **tres veces**, y la peor dejó R-110 declarando `OK` sin comprobar
-  nada sobre todos los documentos—;
-- ninguna plantilla con datos personales;
-- todos los módulos compilan —se compila, no se importa: importar los ejecuta, y
-  una prueba que modifica el repositorio que comprueba no es una prueba—;
-- ningún artefacto de trabajo rastreado.
-
-CI le da además al verificador un documento que **debe** rechazar. Una regla que
-nunca falla no es una regla que se cumple: es una regla que no se está ejecutando.
-
-## Lo que sigue sin resolver
-
-1. **El historial público.** El repositorio lleva meses abierto y su historial
-   contiene los expedientes que hoy se retiran. Retirarlos del árbol no los quita
-   del historial; eso solo lo hace el soporte de GitHub, o deja de importar si el
-   repositorio pasa a privado. **Es una decisión del instructor.**
-2. **Ningún proyecto de Antigravity apunta al repositorio.** Es la causa raíz
-   medida de casi todos los fallos del agente. `scripts/orquestar.py sanear` lo
-   diagnostica y acota el daño, pero el arreglo real es una acción manual, una sola
-   vez: *Antigravity → Add Workspace → la raíz del repositorio*.
-3. **La constancia de lectura (`_LECTURA.md`) no está garantizada por el sistema.**
-   Un agente podría escribirla sin haber mirado. Hoy lo cubre la relectura del
-   supervisor, que es una garantía humana y no mecánica.
-
-## Cifras
-
-| | |
-|---|---:|
-| Plantillas maestras anonimizadas | 593 |
-| Ramas taxonómicas | 17 |
-| Herramientas en `scripts/` | 19 |
-| Reglas con falsador | 58 |
-| Archivos publicados | 725 (antes 1.481) |
+**Pendiente:**
+- **Parte 2** (esfuerzo medio): clasificación por contenido, medición de formato y uso desde cualquier PC con Python y Git portátiles.
+- **Parte 3** (esfuerzo alto): anonimización y purga del historial, modelos canónicos de 1 y de 2 o más denunciados, HECHOS e imputaciones, y supervisión A/B de Antigravity.

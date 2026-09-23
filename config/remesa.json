@@ -1,0 +1,4 @@
+{
+  "_nota": "Fecha de emision de TODOS los admisorios de la remesa en curso (D2). La fija el instructor con: python scripts/config_sistema.py --fecha \"D de mes de AAAA\". Si esta vacia, Antigravity debe preguntarla antes de redactar.",
+  "fecha_emision": ""
+}

@@ -1,5 +1,8 @@
 # MEMORIA PERMANENTE OBLIGATORIA: ESTILO VISUAL Y FORMATO DE PÁGINA (INDECOPI CC1)
 
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+
+
 > **ESTADO:** NORMA TÉCNICA INSTITUCIONAL PERMANENTE  
 > **ORIGEN:** Análisis forense visual multimodal (Google Lens / Visión Multimodal) sobre el corpus de 881 resoluciones PDF de referencia en `000 PLAN PHOENYX`.  
 > **ALCANCE:** De cumplimiento estricto y obligatorio para el motor generador, plantillas maestras y cualquier resolución administrativa emitida por el sistema.

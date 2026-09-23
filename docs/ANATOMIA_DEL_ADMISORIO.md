@@ -1,5 +1,8 @@
 # ANATOMÍA DEL ADMISORIO
 
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+
+
 > Qué comparten los 630 modelos, qué varía y por qué. Todo medido el 15/09/2026
 > sobre el corpus, no deducido de la memoria documentada.
 
@@ -39,11 +42,11 @@ es que el denominador estaba mal**.
         │  OCTAVO    conciliación (art. 29 del D.L. 807)                    │
         │  NOVENO    reserva o medida complementaria                        │
         │  DÉCIMO    acuse de recibo de la notificación                     │
-        │  DÉCIMO PRIMERO / DÉCIMO SEGUNDO  →  una por parte adicional      │
+        │  DÉCIMO PRIMERO / DÉCIMO SEGUNDO  →  una por VÍA (R-147)          │
         └──────────────────────────────────────────────────────────────────┘
                                       │
         ┌──────────────────────────────┴───────────────────────────────────┐
-        │  Firma: LUISA ANALI SILVA MALPARTIDA, Secretaria Técnica (e)     │
+        │  Firma: config/firmas.json (Rímac: Ad Hoc; nunca «(e)»)         │
         └──────────────────────────────────────────────────────────────────┘
 ```
 

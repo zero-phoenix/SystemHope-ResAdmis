@@ -495,17 +495,6 @@
   "origen_original": "Seguro de desgravamen/Cobertura del seguro (no especificada)/Negativa injustificada de cobertura/BCP/1673-2025-CC1 - MUJER/1673-2025 R1 ADM-okOK.docx"
  },
  {
-  "id": 48,
-  "expediente": "1673-2025",
-  "rama": "03_seguro_desgravamen",
-  "materia": "negativa_cobertura",
-  "proveedor_tipo": "1_ddo_banco_o_financiera",
-  "sujeto_tipo": "mujer",
-  "archivo": "TPL_1673_2025_SEGURO_DESGRAVAMEN_NEGATIVA_COBERTURA_BANCO_MUJER_R445.docx",
-  "ruta_relativa": "plantillas_maestras/03_seguro_desgravamen/negativa_cobertura/1_ddo_banco_o_financiera/mujer/TPL_1673_2025_SEGURO_DESGRAVAMEN_NEGATIVA_COBERTURA_BANCO_MUJER_R445.docx",
-  "origen_original": "Seguro de desgravamen/Cobertura del seguro (no especificada)/Negativa injustificada de cobertura/BCP/1673-2025-CC1 - MUJER/exp. 1673-2025 R445-2025 desacumulacion.docx"
- },
- {
   "id": 49,
   "expediente": "3523-2025",
   "rama": "03_seguro_desgravamen",
@@ -636,17 +625,6 @@
   "archivo": "TPL_0927_2026_SEGURO_DESGRAVAMEN_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R2.docx",
   "ruta_relativa": "plantillas_maestras/03_seguro_desgravamen/negativa_cobertura/2_o_mas_ddos_varios/mujer/TPL_0927_2026_SEGURO_DESGRAVAMEN_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R2.docx",
   "origen_original": "Seguro de desgravamen/Cobertura del seguro (no especificada)/Negativa injustificada de cobertura/Pacífico Seguros/927-2026-CC1 - MUJER/ADM 0927-2026 R2 - OK.docx"
- },
- {
-  "id": 62,
-  "expediente": "2697-2025",
-  "rama": "03_seguro_desgravamen",
-  "materia": "negativa_cobertura",
-  "proveedor_tipo": "2_ddos_banco_y_aseguradora",
-  "sujeto_tipo": "mujer",
-  "archivo": "TPL_2697_2025_SEGURO_DESGRAVAMEN_NEGATIVA_COBERTURA_BANCO_MUJER_R3.docx",
-  "ruta_relativa": "plantillas_maestras/03_seguro_desgravamen/negativa_cobertura/2_ddos_banco_y_aseguradora/mujer/TPL_2697_2025_SEGURO_DESGRAVAMEN_NEGATIVA_COBERTURA_BANCO_MUJER_R3.docx",
-  "origen_original": "Seguro de desgravamen/Cobertura del seguro (no especificada)/Negativa injustificada de cobertura/Pacífico Seguros y Mibanco/2697-2025-CC1 - MUJER/2697-2025 R3 RESOLUCION.docx"
  },
  {
   "id": 63,
@@ -6369,157 +6347,14 @@
   "origen_original": "Temas administrativos y financieros (no asegurativos)/Tasas y trámites administrativos/Error en registro de tasas (SIR)/Rimac Seguros/1695-2025-CC1 - MUJER/1695-2025 R2 ADM-okOK.docx"
  },
  {
-  "id": 606,
-  "expediente": "2389-2025",
-  "rama": "17_seguro_no_especificado",
-  "materia": "clausula_abusiva",
-  "proveedor_tipo": "2_o_mas_ddos_varios",
-  "sujeto_tipo": "mujer",
-  "archivo": "TPL_2389_2025_SEGURO_NO_ESPECIFICADO_CLAUSULA_ABUSIVA_ASEGURADORA_MUJER_R1.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/clausula_abusiva/2_o_mas_ddos_varios/mujer/TPL_2389_2025_SEGURO_NO_ESPECIFICADO_CLAUSULA_ABUSIVA_ASEGURADORA_MUJER_R1.DOCX",
-  "origen_original": ""
- },
- {
-  "id": 607,
-  "expediente": "1996-2025",
-  "rama": "17_seguro_no_especificado",
-  "materia": "clausula_abusiva",
-  "proveedor_tipo": "2_o_mas_ddos_varios",
-  "sujeto_tipo": "varon",
-  "archivo": "TPL_1996_2025_SEGURO_NO_ESPECIFICADO_CLAUSULA_ABUSIVA_ASEGURADORA_VARON_R1.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/clausula_abusiva/2_o_mas_ddos_varios/varon/TPL_1996_2025_SEGURO_NO_ESPECIFICADO_CLAUSULA_ABUSIVA_ASEGURADORA_VARON_R1.DOCX",
-  "origen_original": ""
- },
- {
-  "id": 608,
-  "expediente": "0731-2025",
-  "rama": "17_seguro_no_especificado",
-  "materia": "contratacion_no_consentida",
-  "proveedor_tipo": "2_ddos_banco_y_aseguradora",
-  "sujeto_tipo": "mujer",
-  "archivo": "TPL_0731_2025_SEGURO_NO_ESPECIFICADO_CONTRATACION_NO_CONSENTIDA_BANCO_MUJER_R1.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/contratacion_no_consentida/2_ddos_banco_y_aseguradora/mujer/TPL_0731_2025_SEGURO_NO_ESPECIFICADO_CONTRATACION_NO_CONSENTIDA_BANCO_MUJER_R1.DOCX",
-  "origen_original": ""
- },
- {
-  "id": 609,
-  "expediente": "0880-2025",
-  "rama": "17_seguro_no_especificado",
-  "materia": "materia_general_asegurativa",
-  "proveedor_tipo": "2_ddos_banco_y_aseguradora",
-  "sujeto_tipo": "varon",
-  "archivo": "TPL_0880_2025_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_BANCO_VARON_R1.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/materia_general_asegurativa/2_ddos_banco_y_aseguradora/varon/TPL_0880_2025_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_BANCO_VARON_R1.DOCX",
-  "origen_original": ""
- },
- {
-  "id": 610,
-  "expediente": "0356-2026",
-  "rama": "17_seguro_no_especificado",
-  "materia": "materia_general_asegurativa",
-  "proveedor_tipo": "2_o_mas_ddos_varios",
-  "sujeto_tipo": "mujer",
-  "archivo": "TPL_0356_2026_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R1.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/materia_general_asegurativa/2_o_mas_ddos_varios/mujer/TPL_0356_2026_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R1.DOCX",
-  "origen_original": ""
- },
- {
-  "id": 611,
-  "expediente": "2061-2026",
-  "rama": "17_seguro_no_especificado",
-  "materia": "materia_general_asegurativa",
-  "proveedor_tipo": "2_o_mas_ddos_varios",
-  "sujeto_tipo": "mujer",
-  "archivo": "TPL_2061_2026_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R2.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/materia_general_asegurativa/2_o_mas_ddos_varios/mujer/TPL_2061_2026_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R2.DOCX",
-  "origen_original": ""
- },
- {
   "id": 612,
   "expediente": "0362-2026",
   "rama": "17_seguro_no_especificado",
   "materia": "materia_general_asegurativa",
   "proveedor_tipo": "2_o_mas_ddos_varios",
   "sujeto_tipo": "varon",
-  "archivo": "TPL_0362_2026_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R2.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/materia_general_asegurativa/2_o_mas_ddos_varios/varon/TPL_0362_2026_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R2.DOCX",
-  "origen_original": ""
- },
- {
-  "id": 613,
-  "expediente": "2180-2025",
-  "rama": "17_seguro_no_especificado",
-  "materia": "materia_general_asegurativa",
-  "proveedor_tipo": "2_o_mas_ddos_varios",
-  "sujeto_tipo": "varon",
-  "archivo": "TPL_2180_2025_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/materia_general_asegurativa/2_o_mas_ddos_varios/varon/TPL_2180_2025_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R1.DOCX",
-  "origen_original": ""
- },
- {
-  "id": 614,
-  "expediente": "1512-2026",
-  "rama": "17_seguro_no_especificado",
-  "materia": "negativa_cobertura",
-  "proveedor_tipo": "2_o_mas_ddos_varios",
-  "sujeto_tipo": "mujer",
-  "archivo": "TPL_1512_2026_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R1.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/negativa_cobertura/2_o_mas_ddos_varios/mujer/TPL_1512_2026_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R1.DOCX",
-  "origen_original": ""
- },
- {
-  "id": 615,
-  "expediente": "1513-2026",
-  "rama": "17_seguro_no_especificado",
-  "materia": "negativa_cobertura",
-  "proveedor_tipo": "2_o_mas_ddos_varios",
-  "sujeto_tipo": "mujer",
-  "archivo": "TPL_1513_2026_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R1.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/negativa_cobertura/2_o_mas_ddos_varios/mujer/TPL_1513_2026_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R1.DOCX",
-  "origen_original": ""
- },
- {
-  "id": 616,
-  "expediente": "1514-2026",
-  "rama": "17_seguro_no_especificado",
-  "materia": "negativa_cobertura",
-  "proveedor_tipo": "2_o_mas_ddos_varios",
-  "sujeto_tipo": "mujer",
-  "archivo": "TPL_1514_2026_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R1.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/negativa_cobertura/2_o_mas_ddos_varios/mujer/TPL_1514_2026_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_MUJER_R1.DOCX",
-  "origen_original": ""
- },
- {
-  "id": 617,
-  "expediente": "1185-2026",
-  "rama": "17_seguro_no_especificado",
-  "materia": "negativa_cobertura",
-  "proveedor_tipo": "2_o_mas_ddos_varios",
-  "sujeto_tipo": "varon",
-  "archivo": "TPL_1185_2026_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R2.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/negativa_cobertura/2_o_mas_ddos_varios/varon/TPL_1185_2026_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R2.DOCX",
-  "origen_original": ""
- },
- {
-  "id": 618,
-  "expediente": "1733-2026",
-  "rama": "17_seguro_no_especificado",
-  "materia": "negativa_cobertura",
-  "proveedor_tipo": "2_o_mas_ddos_varios",
-  "sujeto_tipo": "varon",
-  "archivo": "TPL_1733_2026_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/negativa_cobertura/2_o_mas_ddos_varios/varon/TPL_1733_2026_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.DOCX",
-  "origen_original": ""
- },
- {
-  "id": 619,
-  "expediente": "1912-2025",
-  "rama": "17_seguro_no_especificado",
-  "materia": "negativa_cobertura",
-  "proveedor_tipo": "2_o_mas_ddos_varios",
-  "sujeto_tipo": "varon",
-  "archivo": "TPL_1912_2025_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.DOCX",
-  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/negativa_cobertura/2_o_mas_ddos_varios/varon/TPL_1912_2025_SEGURO_NO_ESPECIFICADO_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R1.DOCX",
+  "archivo": "TPL_0362_2026_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R2.docx",
+  "ruta_relativa": "plantillas_maestras/17_seguro_no_especificado/materia_general_asegurativa/2_o_mas_ddos_varios/varon/TPL_0362_2026_SEGURO_NO_ESPECIFICADO_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R2.docx",
   "origen_original": ""
  }
 ]

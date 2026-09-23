@@ -35,14 +35,10 @@ ORDINALES = [
     "NOVENO",
     "DECIMO",
 ]  # R-146: UNDECIMO y DUODECIMO no existen en el corpus (0 de 593);
-   # se componen DECIMO PRIMERO y DECIMO SEGUNDO
+# se componen DECIMO PRIMERO y DECIMO SEGUNDO
 
-# R-103 (mandato del instructor, 14/09/2026): TODOS los admisorios firman
-# LUISA ANALI SILVA MALPARTIDA como Secretaria Tecnica (e). Nunca Evelyn y
-# nunca designacion Ad Hoc. La firma dejo de depender del proveedor.
-FIRMA_MANDATO = "LUISA ANALI SILVA MALPARTIDA"
-FIRMA_PROHIBIDA = "EVELING ROA QUISPE"
-CARGO_MANDATO = "SECRETARIA TECNICA (E)"
+# La matriz de firma vigente (R-103, 18/09/2026) vive en prueba_r103_firma y en
+# config/firmas.json. La firma unica del 14/09/2026 (R-127) esta DEROGADA.
 
 
 def sin_tildes(texto: str) -> str:
@@ -116,7 +112,9 @@ def prueba_r97_isomorfismo(doc) -> list[str]:
     nucleos_cons = []
     for p in doc:
         m = re.search(
-            r"consistente en que (.+?)(?:;\s*involucrar|\.\s*Por consiguiente)", p.texto, re.S
+            r"consistente en que (.+?)(?:;\s*involucrar|\.\s*Por consiguiente)",
+            p.texto,
+            re.S,
         )
         if m:
             nucleos_cons.append(re.sub(r"\s+", " ", m.group(1)).strip())
@@ -137,7 +135,8 @@ def prueba_r97_isomorfismo(doc) -> list[str]:
         m = re.search(
             r"^\s*PRIMERO\s*:.*?\bpor\s+(?:la\s+)?presunta[s]?\s+infracci[oó]n(?:es)?\b"
             r".*?,\s*en tanto (.+?)\s*\.\s*$",
-            p.texto, re.S | re.I
+            p.texto,
+            re.S | re.I,
         )
         if m:
             nucleos_res.append(re.sub(r"\s+", " ", m.group(1)).strip())
@@ -178,14 +177,21 @@ def prueba_r108_requerimiento(doc) -> list[str]:
         t = sin_tildes(p.texto)
         if "DE LA ADMISION A TRAMITE" in t.upper():
             en_considerativa = True
-        if en_considerativa and ("REQUERIMIENTO DE INFORMACION" in t.upper() or ("conviene requerir" in t and ("cumpla con" in t or "cumplan con" in t))):
+        if en_considerativa and (
+            "REQUERIMIENTO DE INFORMACION" in t.upper()
+            or ("conviene requerir" in t and ("cumpla con" in t or "cumplan con" in t))
+        ):
             en_requerimiento_cons = True
         if en_requerimiento_cons:
-            if "RESOLUCION DE LA SECRETARIA TECNICA" in t.upper() or t.startswith("PRIMERO"):
+            if "RESOLUCION DE LA SECRETARIA TECNICA" in t.upper() or t.startswith(
+                "PRIMERO"
+            ):
                 en_requerimiento_cons = False
             else:
                 cons.extend(incisos(p.texto))
-        if re.match(r"\s*(QUINTO|CUARTO|SEXTO)\s*:", t) and ("cumpla con" in t or "cumplan con" in t):
+        if re.match(r"\s*(QUINTO|CUARTO|SEXTO)\s*:", t) and (
+            "cumpla con" in t or "cumplan con" in t
+        ):
             res.extend(incisos(p.texto))
 
     if not cons:
@@ -217,16 +223,24 @@ def prueba_r151_casilla_habilitada(doc) -> list[str]:
     Falsador: un ordinal que notifique a Casilla Electronica a un proveedor que
     docs/casillas_habilitadas.json marca como no habilitado.
     """
-    ruta = pathlib_Path(__file__).resolve().parent.parent / "docs" / "casillas_habilitadas.json"
+    ruta = (
+        pathlib_Path(__file__).resolve().parent.parent
+        / "docs"
+        / "casillas_habilitadas.json"
+    )
     if not ruta.exists():
         return []  # sin padron filtrado no se puede falsar: no se inventa una infraccion
     import json as _json
+
     try:
         datos = _json.loads(ruta.read_text(encoding="utf-8"))
     except Exception:
         return []
-    vetados = [n for n, v in datos.get("proveedores", {}).items()
-               if not v.get("casilla_habilitada")]
+    vetados = [
+        n
+        for n, v in datos.get("proveedores", {}).items()
+        if not v.get("casilla_habilitada")
+    ]
     fallos = []
     for p in doc:
         t = p.texto
@@ -235,15 +249,17 @@ def prueba_r151_casilla_habilitada(doc) -> list[str]:
         # un mismo ordinal puede nombrar a varias partes: se miran todas
         for m in re.finditer(r"requerir a(?:l)?\s+(.{3,140}?)\s+para que", t):
             crudo = m.group(1).strip()
-            parte = re.sub(r"\s+", " ",
-                           re.sub(r"[^A-Z0-9 ]", " ", sin_tildes(crudo).upper())).strip()
+            parte = re.sub(
+                r"\s+", " ", re.sub(r"[^A-Z0-9 ]", " ", sin_tildes(crudo).upper())
+            ).strip()
             for veto in vetados:
                 nucleo = " ".join(veto.split()[:3])
                 if nucleo and nucleo in parte:
                     motivo = datos["proveedores"][veto].get("motivo", "no habilitado")
                     fallos.append(
                         "R-151: se notifica a Casilla Electronica a '%s', que no la tiene "
-                        "habilitada (%s)" % (crudo, motivo))
+                        "habilitada (%s)" % (crudo, motivo)
+                    )
                     break
     return fallos
 
@@ -262,29 +278,43 @@ def prueba_r103_firma(doc) -> list[str]:
     contra cualquier otro proveedor firmado Ad Hoc, o la aparicion de '(e)'.
     """
     texto_doc = sin_tildes(" ".join(p.texto for p in doc)).upper()
-    denunciado = ""
-    for p in doc:
-        t = sin_tildes(p.texto).upper()
-        if t.startswith("DENUNCIADO"):
-            denunciado = t
-            break
+    textos = [sin_tildes(p.texto).upper().strip() for p in doc[:25]]
+    i = next((k for k, t in enumerate(textos) if t.startswith("DENUNCIADO")), None)
+    j = (
+        next(
+            (k for k in range(i + 1, len(textos)) if textos[k].startswith("MATERIA")),
+            (i or 0) + 1,
+        )
+        if i is not None
+        else 0
+    )
+    denunciado = " ".join(textos[i:j]) if i is not None else ""
     es_rimac = "RIMAC" in denunciado
     fallos = []
     if "SECRETARIA TECNICA (E)" in texto_doc:
-        fallos.append("R-103: el cargo lleva '(e)', suprimido por mandato del 18/09/2026")
+        fallos.append(
+            "R-103: el cargo lleva '(e)', suprimido por mandato del 18/09/2026"
+        )
     if es_rimac:
         if "LUISA ANALI SILVA MALPARTIDA" not in texto_doc:
-            fallos.append("R-103: denuncia contra Rimac y no firma LUISA ANALI SILVA MALPARTIDA")
+            fallos.append(
+                "R-103: denuncia contra Rimac y no firma LUISA ANALI SILVA MALPARTIDA"
+            )
         if "SECRETARIA TECNICA AD HOC" not in texto_doc:
-            fallos.append("R-103: denuncia contra Rimac sin el cargo 'Secretaria Tecnica Ad Hoc'")
+            fallos.append(
+                "R-103: denuncia contra Rimac sin el cargo 'Secretaria Tecnica Ad Hoc'"
+            )
         if "EVELING ROA QUISPE" in texto_doc:
             fallos.append("R-103: denuncia contra Rimac firmada por EVELING ROA QUISPE")
     else:
         if "EVELING ROA QUISPE" not in texto_doc:
             fallos.append("R-103: no firma EVELING ROA QUISPE (mandato del 18/09/2026)")
         if "AD HOC" in texto_doc:
-            fallos.append("R-103: designacion 'Ad Hoc' fuera de una denuncia contra Rimac")
+            fallos.append(
+                "R-103: designacion 'Ad Hoc' fuera de una denuncia contra Rimac"
+            )
     return fallos
+
 
 def prueba_r104_negritas(doc) -> list[str]:
     """El rotulo ordinal de todo articulo resolutivo va en negrita, sin excepcion."""
@@ -299,10 +329,14 @@ def prueba_r104_negritas(doc) -> list[str]:
                     for ch in sin_tildes(texto):
                         chars_bold.append((ch, b))
                 start_idx = 0
-                while start_idx < len(chars_bold) and chars_bold[start_idx][0].isspace():
+                while (
+                    start_idx < len(chars_bold) and chars_bold[start_idx][0].isspace()
+                ):
                     start_idx += 1
-                prefix_chars = chars_bold[start_idx:start_idx + len(prefix)]
-                bold_rotulo = len(prefix_chars) == len(prefix) and all(b for ch, b in prefix_chars)
+                prefix_chars = chars_bold[start_idx : start_idx + len(prefix)]
+                bold_rotulo = len(prefix_chars) == len(prefix) and all(
+                    b for ch, b in prefix_chars
+                )
                 if not bold_rotulo:
                     fallos.append("R-104: el rotulo %s: no esta en negrita" % ordinal)
                 break
@@ -378,7 +412,9 @@ def prueba_r107_membrete(z) -> list[str]:
         if esperado not in cab:
             fallos.append("R-107: falta el %s en el encabezado" % etiqueta)
     if "MCPC01/03" not in pie:
-        fallos.append("R-107: falta el codigo de calidad M-CPC-01/03 en el pie de pagina")
+        fallos.append(
+            "R-107: falta el codigo de calidad M-CPC-01/03 en el pie de pagina"
+        )
     # El campo dinamico de numero de pagina NO se exige: el control ADM 2723-2026 R2
     # carece de el y es un documento valido. Presente en 2 de 3 controles.
     return fallos
@@ -390,12 +426,15 @@ def prueba_r110_modo_verbal(doc) -> list[str]:
     en indicativo asertivo prejuzga el fondo antes de los descargos."""
     atribucion = re.compile(
         r"\b(senal[oó]|indic[oó]|precis[oó]|manifest[oó]|refiri[oó]|sostuvo|agreg[oó]"
-        r"|aleg[oó]|cuestion[oó]|denunci[oó]|afirm[oó]|declar[oó])\b", re.I)
+        r"|aleg[oó]|cuestion[oó]|denunci[oó]|afirm[oó]|declar[oó])\b",
+        re.I,
+    )
     potencial = re.compile(r"\bhabr[ií]a\b", re.I)
     proveedor_activo = re.compile(
         r"\b(R[ií]mac|Pac[ií]fico|el Banco|la compa[nñ][ií]a aseguradora|la aseguradora|el proveedor)\b"
         r"\s+(?:no\s+)?(?:se\s+)?(?:le\s+)?[a-záéíóú]+"
-        r"(?:[oó]|aron|ieron|uvo|izo|ab[ií]a)\b")
+        r"(?:[oó]|aron|ieron|uvo|izo|ab[ií]a)\b"
+    )
     fallos = []
     dentro = False
     atribucion_contextual = False
@@ -420,13 +459,15 @@ def prueba_r110_modo_verbal(doc) -> list[str]:
         if m:
             fallos.append(
                 "R-110: inciso de hechos afirma en indicativo la conducta del proveedor "
-                "('%s') sin atribucion ni modo potencial: %.60s..." % (m.group(0), t))
+                "('%s') sin atribucion ni modo potencial: %.60s..." % (m.group(0), t)
+            )
     return fallos
 
 
-
 CATALOGO_IMPUTACIONES = (
-    pathlib_Path(__file__).resolve().parent.parent / "docs" / "catalogo_imputaciones.json"
+    pathlib_Path(__file__).resolve().parent.parent
+    / "docs"
+    / "catalogo_imputaciones.json"
 )
 
 
@@ -451,8 +492,9 @@ def prueba_r143_imputaciones(doc) -> list[str]:
 
     if not CATALOGO_IMPUTACIONES.exists():
         return []  # sin catalogo no se puede juzgar; no se inventa un veredicto
-    admitidas = set(
-        _json.loads(CATALOGO_IMPUTACIONES.read_text(encoding="utf-8"))["normas_admitidas"]
+    catalogo = _json.loads(CATALOGO_IMPUTACIONES.read_text(encoding="utf-8"))
+    admitidas = set(catalogo["normas_admitidas"]) | set(
+        catalogo.get("normas_en_consulta", [])
     )
 
     texto = re.sub(r"\s+", " ", " ".join(p.texto for p in doc))
@@ -467,23 +509,56 @@ def prueba_r143_imputaciones(doc) -> list[str]:
             continue
         vistas.add(clave)
         fallos.append(
-            "R-143: la combinacion de normas '%s' no existe en ninguna de las 630 "
-            "plantillas del corpus. Solo se imputa como imputan los modelos: o se "
-            "usa una combinacion admitida, o se eleva al instructor. Enunciado: '%s'"
+            "R-143: la combinacion de normas '%s' no esta en docs/tabla_tipificacion.json. "
+            "Solo se imputa por la tabla del instructor y en la forma de las plantillas; "
+            "si hace falta otra, se eleva al instructor. Enunciado: '%s'"
             % (clave, re.sub(r"\s+", " ", m.group(0))[:110])
         )
     return fallos
 
+
+def prueba_r143_consulta(doc) -> list[str]:
+    """Observaciones: normas en consulta (art. 49) y articulo 24 excepcional."""
+    import json as _json
+    import sys as _sys
+
+    _sys.path.insert(0, str(pathlib_Path(__file__).resolve().parent))
+    import catalogar_imputaciones as CI
+
+    if not CATALOGO_IMPUTACIONES.exists():
+        return []
+    consulta = set(
+        _json.loads(CATALOGO_IMPUTACIONES.read_text(encoding="utf-8")).get(
+            "normas_en_consulta", []
+        )
+    )
+    texto = re.sub(r"\s+", " ", " ".join(p.texto for p in doc))
+    obs = []
+    for m in CI.RE_IMPUTACION.finditer(texto):
+        clave = "|".join(CI.normas_de(m.group(1)))
+        if clave in consulta:
+            obs.append(
+                "R-143b: '%s' esta en consulta al instructor (clausulas abusivas, art. 49)"
+                % clave
+            )
+        if clave == "art.24":
+            obs.append(
+                "R-143b: articulo 24 solo procede si el reclamo se interpuso ante un proveedor NO regulado por el sistema financiero; si lo esta, numeral 88.1 del articulo 88"
+            )
+    return sorted(set(obs))
 
 
 # Invariantes de forma, MEDIDOS sobre 120 plantillas del corpus el 15/09/2026, no
 # copiados de la memoria documentada. Importa la diferencia: la memoria afirmaba un
 # margen derecho de 2,50 cm y el corpus mide 3,00 cm en 113 de 116 secciones. Donde
 # la memoria y el corpus discrepan, manda el corpus.
-FUENTE_CC1 = "Arial Narrow"          # 59 337 de 59 370 runs con fuente declarada
+FUENTE_CC1 = "Arial Narrow"  # 59 337 de 59 370 runs con fuente declarada
 FUENTES_TOLERADAS = {"Arial Narrow", "Segoe UI Symbol", None}
-ALINEACIONES = {"both", "center"}    # 10 412 justificados, 421 centrados, 0 a la izquierda
-INTERLINEADO = "240"                 # sencillo; 276 aparece en el 1 % y es desviacion
+ALINEACIONES = {
+    "both",
+    "center",
+}  # 10 412 justificados, 421 centrados, 0 a la izquierda
+INTERLINEADO = "240"  # sencillo; 276 aparece en el 1 % y es desviacion
 MARGENES = ("1701", "1701", "1417", "1417")  # izq, der, sup, inf = 3,0/3,0/2,5/2,5 cm
 
 
@@ -535,9 +610,7 @@ def prueba_r144_formato(z) -> list[str]:
         )
 
     for mar in raiz.iter(W + "pgMar"):
-        actual = tuple(
-            mar.get(W + k) for k in ("left", "right", "top", "bottom")
-        )
+        actual = tuple(mar.get(W + k) for k in ("left", "right", "top", "bottom"))
         if actual != MARGENES:
             fallos.append(
                 "R-144: margenes %s; el corpus usa %s (3,0/3,0/2,5/2,5 cm)"
@@ -546,7 +619,6 @@ def prueba_r144_formato(z) -> list[str]:
             break
 
     return fallos
-
 
 
 # Esqueleto resolutivo, MEDIDO sobre los 603 admisorios reales del corpus (de 630
@@ -616,19 +688,18 @@ def prueba_r146_esqueleto(doc) -> list[str]:
     return fallos
 
 
-
 # Lexico prohibido, por NIVELES y con la frecuencia medida sobre los 593
 # admisorios del corpus. La diferencia entre niveles importa: una prohibicion que
 # el propio corpus incumple en el 25 % de los casos no es una prohibicion, es una
 # preferencia mal enunciada.
-LEXICO_ABSOLUTO = {          # 0 apariciones en 593 admisorios
+LEXICO_ABSOLUTO = {  # 0 apariciones en 593 admisorios
     "tras": ("luego de", 0),
     "esposo": ("conyuge", 0),
     "esposa": ("conyuge", 0),
     "induccion a error": ("arts. 1.1.b y 2", 0),
     "004-2019-JUS": ("006-2026-JUS", 0),
 }
-LEXICO_CUASI_ABSOLUTO = {    # 1 aparicion (0,17 %): desviacion, no uso
+LEXICO_CUASI_ABSOLUTO = {  # 1 aparicion (0,17 %): desviacion, no uso
     "doctor": ("medico", 1),
     "occiso": ("el causante", 1),
     "finado": ("el causante", 1),
@@ -672,10 +743,16 @@ def prueba_r153_superindice_notas(doc, z) -> list[str]:
     fallos = []
     try:
         doc_xml = z.read("word/document.xml").decode("utf-8", "replace")
-        for m in re.finditer(r'<w:r\b[^>]*>(?:(?!</w:r>).)*?<w:footnoteReference\b[^>]*>(?:(?!</w:r>).)*?</w:r>', doc_xml, re.S):
+        for m in re.finditer(
+            r"<w:r\b[^>]*>(?:(?!</w:r>).)*?<w:footnoteReference\b[^>]*>(?:(?!</w:r>).)*?</w:r>",
+            doc_xml,
+            re.S,
+        ):
             run = m.group(0)
             if 'w:val="superscript"' not in run:
-                fallos.append("R-153: llamada de nota al pie sin superindice explicito en document.xml")
+                fallos.append(
+                    "R-153: llamada de nota al pie sin superindice explicito en document.xml"
+                )
                 break
     except Exception as exc:
         fallos.append("R-153: error leyendo document.xml: %s" % exc)
@@ -683,10 +760,16 @@ def prueba_r153_superindice_notas(doc, z) -> list[str]:
     if "word/footnotes.xml" in z.namelist():
         try:
             fn_xml = z.read("word/footnotes.xml").decode("utf-8", "replace")
-            for m in re.finditer(r'<w:r\b[^>]*>(?:(?!</w:r>).)*?<w:footnoteRef\b[^>]*>(?:(?!</w:r>).)*?</w:r>', fn_xml, re.S):
+            for m in re.finditer(
+                r"<w:r\b[^>]*>(?:(?!</w:r>).)*?<w:footnoteRef\b[^>]*>(?:(?!</w:r>).)*?</w:r>",
+                fn_xml,
+                re.S,
+            ):
                 run = m.group(0)
                 if 'w:val="superscript"' not in run:
-                    fallos.append("R-153: numero de nota al pie sin superindice explicito en footnotes.xml")
+                    fallos.append(
+                        "R-153: numero de nota al pie sin superindice explicito en footnotes.xml"
+                    )
                     break
         except Exception as exc:
             fallos.append("R-153: error leyendo footnotes.xml: %s" % exc)
@@ -705,7 +788,7 @@ def prueba_r154_cero_resaltados(z) -> list[str]:
         if nombre.startswith("word/") and nombre.endswith(".xml"):
             try:
                 xml = z.read(nombre).decode("utf-8", "replace")
-                cuantos = len(re.findall(r'<w:highlight\b', xml))
+                cuantos = len(re.findall(r"<w:highlight\b", xml))
                 if cuantos:
                     fallos.append(
                         "R-154: se encontraron %d etiqueta(s) <w:highlight> en %s (todo resaltado esta prohibido)"
@@ -716,89 +799,325 @@ def prueba_r154_cero_resaltados(z) -> list[str]:
     return fallos
 
 
+def contar_denunciados(doc) -> int:
+    """Numero de denunciados = alias entre parentesis del bloque DENUNCIADO(S)."""
+    textos = [p.texto.strip() for p in doc[:25]]
+    i = next((k for k, t in enumerate(textos) if re.match(r"DENUNCIAD", t, re.I)), None)
+    if i is None:
+        return 0
+    j = next(
+        (k for k in range(i + 1, len(textos)) if re.match(r"MATERIA", textos[k], re.I)),
+        i + 1,
+    )
+    bloque = re.sub(r"(?i)^DENUNCIAD[OA]S?\s*(\(S\))?\s*:?", "", "\n".join(textos[i:j]))
+    return len(re.findall(r"\([^)]*\)", bloque))
+
+
 def prueba_r155_formula_traslado(doc) -> list[str]:
-    """R-155: Mandato obligatorio de formula literal de traslado de resolucion y descargos.
+    """R-155 (21/09/2026), corregida segun la ley el 23/09/2026 (D1, P1).
 
-    Deroga de manera formal e irrevocable las formulas historicas A y B.
-    Exige la formula canonica R-155 con apercibimiento de rebeldia y presuncion de veracidad
-    segun el articulo 223 del TUO de la LPAG (Ley 27444).
+    Formula literal: "... articulo 26 de la Ley sobre Facultades, Normas y
+    Organizacion del Indecopi, aprobada por Decreto Legislativo 807,
+    presente[n] sus descargos ... declarara en rebeldia al denunciado que no lo
+    hubiera presentado / a los denunciados que no lo hubieran presentado ...
+    articulo 223 del Texto Unico Ordenado de la Ley 27444 ... aceptadas o
+    merituadas como ciertas." Singular o plural segun el numero REAL de
+    denunciados del encabezado, nunca segun la carpeta.
     """
-    p_traslado = None
-    for p in doc:
-        if "correr traslado" in p.texto.lower():
-            p_traslado = p
-            break
-
+    p_traslado = next((p for p in doc if "correr traslado" in p.texto.lower()), None)
     if p_traslado is None:
         return ["R-155: no se hallo el articulo resolutivo de correr traslado"]
-
-    texto = p_traslado.texto
+    t = re.sub(r"\s+", " ", p_traslado.texto)
     fallos = []
-
-    # 1. Deteccion de formulas derogadas
-    if re.search(r"contados?\s+desde\s+(?:la\s+notificaci[oó]n|el\s+d[íi]a\s+siguiente)", texto, re.IGNORECASE):
-        if not re.search(r"contado\s+a\s+partir\s+del\s+d[íi]a\s+siguiente\s+de\s+la\s+notificaci[oó]n", texto, re.IGNORECASE):
-            fallos.append("R-155: contiene formula derogada de computo de plazo ('contados desde la notificacion')")
-
-    if re.search(r"\bart[íi]culo\s+233\b|numeral\s+233\.1", texto, re.IGNORECASE):
-        fallos.append("R-155: contiene formula derogada con cita al articulo 233 / numeral 233.1")
-
-    # 2. Requisitos estrictos de la formula R-155
-    if not re.search(r"correr\s+traslado\s+de\s+(?:la\s+presente\s+resoluci[oó]n|la\s+denuncia\s+interpuesta.*?)\s+a\s+", texto, re.IGNORECASE):
-        fallos.append("R-155: debe iniciar con 'correr traslado de la presente resolucion a [DENUNCIADO]' o 'correr traslado de la denuncia interpuesta... a [DENUNCIADO]'")
-
-    if not re.search(
-        r"art[íi]culo\s+26[°º]?\s+de\s+la\s+Ley\s+sobre\s+Facultades,\s+Normas\s+y\s+Organizaci[oó]n\s+del\s+Indecopi,\s+aprobado\s+por\s+Decreto\s+Legislativo\s+N[°º]?\s*807",
-        texto,
-        re.IGNORECASE,
-    ):
-        fallos.append("R-155: falta citar articulo 26 de la Ley sobre Facultades... aprobado por Decreto Legislativo N 807")
-
-    if not re.search(
-        r"presente[n]?\s+sus\s+descargos\s+sobre\s+la\s+imputaci[oó]n\s+de\s+cargos\s+realizada\s+en\s+un\s+plazo\s+no\s+mayor\s+a\s+cinco\s+\(5\)\s+d[íi]as\s+h[áa]biles\s+contado\s+a\s+partir\s+del\s+d[íi]a\s+siguiente\s+de\s+la\s+notificaci[oó]n\s+de\s+la\s+presente\s+resoluci[oó]n",
-        texto,
-        re.IGNORECASE,
+    if re.search(
+        r"8079|meritadas|aprobado por Decreto Legislativo|N[°º]\s*(807|27444)|\b(26|223)\s*[°º]",
+        t,
     ):
         fallos.append(
-            "R-155: falta redaccion exacta de descargos: 'presente [o presenten] sus descargos sobre la imputacion de cargos realizada en un plazo no mayor a cinco (5) dias habiles contado a partir del dia siguiente de la notificacion de la presente resolucion'"
+            "R-155: errata derogada (8079, 'meritadas', 'aprobado', 'N°' o volada); la ley dice 'aprobada por Decreto Legislativo 807' y 'merituadas'"
         )
-
-    if not re.search(
-        r"el\s+Secretario\s+T[ée]cnico\s+declarar[áa]\s+en\s+rebeld[íi]a\s+a\s+los\s+denunciados\s+que\s+no\s+lo\s+hubieran\s+presentado",
-        texto,
-        re.IGNORECASE,
+    if re.search(
+        r"contados?\s+desde\s+la\s+notificaci[oó]n|\bart[íi]culo\s+233\b|numeral\s+233\.1",
+        t,
+        re.I,
     ):
-        fallos.append("R-155: falta apercibimiento textual: 'el Secretario Tecnico declarara en rebeldia a los denunciados que no lo hubieran presentado'")
-
-    if not re.search(
-        r"art[íi]culo\s+223[°º]?\s+del\s+Texto\s+[UÚ]nico\s+Ordenado\s+de\s+la\s+Ley\s+N[°º]?\s*27444,\s+Ley\s+del\s+Procedimiento\s+Administrativo\s+General,\s+las\s+alegaciones\s+y\s+los\s+hechos\s+relevantes\s+de\s+la\s+reclamaci[oó]n,\s+salvo\s+que\s+hayan\s+sido\s+espec[íi]ficamente\s+negadas\s+en\s+la\s+contestaci[oó]n,\s+se\s+tendr[áa]n\s+por\s+aceptadas\s+o\s+meritadas\s+como\s+ciertas",
-        texto,
-        re.IGNORECASE,
-    ):
-        fallos.append("R-155: falta cita y presuncion legal del articulo 223 del TUO de la Ley N 27444")
-
+        fallos.append(
+            "R-155: contiene una formula derogada (A: 'contados desde la notificacion'; B: articulo 233)"
+        )
+    exigidos = [
+        (
+            r"correr traslado de la presente resoluci[oó]n a .+? para que, de conformidad con lo dispuesto por el art[íi]culo 26 de la Ley sobre Facultades, Normas y Organizaci[oó]n del Indecopi, aprobada por Decreto Legislativo 807\b,",
+            "inicio literal: '... articulo 26 ..., aprobada por Decreto Legislativo 807,'",
+        ),
+        (
+            r"sus descargos sobre la imputaci[oó]n de cargos realizada en un plazo no mayor a cinco \(5\) d[íi]as h[áa]biles contado a partir del d[íi]a siguiente de la notificaci[oó]n de la presente resoluci[oó]n, vencido el cual, el Secretario T[ée]cnico declarar[áa] en rebeld[íi]a",
+            "plazo y apercibimiento literales",
+        ),
+        (
+            r"art[íi]culo 223 del Texto [UÚ]nico Ordenado de la Ley 27444, Ley del Procedimiento Administrativo General, las alegaciones y los hechos relevantes de la reclamaci[oó]n, salvo que hayan sido espec[íi]ficamente negadas en la contestaci[oó]n, se tendr[áa]n por aceptadas o merituadas como ciertas\.",
+            "presuncion literal del articulo 223 ('merituadas')",
+        ),
+    ]
+    for patron, que in exigidos:
+        if not re.search(patron, t):
+            fallos.append("R-155: falta " + que)
+    n = contar_denunciados(doc)
+    plural = (
+        "presenten sus descargos" in t
+        and "a los denunciados que no lo hubieran presentado" in t
+    )
+    singular = (
+        "presente sus descargos" in t
+        and "al denunciado que no lo hubiera presentado" in t
+    )
+    if n == 1 and not singular:
+        fallos.append(
+            "R-155: hay 1 denunciado; exige 'presente sus descargos' y 'al denunciado que no lo hubiera presentado'"
+        )
+    if n > 1 and not plural:
+        fallos.append(
+            "R-155: hay %d denunciados; exige 'presenten sus descargos' y 'a los denunciados que no lo hubieran presentado'"
+            % n
+        )
     return fallos
 
 
+RE_N_NORMA = re.compile(
+    r"\b(?:Ley|Decreto\s+(?:Supremo|Legislativo|de\s+Urgencia)|Directiva|Resoluci[oó]n|art[íi]culos?|numeral|inciso|literal)\s+(?:N[°º]|Nº|N\.º|Nro\.?|N\.|N)\s*\d"
+    r"|\b(?:art[íi]culos?|numeral)\s+\d+(?:\.\d+)*\s*[°º]",
+    re.I,
+)
+
+
+def prueba_r156_numero_de_norma(doc) -> list[str]:
+    """R-156 (mandato del instructor, 23/09/2026): nunca 'N°', 'N', '°', 'Nro.'
+    ni similares ante una norma o articulo: 'Ley 29571', 'articulo 26',
+    'numeral 1.1 del articulo 51'."""
+    fallos = []
+    for p in doc:
+        for m in RE_N_NORMA.finditer(p.texto):
+            fallos.append("R-156: numero de norma con 'N°'/volada: '%s'" % m.group(0))
+    return fallos[:5]
+
+
+def tramo_hechos(doc):
+    textos = [p.texto.strip() for p in doc]
+    try:
+        a = next(k for k, t in enumerate(textos) if re.fullmatch(r"HECHOS\s*", t))
+        b = next(
+            k
+            for k, t in enumerate(textos)
+            if k > a and re.match(r"DE LA ADMISI|ADMISI", t)
+        )
+    except StopIteration:
+        return []
+    return doc[a + 1 : b]
+
+
+def prueba_r157_denunciante_en_hechos(doc) -> list[str]:
+    """R-157 (mandato del instructor, 23/09/2026): nunca 'denunciante' en la
+    narracion de los hechos; se usa la tratativa del encabezado ('el senor X',
+    'la senora X', 'la Sucesion...')."""
+    fallos = []
+    for p in tramo_hechos(doc):
+        m = re.search(r".{0,40}\bdenunciantes?\b.{0,30}", p.texto)
+        if m:
+            fallos.append("R-157: 'denunciante' en HECHOS: '...%s...'" % m.group(0))
+    return fallos
+
+
+RE_POLIZA_ENMASCARADA = re.compile(
+    r"P[óo]liza[^.;]{0,25}?\b\w*\d\w*[\*xX]{2,}\w*", re.I
+)
+RE_CUENTA_ABIERTA = re.compile(
+    r"(?:Tarjeta|Cr[ée]dito|Cuenta|Pr[ée]stamo)(?:(?!P[óo]liza)[^.;]){0,30}?(?<![\d*xX])(\d[\d\s-]{11,}\d)(?![\d*xX])",
+    re.I,
+)
+
+
+def prueba_r158_enmascarado(doc) -> list[str]:
+    """R-158 (D6, 23/09/2026): la poliza nunca se enmascara; tarjeta, credito,
+    cuenta y prestamo llevan enmascarados SOLO los digitos del medio."""
+    fallos = []
+    for p in doc:
+        for m in RE_POLIZA_ENMASCARADA.finditer(p.texto):
+            fallos.append(
+                "R-158: poliza enmascarada (la poliza va completa): '%s'" % m.group(0)
+            )
+        for m in RE_CUENTA_ABIERTA.finditer(p.texto):
+            fallos.append(
+                "R-158: numero de tarjeta/credito/cuenta sin enmascarar el tramo medio: '%s'"
+                % m.group(0)
+            )
+    return fallos[:5]
+
+
+RE_NOTA_TRASLADO = re.compile(
+    r"^Denuncia remitida a (?:esta Comisi[oó]n|la Comisi[oó]n de Protecci[oó]n al Consumidor 1) mediante "
+    r"(?:MEMORANDUM|MEMOR[AÁ]NDUM|Memor[aá]ndum|DOCUMENTO DE TRASLADO|Documento de [Tt]raslado) \S+ "
+    r"de fecha \d{1,2} de [a-z]+ del? \d{4}, (?:recibida|recepcionada) el \d{1,2} de [a-z]+ del? \d{4}\.$"
+)
+
+
+def prueba_r159_nota_traslado(z) -> list[str]:
+    """R-159 (D3, 23/09/2026): si la denuncia llego derivada de otro organo, la
+    primera nota al pie consigna el documento, su fecha de emision y la fecha de
+    recepcion en CC1, en la forma literal del corpus (234 plantillas):
+    'Denuncia remitida a esta Comision mediante MEMORANDUM|Documento de Traslado
+    <numero> de fecha <fecha>, recibida el <fecha>.'"""
+    try:
+        x = z.read("word/footnotes.xml").decode("utf-8", "replace")
+    except KeyError:
+        return []
+    notas = [
+        re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", n)).strip().lstrip("․ ").strip()
+        for i, n in re.findall(
+            r'<w:footnote [^>]*w:id="(\d+)"[^>]*>(.*?)</w:footnote>', x, re.S
+        )
+        if int(i) > 0
+    ]
+    if not notas or not re.match(r"Denuncia remitida", notas[0], re.I):
+        return []
+    if not RE_NOTA_TRASLADO.match(notas[0]):
+        return ["R-159: nota al pie 1 fuera de la forma literal: '%s'" % notas[0][:160]]
+    return []
+
+
+def prueba_r160_fecha_remesa(doc) -> list[str]:
+    """R-160 (D2, 23/09/2026): la fecha de emision es la de config/remesa.json."""
+    import json as _json
+
+    cfg = pathlib_Path(__file__).resolve().parent.parent / "config" / "remesa.json"
+    try:
+        fecha = (
+            _json.loads(cfg.read_text(encoding="utf-8"))
+            .get("fecha_emision", "")
+            .strip()
+        )
+    except Exception:
+        return []
+    if not fecha:
+        return []
+    linea = next(
+        (p.texto.strip() for p in doc[:20] if p.texto.strip().startswith("Lima,")), ""
+    )
+    if linea != "Lima, " + fecha:
+        return [
+            "R-160: la fecha de emision debe ser 'Lima, %s' (config/remesa.json); el documento dice '%s'"
+            % (fecha, linea)
+        ]
+    return []
+
+
 PRUEBAS = [
-    ("R-97  isomorfismo considerativa/resolutiva", lambda d, s, z: prueba_r97_isomorfismo(d), "falsador"),
-    ("R-103 firma segun proveedor denunciado", lambda d, s, z: prueba_r103_firma(d), "falsador"),
-    ("R-104 negritas de ordinales y encabezado", lambda d, s, z: prueba_r104_negritas(d), "falsador"),
-    ("R-105 parrafos numerados vacios", lambda d, s, z: prueba_r105_vacios(d), "falsador"),
-    ("R-106 anclas de nota al pie", lambda d, s, z: prueba_r106_notas(d, z), "falsador"),
-    ("R-107 membrete y pie institucional", lambda d, s, z: prueba_r107_membrete(z), "falsador"),
+    (
+        "R-97  isomorfismo considerativa/resolutiva",
+        lambda d, s, z: prueba_r97_isomorfismo(d),
+        "falsador",
+    ),
+    (
+        "R-103 firma segun proveedor denunciado",
+        lambda d, s, z: prueba_r103_firma(d),
+        "falsador",
+    ),
+    (
+        "R-104 negritas de ordinales y encabezado",
+        lambda d, s, z: prueba_r104_negritas(d),
+        "falsador",
+    ),
+    (
+        "R-105 parrafos numerados vacios",
+        lambda d, s, z: prueba_r105_vacios(d),
+        "falsador",
+    ),
+    (
+        "R-106 anclas de nota al pie",
+        lambda d, s, z: prueba_r106_notas(d, z),
+        "falsador",
+    ),
+    (
+        "R-107 membrete y pie institucional",
+        lambda d, s, z: prueba_r107_membrete(z),
+        "falsador",
+    ),
     # R-108 es observacion, no falsador: el control ADM 2723-2026 R2 diverge en una
     # clausula entre considerativa y resolutiva y sigue siendo un documento valido.
-    ("R-108 espejo del requerimiento de informacion", lambda d, s, z: prueba_r108_requerimiento(d), "observacion"),
-    ("R-110 modo verbal en hechos", lambda d, s, z: prueba_r110_modo_verbal(d), "falsador"),
-    ("R-143 imputaciones del catalogo", lambda d, s, z: prueba_r143_imputaciones(d), "falsador"),
-    ("R-151 casilla electronica habilitada", lambda d, s, z: prueba_r151_casilla_habilitada(d), "falsador"),
-    ("R-144 fuente, alineacion, interlineado y encuadre", lambda d, s, z: prueba_r144_formato(z), "falsador"),
-    ("R-146 esqueleto y ortografia de ordinales", lambda d, s, z: prueba_r146_esqueleto(d), "falsador"),
+    (
+        "R-108 espejo del requerimiento de informacion",
+        lambda d, s, z: prueba_r108_requerimiento(d),
+        "observacion",
+    ),
+    (
+        "R-110 modo verbal en hechos",
+        lambda d, s, z: prueba_r110_modo_verbal(d),
+        "falsador",
+    ),
+    (
+        "R-143 imputaciones del catalogo",
+        lambda d, s, z: prueba_r143_imputaciones(d),
+        "falsador",
+    ),
+    (
+        "R-151 casilla electronica habilitada",
+        lambda d, s, z: prueba_r151_casilla_habilitada(d),
+        "falsador",
+    ),
+    (
+        "R-144 fuente, alineacion, interlineado y encuadre",
+        lambda d, s, z: prueba_r144_formato(z),
+        "falsador",
+    ),
+    (
+        "R-146 esqueleto y ortografia de ordinales",
+        lambda d, s, z: prueba_r146_esqueleto(d),
+        "falsador",
+    ),
     ("R-148 lexico invariante", lambda d, s, z: prueba_r148_lexico(d), "falsador"),
-    ("R-153 superindice en llamadas y notas al pie", lambda d, s, z: prueba_r153_superindice_notas(d, z), "falsador"),
-    ("R-154 cero resaltados en el documento", lambda d, s, z: prueba_r154_cero_resaltados(z), "falsador"),
-    ("R-155 formula canonica de traslado y descargos", lambda d, s, z: prueba_r155_formula_traslado(d), "falsador"),
+    (
+        "R-153 superindice en llamadas y notas al pie",
+        lambda d, s, z: prueba_r153_superindice_notas(d, z),
+        "falsador",
+    ),
+    (
+        "R-154 cero resaltados en el documento",
+        lambda d, s, z: prueba_r154_cero_resaltados(z),
+        "falsador",
+    ),
+    (
+        "R-155 formula canonica de traslado y descargos",
+        lambda d, s, z: prueba_r155_formula_traslado(d),
+        "falsador",
+    ),
+    (
+        "R-156 numero de norma sin N ni volada",
+        lambda d, s, z: prueba_r156_numero_de_norma(d),
+        "falsador",
+    ),
+    (
+        "R-157 sin 'denunciante' en los hechos",
+        lambda d, s, z: prueba_r157_denunciante_en_hechos(d),
+        "falsador",
+    ),
+    (
+        "R-158 enmascarado de numeros",
+        lambda d, s, z: prueba_r158_enmascarado(d),
+        "falsador",
+    ),
+    (
+        "R-159 nota al pie del traslado a CC1",
+        lambda d, s, z: prueba_r159_nota_traslado(z),
+        "falsador",
+    ),
+    (
+        "R-160 fecha de emision de la remesa",
+        lambda d, s, z: prueba_r160_fecha_remesa(d),
+        "falsador",
+    ),
+    (
+        "R-143b normas en consulta y articulo 24",
+        lambda d, s, z: prueba_r143_consulta(d),
+        "observacion",
+    ),
 ]
 
 
@@ -823,7 +1142,9 @@ def verificar(ruta: str) -> bool:
         % ("APTO" if not falsadores else "NO APTO", len(falsadores), len(observaciones))
     )
     if observaciones:
-        print("      Las observaciones no bloquean la entrega: se elevan al instructor.")
+        print(
+            "      Las observaciones no bloquean la entrega: se elevan al instructor."
+        )
     print()
     return not falsadores
 

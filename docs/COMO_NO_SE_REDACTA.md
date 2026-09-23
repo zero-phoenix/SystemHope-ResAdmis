@@ -1,5 +1,8 @@
 # CÓMO **NO** SE REDACTA CADA APARTADO
 
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+
+
 > Derivado por ausencia: si 593 admisorios no lo hacen ni una vez, no se hace.
 > Medido el 15/09/2026 sobre el corpus depurado. Cada prohibición lleva la cifra
 > que la sostiene, y las que el corpus no sostiene **no son prohibiciones**.

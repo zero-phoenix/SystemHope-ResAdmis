@@ -33,7 +33,7 @@ jobs:
       - name: Instalar dependencias de compilacion
         run: |
           python -m pip install --upgrade pip
-          pip install pyinstaller python-docx pywin32
+          pip install pyinstaller -r requirements.txt
 
       - name: Compilar ejecutable standalone con PyInstaller
         run: |
@@ -79,45 +79,17 @@ jobs:
       - name: Publicar Release en GitHub con Binarios y Memoria
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v2.3.${{ github.run_number }}
-          name: "SystemHope ResAdmis v2.3.${{ github.run_number }} - Fórmula Canónica de Traslado y Descargos (R-155)"
+          tag_name: v3.0.${{ github.run_number }}
+          name: "SystemHope ResAdmis v3.0.${{ github.run_number }}"
           body: |
-            # SystemHope ResAdmis v2.3.${{ github.run_number }}
+            # SystemHope ResAdmis v3.0.${{ github.run_number }}
 
-            Motor ejecutable, **593 plantillas Word anonimizadas y 3 modelos base**
-            completamente calibrados con la nueva fórmula obligatoria de traslado
-            y descargos (R-155), derogando de forma absoluta las fórmulas históricas previas.
+            Reglas vigentes: `AGENTS.md`. Cambios: `CHANGELOG.md`.
 
-            ## Fórmula Obligatoria de Traslado y Descargos (R-155)
-            
-            Se adoptó la fórmula canónica obligatoria para el traslado de resolución y descargos
-            en las 596 plantillas del repositorio (`plantillas_maestras/` y `automatizacion_antigravity/modelos/`),
-            erradicando cualquier rastro de las fórmulas históricas A y B:
-            - **Traslado de la resolución:** Notificación formal de la resolución admisoria a los denunciados.
-            - **Cita legal estricta:** Artículo 26° de la Ley sobre Facultades, Normas y Organización del Indecopi (D.L. 807).
-            - **Plazo uniforme y cómputo:** Cinco (5) días hábiles contado a partir del día siguiente de la notificación.
-            - **Apercibimiento formal de rebeldía:** Declaración de rebeldía por el Secretario Técnico.
-            - **Presunción de veracidad legal:** Aplicación del artículo 223° del TUO de la Ley N° 27444 (LPAG).
-            - **Distinción gramatical rigurosa:** Singular (`presente`) para 1 denunciado (120 plantillas) vs. Plural (`presenten`) para 2 o más denunciados (474 plantillas).
-
-            ## Falsador Computable R-155 en `verificar_admisorio.py`
-            - **R-155 (`prueba_r155_formula_traslado`):** Refuta cualquier admisorio que contenga
-              las fórmulas derogadas ("contados desde la notificación" o cita al artículo 233) o
-              que altere la redacción literal de los descargos y apercibimientos.
-
-            ## Calibración Visual Popperiana Previa (R-153 y R-154)
-            - **848 etiquetas `<w:highlight>` purgadas (R-154):** Cero resaltados en todo el corpus.
-            - **7 614 llamadas de notas elevadas a superíndice (document.xml) (R-153).**
-            - **7 584 números de nota al pie calibrados (footnotes.xml) (R-153).**
-            - **596 estilos `Refdenotaalpie` y `FootnoteReference` asegurados (styles.xml).**
-
-            ## Reglas invariantes del sistema
-            - **Cero OCR, Google Lens en todas las páginas** (R-137).
-            - **Las partes son exactamente las de la cédula** (R-138), y la
-              casilla exige además R-151.
-            - **Un ordinal por VÍA, no por parte** (R-147).
-            - **Ni Word ni scratch** (R-139). **Prohibido generar PDF.**
-            - **Nada que no conste en el expediente.**
+            - Formula de traslado R-155 corregida segun la ley (Decreto Legislativo 807, «merituadas»), singular o plural por el numero real de denunciados.
+            - Imputacion cerrada por la tabla de tipificacion del instructor; nunca art. 3.
+            - Fecha, firma y modelo en `config/`; plazo de 20 dias habiles en `scripts/plazos.py`.
+            - Lectura visual de cada pagina completa, cero OCR. Prohibido generar PDF.
 
           files: |
             dist/systemhope-engine.exe

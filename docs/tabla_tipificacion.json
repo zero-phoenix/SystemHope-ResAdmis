@@ -1,0 +1,310 @@
+{
+ "fuente": "normas/Tabla de Hechos Infractores y Tipificación.pdf (mandato del instructor, 23/09/2026)",
+ "regla": "Solo se imputa por los artículos de esta tabla, en la forma literal de las plantillas. Nunca artículo 3. Artículo 24 solo si el reclamo se interpuso ante un proveedor NO regulado por el sistema financiero; si está regulado, numeral 88.1 del artículo 88.",
+ "prohibidas": [
+  "art.3"
+ ],
+ "excepcionales": {
+  "art.24": "solo reclamo ante proveedor no regulado por el sistema financiero"
+ },
+ "hechos": [
+  {
+   "item": 1,
+   "hecho": "Atención de reclamos ante proveedor REGULADO por el sistema financiero (falta, demora, atención inadecuada o incompleta)",
+   "normas": [
+    "art.88|num.88.1"
+   ]
+  },
+  {
+   "item": 1,
+   "hecho": "Atención de reclamos ante proveedor NO regulado por el sistema financiero (excepcional)",
+   "normas": [
+    "art.24"
+   ]
+  },
+  {
+   "item": 2,
+   "hecho": "Atención de requerimientos de información",
+   "normas": [
+    "art.1|art.2|lit.b|num.1"
+   ]
+  },
+  {
+   "item": 3,
+   "hecho": "Incumplimiento de la obligación de informar en general",
+   "normas": [
+    "art.1|art.2|lit.b|num.1"
+   ]
+  },
+  {
+   "item": 5,
+   "hecho": "Información errónea al contratar en fondos colectivos",
+   "normas": [
+    "art.58|lit.b"
+   ]
+  },
+  {
+   "item": 6,
+   "hecho": "Falta de medidas de seguridad: operaciones no reconocidas, alertas, fraude, clonación",
+   "normas": [
+    "art.18|art.19"
+   ]
+  },
+  {
+   "item": 7,
+   "hecho": "Cálculo indebido de deuda, cobros indebidos, no autorizados o en exceso",
+   "normas": [
+    "art.18|art.19"
+   ]
+  },
+  {
+   "item": 8,
+   "hecho": "Imputación indebida de pagos",
+   "normas": [
+    "art.18|art.19"
+   ]
+  },
+  {
+   "item": 9,
+   "hecho": "Impedimento de pagos adelantados o anticipados",
+   "normas": [
+    "art.18|art.19"
+   ]
+  },
+  {
+   "item": 10,
+   "hecho": "Tasas de interés sin considerar límites del BCR",
+   "normas": [
+    "art.18|art.19"
+   ]
+  },
+  {
+   "item": 11,
+   "hecho": "Falta de envío de estados de cuenta",
+   "normas": [
+    "art.18|art.19"
+   ]
+  },
+  {
+   "item": 12,
+   "hecho": "Falta de entrega de documentación contractual (contrato, hoja resumen, póliza, condiciones)",
+   "normas": [
+    "art.47|lit.e",
+    "art.1|art.2|lit.b|num.1"
+   ]
+  },
+  {
+   "item": 13,
+   "hecho": "Cláusulas abusivas: ineficacia absoluta (50) / relativa (51)",
+   "normas": [
+    "art.50",
+    "art.51"
+   ]
+  },
+  {
+   "item": 14,
+   "hecho": "Bloqueo o cierre injustificado de cuenta o depósitos",
+   "normas": [
+    "art.18|art.19"
+   ]
+  },
+  {
+   "item": 15,
+   "hecho": "Emisión indebida de talonario de cheques",
+   "normas": [
+    "art.18|art.19"
+   ]
+  },
+  {
+   "item": 16,
+   "hecho": "Reporte indebido ante centrales de riesgo",
+   "normas": [
+    "art.18|art.19"
+   ]
+  },
+  {
+   "item": 17,
+   "hecho": "Reprogramación de deuda unilateral",
+   "normas": [
+    "art.56|lit.c"
+   ]
+  },
+  {
+   "item": 18,
+   "hecho": "Reprogramación de deuda pactada",
+   "normas": [
+    "art.18|art.19"
+   ]
+  },
+  {
+   "item": 19,
+   "hecho": "Métodos comerciales coercitivos: atribución indebida de productos o deuda, afiliación indebida de seguro",
+   "normas": [
+    "art.56|lit.b"
+   ]
+  },
+  {
+   "item": 20,
+   "hecho": "Métodos comerciales coercitivos: modificación unilateral del contrato",
+   "normas": [
+    "art.56|lit.c"
+   ]
+  },
+  {
+   "item": 21,
+   "hecho": "Métodos comerciales coercitivos: documentos completados de forma distinta a la acordada",
+   "normas": [
+    "art.56|lit.d"
+   ]
+  },
+  {
+   "item": 22,
+   "hecho": "Métodos comerciales coercitivos: limitaciones para poner fin al contrato o desvincularse",
+   "normas": [
+    "art.56|lit.e"
+   ]
+  },
+  {
+   "item": 23,
+   "hecho": "Métodos comerciales coercitivos: exigencia de documentación innecesaria",
+   "normas": [
+    "art.56|lit.g"
+   ]
+  },
+  {
+   "item": 24,
+   "hecho": "Métodos comerciales agresivos o engañosos (verificar el supuesto específico)",
+   "normas": [
+    "art.58",
+    "art.58|lit.b",
+    "art.58|lit.c",
+    "art.58|lit.e|num.58.1",
+    "art.58|lit.f",
+    "art.58|num.58.1",
+    "art.58|lit.b|num.58.1"
+   ]
+  },
+  {
+   "item": 25,
+   "hecho": "Cobranza: comunicaciones que aparentan escritos judiciales",
+   "normas": [
+    "art.61|art.62|lit.a"
+   ]
+  },
+  {
+   "item": 26,
+   "hecho": "Cobranza: llamadas y visitas fuera del horario legal",
+   "normas": [
+    "art.61|art.62|lit.b"
+   ]
+  },
+  {
+   "item": 27,
+   "hecho": "Cobranza: carteles o vestimenta inusual",
+   "normas": [
+    "art.61|art.62|lit.d"
+   ]
+  },
+  {
+   "item": 28,
+   "hecho": "Cobranza: apagado de motor",
+   "normas": [
+    "art.61|art.62|lit.h"
+   ]
+  },
+  {
+   "item": 29,
+   "hecho": "Libro de reclamaciones: falta de atención, sin aviso, sin libro, especificaciones, acceso",
+   "normas": [
+    "art.150"
+   ]
+  },
+  {
+   "item": 30,
+   "hecho": "Libro de reclamaciones: aviso no exhibido",
+   "normas": [
+    "art.151"
+   ]
+  },
+  {
+   "item": 31,
+   "hecho": "Libro de reclamaciones: negativa de entrega del libro",
+   "normas": [
+    "art.152"
+   ]
+  },
+  {
+   "item": 32,
+   "hecho": "Libro de reclamaciones: negativa de entregar constancia",
+   "normas": [
+    "art.152"
+   ]
+  },
+  {
+   "item": 33,
+   "hecho": "Libro de reclamaciones: modificación indebida de una hoja",
+   "normas": [
+    "art.18|art.19"
+   ]
+  },
+  {
+   "item": 34,
+   "hecho": "Discriminación / trato diferenciado",
+   "normas": [
+    "art.38"
+   ]
+  },
+  {
+   "item": 36,
+   "hecho": "Trato preferente",
+   "normas": [
+    "art.41"
+   ]
+  },
+  {
+   "item": 37,
+   "hecho": "Seguros: falta de otorgamiento, rechazo injustificado, cobertura parcial, liquidación inadecuada, falta de anulación, anulación indebida, renovación automática",
+   "normas": [
+    "art.18|art.19"
+   ]
+  },
+  {
+   "item": 44,
+   "hecho": "Falta de remisión del certificado o póliza pese a requerimiento posterior a la contratación",
+   "normas": [
+    "art.18|art.20"
+   ]
+  }
+ ],
+ "normas_admitidas": [
+  "art.150",
+  "art.151",
+  "art.152",
+  "art.18|art.19",
+  "art.18|art.20",
+  "art.1|art.2|lit.b|num.1",
+  "art.24",
+  "art.38",
+  "art.41",
+  "art.47|lit.e",
+  "art.50",
+  "art.51",
+  "art.56|lit.b",
+  "art.56|lit.c",
+  "art.56|lit.d",
+  "art.56|lit.e",
+  "art.56|lit.g",
+  "art.58",
+  "art.58|lit.b",
+  "art.58|lit.b|num.58.1",
+  "art.58|lit.c",
+  "art.58|lit.e|num.58.1",
+  "art.58|lit.f",
+  "art.58|num.58.1",
+  "art.61|art.62|lit.a",
+  "art.61|art.62|lit.b",
+  "art.61|art.62|lit.d",
+  "art.61|art.62|lit.h",
+  "art.88|num.88.1"
+ ]
+}

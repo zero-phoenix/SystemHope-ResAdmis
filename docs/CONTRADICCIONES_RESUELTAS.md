@@ -1,5 +1,8 @@
 # CONTRADICCIONES RESUELTAS
 
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+
+
 > Un repositorio que se contradice a sí mismo le da al agente **permiso escrito**
 > para incumplir sus reglas vigentes: siempre hay una frase que respalda lo que
 > hizo. Por eso se retiraron `.cursorrules`, `.windsurfrules` y `CLAUDE.md` en

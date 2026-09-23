@@ -1,7 +1,10 @@
 # DIRECTORIO DE PROVEEDORES, DOMICILIOS PROCESALES Y VÍAS DE NOTIFICACIÓN CC1
 
-> **Indecopi - Comisión de Protección al Consumidor N° 1 (CC1)**  
-> **Base Legal:** Texto Único Ordenado de la Ley N° 27444, Ley del Procedimiento Administrativo General, aprobado por **Decreto Supremo N° 006-2026-JUS** (Art. 20°) y Directiva del Sistema de Notificación Electrónica del Indecopi (SINE).
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+
+
+> **Indecopi - Comisión de Protección al Consumidor 1 (CC1)**  
+> **Base Legal:** Texto Único Ordenado de la Ley 27444, Ley del Procedimiento Administrativo General, aprobado por **Decreto Supremo 006-2026-JUS** (Art. 20) y Directiva del Sistema de Notificación Electrónica del Indecopi (SINE).
 
 ---
 
@@ -28,10 +31,10 @@ Conforme a la auditoría estricta de las 605 resoluciones modelo de la Comisión
 *Aplicable a: Denunciantes (consumidores) y proveedores que consignaron y autorizaron expresamente una dirección de correo electrónico en su escrito.*
 
 > **Fórmula literal (un administrado):**  
-> *"requerir al señor [NOMBRE COMPLETO] / a la señora [NOMBRE COMPLETO] / a [PROVEEDOR] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba la notificación en su bandeja de correo electrónico, efectúe la confirmación de recepción de la notificación remitida por este despacho a su correo electrónico, de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo N° 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
+> *"requerir al señor [NOMBRE COMPLETO] / a la señora [NOMBRE COMPLETO] / a [PROVEEDOR] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba la notificación en su bandeja de correo electrónico, efectúe la confirmación de recepción de la notificación remitida por este despacho a su correo electrónico, de conformidad con el segundo párrafo del numeral 4 del artículo 20 del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle conforme al numeral 1 del artículo 20 del citado cuerpo normativo."*
 
 > **Fórmula literal (ambas partes autorizan correo):**  
-> *"requerir al señor / a la señora [NOMBRE COMPLETO] y a [PROVEEDOR] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciban la notificación en sus bandejas de correo electrónico, efectúen la confirmación de recepción de la notificación remitida por este despacho a sus correos electrónicos, de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo N° 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarles conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
+> *"requerir al señor / a la señora [NOMBRE COMPLETO] y a [PROVEEDOR] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciban la notificación en sus bandejas de correo electrónico, efectúen la confirmación de recepción de la notificación remitida por este despacho a sus correos electrónicos, de conformidad con el segundo párrafo del numeral 4 del artículo 20 del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarles conforme al numeral 1 del artículo 20 del citado cuerpo normativo."*
 
 - **Plazo:** Dos (2) días hábiles siguientes a la recepción en bandeja.
 - **Vía:** Bandeja de correo electrónico.
@@ -44,10 +47,12 @@ Conforme a la auditoría estricta de las 605 resoluciones modelo de la Comisión
 *Aplicable a: Denunciantes sin correo electrónico autorizado, AFOCATs, fondos contra accidentes, comités de administración (CAFAE) o proveedores sin casilla ni autorización electrónica.*
 
 > **Fórmula literal (un sujeto):**  
-> *"requerir al señor [NOMBRE COMPLETO] / a la señora [NOMBRE COMPLETO] / a [ENTIDAD O PROVEEDOR] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba la notificación en su domicilio procesal, efectúe la confirmación de recepción de la notificación remitida por este despacho a su domicilio procesal, de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo N° 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarle conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
+> *"requerir al señor [NOMBRE COMPLETO] / a la señora [NOMBRE COMPLETO] / a [ENTIDAD O PROVEEDOR] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba la notificación en su domicilio procesal, señale un correo electrónico autorizando recibir las notificaciones correspondientes por dicho medio."*
 
 > **Fórmula literal (varios sujetos):**  
-> *"requerir a [SUJETO 1] y a [SUJETO 2] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciban la notificación en sus domicilios procesales, efectúen la confirmación de recepción de la notificación remitida por este despacho a sus domicilios procesales, de conformidad con el segundo párrafo del numeral 4 del artículo 20° del Texto Único Ordenado de la Ley del Procedimiento Administrativo General, aprobado mediante Decreto Supremo N° 006-2026-JUS, bajo apercibimiento de rehacer el acto de notificación y notificarles conforme al numeral 1 del artículo 20° del citado cuerpo normativo."*
+> *"requerir a [SUJETO 1] y a [SUJETO 2] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciban la notificación en su domicilio procesal, señalen un correo electrónico autorizando recibir las notificaciones correspondientes por dicho medio."*
+
+> **Corrección (18/09 y 23/09/2026):** la vía 3 **no pide acuse de recibo**: pide señalar un correo (37 de 43 párrafos del corpus).
 
 ---
 

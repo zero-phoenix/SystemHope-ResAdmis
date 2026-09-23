@@ -1,7 +1,10 @@
 # MATRIZ MAESTRA PHOENYX: ARQUITECTURA POPPERIANA DE RESOLUCIONES ADMISORIAS CC1
 
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+
+
 **Autoridad:** Secretaría Técnica de la Comisión de Protección al Consumidor 1 (CC1) - INDECOPI (Sede Central, Perú)  
-**Marco Temporal del Sistema:** 2026 (Referencia interna de trabajo: 13 de setiembre de 2026, no mencionada en documentos)  
+**Marco Temporal del Sistema:** la fecha de emisión es la de `config/remesa.json` (R-160).  
 **Corpus de Aprendizaje:** 605 modelos DOCX y 881 PDFs (`C:\\Users\\D\\Desktop\\000 PLAN PHOENYX`)  
 **Paradigma de Validación:** Asimetría Falsacionista Popperiana (Invariantes Estructurales vs. Prohibiciones Categóricas)
 
@@ -52,7 +55,7 @@ graph TD
 
 ## 2. La Tabla Maestra de 44 Hechos Infractores y Tipificación
 
-A partir del análisis forense de la tabla institucional oficial provista, se codifican las 44 tipificaciones del Código de Protección y Defensa del Consumidor (Ley N° 29571), con la regla estricta de **cero inducción al error**:
+A partir del análisis forense de la tabla institucional oficial provista, se codifican las 44 tipificaciones del Código de Protección y Defensa del Consumidor (Ley 29571), con la regla estricta de **cero inducción al error**:
 
 | N° | Hecho Infractor Denunciado | Tipificación Aplicable según el Código | Fórmula Resolutiva Obligatoria |
 | :---: | :--- | :--- | :--- |

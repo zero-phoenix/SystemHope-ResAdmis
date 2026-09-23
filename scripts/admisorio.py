@@ -117,6 +117,48 @@ def preparar(
     inventario, _dossier = extraer_expediente.triaje(carpeta)
     sin_texto = sum(len(i["sin_texto"]) for i in inventario)
 
+    _titulo("LECTURA VISUAL - CAPTURA COMPLETA DE CADA PAGINA (R-137)")
+    # Mandato del instructor (23/09/2026): cada pagina se mira ENTERA como imagen,
+    # tenga o no texto seleccionable. El texto embebido omite sellos, firmas,
+    # resaltados, tachados y todo lo que no esta en la capa de texto, y no dice
+    # nada de formato, estilo, alineacion ni encuadre. Cero OCR.
+    paginas = extraer_expediente.renderizar_paginas(carpeta)
+    if not paginas and any(carpeta.glob("*.pdf")):
+        print("  FALLA  no se pudieron renderizar las paginas (falta PyMuPDF).")
+        return 4
+    lectura = carpeta / "_LECTURA.md"
+    if not lectura.exists():
+        filas = "\n".join(
+            "| %s | %s | %d | | |" % (png.name, pdf, n) for pdf, n, png in paginas
+        )
+        lectura.write_text(
+            "# Lectura visual del expediente (R-137)\n\n"
+            "Una fila por pagina. Abre cada PNG de `_paginas/` y anota con TUS palabras\n"
+            "el tipo de documento y lo que VES: fechas, montos, numeros, sellos, firmas,\n"
+            "resaltados y todo lo que no este en la capa de texto. Copiar el texto\n"
+            "embebido no cuenta como lectura: `entregar` lo rechaza.\n\n"
+            "| Imagen | PDF | Pagina | Tipo de documento | Lo que vi |\n"
+            "|---|---|---|---|---|\n" + filas + "\n",
+            encoding="utf-8",
+        )
+    print(
+        "  %d paginas en _paginas/ y plantilla de constancia en %s."
+        % (len(paginas), lectura.name)
+    )
+
+    _titulo("FECHA DE LA REMESA (D2)")
+    import config_sistema
+
+    if config_sistema.fecha_emision():
+        print("  Lima, %s  (config/remesa.json)" % config_sistema.fecha_emision())
+    else:
+        print(
+            "  SIN FIJAR. Pregunta la fecha de emision al instructor ANTES de redactar"
+        )
+        print(
+            '  y fijala con: python scripts/config_sistema.py --fecha "D de mes de AAAA"'
+        )
+
     _titulo("PLANTILLA BASE - CANDIDATAS DEL INDICE (F4)")
     fichas = json.loads(INDICE.read_text(encoding="utf-8"))
     candidatas = fichas
@@ -147,19 +189,56 @@ def preparar(
     print("  1. Redactar con el constructor del caso sobre la plantilla elegida.")
     print("  2. Entregar:  python scripts/admisorio.py entregar <generado.docx>")
     print(
-        "  Google Lens OBLIGATORIO en las %d paginas del expediente (R-137), tengan"
+        "  Lectura visual OBLIGATORIA de las %d paginas (captura completa en _paginas/),"
         % sum(i["paginas"] for i in inventario)
     )
     print(
-        "  o no capa de texto. Cero OCR. De ellas, %d no tienen texto que" % sin_texto
+        "  tengan o no capa de texto. Cero OCR. %d no tienen texto que contrastar."
+        % sin_texto
     )
-    print("  contrastar: ahi Lens es la unica fuente.")
+    print("  Llena _LECTURA.md: una fila por pagina con lo que viste.")
     print("  Prohibido generar PDF (R-125). El entregable es el .docx.")
     print("  Preparacion completa en %.1f s y 1 llamada." % (time.time() - t0))
     return 0
 
 
-def entregar(docx: Path, caso: str | None) -> int:
+def _lecturas_copiadas(carpeta: Path, vistas: dict[str, str]) -> list[str]:
+    """PNG cuya fila de _LECTURA.md reproduce el texto embebido de su pagina.
+
+    Se compara lo anotado con la capa de texto normalizada: si 60 o mas
+    caracteres seguidos de la anotacion estan literalmente en la capa, la fila se
+    copio del volcado y no de la imagen.
+    """
+    try:
+        import fitz  # PyMuPDF
+    except ImportError:
+        return []
+
+    def norm(t: str) -> str:
+        return re.sub(r"\s+", " ", t).strip().lower()
+
+    copiadas = []
+    for pdf in sorted(carpeta.glob("*.pdf")):
+        try:
+            doc = fitz.open(str(pdf))
+        except Exception:
+            continue
+        with doc:
+            for pagina in doc:
+                png = "%s_p%02d.png" % (
+                    pdf.stem[:40].replace(" ", "_"),
+                    pagina.number + 1,
+                )
+                vista = norm(vistas.get(png, ""))
+                capa = norm(pagina.get_text())
+                if len(vista) >= 60 and any(
+                    vista[i : i + 60] in capa for i in range(0, len(vista) - 59, 20)
+                ):
+                    copiadas.append(png)
+    return copiadas
+
+
+def entregar(docx: Path, caso: str | None, recepcion: str | None = None) -> int:
     t0 = time.time()
     docx = docx.resolve()
     fallas: list[str] = []
@@ -176,7 +255,7 @@ def entregar(docx: Path, caso: str | None) -> int:
     else:
         print("  Sin fuga detectada.")
 
-    _titulo("LECTURA CON GOOGLE LENS (R-137)")
+    _titulo("LECTURA VISUAL DE CADA PAGINA (R-137)")
     # La pasada de vision no se puede comprobar mirando el .docx, y la traza del
     # agente no sirve con varios casos en paralelo: `conversacion_mas_reciente()`
     # devuelve la de otro expediente. Medido el 14/09/2026: los tres agentes de la
@@ -192,7 +271,27 @@ def entregar(docx: Path, caso: str | None) -> int:
         print("         Escribe una linea por pagina con lo que viste en ella.")
     else:
         texto_lectura = lectura.read_text(encoding="utf-8", errors="replace")
-        faltan = [p.name for p in paginas if p.name not in texto_lectura]
+        vistas = {}
+        for linea in texto_lectura.splitlines():
+            celdas = [c.strip() for c in linea.strip().strip("|").split("|")]
+            if len(celdas) >= 5 and celdas[0].endswith(".png"):
+                vistas[celdas[0]] = celdas[4]
+        faltan = [p.name for p in paginas if not vistas.get(p.name)]
+        copiadas = _lecturas_copiadas(docx.parent, vistas)
+        if copiadas:
+            fallas.append(
+                "_LECTURA.md copia el texto embebido en %d pagina(s): eso no es lectura visual (R-137)"
+                % len(copiadas)
+            )
+            print(
+                "  FALLA  lectura copiada del texto embebido: %s"
+                % ", ".join(copiadas[:6])
+            )
+        if not paginas and any(docx.parent.glob("*.pdf")):
+            fallas.append(
+                "no hay capturas en _paginas/: ejecuta primero 'admisorio.py preparar' (R-137)"
+            )
+            print("  FALLA  sin capturas de pagina.")
         if faltan:
             fallas.append(
                 "_LECTURA.md no cubre %d de %d paginas (R-137)"
@@ -244,6 +343,14 @@ def entregar(docx: Path, caso: str | None) -> int:
     if auditar_admisorio.auditar(docx.parent, False) != 0:
         fallas.append("hay datos del admisorio sin ancla en el expediente")
 
+    if recepcion:
+        _titulo("PLAZO DE 20 DIAS HABILES (D3) - SE INFORMA, NO VA EN LA RESOLUCION")
+        import plazos
+
+        informe = plazos.informe(plazos.leer_fecha(recepcion), plazos.date.today())
+        for linea in informe.splitlines():
+            print("  " + linea)
+
     if caso:
         _titulo("SCORECARD DE TRAYECTORIA (F13)")
         import auditar_trayectoria  # import diferido: solo si se pide
@@ -289,11 +396,15 @@ def main(argv: list[str]) -> int:
     )
     e.add_argument("docx")
     e.add_argument("--caso", help="Numero de expediente para el scorecard")
+    e.add_argument(
+        "--recepcion",
+        help="Fecha de recepcion en CC1 (DD/MM/AAAA) para informar el plazo de 20 dias habiles",
+    )
 
     args = ap.parse_args(argv[1:])
     if args.orden == "preparar":
         return preparar(Path(args.carpeta), args.contiene, args.rama, args.sujeto)
-    return entregar(Path(args.docx), args.caso)
+    return entregar(Path(args.docx), args.caso, args.recepcion)
 
 
 if __name__ == "__main__":

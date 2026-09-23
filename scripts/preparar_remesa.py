@@ -32,6 +32,7 @@ from pathlib import Path
 RAIZ = Path(__file__).resolve().parent.parent
 sys.path.insert(0, str(RAIZ / "scripts"))
 
+import config_sistema as CFG  # noqa: E402
 import extraer_expediente as EX  # noqa: E402
 
 INDICE = RAIZ / "docs" / "plantillas_maestras_index.json"
@@ -401,9 +402,9 @@ def escribir_orden(d: dict) -> None:
 
 ## 1. Lo que la cédula fija y no se discute (R-129)
 
-- **Resolución N° {d['resolucion'] or '(no declarado)'}** — el admisorio lleva ese ordinal.
-- **Fecha de emisión: 14 de setiembre de 2026** (R-128), sin importar otras fechas.
-- **Firma: LUISA ANALI SILVA MALPARTIDA, Secretaria Técnica (e)** (R-127).
+- **Resolución {d['resolucion'] or '(no declarado)'}** — el admisorio lleva ese número.
+- **Fecha de emisión: {CFG.fecha_emision() or '(sin fijar: preguntar al instructor)'}** (D2, config/remesa.json), sin importar otras fechas.
+- **Firma: {' / '.join(CFG.firma_para(' '.join(str(n) for (n, _v, _det), _c in d['partes'])))}** (R-103, config/firmas.json; nunca «(e)»).
 - **Partes y vía de notificación — una sola vía por parte:**
 
 | Parte | Rol | Vía de notificación | Canal literal |
