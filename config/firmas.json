@@ -1,7 +1,18 @@
 {
   "_nota": "Matriz de firma vigente (R-103, mandato del instructor 18/09/2026; ratificado 23/09/2026). Sin sufijo (e). R-127 (firma unica) esta DEROGADA.",
-  "titular": {"nombre": "EVELING ROA QUISPE", "cargo": "Secretaria Técnica"},
+  "titular": {
+    "nombre": "EVELING ROA QUISPE",
+    "cargo": "Secretaria Técnica"
+  },
   "excepciones": [
-    {"si_denunciado_contiene": ["RIMAC"], "nombre": "LUISA ANALÍ SILVA MALPARTIDA", "cargo": "Secretaria Técnica Ad Hoc"}
-  ]
+    {
+      "si_denunciado_contiene": [
+        "RIMAC"
+      ],
+      "nombre": "LUISA ANALÍ SILVA MALPARTIDA",
+      "cargo": "Secretaria Técnica Ad Hoc"
+    }
+  ],
+  "iniciales": "LSQ/DCQ",
+  "_nota_iniciales": "Iniciales de redaccion al pie de la firma (8 pt). Las pone construir_admisorio; entregar las comprueba (instructor, 23/09/2026)."
 }

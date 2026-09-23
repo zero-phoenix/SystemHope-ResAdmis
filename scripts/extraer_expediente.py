@@ -140,6 +140,38 @@ def renderizar_paginas(carpeta: Path, dpi: int = 170) -> list[tuple[str, int, Pa
     return salida
 
 
+MESES_ES = (
+    "enero", "febrero", "marzo", "abril", "mayo", "junio", "julio",
+    "agosto", "setiembre", "octubre", "noviembre", "diciembre",
+)
+
+
+def firmas_digitales(ruta: Path) -> list[tuple[str, str]]:
+    """Fecha de cada firma digital del PDF, como «12 de agosto de 2026», con su motivo.
+
+    La fecha de un escrito de parte es la de su firma digital (mesa de partes
+    virtual o presencial: «Fedatario - Copia fiel del original»). Sin esto, el
+    agente improvisaba `python -c` para leerla (Exp. 2898-2026, 23/09/2026).
+    """
+    try:
+        from pypdf import PdfReader
+
+        campos = PdfReader(str(ruta)).get_fields() or {}
+    except Exception:
+        return []
+    salida = []
+    for campo in campos.values():
+        if campo.get("/FT") != "/Sig" or not campo.get("/V"):
+            continue
+        v = campo["/V"].get_object()
+        m = re.match(r"D:(\d{4})(\d{2})(\d{2})", str(v.get("/M") or ""))
+        if not m:
+            continue
+        fecha = "%d de %s de %s" % (int(m.group(3)), MESES_ES[int(m.group(2)) - 1], m.group(1))
+        salida.append((fecha, re.sub(r"\s+", " ", str(v.get("/Reason") or ""))[:70]))
+    return salida
+
+
 def triaje(carpeta: Path):
     pdfs = sorted(carpeta.glob("*.pdf"))
     if not pdfs:

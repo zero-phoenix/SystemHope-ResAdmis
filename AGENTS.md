@@ -1,6 +1,6 @@
 # AGENTS.md — Admisorios CC1 Indecopi (seguros). Reglas vigentes v3
 
-Única fuente de reglas **vigentes**; el historial está en `CHANGELOG.md`.
+Única fuente de reglas **vigentes** (historial: `CHANGELOG.md`).
 Redactor: **Google Antigravity con el modelo de `config/modelo.json`** (Gemini 3.8 Flash High o superior).
 
 ## 0. Arranque
@@ -12,8 +12,8 @@ Redactor: **Google Antigravity con el modelo de `config/modelo.json`** (Gemini 3
 4. **Haz solo lo que se hace.** Únicos comandos: `comprobar_anclaje`, `config_sistema`, `admisorio.py preparar|entregar`, `similares`, `construir_admisorio`, `inspeccionar_docx`, `plazos`. Prohibido lo demás (`editar_cedulas`, `python -c`, scripts propios, Word, cédulas, borradores). En la carpeta del caso: originales, lo que generan esos comandos y un único `ADM <EXP> R<N>.docx`; `entregar` rechaza el resto.
 
 ## 1. Los pasos (≤ 12 llamadas en un expediente corto)
-1. `python scripts/admisorio.py preparar <carpeta>` — inventario, triaje, **captura completa de cada página** en `_paginas/` y `_LECTURA.md` preparado.
-2. **Lectura visual**: abre cada PNG de `_paginas/` y llena su fila de `_LECTURA.md` con lo que ves (documento, fechas, montos, números, sellos, firmas). Cero OCR. El texto embebido solo contrasta; si discrepa, manda la imagen.
+1. `python scripts/admisorio.py preparar <carpeta>` — capturas, `_LECTURA.md` y **`_FICHA.md`**: comandos exactos, firmas digitales, proveedores (casilla y vía) y tipificación. **Ritmo**: cada decisión cuesta ~50 s; no uses `-h`, no leas scripts ni JSON del repositorio, abre las `_hojas/` en una sola vuelta y usa `WaitMsBeforeAsync` 120000.
+2. **Lectura visual** de `_hojas/` (dos páginas por imagen): una fila por página en `_LECTURA.md`. Cero OCR; si el texto embebido discrepa, manda la imagen.
 2b. **OBLIGATORIO — las 10 plantillas más similares.** Escribe `_CASO.json` (`carpeta_origen`, `traslado`, escritos con su fecha, denunciados DEFINITIVOS, conductas y norma; formato en `scripts/similares.py -h`) y ejecuta `python scripts/similares.py <carpeta>`. Completa en `_SIMILARES.md` el «Por qué» de las 10: qué imputaciones (norma, sujeto, conducta), hechos y partes coinciden o difieren y qué tomarás de cada una. Solo plantillas que el script lista: citar una que no existe bloquea la entrega. La base se elige entre ellas.
 3. `python scripts/construir_admisorio.py --mapa <mapa.json>` sobre la plantilla elegida (sin Word, sin win32com, sin PDF).
 4. `python scripts/admisorio.py entregar "<carpeta>/ADM <EXP> R<N>.docx" --recepcion DD/MM/AAAA` — debe decir **ENTREGABLE** y el verificador **APTO**; copia el Word a `carpeta_origen`. Pega la salida literal.
@@ -51,7 +51,7 @@ Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de reso
 7. **Nunca «N°», «N», «Nº», «Nro.» ni «°» ante un número, en ningún contexto**: «Ley 29571», «artículo 26», «numeral 1.1 del artículo 51», «Expediente 1234-2026/CC1», «Póliza 2101-1031084», «Documento de Traslado 248-2026-PS2/INDECOPI».
    - Fechas: «de 2025», nunca «del 2025»; el mes, en minúscula.
 8. **TUO de la LPAG**: Decreto Supremo 006-2026-JUS. Nunca el 004-2019-JUS.
-9. **Enmascarado**: la **póliza nunca** lleva asteriscos. Tarjeta, crédito, cuenta y préstamo: se enmascaran **solo los dígitos del medio** («34\*\*\*83», «100xxxxxx434»).
+9. **Enmascarado**: la **póliza nunca** lleva asteriscos. Tarjeta, crédito, cuenta y préstamo: **solo los dígitos del medio** («34\*\*\*83», «Crédito vehicular 53\*85»; R-176).
 10. **Léxico**:
    - Obligatorio: cónyuge (no esposo/a); luego de (no tras); esta/este sin tilde; médico (no doctor/Dr.); «vehículo con Placa de Rodaje …» (no carro/auto).
    - Moneda: `S/ 1 234,56` y `US$ 1 234,56`.
@@ -80,11 +80,11 @@ Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de reso
 - **Fecha**: «Lima, [fecha de config/remesa.json]», igual para toda la remesa.
 
 ## 7. Forma (medida en el corpus)
-- Arial Narrow en todo el documento; 11 pt en el cuerpo y 8 pt en las notas.
+- Arial Narrow en todo: cuerpo 11 pt (iniciales «LSQ/DCQ», 8 pt); notas 8 pt, cada una seguida de una línea en blanco (R-174).
 - Interlineado sencillo, espaciado 0/0, justificado. Sangría izquierda de 1,0 cm y francesa de 1,0 cm (571 de 574 plantillas).
 - Márgenes A4: 2,5 cm arriba y abajo, 3,0 cm a izquierda y derecha.
 - Notas al pie con llamada en superíndice, estilo `Refdenotaalpie`. Pie `M-CPC-01/03`. Sin resaltados.
-- Negrita: PRIMERO entero; SEGUNDO a NOVENO solo el rótulo. Ordinales seguidos, sin saltos.
+- Negrita: PRIMERO entero; los demás ordinales, solo el rótulo. Ordinales seguidos, sin saltos.
 - Subrayado: solo el rótulo del requerimiento («A La Positiva:»), nunca el párrafo. Encabezado «ETIQUETA<tab>:<tab>VALOR».
 - El núcleo fáctico de cada imputación es idéntico en la considerativa y en el resolutivo, **en el mismo orden y con el mismo artículo**.
 
@@ -94,4 +94,3 @@ Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de reso
   - La base es una plantilla del índice, preferentemente **APTA**.
   - La carpeta física de una plantilla no indica cuántos denunciados tiene; el índice (`denunciados.n`) sí.
   - Subtipo **confidencialidad** (23 plantillas): skill `confidencialidad`.
-- Comparar: `inspeccionar_docx.py <generado> --diff <control>`. Consulta: `docs/ANATOMIA_DEL_ADMISORIO.md`, `docs/COMO_NO_SE_REDACTA.md`.

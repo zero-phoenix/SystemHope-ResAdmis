@@ -105,6 +105,30 @@ MUTACIONES = [
         r"<w:t>\1:</w:t><w:tab/><w:t></w:t>",
     ),
     (
+        "R-177",
+        "rotulo con guiones de markdown",
+        r"CUARTO:",
+        "__CUARTO__:",
+    ),
+    (
+        "R-176",
+        "credito sin enmascarar",
+        r"presentar una copia",
+        "presentar una copia del Crédito vehicular 53685 y",
+    ),
+    (
+        "R-164",
+        "DECIMO con el parrafo entero en negrita",
+        r"(?s)<w:p[ >](?:(?!</w:p>).)*?<w:t[^>]*>D\u00c9CIMO(?:(?!</w:p>).)*</w:p>",
+        lambda m: m.group(0).replace("<w:rPr>", "<w:rPr><w:b/>"),
+    ),
+    (
+        "R-174",
+        "un tramo del cuerpo a 10 pt",
+        r'(?s)<w:sz w:val="22"/><w:szCs w:val="22"/>((?:(?!</w:r>|<w:rPr>).)*?</w:rPr><w:t[^>]*>[^<\s])',
+        r'<w:sz w:val="20"/><w:szCs w:val="20"/>\1',
+    ),
+    (
         "R-173",
         "nota del articulo 26 borrada del traslado",
         r"(?s)(Decreto Legislativo 807</w:t></w:r>)<w:r\b(?:(?!</w:r>).)*?<w:footnoteReference[^>]*/></w:r>",

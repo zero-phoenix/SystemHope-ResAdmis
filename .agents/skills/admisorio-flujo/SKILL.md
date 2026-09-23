@@ -74,3 +74,10 @@ Secciones:
 - Nunca OCR, nunca PDF, nunca Word por COM.
 - Nunca copiar datos de la plantilla que no sean del caso (el constructor lo audita).
 - Nunca publicar ni commitear el expediente.
+
+## Ritmo (medido: cada decisión del modelo cuesta 45-70 s)
+- Todo lo necesario está en `_FICHA.md`: comandos exactos con rutas absolutas, fechas de firma digital, proveedores (casilla y vía) y tabla de tipificación. **No** uses `-h`, **no** abras scripts ni JSON del repositorio, **no** hagas grep sobre el repositorio.
+- Lectura visual con `_hojas/` (dos páginas por imagen): ábrelas todas en una sola vuelta y escribe `_LECTURA.md` una sola vez.
+- `run_command` con `WaitMsBeforeAsync` 120000: los scripts terminan en segundos; nada de consultar tareas en bucle.
+- Escribe `_CASO.json`, `_SIMILARES.md` y `mapa.json` completos de una vez; relee solo si un script lo pide.
+- Objetivo: ≤ 25 decisiones por expediente.

@@ -143,6 +143,15 @@ def preparar(
     inventario, _dossier = extraer_expediente.triaje(carpeta)
     sin_texto = sum(len(i["sin_texto"]) for i in inventario)
 
+    _titulo("FECHAS DE FIRMA DIGITAL (fecha de los escritos de parte)")
+    for pdf in sorted(carpeta.glob("*.pdf")):
+        firmas = extraer_expediente.firmas_digitales(pdf)
+        print("  %s" % pdf.name)
+        for fecha, motivo in firmas or [("sin firma digital", "")]:
+            print("      %-26s %s" % (fecha, motivo))
+    print("  Escrito de parte: su fecha es la de la firma de mesa de partes (Fedatario).")
+    print("  Documento de Indecopi: la fecha de emision escrita en su texto, no la de firma.")
+
     _titulo("LECTURA VISUAL - CAPTURA COMPLETA DE CADA PAGINA (R-137)")
     # Mandato del instructor (23/09/2026): cada pagina se mira ENTERA como imagen,
     # tenga o no texto seleccionable. El texto embebido omite sellos, firmas,
@@ -171,6 +180,13 @@ def preparar(
         "  %d paginas en _paginas/ y plantilla de constancia en %s."
         % (len(paginas), lectura.name)
     )
+
+    _titulo("FICHA DEL CASO (comandos exactos, firmas, proveedores, tipificacion)")
+    import ficha_caso
+
+    ficha = ficha_caso.escribir(carpeta)
+    print("  %s y %s/ (paginas de dos en dos)." % (ficha.name, "_hojas"))
+    print("  LEE SOLO _FICHA.md: no uses -h ni abras scripts o JSON del repositorio.")
 
     _titulo("FECHA DE LA REMESA (D2)")
     import config_sistema
@@ -299,6 +315,8 @@ PERMITIDOS_CASO = {
     "_CASO.json",
     "_SIMILARES.md",
     "mapa.json",
+    "_FICHA.md",
+    "_hojas",
 }
 
 
@@ -355,6 +373,36 @@ def _control_nota_denuncia(caso: dict, z) -> list[str]:
         return [
             "denuncia presentada en CC1 (traslado null): prohibida toda nota sobre su presentacion: «%s»"
             % malas[0][:120]
+        ]
+    return []
+
+
+def _control_iniciales(textos: list[str]) -> list[str]:
+    ini = json.loads((RAIZ / "config/firmas.json").read_text(encoding="utf-8")).get("iniciales")
+    if ini and ini not in [t.strip() for t in textos]:
+        return ["las iniciales de redaccion deben ser «%s» (config/firmas.json)" % ini]
+    return []
+
+
+def _control_reclamos(carpeta: Path, textos: list[str], caso: dict) -> list[str]:
+    """Si el expediente cita reclamos numerados y el admisorio no imputa ninguno
+    (88.1 o articulo 24), se detiene: en el Exp. 2898-2026 el agente paso de
+    agrupar tres reclamos en una imputacion a omitirlos todos. Una imputacion
+    por reclamo; si de verdad no corresponde, se declara en _CASO.json
+    («reclamos_no_imputados»: motivo)."""
+    txt = carpeta / "_texto_expediente.txt"
+    if not txt.exists() or caso.get("reclamos_no_imputados"):
+        return []
+    numeros = set(re.findall(r"[Rr]eclamo[s]?\s*(?:N\.?\s*[°º]?\s*)?(\d{4,})", txt.read_text(encoding="utf-8", errors="replace")))
+    imputa = any(
+        t.strip().startswith("Presunta infracci") and ("88.1" in t or "artículo 24" in t)
+        for t in textos
+    )
+    if numeros and not imputa:
+        return [
+            "el expediente cita reclamos (%s) y no hay imputacion por 88.1 ni articulo 24: "
+            "una imputacion por reclamo, o declara en _CASO.json «reclamos_no_imputados» con el motivo"
+            % ", ".join(sorted(numeros)[:4])
         ]
     return []
 
@@ -435,6 +483,8 @@ def _control_del_caso(docx: Path) -> list[str]:
                 % ", ".join(falsas[:4])
             )
     fallos += _control_nota_denuncia(caso, _z)
+    fallos += _control_iniciales(textos)
+    fallos += _control_reclamos(carpeta, textos, caso)
     if caso and not caso.get("carpeta_origen"):
         fallos.append(
             "_CASO.json sin 'carpeta_origen' (la carpeta donde el usuario tiene los documentos)"
