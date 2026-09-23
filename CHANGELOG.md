@@ -4,6 +4,19 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.0.0-parte2.5] - 2026-09-23 (CORREGIR UN WORD DADO SIN ROMPERLO)
+
+Correccion del Exp. 2835-2026 (Word del instructor, R4 inadmisibilidad sin efecto, firma Ad Hoc). Antigravity entrego tres versiones: 15:56 con `document.xml` reescrito por ElementTree (prefijos `ns0:`, `w14` sin declarar: Word no lo abre y el verificador moria con una traza); 15:59 APTA pero con «9.La Secretaria…» y «(v)en caso…» pegados; 16:15 reconstruida sobre una plantilla con la numeracion duplicada («1. 1. Mediante…», «3. II. DE LA INADMISIBILIDAD») y APTA.
+
+### Added
+- R-179: numeral escrito a mano seguido de tabulacion («9.La» -> falsador). 0 de 574 plantillas.
+- R-180: numeracion automatica (numPr) sin numeral escrito encima («1. 1.», «(i) (i)», «II. III.»). 0 de 574 plantillas.
+- AGENTS.md y skill `admisorio-flujo`: para corregir un Word dado, ese Word es la `plantilla` de `construir_admisorio` (`reemplazos` + `insertar_despues`); nunca ElementTree, python-docx ni `python -c`.
+
+### Fixed
+- `verificar_admisorio`: un `document.xml` ilegible da `NO APTO` (R-168) en vez de una traza; una prueba que no puede leer el documento cuenta como falla, no aborta la verificacion.
+- `prueba_verificador`: 24 mutaciones (R-179 y R-180 nuevas), todas rechazadas.
+
 ## [3.0.0-parte2.4] - 2026-09-23 (AÑADIR PARRAFOS: IMPUTACIONES DE MAS)
 
 Al corregir el Exp. 2898-2026 (dos imputaciones por 88.1 que la plantilla no traia) Antigravity se atasco ~330 pasos: `construir_admisorio` solo podia reemplazar texto, no añadir parrafos, y el agente improviso `python -c` sobre el XML y el verificador.

@@ -117,6 +117,18 @@ MUTACIONES = [
         "presentar una copia del Crédito vehicular 53685 y",
     ),
     (
+        "R-179",
+        "numeral escrito pegado al texto («9.La Secretaria…»)",
+        r"(?s)(<w:numPr>(?:(?!</w:p>).)*?<w:t(?:\s[^>]*)?>)",
+        r"\g<1>9.",
+    ),
+    (
+        "R-180",
+        "numeral escrito sobre la numeracion automatica («1. 1. …»)",
+        r"(?s)(<w:numPr>(?:(?!</w:p>).)*?<w:t(?:\s[^>]*)?>)",
+        r"\g<1>1. ",
+    ),
+    (
         "R-164",
         "DECIMO con el parrafo entero en negrita",
         r"(?s)<w:p[ >](?:(?!</w:p>).)*?<w:t[^>]*>D\u00c9CIMO(?:(?!</w:p>).)*</w:p>",

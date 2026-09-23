@@ -1212,6 +1212,35 @@ def prueba_r177_sin_marcas_markdown(doc) -> list[str]:
     return fallos[:3]
 
 
+def prueba_r179_numeracion_pegada(z) -> list[str]:
+    """R-179: un numeral escrito a mano («9.», «(v)») va seguido de tabulacion.
+    En el Exp. 2835-2026 salieron «9.La Secretaria…» y «(v)en caso…»: sin la
+    tabulacion el parrafo pierde la sangria francesa. El corpus numera con
+    numPr (0 de 574 pegados)."""
+    x = z.read("word/document.xml").decode("utf-8", "replace")
+    fallos = []
+    for p in re.findall(r"<w:p\b.*?</w:p>", x, re.S):
+        s = "".join(
+            "\t" if m.group(1) else m.group(2)
+            for m in re.finditer(r"(<w:tab\s*/>)|<w:t(?:\s[^>]*)?>([^<]*)</w:t>", p)
+        )
+        if re.match(r"\s*(?:\d{1,2}\.|\((?:[ivxl]+|[a-z])\))[A-Za-zÁÉÍÓÚÑáéíóúñ]", s):
+            fallos.append("R-179: numeral pegado al texto: '%s'" % s.strip()[:60])
+    return fallos[:5]
+
+
+def prueba_r180_numeracion_doble(doc) -> list[str]:
+    """R-180: un parrafo con numeracion automatica (numPr) no repite el numeral
+    escrito a mano. En el Exp. 2835-2026 salieron «1. 1. Mediante…», «(i) (i)
+    El 25…» y «3. II. DE LA INADMISIBILIDAD» (0 de 574 en el corpus)."""
+    return [
+        "R-180: numeral duplicado (automatico + escrito): '%s'" % p.texto[:60]
+        for p in doc
+        if p.numerado
+        and re.match(r"\s*(?:\d{1,2}\.|\((?:[ivxl]+|[a-z])\)|[IVX]{1,4}\.)\s", p.texto)
+    ][:5]
+
+
 def prueba_r176_credito_enmascarado(doc) -> list[str]:
     """R-176: numero de credito, tarjeta o cuenta con los digitos del medio
     enmascarados (en el corpus: «100xxxxxx434», «34****83»). La poliza nunca."""
@@ -1464,6 +1493,16 @@ PRUEBAS = [
         "falsador",
     ),
     (
+        "R-179 numeral seguido de tabulacion",
+        lambda d, s, z: prueba_r179_numeracion_pegada(z),
+        "falsador",
+    ),
+    (
+        "R-180 numeracion no duplicada",
+        lambda d, s, z: prueba_r180_numeracion_doble(d),
+        "falsador",
+    ),
+    (
         "R-176 credito enmascarado",
         lambda d, s, z: prueba_r176_credito_enmascarado(d),
         "falsador",
@@ -1520,13 +1559,31 @@ def prueba_r162_huella(z) -> list[str]:
 
 
 def verificar(ruta: str) -> bool:
-    doc, secciones, z = leer_documento(ruta)
     print("=" * 78)
     print(ruta)
     print("=" * 78)
+    try:
+        doc, secciones, z = leer_documento(ruta)
+    except ET.ParseError as exc:
+        # Exp. 2835-2026: document.xml reescrito con ElementTree (ns0:, w14 sin
+        # declarar). Se reporta como falsador, no como traza.
+        print("  [FALLA] R-168 Word abre el documento")
+        print(
+            "         - R-168: XML ilegible (%s). Reconstruye con construir_admisorio.py;"
+            % exc
+        )
+        print(
+            "           nunca escribas el .docx con ElementTree, python-docx ni scripts propios."
+        )
+        print("  --> NO APTO (1 falsadores, 0 observaciones)")
+        print()
+        return False
     falsadores, observaciones = [], []
     for etiqueta, prueba, severidad in PRUEBAS:
-        fallos = prueba(doc, secciones, z)
+        try:
+            fallos = prueba(doc, secciones, z)
+        except Exception as exc:  # documento ilegible: la prueba no corrobora
+            fallos = ["%s: no se pudo leer el documento: %s" % (etiqueta[:5], exc)]
         if not fallos:
             estado = "OK   "
         else:

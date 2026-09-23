@@ -84,3 +84,6 @@ Secciones:
 
 ## Añadir párrafos (imputaciones o hechos de más)
 `mapa.json` admite `"insertar_despues": {"fragmento del párrafo ancla": [{"texto": "...", "nota": "numeral 88.1 del artículo 88"}]}`. Clona el párrafo ancla (sangría, numeración y formato) y lo coloca detrás; `nota` añade la nota normativa del corpus (normas en `docs/notas_normas.json`: «artículos 18 y 19», «artículo 1, numeral 1, literal b) y al artículo 2», «literal e) del artículo 47», «numeral 88.1 del artículo 88», …). Úsalo en la considerativa y en PRIMERO. Nunca inspecciones el XML ni el código para esto.
+
+## Corregir un Word que entrega el instructor
+Ese Word es la `plantilla` del `mapa.json`: `reemplazos` para el texto e `insertar_despues` para párrafos nuevos. Se conservan su numeración y sus notas. Nunca lo reescribas con ElementTree, python-docx ni `python -c` (Exp. 2835-2026: Word corrupto y numeración duplicada). El verificador rechaza numerales pegados («9.La», R-179) o duplicados («1. 1.», R-180).
