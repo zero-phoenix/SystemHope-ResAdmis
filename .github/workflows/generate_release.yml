@@ -76,6 +76,14 @@ jobs:
             docs/PLAN_VELOCIDAD_SIN_COLGARSE.md `
             -DestinationPath dist/systemhope-engine-windows-x64.zip -Force
 
+      - name: Paquete portatil (Python 3.12 embebido + MinGit + repositorio)
+        # Para cualquier PC sin Python ni Git: lo instala arranque/instalar.ps1
+        # en %USERPROFILE%\SystemHope sin permisos de administrador. Sin OCR.
+        shell: pwsh
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: ./arranque/construir_portable.ps1 -Version "v3.0.${{ github.run_number }}"
+
       - name: Publicar Release en GitHub con Binarios y Memoria
         uses: softprops/action-gh-release@v2
         with:
@@ -88,9 +96,11 @@ jobs:
 
             - Formula de traslado R-155 corregida segun la ley (Decreto Legislativo 807, «merituadas»), singular o plural por el numero real de denunciados.
             - Imputacion cerrada por la tabla de tipificacion del instructor; nunca art. 3.
-            - Fecha, firma y modelo en `config/`; plazo de 20 dias habiles en `scripts/plazos.py`.
             - Lectura visual de cada pagina completa, cero OCR. Prohibido generar PDF.
 
           files: |
             dist/systemhope-engine.exe
             dist/systemhope-engine-windows-x64.zip
+            dist/SystemHope-Portable-win64.zip
+            dist/SHA256.txt
+            dist/VERSION.txt

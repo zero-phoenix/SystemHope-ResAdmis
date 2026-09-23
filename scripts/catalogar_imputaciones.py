@@ -169,6 +169,12 @@ def main(argv: list[str]) -> int:
         )
 
     if args.guardar:
+        # Desde el 23/09/2026 el catalogo NO se regenera desde el corpus en bruto
+        # (reintroduciria el art. 3 y el ruido de extraccion): lo escribe el
+        # analizador, filtrado por la tabla del instructor.
+        import analizar_imputaciones
+
+        return analizar_imputaciones.main()
         CATALOGO.parent.mkdir(exist_ok=True)
         CATALOGO.write_text(
             json.dumps(

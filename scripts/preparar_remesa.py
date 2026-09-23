@@ -242,13 +242,21 @@ def empresas_sin_cedula(texto: str, partes) -> list[str]:
 
 
 def candidatas(fichas, rama: str, prov: str, sujeto: str) -> list[dict]:
+    """Candidatas por CONTENIDO (indice v3): rama, numero real de denunciados,
+    tipo de denunciante; primero las aptas como base (0 falsadores)."""
     salida = [f for f in fichas if (not rama or f["rama"] == rama)]
     if prov:
-        con_prov = [f for f in salida if f["proveedor_tipo"] == prov]
-        salida = con_prov or salida
+        uno = prov.startswith("1_")
+        con_n = [f for f in salida if (f.get("denunciados", {}).get("n", 0) == 1) == uno]
+        salida = con_n or salida
+        tipo = prov.replace("1_ddo_", "").replace("_o_financiera", "") if uno else ""
+        if tipo:
+            con_tipo = [f for f in salida if any(d["tipo"] == tipo for d in f.get("denunciados", {}).get("detalle", []))]
+            salida = con_tipo or salida
     if sujeto:
         con_suj = [f for f in salida if f["sujeto_tipo"] == sujeto]
         salida = con_suj or salida
+    salida.sort(key=lambda f: (not f.get("apta_como_base", False), len(f.get("falsadores", []))))
     return salida[:5]
 
 

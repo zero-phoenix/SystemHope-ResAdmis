@@ -63,6 +63,14 @@ MUTACIONES = [
         r"(Póliza )(\d{3})(\d{3,})",
         r"\g<1>\g<2>****\g<3>",
     ),
+    ("R-156", "Nro. ante un numero", r"Ley 29571", "Ley Nro. 29571"),
+    ("R-161", "fecha con 'del'", r"(\d{1,2} de [a-z]+) de (20\d\d)", r"\1 del \2"),
+    (
+        "R-143",
+        "clausula abusiva sin el numeral 49.1",
+        r"Presunta infracción a los artículos 18 y 19",
+        "Presunta infracción al literal a) del artículo 50",
+    ),
     (
         "R-143",
         "imputacion por el articulo 3",
