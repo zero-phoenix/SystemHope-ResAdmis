@@ -30,6 +30,30 @@ try { $remota = Leer-Texto "$Release/VERSION.txt" } catch {
 $verLocal = Join-Path $Base 'VERSION.txt'
 $local = if (Test-Path $verLocal) { (Get-Content $verLocal -Raw).Trim() } else { $null }
 
+# --- Diagnostico previo (mandato del instructor, 23/09/2026) -----------------
+# Antes de hacer nada, el agente sabe si en ESTA computadora ya se elaboraron
+# admisorios, si el sistema esta instalado y si su version esta al dia frente a
+# la publicada en GitHub.
+$casos = @(Get-ChildItem (Join-Path $Base 'casos') -Directory -ErrorAction SilentlyContinue)
+$conAdm = @($casos | Where-Object { Get-ChildItem $_.FullName -Filter 'ADM *.docx' -ErrorAction SilentlyContinue })
+$ultimo = $conAdm | Sort-Object LastWriteTime -Descending | Select-Object -First 1
+$pyPrevio = Join-Path $Base 'python\python.exe'
+$integ = 'no aplica'
+if ($local -and (Test-Path $pyPrevio)) {
+    Push-Location (Join-Path $Base 'repo')
+    $salidaInteg = & $pyPrevio 'scripts\integridad.py' 2>&1 | Out-String
+    $integ = if ($LASTEXITCODE -eq 0) { 'OK' } else { 'MODIFICADO (se reinstala)' }
+    Pop-Location
+}
+Write-Host '=== DIAGNOSTICO PREVIO ==='
+Write-Host ("Instalacion previa en esta PC : {0}" -f $(if ($local) { "si ($Base)" } else { 'no (primera vez)' }))
+Write-Host ("Version local / GitHub        : {0} / {1}" -f $(if ($local) { $local } else { '-' }), $(if ($remota) { $remota } else { 'sin red' }))
+Write-Host ("Estado                        : {0}" -f $(if (-not $remota) { 'no se pudo comparar (sin red)' } elseif ($remota -eq $local) { 'AL DIA' } elseif ($local) { 'DESACTUALIZADA: se actualiza ahora' } else { 'se instala ahora' }))
+Write-Host ("Integridad del sistema local  : {0}" -f $integ)
+Write-Host ("Admisorios previos en la PC   : {0} caso(s){1}" -f $conAdm.Count, $(if ($ultimo) { " - ultimo: $($ultimo.Name) ($($ultimo.LastWriteTime.ToString('dd/MM/yyyy HH:mm')))" } else { '' }))
+Write-Host '=========================='
+if ($integ -like 'MODIFICADO*') { $local = 'modificado' }
+
 if ($remota -and $remota -ne $local) {
     Write-Host "Instalando SystemHope $remota (antes: $(if ($local) { $local } else { 'nada' }))..."
     $tmp = Join-Path $env:TEMP ("shp_" + [guid]::NewGuid().ToString('N'))

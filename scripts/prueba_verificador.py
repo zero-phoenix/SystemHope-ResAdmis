@@ -64,6 +64,7 @@ MUTACIONES = [
         r"\g<1>\g<2>****\g<3>",
     ),
     ("R-156", "Nro. ante un numero", r"Ley 29571", "Ley Nro. 29571"),
+    ("R-163", "ordinal saltado", r"CUARTO:", "QUINTO:"),
     ("R-161", "fecha con 'del'", r"(\d{1,2} de [a-z]+) de (20\d\d)", r"\1 del \2"),
     (
         "R-143",

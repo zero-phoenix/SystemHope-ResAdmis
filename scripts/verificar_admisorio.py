@@ -1022,6 +1022,121 @@ def prueba_r161_fechas(doc, z) -> list[str]:
     return fallos[:5]
 
 
+ORDEN_ORDINALES = [
+    "PRIMERO",
+    "SEGUNDO",
+    "TERCERO",
+    "CUARTO",
+    "QUINTO",
+    "SEXTO",
+    "SETIMO",
+    "OCTAVO",
+    "NOVENO",
+    "DECIMO",
+    "DECIMO PRIMERO",
+    "DECIMO SEGUNDO",
+    "DECIMO TERCERO",
+    "DECIMO CUARTO",
+    "DECIMO QUINTO",
+    "DECIMO SEXTO",
+    "DECIMO SETIMO",
+]
+RE_ORDINAL = re.compile(
+    r"^(D[EÉ]CIMO(?:\s+(?:PRIMERO|SEGUNDO|TERCERO|CUARTO|QUINTO|SEXTO|S[EÉ]P?TIMO))?|PRIMERO|SEGUNDO|TERCERO|CUARTO|QUINTO|SEXTO|S[EÉ]P?TIMO|OCTAVO|NOVENO)\s*:"
+)
+
+
+def _ordinales(doc):
+    salida = []
+    for p in doc:
+        m = RE_ORDINAL.match(p.texto.strip())
+        if m:
+            salida.append(
+                (sin_tildes(m.group(1)).upper().replace("SEPTIMO", "SETIMO"), p)
+            )
+    return salida
+
+
+def prueba_r163_ordinales_consecutivos(doc) -> list[str]:
+    """R-163 (supervision 2898-2026, 23/09/2026): los ordinales del resolutivo van
+    seguidos, sin saltos ni repeticiones (549 de 574 plantillas)."""
+    vistos = [o for o, _p in _ordinales(doc)]
+    esperado = ORDEN_ORDINALES[: len(vistos)]
+    if vistos != esperado:
+        for i, (a, b) in enumerate(zip(vistos, esperado)):
+            if a != b:
+                return [
+                    "R-163: tras %s viene %s; corresponde %s"
+                    % (vistos[i - 1] if i else "(inicio)", a, b)
+                ]
+    return []
+
+
+def prueba_r164_negrita_solo_rotulo(doc) -> list[str]:
+    """R-164: negrita de los ordinales segun la moda MEDIDA en 574 plantillas.
+
+    PRIMERO: el parrafo entero en negrita (541 de 574).
+    SEGUNDO a NOVENO: solo el rotulo (SEGUNDO 513, TERCERO 573, CUARTO 574,
+    QUINTO 561, SEXTO 555, SETIMO 566, OCTAVO 569, NOVENO 572 de 574).
+    DECIMO en adelante: el corpus esta dividido; no se juzga.
+    """
+    fallos = []
+    for ordinal, p in _ordinales(doc):
+        total = len(p.texto)
+        negrita = sum(len(t) for t, b in p.runs_bold if b)
+        rotulo = len(re.match(r"\s*[A-ZÉÍ ]+:\s*", p.texto).group(0))
+        if ordinal == "PRIMERO" and negrita < total - 3:
+            fallos.append("R-164: PRIMERO va entero en negrita (541 de 574 plantillas)")
+        elif ordinal in ORDEN_ORDINALES[1:9] and negrita > rotulo + 2:
+            fallos.append("R-164: en %s solo el rotulo va en negrita" % ordinal)
+    return fallos[:4]
+
+
+def prueba_r165_expectativas_solo_idoneidad(doc) -> list[str]:
+    """R-165: «involucraria una presunta afectacion a sus expectativas…» solo
+    califica IDONEIDAD (1 366 veces); en informacion, 88.1 u otras normas no se usa
+    (5 de 670, desviacion)."""
+    fallos = []
+    for p in doc:
+        t = p.texto
+        if (
+            "corresponde calificar" in t
+            and "expectativa" in t
+            and not re.search(r"deber de idoneidad|art[íi]culos 18 y 19", t)
+        ):
+            m = re.search(r"presunta infracci[oó]n (.{0,80})", t)
+            fallos.append(
+                "R-165: frase de expectativas (idoneidad) en una calificacion distinta: '%s'"
+                % (m.group(1) if m else t[:80])
+            )
+    return fallos
+
+
+def prueba_r167_nota_uno(z) -> list[str]:
+    """R-167: la nota 1 que habla de la denuncia solo tiene la forma del traslado
+    («Denuncia remitida a esta Comision mediante …, recibida el …»). Si la
+    denuncia se presento directamente en CC1, la primera nota es la de la
+    publicacion del Codigo (286 plantillas), no una nota inventada."""
+    try:
+        x = z.read("word/footnotes.xml").decode("utf-8", "replace")
+    except KeyError:
+        return []
+    notas = [
+        re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", n)).strip().lstrip("․ ").strip()
+        for i, n in re.findall(
+            r'<w:footnote [^>]*w:id="(\d+)"[^>]*>(.*?)</w:footnote>', x, re.S
+        )
+        if int(i) > 0
+    ]
+    if (
+        notas
+        and notas[0].startswith("Denuncia")
+        and not notas[0].startswith("Denuncia remitida")
+    ):
+        return ["R-167: nota al pie 1 no canonica: '%s'" % notas[0][:120]]
+    return []
+
+
 def prueba_r160_fecha_remesa(doc) -> list[str]:
     """R-160 (D2, 23/09/2026): la fecha de emision es la de config/remesa.json."""
     import json as _json
@@ -1158,6 +1273,26 @@ PRUEBAS = [
         "falsador",
     ),
     (
+        "R-163 ordinales consecutivos",
+        lambda d, s, z: prueba_r163_ordinales_consecutivos(d),
+        "falsador",
+    ),
+    (
+        "R-164 negrita solo en el rotulo del ordinal",
+        lambda d, s, z: prueba_r164_negrita_solo_rotulo(d),
+        "falsador",
+    ),
+    (
+        "R-165 expectativas solo en idoneidad",
+        lambda d, s, z: prueba_r165_expectativas_solo_idoneidad(d),
+        "falsador",
+    ),
+    (
+        "R-167 nota al pie 1 canonica",
+        lambda d, s, z: prueba_r167_nota_uno(z),
+        "falsador",
+    ),
+    (
         "R-143b normas en consulta y articulo 24",
         lambda d, s, z: prueba_r143_consulta(d),
         "observacion",
@@ -1171,7 +1306,7 @@ PRUEBAS = [
 
 
 def prueba_r162_huella(z) -> list[str]:
-    """R-162 (F6): contraste con docs/estilo_cc1.json (moda medida del corpus):
+    """R-162 (F6): contraste con docs/estilo_formato.json (moda medida del corpus):
     fuente, tamano, alineacion, interlineado, sangrias, margenes, resaltados."""
     import medir_formato
 

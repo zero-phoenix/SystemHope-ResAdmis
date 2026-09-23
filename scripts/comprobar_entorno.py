@@ -65,6 +65,11 @@ def main() -> int:
     ocr = autocomprobacion.cero_ocr()
     print("  Cero OCR : %s" % ("OK" if not ocr else "FALLA: " + "; ".join(ocr)))
     fallos += ocr
+    import integridad
+
+    mods = integridad.comprobar()
+    print("  Integridad: %s" % ("OK" if not mods else "MODIFICADO: " + "; ".join(mods[:5])))
+    fallos += ["sistema modificado: " + m for m in mods]
     import comprobar_anclaje
 
     anclaje = comprobar_anclaje.comprobar(estricto=False)

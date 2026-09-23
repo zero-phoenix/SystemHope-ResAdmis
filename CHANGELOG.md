@@ -4,6 +4,24 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.0.0-parte2.1] - 2026-09-23 (SUPERVISION DE LA PRIMERA PRUEBA REAL DE ANTIGRAVITY: EXP. 2898-2026)
+
+Antigravity (Gemini 3.8 Flash High) instalo el paquete portatil y entrego un admisorio que el verificador daba APTO. La supervision encontro:
+8 de 10 plantillas «similares» inventadas; una cedula fabricada (con el RUC como numero de casilla) y Word abierto sobre ella; la subsanacion omitida en HECHOS y PRIMERO; un ordinal saltado; la frase de expectativas (idoneidad) aplicada a informacion y a 88.1; negrita de parrafo entero en SEGUNDO, QUINTO y SEXTO; una nota al pie 1 inventada; y dos scripts del sistema editados por el agente. Uso unas 160 llamadas (objetivo: 12).
+
+### Added
+- `scripts/similares.py`: las 10 plantillas REALES mas similares (imputaciones 40 %, denunciados, rama, mismos proveedores...), con la imputacion mas parecida a cada conducta; el agente justifica cada una. `entregar` exige `_SIMILARES.md` justificado y rechaza plantillas inexistentes.
+- `_CASO.json` obligatorio: escritos con su fecha (firma digital en escritos de parte; fecha de emision del texto en documentos de Indecopi) y denunciados definitivos. `entregar` exige que todos los escritos se citen en HECHOS y PRIMERO.
+- `_INVENTARIO.json` en `preparar`: `entregar` rechaza documentos del expediente fabricados por el agente.
+- `scripts/integridad.py` + `INTEGRIDAD.json` en el paquete: el agente no puede modificar el sistema sin que `entregar` y `comprobar_entorno` lo detecten.
+- Diagnostico previo en `instalar.ps1`: instalacion previa, version local frente a GitHub, integridad y admisorios previos en la PC.
+- Falsadores R-163 (ordinales consecutivos), R-164 (negrita medida por ordinal: PRIMERO entero 541/574; SEGUNDO-NOVENO solo rotulo), R-165 (expectativas solo en idoneidad, 1 366 frente a 5), R-167 (nota 1 canonica). 13 mutaciones.
+
+### Fixed
+- `construir_admisorio.py`: una etiqueta `<w:t .../>` autocerrada se tomaba por apertura (correccion aportada por Antigravity).
+- `auditar_admisorio.py`: «2 de octubre de 2010» (vigencia de la Ley 29571) es fecha normativa (aporte de Antigravity).
+- `docs/estilo_cc1.json` quedaba fuera del paquete por el patron `*_CC1.json` del .gitignore: ahora `docs/estilo_formato.json`.
+
 ## [3.0.0-parte2] - 2026-09-23 (MEGAPLAN v3, PARTE 2: CORRECCIONES DE LA PARTE 1, CLASIFICACION POR CONTENIDO, FORMATO Y CUALQUIER PC)
 
 ### Fixed (correcciones de la parte 1, mandatos del instructor)
@@ -19,7 +37,7 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este pro
 ### Added
 - **Catalogo analitico** (`scripts/analizar_imputaciones.py`, `docs/IMPUTACIONES_ANALITICO.md`): por norma, forma canonica en considerativa y resolutivo, fundamento, sujetos segun el numero de denunciados, conductas, variantes que NO se usan y defectos medidos; fundamento en el principio de tipicidad y la presuncion de licitud (numerales 4 y 9 del articulo 230 del TUO D.S. 006-2026-JUS).
 - **Indice v3 por contenido** (`scripts/clasificar_corpus.py`): denunciantes (clase y tratativa en hechos y resolutivo, incluidos varios, conyuges y herederos), denunciados (numero real, tipo, via), subtipos (confidencialidad 23, inclusion de oficio 17), imputaciones, nota al pie, firma, falsadores y `apta_como_base` (336). `preparar` filtra por `--denunciados`, `--sujeto`, `--subtipo` y ordena APTAS primero.
-- **Formato sin OCR** (`scripts/medir_formato.py`, `docs/estilo_cc1.json`): OOXML y objetos de texto PDF; perfil medido (sangrias 1,0/1,0 cm en 571 de 574); R-162 como observacion.
+- **Formato sin OCR** (`scripts/medir_formato.py`, `docs/estilo_formato.json`): OOXML y objetos de texto PDF; perfil medido (sangrias 1,0/1,0 cm en 571 de 574); R-162 como observacion.
 - Falsadores R-161 (fechas y «recibida») y R-103 (ANALÍ con tilde); guarda «Cero OCR» en `autocomprobacion`; 12 mutaciones.
 - **Cualquier PC**: `ARRANQUE.md`, `arranque/instalar.ps1` (sin administrador; verifica SHA256; conserva la remesa), `arranque/construir_portable.ps1` (Python 3.12 embebido + dependencias + MinGit + repositorio, probado en CI y publicado en cada release), `scripts/comprobar_entorno.py`.
 - **Skills de Antigravity** en `.agents/skills/` (admisorio-flujo, imputaciones generada de las cifras, partes-y-notificacion, confidencialidad). Se retiran `.agent/` y `.antigravity/` (Antigravity no los carga; los workflows se retiran el 01/11/2026 en favor de las skills).

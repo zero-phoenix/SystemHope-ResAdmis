@@ -36,7 +36,7 @@ Utilidades:
 | `tabla_tipificacion.json` | Tabla de hechos infractores y tipificación del instructor: lista **cerrada** de artículos imputables. |
 | `catalogo_imputaciones.json` | Formas literales de imputación del corpus, depuradas contra la tabla. |
 | `plantillas_maestras_index.json` | Índice de las **574 plantillas** de `plantillas_maestras/`. |
-| `estilo_cc1.json` | Perfil de formato medido del corpus (`scripts/medir_formato.py`). |
+| `estilo_formato.json` | Perfil de formato medido del corpus (`scripts/medir_formato.py`). |
 | `IMPUTACIONES_ANALITICO.md` | Cómo se redacta cada imputación, por qué y qué no hacer (medido). |
 | `directorio_proveedores_domicilios.json` | Vía de notificación histórica de cada proveedor. |
 | `casillas_habilitadas.json` | Proveedores con casilla electrónica habilitada (R-151). |
