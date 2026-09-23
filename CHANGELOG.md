@@ -4,6 +4,14 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.0.0-parte2.4] - 2026-09-23 (AÑADIR PARRAFOS: IMPUTACIONES DE MAS)
+
+Al corregir el Exp. 2898-2026 (dos imputaciones por 88.1 que la plantilla no traia) Antigravity se atasco ~330 pasos: `construir_admisorio` solo podia reemplazar texto, no añadir parrafos, y el agente improviso `python -c` sobre el XML y el verificador.
+
+### Added
+- `mapa.json` → `insertar_despues`: clona el parrafo ancla (numeracion, sangria y formato por tramo) con el texto nuevo; `nota` añade la nota normativa del corpus.
+- `docs/notas_normas.json` (`migraciones/catalogar_notas_normas.py`): nota mas frecuente del corpus por norma citada (12 normas).
+
 ## [3.0.0-parte2.3] - 2026-09-23 (TIPOGRAFIA UNICA, RAPIDEZ DE ANTIGRAVITY Y SEGUNDA PRUEBA 2898-2026)
 
 Segunda prueba desde cero (v3.0.58): 104,8 min y 527 pasos. Medido en la traza: los scripts tardan segundos; cada DECISION del modelo, 45-70 s. Evitables: 5 `-h`, 13 capturas una a una, 3+2 lecturas de JSON del repositorio, lectura de codigo y 6 grep, 25 sondeos de tareas.

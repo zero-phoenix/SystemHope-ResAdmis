@@ -136,7 +136,9 @@ def escribir(carpeta: Path) -> Path:
         "```",
         'mapa.json: {"plantilla": "plantillas_maestras/...docx", "salida": "<carpeta>/ADM <EXP> R<N>.docx", '
         '"partes": ["alias", ...], "reemplazos": {"texto de la plantilla": "texto del caso", ...}}. '
-        "Reemplaza párrafos enteros o frases; el formato de cada tramo se conserva.",
+        "Reemplaza párrafos enteros o frases; el formato de cada tramo se conserva. "
+        "Para AÑADIR una imputación o un hecho: \"insertar_despues\": {\"fragmento del párrafo ancla\": [{\"texto\": \"...\", \"nota\": \"numeral 88.1 del artículo 88\"}]} "
+        "(clona el párrafo ancla con su numeración; `nota` pone la nota normativa del corpus: docs/notas_normas.json).",
         "",
         "## Fechas de firma digital (escritos de parte = firma de mesa de partes)",
     ]
