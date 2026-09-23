@@ -4,6 +4,25 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.0.0-parte2.2] - 2026-09-23 (WORD ILEGIBLE, FORMATO APLASTADO, NOTAS AL PIE Y «HAZ SOLO LO QUE SE HACE»)
+
+Observaciones del instructor sobre el admisorio de Antigravity del Exp. 2898-2026: Word decia «contenido no legible»; encabezado descuadrado; negrita y subrayado de parrafo entero; tres reclamos en una imputacion; una cedula que nadie pidio; una nota al pie «Denuncia presentada ... ante la Mesa de Partes» que nunca se pone.
+
+### Fixed (causas raiz, medidas)
+- **Word ilegible en las 577 plantillas desde la v2.3.0**: el normalizador R-155 reescribia `document.xml` con ElementTree, que renombra prefijos (`w14`->`ns2`) mientras `mc:Ignorable` sigue citandolos. Localizado por biseccion con Word (d4d61b0 sano, bfbb7a0 roto). `scripts/reparar_espacios_nombres.py` repara las 577; Word abre 577 de 577. La autocomprobacion prohibe desde ahora serializar XML de Word con ElementTree.
+- **Negrita, subrayado y notas aplastadas**: `construir_admisorio.reescribir_parrafo` metia todo el texto en el PRIMER run. Si era «SEGUNDO:» en negrita, el parrafo entero salia en negrita; las llamadas de nota se juntaban al final. Ahora alinea palabra a palabra y conserva el run (y el formato) de cada tramo.
+- **Encabezado descuadrado** (anonimizacion v2.3.1): `migraciones/reparar_encabezado.py` deja «ETIQUETA<tab>:<tab>VALOR» en 575 plantillas.
+- Nota de la denuncia: eliminada la nota «Denuncia presentada mediante escrito ...» (7 plantillas); normalizadas las erratas de la nota del traslado (del/recibido/«a la Comision de Proteccion al Consumidor 1»). Las 6 sin fecha de recibido no se completan: quedan no aptas.
+
+### Added
+- Notas al pie del traslado: el parrafo «correr traslado ...» lleva SIEMPRE dos notas, tras «Decreto Legislativo 807» (art. 26) y tras «Ley 27444, Ley del Procedimiento Administrativo General» (art. 223 del TUO, cotejado con `normas/lpag.pdf`). Texto en `docs/notas_traslado.json`, formato clonado de las notas de cada plantilla; aplicado a las 577.
+- `_CASO.json`: `carpeta_origen` (entregar copia alli el Word) y `traslado` (null si la denuncia se presento en CC1; documento, fecha y recibida si llego derivada; `nota` literal para desacumulacion u Hoja de Tramite). `entregar` coteja la nota 1 con esos datos.
+- Lista cerrada: en la carpeta del caso solo originales, archivos de los scripts y un unico `ADM <EXP> R<N>.docx`; `~$` (Word abierto) es falla. Lista cerrada de comandos en AGENTS.md y ARRANQUE.md.
+- Falsadores R-168 (Word abre), R-169 (un reclamo por imputacion 88.1; 167 de 167 en el corpus), R-170 (subrayado parcial), R-171 (encabezado en columna), R-173 (notas del traslado); R-167 endurecida (ninguna nota sobre la presentacion de la denuncia). 18 mutaciones, todas rechazadas.
+
+### Removed
+- R-172 (llamadas de nota pegadas): refutada por el corpus (286 plantillas las tienen de forma legitima).
+
 ## [3.0.0-parte2.1] - 2026-09-23 (SUPERVISION DE LA PRIMERA PRUEBA REAL DE ANTIGRAVITY: EXP. 2898-2026)
 
 Antigravity (Gemini 3.8 Flash High) instalo el paquete portatil y entrego un admisorio que el verificador daba APTO. La supervision encontro:

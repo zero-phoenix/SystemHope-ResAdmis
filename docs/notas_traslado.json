@@ -1,0 +1,20 @@
+{
+  "_fuente": "Mandato del instructor (23/09/2026): el parrafo del traslado de la parte resolutiva lleva SIEMPRE dos notas al pie, cada una detras de la norma que anota. Texto del articulo 223 cotejado con normas/lpag.pdf (D.S. 006-2026-JUS).",
+  "notas": [
+    {
+      "ancla": "Decreto Legislativo 807",
+      "parrafos": [
+        [["b", "DECRETO LEGISLATIVO 807, LEY SOBRE FACULTADES, NORMAS Y ORGANIZACIÓN DEL INDECOPI, publicado el 18 de abril de 1996"]],
+        [["b", "Artículo 26.-"], ["", " Una vez admitida a trámite la denuncia, se correrá traslado de la misma al denunciado, a fin de que éste presente su descargo. El plazo para la presentación del descargo será de cinco (5) días contados desde la notificación, vencido el cual, el Secretario Técnico declarará en rebeldía al denunciado que no lo hubiera presentado."]]
+      ]
+    },
+    {
+      "ancla": "Ley 27444, Ley del Procedimiento Administrativo General",
+      "parrafos": [
+        [["b", "DECRETO SUPREMO 006-2026-JUS, TEXTO ÚNICO ORDENADO DE LA LEY 27444, LEY DEL PROCEDIMIENTO ADMINISTRATIVO GENERAL, publicado el 30 de abril de 2026"]],
+        [["b", "Artículo 223.- Contestación de la reclamación"]],
+        [["", "223.1 El reclamado deberá presentar la contestación de la reclamación dentro de los quince (15) días posteriores a la notificación de ésta; vencido este plazo, la Administración declarará en rebeldía al reclamado que no la hubiera presentado. La contestación deberá contener los requisitos de los escritos previstos en el artículo 113 de la presente Ley, así como la absolución de todos los asuntos controvertidos de hecho y de derecho, Las alegaciones y los hechos relevantes de la reclamación, salvo que hayan sido específicamente negadas en la contestación, se tendrán por aceptadas o merituadas como ciertas."]]
+      ]
+    }
+  ]
+}

@@ -28,14 +28,16 @@ sys.path.insert(0, str(RAIZ / "scripts"))
 
 import verificar_admisorio as V  # noqa: E402
 
-# (regla que debe caer, descripcion, patron a buscar en document.xml, reemplazo)
+# (regla que debe caer, descripcion, patron a buscar en document.xml, reemplazo:
+# texto con referencias o funcion sobre el match)
 MUTACIONES = [
     ("R-103", "firma cambiada", r"EVELING ROA QUISPE", "QUIEN SEA"),
     (
         "R-155",
         "errata 8079",
-        r"Decreto Legislativo 807,",
-        "Decreto Legislativo N° 8079,",
+        # El del traslado: tras «807» va la llamada de su nota (R-173).
+        r"(?s)(aprobada por Decreto Legislativo )807(</w:t></w:r><w:r\b(?:(?!</w:r>).)*?<w:footnoteReference)",
+        r"\1N° 8079\2",
     ),
     ("R-155", "errata meritadas", r"merituadas", "meritadas"),
     (
@@ -77,6 +79,36 @@ MUTACIONES = [
         "imputacion por el articulo 3",
         r"Presunta infracción a los artículos 18 y 19",
         "Presunta infracción al artículo 3",
+    ),
+    (
+        "R-168",
+        "espacio de nombres w14 sin declarar (Word: contenido no legible)",
+        r'xmlns:w14="http://schemas.microsoft.com/office/word/2010/wordml"',
+        "",
+    ),
+    (
+        "R-169",
+        "varios reclamos en una imputacion por 88.1",
+        r"(?s)(Presunta infracción al numeral 88\.1(?:(?!</w:p>).)*?)\breclamo\b",
+        r"\1reclamos",
+    ),
+    (
+        "R-170",
+        "parrafo del traslado subrayado entero",
+        r"(?s)<w:p\b(?:(?!</w:p>).)*?correr traslado.*?</w:p>",
+        lambda m: m.group(0).replace("<w:rPr>", '<w:rPr><w:u w:val="single"/>'),
+    ),
+    (
+        "R-171",
+        "encabezado DENUNCIANTE: descuadrado",
+        r"<w:t>(DENUNCIANTES?)</w:t><w:tab/><w:t>:</w:t>",
+        r"<w:t>\1:</w:t><w:tab/><w:t></w:t>",
+    ),
+    (
+        "R-173",
+        "nota del articulo 26 borrada del traslado",
+        r"(?s)(Decreto Legislativo 807</w:t></w:r>)<w:r\b(?:(?!</w:r>).)*?<w:footnoteReference[^>]*/></w:r>",
+        r"\1",
     ),
 ]
 REGLAS = sorted({m[0] for m in MUTACIONES})

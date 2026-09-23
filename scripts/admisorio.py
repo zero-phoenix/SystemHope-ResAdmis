@@ -291,6 +291,94 @@ def _lecturas_copiadas(carpeta: Path, vistas: dict[str, str]) -> list[str]:
     return copiadas
 
 
+PERMITIDOS_CASO = {
+    "_INVENTARIO.json",
+    "_LECTURA.md",
+    "_paginas",
+    "_texto_expediente.txt",
+    "_CASO.json",
+    "_SIMILARES.md",
+    "mapa.json",
+}
+
+
+def _control_nota_denuncia(caso: dict, z) -> list[str]:
+    """Nota al pie de la denuncia (instructor, 23/09/2026): SOLO cuando la
+    denuncia llego de otro organo por MEMORANDUM o Documento de Traslado, con el
+    numero, la fecha de emision del documento y la fecha de recibido en CC1.
+    Denuncia presentada directamente: NINGUNA nota sobre su presentacion."""
+    if not caso:
+        return []
+    if "traslado" not in caso:
+        return [
+            "_CASO.json sin 'traslado': null si la denuncia se presento en CC1; "
+            '{"documento": "MEMORANDUM 001950-2025-PS1/INDECOPI", "fecha": "...", "recibida": "..."} '
+            "si llego derivada (solo si el usuario entrego ese documento)"
+        ]
+    notas = verificar_admisorio.notas_al_pie(z)
+    tr = caso["traslado"]
+    if tr:
+        esperada = (
+            "Denuncia remitida a esta Comisión mediante %s de fecha %s, recibida el %s."
+            % (
+                tr.get("documento", "?"),
+                tr.get("fecha", "?"),
+                tr.get("recibida", "?"),
+            )
+        )
+        # Casos particulares de las plantillas (instructor, 23/09/2026): denuncia
+        # desacumulada de un expediente previo, o recibida por Hoja de Tramite.
+        # `nota` da el texto literal, pero debe contener los tres datos
+        # declarados: nada que no venga de un documento del expediente.
+        if tr.get("nota"):
+            esperada = tr["nota"].strip()
+            if not esperada.startswith(
+                (
+                    "Denuncia remitida a esta Comisión mediante",
+                    "Denuncia desacumulada mediante",
+                )
+            ) or not all(
+                tr.get(k) and tr[k] in esperada
+                for k in ("documento", "fecha", "recibida")
+            ):
+                return [
+                    "_CASO.json traslado.nota debe seguir la forma de las plantillas y contener documento, fecha y recibida"
+                ]
+        if not notas or notas[0] != esperada:
+            return [
+                "la nota al pie 1 debe ser exactamente: «%s» (hay: «%s»)"
+                % (esperada, (notas[0] if notas else "")[:120])
+            ]
+        return []
+    malas = [n for n in notas if n.startswith("Denuncia") or "Mesa de Partes" in n]
+    if malas:
+        return [
+            "denuncia presentada en CC1 (traslado null): prohibida toda nota sobre su presentacion: «%s»"
+            % malas[0][:120]
+        ]
+    return []
+
+
+def _copiar_a_origen(docx: Path) -> None:
+    """El Word entregable va a la carpeta donde el usuario tiene los documentos."""
+    import shutil
+
+    caso_p = docx.parent / "_CASO.json"
+    if not caso_p.exists():
+        return
+    destino = json.loads(caso_p.read_text(encoding="utf-8")).get("carpeta_origen")
+    if not destino:
+        return
+    d = Path(destino)
+    if not d.is_dir():
+        print("  AVISO  carpeta_origen no existe: %s" % d)
+        return
+    if d.resolve() == docx.parent.resolve():
+        return
+    shutil.copy2(docx, d / docx.name)
+    print("  Copiado a la carpeta del usuario: %s" % (d / docx.name))
+
+
 def _control_del_caso(docx: Path) -> list[str]:
     """Controles que dependen del caso y no solo del .docx (supervision 2898-2026).
 
@@ -346,21 +434,40 @@ def _control_del_caso(docx: Path) -> list[str]:
                 "_SIMILARES.md cita plantillas que NO existen: %s"
                 % ", ".join(falsas[:4])
             )
+    fallos += _control_nota_denuncia(caso, _z)
+    if caso and not caso.get("carpeta_origen"):
+        fallos.append(
+            "_CASO.json sin 'carpeta_origen' (la carpeta donde el usuario tiene los documentos)"
+        )
     inv = carpeta / "_INVENTARIO.json"
-    if inv.exists():
-        originales = json.loads(inv.read_text(encoding="utf-8"))
-        for p in carpeta.iterdir():
-            if (
-                p.is_file()
-                and p.suffix.lower() in (".pdf", ".docx", ".doc")
-                and not p.name.startswith("_")
-                and p.name not in originales
-                and p.resolve() != docx.resolve()
-            ):
-                fallos.append(
-                    "documento que no entrego el usuario: %s (prohibido fabricar documentos del expediente)"
-                    % p.name
-                )
+    originales = json.loads(inv.read_text(encoding="utf-8")) if inv.exists() else {}
+    if not inv.exists():
+        fallos.append("falta _INVENTARIO.json: ejecuta primero 'admisorio.py preparar'")
+    # Lista CERRADA (instructor, 23/09/2026: «tiene que hacer lo que se hace»).
+    # En la carpeta del caso solo existen los documentos del usuario, lo que
+    # producen los scripts y UN entregable. Cualquier otra cosa (cedulas,
+    # borradores, scripts propios, copias) la fabrico el agente.
+    for p in carpeta.iterdir():
+        if (
+            p.name in originales
+            or p.name in PERMITIDOS_CASO
+            or p.resolve() == docx.resolve()
+        ):
+            continue
+        if p.name.startswith("~$"):
+            fallos.append(
+                "'%s': el agente abrio Word; prohibido (se construye y verifica con scripts)"
+                % p.name
+            )
+        else:
+            fallos.append(
+                "archivo no permitido en la carpeta del caso: %s (prohibido fabricar documentos, cedulas, borradores o scripts)"
+                % p.name
+            )
+    if not re.fullmatch(r"ADM \d{3,5}-\d{4} R\d+\.docx", docx.name):
+        fallos.append(
+            "el entregable se llama 'ADM <EXPEDIENTE> R<N>.docx', no '%s'" % docx.name
+        )
     for f in fallos:
         print("  FALLA  " + f)
     if not fallos:
@@ -508,6 +615,7 @@ def entregar(docx: Path, caso: str | None, recepcion: str | None = None) -> int:
         "  --> ENTREGABLE. Verificacion completa en %.1f s y 1 llamada."
         % (time.time() - t0)
     )
+    _copiar_a_origen(docx)
     return 0
 
 

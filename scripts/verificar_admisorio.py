@@ -63,7 +63,16 @@ class Parrafo:
 
 
 def leer_parrafos(xml: bytes) -> list[Parrafo]:
-    root = ET.fromstring(xml)
+    try:
+        root = ET.fromstring(xml)
+    except ET.ParseError:
+        # Espacios de nombres rotos: se lee una copia reparada para poder
+        # verificar el contenido; R-168 rechaza el documento igualmente.
+        import reparar_espacios_nombres as R
+
+        root = ET.fromstring(
+            R.reparar_xml(xml.decode("utf-8", "replace"))[0].encode("utf-8")
+        )
     salida = []
     for p in root.iter(W + "p"):
         pr = p.find(W + "pPr")
@@ -1112,29 +1121,140 @@ def prueba_r165_expectativas_solo_idoneidad(doc) -> list[str]:
     return fallos
 
 
-def prueba_r167_nota_uno(z) -> list[str]:
-    """R-167: la nota 1 que habla de la denuncia solo tiene la forma del traslado
-    («Denuncia remitida a esta Comision mediante …, recibida el …»). Si la
-    denuncia se presento directamente en CC1, la primera nota es la de la
-    publicacion del Codigo (286 plantillas), no una nota inventada."""
+def notas_al_pie(z) -> list[str]:
+    """Texto de cada nota al pie real (id > 0), en orden."""
     try:
         x = z.read("word/footnotes.xml").decode("utf-8", "replace")
     except KeyError:
         return []
-    notas = [
+    return [
         re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", n)).strip().lstrip("․ ").strip()
         for i, n in re.findall(
             r'<w:footnote [^>]*w:id="(\d+)"[^>]*>(.*?)</w:footnote>', x, re.S
         )
         if int(i) > 0
     ]
-    if (
-        notas
-        and notas[0].startswith("Denuncia")
-        and not notas[0].startswith("Denuncia remitida")
-    ):
-        return ["R-167: nota al pie 1 no canonica: '%s'" % notas[0][:120]]
-    return []
+
+
+def prueba_r167_nota_uno(z) -> list[str]:
+    """R-167: la unica nota que habla de la denuncia es la del traslado
+    («Denuncia remitida a esta Comision mediante … de fecha …, recibida el …»),
+    y solo cuando la denuncia llego derivada (226 plantillas). Una nota sobre la
+    presentacion directa («Denuncia presentada el … ante la Mesa de Partes …»)
+    no existe en el corpus (0 de 574) y el instructor la prohibio (23/09/2026):
+    si la denuncia se presento en CC1, la primera nota es la del Codigo."""
+    fallos = []
+    for k, n in enumerate(notas_al_pie(z), 1):
+        if "Mesa de Partes" in n or (
+            n.startswith("Denuncia")
+            and not n.startswith(("Denuncia remitida", "Denuncia desacumulada"))
+        ):
+            fallos.append(
+                "R-167: nota %d sobre la presentacion de la denuncia (prohibida): '%s'"
+                % (k, n[:120])
+            )
+        elif n.startswith("Denuncia remitida") and not re.search(
+            r"mediante .+ de (?:fecha )?\d{1,2} de [a-z]+ de \d{4}, recibida el \d{1,2} de [a-z]+ de \d{4}\.$",
+            n,
+        ):
+            fallos.append(
+                "R-167: nota de traslado incompleta (documento, fecha de emision y 'recibida el'): '%s'"
+                % n[:120]
+            )
+        elif n.startswith("Denuncia remitida") and k != 1:
+            fallos.append("R-167: la nota del traslado debe ser la nota 1")
+    return fallos
+
+
+def prueba_r171_encabezado(z) -> list[str]:
+    """R-171: cada linea del encabezado es «ETIQUETA<tab>:<tab>VALOR», con los
+    dos puntos en su columna. La anonimizacion v2.3.1 dejo «DENUNCIANTE:[...]»
+    con las tabulaciones al final y el encabezado salia descuadrado (queja del
+    instructor, Exp. 2898-2026)."""
+    x = z.read("word/document.xml").decode("utf-8", "replace")
+    fallos = []
+    for p in re.findall(r"<w:p[ >].*?</w:p>", x, re.S)[:14]:
+        t = re.sub(r"<[^>]+>", "", re.sub(r"<w:tab ?/>", "	", p)).strip()
+        m = re.match(
+            r"^(DENUNCIANTES?|DENUNCIAD[OA]S?(?:\(S\))?|EXPEDIENTE|MATERIAS?)(?![A-Za-z(])",
+            t,
+        )
+        if m and not re.match(r"^%s ?	: *	\S" % re.escape(m.group(1)), t):
+            fallos.append("R-171: encabezado descuadrado: %r" % t[:70])
+    return fallos
+
+
+def prueba_r173_notas_traslado(z) -> list[str]:
+    """R-173: el parrafo resolutivo del traslado lleva SIEMPRE dos notas al pie,
+    cada una detras de la norma que anota (art. 26 del D. Leg. 807 y art. 223 del
+    TUO de la Ley 27444), con el texto de docs/notas_traslado.json. Mandato del
+    instructor, 23/09/2026; aplicado a las 577 plantillas."""
+    sys.path.insert(0, str(pathlib_Path(__file__).resolve().parent / "migraciones"))
+    import notas_traslado as NT
+
+    x = z.read("word/document.xml").decode("utf-8", "replace")
+    try:
+        fx = z.read("word/footnotes.xml").decode("utf-8", "replace")
+    except KeyError:
+        fx = ""
+    return NT.notas_ancladas(x, fx)
+
+
+def prueba_r168_word_abre(z) -> list[str]:
+    """R-168: el .docx debe abrir en Word sin «contenido no legible». Causa medida
+    (v2.3.0): prefijos de espacio de nombres renombrados (ns0, ns1...) y
+    `mc:Ignorable` citando prefijos no declarados. Afecto a las 577 plantillas."""
+    import reparar_espacios_nombres as R
+
+    try:
+        return (
+            [
+                "R-168: Word no abrira el documento (espacios de nombres rotos: prefijos nsN o mc:Ignorable sin declarar)"
+            ]
+            if R.necesita(z)
+            else []
+        )
+    except Exception as exc:
+        return ["R-168: no se pudo comprobar la estructura: %s" % exc]
+
+
+def prueba_r169_un_reclamo_por_imputacion(doc) -> list[str]:
+    """R-169: el numeral 88.1 se imputa UN reclamo por imputacion (167 de 167 en
+    el corpus). Varios reclamos -> varias imputaciones, cada una con su fecha."""
+    fallos = []
+    for p in doc:
+        t = p.texto.strip()
+        cab = t.split(" en tanto ")[0]
+        if (
+            t.startswith("Presunta infracci")
+            and "88.1" in cab
+            and re.search(r"\breclamos\b", t)
+        ):
+            fallos.append(
+                "R-169: una imputacion por 88.1 agrupa varios reclamos: '%s'" % t[:140]
+            )
+    return fallos
+
+
+def prueba_r170_subrayado_parcial(z) -> list[str]:
+    """R-170: el subrayado es parcial (882 parrafos); un parrafo entero subrayado
+    es desviacion (3 en el corpus). En el requerimiento solo se subraya «A X»."""
+    x = z.read("word/document.xml").decode("utf-8", "replace")
+    fallos = []
+    for p in re.findall(r"<w:p[ >].*?</w:p>", x, re.S):
+        runs = re.findall(r"<w:r[ >].*?</w:r>", p, re.S)
+        tot = sum(len(re.sub(r"<[^>]+>", "", r)) for r in runs)
+        und = sum(
+            len(re.sub(r"<[^>]+>", "", r))
+            for r in runs
+            if re.search(r'<w:u w:val="(?!none)', r)
+        )
+        if tot > 80 and und > 0.8 * tot:
+            fallos.append(
+                "R-170: parrafo entero subrayado: '%s'"
+                % re.sub(r"<[^>]+>", "", p)[:100]
+            )
+    return fallos[:4]
 
 
 def prueba_r160_fecha_remesa(doc) -> list[str]:
@@ -1290,6 +1410,31 @@ PRUEBAS = [
     (
         "R-167 nota al pie 1 canonica",
         lambda d, s, z: prueba_r167_nota_uno(z),
+        "falsador",
+    ),
+    (
+        "R-171 encabezado en columna",
+        lambda d, s, z: prueba_r171_encabezado(z),
+        "falsador",
+    ),
+    (
+        "R-173 notas al pie del traslado",
+        lambda d, s, z: prueba_r173_notas_traslado(z),
+        "falsador",
+    ),
+    (
+        "R-168 Word abre el documento",
+        lambda d, s, z: prueba_r168_word_abre(z),
+        "falsador",
+    ),
+    (
+        "R-169 un reclamo por imputacion (88.1)",
+        lambda d, s, z: prueba_r169_un_reclamo_por_imputacion(d),
+        "falsador",
+    ),
+    (
+        "R-170 subrayado parcial",
+        lambda d, s, z: prueba_r170_subrayado_parcial(z),
         "falsador",
     ),
     (

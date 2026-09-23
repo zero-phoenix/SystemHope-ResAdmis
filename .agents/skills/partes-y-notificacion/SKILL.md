@@ -49,6 +49,11 @@ description: Identificar y nombrar correctamente a denunciantes (varón, mujer, 
 «requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su domicilio procesal, señale[n] un correo electrónico autorizando recibir las notificaciones correspondientes por dicho medio.»
 
 ## Nota al pie 1 (primera página)
-- Si la denuncia llegó derivada de otro órgano: «Denuncia remitida a esta Comisión mediante [MEMORANDUM | Documento de Traslado] [número] de fecha [fecha], recibida el [fecha].»
+- **Solo** si la denuncia llegó derivada de otro órgano (MEMORANDUM, Documento de Traslado u Hoja de Traslado/Trámite) y el usuario entregó ese documento: «Denuncia remitida a esta Comisión mediante [documento] [número] de fecha [fecha de emisión], recibida el [fecha de recepción en CC1].»
+- Denuncia **desacumulada** de un expediente previo (caso particular): la forma de las plantillas, p. ej. «Denuncia desacumulada mediante Resolución 0155-2026/CC1-ST de fecha 29 de abril de 2026, recibida el 30 de abril de 2026.» En `_CASO.json`: `traslado.nota` con ese texto literal, más `documento`, `fecha` y `recibida`.
 - Siempre «recibida», nunca «recepcionada». Siempre «de 2026», nunca «del 2026». Sin «N°».
-- Si la denuncia se presentó directamente en CC1, no lleva esta nota.
+- Si la denuncia se presentó directamente en CC1: **ninguna** nota sobre la denuncia. Prohibido «Denuncia presentada el …», «ante la Mesa de Partes …» o cualquier variante (R-167). La primera nota es la del Código.
+- Nunca inventes número, fecha de emisión ni fecha de recibido: si el usuario no entregó el documento, no hay nota.
+
+## Notas del traslado (parte resolutiva)
+El párrafo «correr traslado …» lleva dos notas al pie: tras «Decreto Legislativo 807» (artículo 26) y tras «Ley 27444, Ley del Procedimiento Administrativo General» (artículo 223, «merituadas»). Ya vienen en todas las plantillas (`docs/notas_traslado.json`): no se borran, no se mueven y no se reescriben (R-173).

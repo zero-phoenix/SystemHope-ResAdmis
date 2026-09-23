@@ -115,11 +115,23 @@ def texto_parrafo(parrafo: str) -> str:
     return "".join(m.group(2) for m in RE_TEXTO.finditer(parrafo))
 
 
-def reescribir_parrafo(parrafo: str, nuevo: str) -> str:
-    """Deja el texto del parrafo en su primer `run` y vacia los demas.
+RE_TOKEN = re.compile(r"\w+|\s+|[^\w\s]")
 
-    Es lo que permite sustituir una frase partida en varios `run`, que es el caso
-    normal en documentos que han pasado por Word.
+
+def reescribir_parrafo(parrafo: str, nuevo: str) -> str:
+    """Cambia el texto del parrafo conservando el `run` (y su formato) de cada tramo.
+
+    Antes todo el texto nuevo iba al PRIMER `run` y los demas se vaciaban. Si ese
+    primer run era el rotulo «SEGUNDO:» en negrita, el parrafo entero salia en
+    negrita; si era «A LA POSITIVA» subrayado, el parrafo entero salia subrayado;
+    y las llamadas de nota, que viven entre runs, se iban juntas al final.
+    Medido en el Exp. 2898-2026 (23/09/2026): las tres quejas del instructor
+    tenian esta unica causa.
+
+    Ahora se alinea el texto viejo con el nuevo palabra a palabra: lo que no
+    cambia se queda en su run; lo que cambia entra en el run donde empezaba el
+    tramo sustituido. Asi la negrita, el subrayado y las notas al pie siguen
+    donde estaban. La concatenacion de los runs es siempre exactamente `nuevo`.
 
     **Si el texto nuevo es vacio, el parrafo entero desaparece.** Vaciarle el
     texto y dejar el `<w:p>` es lo que produce la vineta huerfana: un parrafo con
@@ -128,16 +140,46 @@ def reescribir_parrafo(parrafo: str, nuevo: str) -> str:
     """
     if not nuevo.strip():
         return ""
-
-    primero = {"si": True}
-
-    def _sub(m: re.Match) -> str:
-        if primero["si"]:
-            primero["si"] = False
-            return '<w:t xml:space="preserve">%s</w:t>' % nuevo
-        return m.group(1) + m.group(3)
-
-    return RE_TEXTO.sub(_sub, parrafo)
+    trozos = list(RE_TEXTO.finditer(parrafo))
+    if not trozos:
+        return parrafo
+    viejos = [m.group(2) for m in trozos]
+    viejo = "".join(viejos)
+    dueno = [k for k, t in enumerate(viejos) for _c in t]
+    nuevos = [""] * len(trozos)
+    if not viejo:
+        nuevos[0] = nuevo
+    else:
+        a, b = RE_TOKEN.findall(viejo), RE_TOKEN.findall(nuevo)
+        pa, pb = [0], [0]
+        for t in a:
+            pa.append(pa[-1] + len(t))
+        for t in b:
+            pb.append(pb[-1] + len(t))
+        sm = difflib.SequenceMatcher(None, a, b, autojunk=False)
+        for tag, i1, i2, j1, j2 in sm.get_opcodes():
+            if tag == "equal":
+                for c in range(pa[i1], pa[i2]):
+                    nuevos[dueno[c]] += viejo[c]
+            elif tag == "insert":
+                c = pa[i1]
+                nuevos[dueno[c] if c < len(viejo) else dueno[-1]] += nuevo[pb[j1] : pb[j2]]
+            elif tag == "replace":
+                # El run que ocupaba la mayor parte del tramo sustituido: un
+                # subrayado corto al inicio del tramo no se extiende a todo.
+                cuenta: dict[int, int] = {}
+                for c in range(pa[i1], pa[i2]):
+                    cuenta[dueno[c]] = cuenta.get(dueno[c], 0) + 1
+                k = max(sorted(cuenta), key=lambda d: cuenta[d])
+                nuevos[k] += nuevo[pb[j1] : pb[j2]]
+    assert "".join(nuevos) == nuevo
+    piezas, fin = [], 0
+    for m, t in zip(trozos, nuevos):
+        piezas.append(parrafo[fin : m.start()])
+        piezas.append('<w:t xml:space="preserve">%s</w:t>' % t)
+        fin = m.end()
+    piezas.append(parrafo[fin:])
+    return "".join(piezas)
 
 
 def por_longitud(reemplazos: dict[str, str]) -> list[tuple[str, str]]:
