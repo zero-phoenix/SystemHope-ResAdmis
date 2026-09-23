@@ -81,3 +81,6 @@ Secciones:
 - `run_command` con `WaitMsBeforeAsync` 120000: los scripts terminan en segundos; nada de consultar tareas en bucle.
 - Escribe `_CASO.json`, `_SIMILARES.md` y `mapa.json` completos de una vez; relee solo si un script lo pide.
 - Objetivo: ≤ 25 decisiones por expediente.
+
+## Añadir párrafos (imputaciones o hechos de más)
+`mapa.json` admite `"insertar_despues": {"fragmento del párrafo ancla": [{"texto": "...", "nota": "numeral 88.1 del artículo 88"}]}`. Clona el párrafo ancla (sangría, numeración y formato) y lo coloca detrás; `nota` añade la nota normativa del corpus (normas en `docs/notas_normas.json`: «artículos 18 y 19», «artículo 1, numeral 1, literal b) y al artículo 2», «literal e) del artículo 47», «numeral 88.1 del artículo 88», …). Úsalo en la considerativa y en PRIMERO. Nunca inspecciones el XML ni el código para esto.

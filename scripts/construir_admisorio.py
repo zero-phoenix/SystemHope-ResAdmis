@@ -34,8 +34,17 @@ Uso:
       "plantilla": "plantillas_maestras/.../TPL_2180_2025_....docx",
       "salida":    "C:/Users/D/Desktop/expedientes/3122-2026/RES_01_....docx",
       "partes":    ["Interseguro", "Cornejo"],
-      "reemplazos": {"texto viejo": "texto nuevo", ...}
+      "reemplazos": {"texto viejo": "texto nuevo", ...},
+      "insertar_despues": {"texto del parrafo ancla": ["parrafo nuevo 1", ...]}
     }
+
+`insertar_despues` AÑADE parrafos: cada uno es un clon del parrafo ancla (misma
+sangria, numeracion (i)/(ii) y formato de cada tramo) con el texto nuevo, y va
+detras del ancla en el orden dado. Sirve para una imputacion o un hecho mas de
+los que trae la plantilla. El ancla es un fragmento del texto del parrafo YA
+reemplazado, que debe aparecer en un solo parrafo. Las llamadas de nota del
+ancla no se copian. (Exp. 2898-2026: sin esto no habia forma de agregar dos
+imputaciones por 88.1 y el agente se atasco 300 pasos.)
 
 Los `reemplazos` se aplican en `document.xml`, encabezados, pies y notas al pie,
 son sensibles a que el texto este partido en varios `run`, y se aplican de clave
@@ -301,6 +310,80 @@ def fijar_iniciales(xml: str) -> str:
     return RE_PARRAFO.sub(_p, xml)
 
 
+def insertar_despues(
+    xml: str, fx: str, inserciones: dict
+) -> tuple[str, str, list[str]]:
+    """Clona el parrafo ancla por cada texto nuevo y lo coloca detras de el.
+
+    Cada elemento es un texto o {"texto": ..., "nota": "<norma>"}: con `nota`,
+    el parrafo termina con la llamada a la nota normativa del corpus
+    (docs/notas_normas.json, p. ej. "numeral 88.1 del artículo 88")."""
+    fallos: list[str] = []
+    catalogo = {}
+    ruta_cat = RAIZ / "docs" / "notas_normas.json"
+    if ruta_cat.exists():
+        catalogo = json.loads(ruta_cat.read_text(encoding="utf-8"))
+    ids = [int(i) for i in re.findall(r'<w:footnote\b[^>]*w:id="(-?\d+)"', fx)]
+    siguiente = max([0] + ids) + 1
+    ref_modelo = re.search(
+        r"<w:r\b(?:(?!</w:r>).)*?<w:footnoteReference\b[^>]*/>(?:(?!</w:r>).)*?</w:r>",
+        xml,
+        re.S,
+    )
+    for ancla, nuevos in inserciones.items():
+        if isinstance(nuevos, (str, dict)):
+            nuevos = [nuevos]
+        cand = [m for m in RE_PARRAFO.finditer(xml) if ancla in texto_parrafo(m.group(0))]
+        if len(cand) != 1:
+            fallos.append(
+                "insertar_despues: el ancla %r aparece en %d parrafos (debe ser 1)"
+                % (ancla[:60], len(cand))
+            )
+            continue
+        m = cand[0]
+        base = re.sub(
+            r"<w:r\b(?:(?!</w:r>).)*?<w:footnoteReference\b[^>]*/>(?:(?!</w:r>).)*?</w:r>",
+            "",
+            m.group(0),
+            flags=re.S,
+        )
+        base = re.sub(r'\s(?:w14:paraId|w14:textId)="[^"]*"', "", base)
+        clones = []
+        for item in nuevos:
+            texto = item.get("texto", "") if isinstance(item, dict) else item
+            if not texto.strip():
+                continue
+            clon = reescribir_parrafo(base, texto)
+            nota = item.get("nota") if isinstance(item, dict) else None
+            if nota:
+                if nota not in catalogo:
+                    fallos.append(
+                        "insertar_despues: no hay nota catalogada para %r (docs/notas_normas.json: %s)"
+                        % (nota, ", ".join(sorted(catalogo)[:12]))
+                    )
+                    continue
+                if not ref_modelo:
+                    fallos.append("insertar_despues: la plantilla no tiene llamadas de nota que clonar")
+                    continue
+                run = re.sub(
+                    r'(<w:footnoteReference\b[^>]*w:id=")\d+(")',
+                    lambda g: g.group(1) + str(siguiente) + g.group(2),
+                    ref_modelo.group(0),
+                    count=1,
+                )
+                clon = clon[: clon.rindex("</w:p>")] + run + "</w:p>"
+                fx = fx.replace(
+                    "</w:footnotes>",
+                    '<w:footnote w:id="%d">%s</w:footnote></w:footnotes>'
+                    % (siguiente, catalogo[nota]["xml"]),
+                    1,
+                )
+                siguiente += 1
+            clones.append(clon)
+        xml = xml[: m.end()] + "".join(clones) + xml[m.end() :]
+    return xml, fx, fallos
+
+
 def limpiar_vinetas_huerfanas(xml: str) -> tuple[str, int]:
     """Quita los parrafos que quedaron con numeracion y sin texto.
 
@@ -493,6 +576,20 @@ def construir(mapa: dict) -> int:
         for k, v in parciales.items():
             hechos[k] = hechos.get(k, 0) + v
         alineados.update(alin)
+
+    if mapa.get("insertar_despues"):
+        x_ins, fx_ins, fallos_ins = insertar_despues(
+            datos["word/document.xml"].decode("utf-8"),
+            datos["word/footnotes.xml"].decode("utf-8"),
+            mapa["insertar_despues"],
+        )
+        if fallos_ins:
+            raise SystemExit("\n".join(fallos_ins))
+        sys.path.insert(0, str(RAIZ / "scripts" / "migraciones"))
+        import notas_traslado
+
+        datos["word/document.xml"] = x_ins.encode("utf-8")
+        datos["word/footnotes.xml"] = notas_traslado.ordenar_notas(fx_ins, x_ins).encode("utf-8")
 
     with zipfile.ZipFile(salida, "w", zipfile.ZIP_DEFLATED) as z:
         for n in nombres:
