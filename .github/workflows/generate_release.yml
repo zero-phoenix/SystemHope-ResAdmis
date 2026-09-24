@@ -82,17 +82,23 @@ jobs:
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./arranque/construir_portable.ps1 -Version "v3.3.${{ github.run_number }}"
+        run: ./arranque/construir_portable.ps1 -Version "v3.4.${{ github.run_number }}"
 
       - name: Publicar Release en GitHub con Binarios y Memoria
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v3.3.${{ github.run_number }}
-          name: "SystemHope ResAdmis v3.3.${{ github.run_number }}"
+          tag_name: v3.4.${{ github.run_number }}
+          name: "SystemHope ResAdmis v3.4.${{ github.run_number }}"
           body: |
-            # SystemHope ResAdmis v3.3.${{ github.run_number }}
+            # SystemHope ResAdmis v3.4.${{ github.run_number }}
 
             Reglas vigentes: `AGENTS.md`. Cambios: `CHANGELOG.md`.
+
+            v3.4: correcciones definitivas de la revision del Exp. 2889-2026 (24/09/2026).
+            - Reclamos: la considerativa (88.1 o art. 24) cierra el hecho con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente…» (R-208); 109 plantillas, 167 parrafos.
+            - Traslado: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita del PRIMERO; nunca «de la presente resolución» (R-209); 574 plantillas.
+            - Modificacion unilateral de la prima o de las condiciones: literal c) del articulo 56 (metodos comerciales coercitivos), no idoneidad (R-210).
+            - El constructor aplica ambas y sincroniza la cita del traslado; el verificador las exige; 50 mutaciones y 14 casos ficticios en CI.
 
             v3.3: deber de informacion en la considerativa (24/09/2026).
             - Toda imputacion por el articulo 1, numeral 1, literal b) y el articulo 2 cierra el hecho con «; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, corresponde calificar…» (R-207). El resolutivo no cambia.

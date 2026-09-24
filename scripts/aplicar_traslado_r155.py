@@ -20,6 +20,8 @@ from pathlib import Path
 
 sys.path.insert(0, str(Path(__file__).resolve().parent / "migraciones"))
 
+# HISTORICO (v3.0). Desde v3.4 (R-209) el traslado es «correr traslado de la denuncia del …»:
+# lo pone y sincroniza scripts/migraciones/traslado_denuncia.py (tambien desde sanear_admisorio.py).
 import migrar_v3_parte1  # noqa: E402
 
 FORMULA = migrar_v3_parte1.FORMULA

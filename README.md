@@ -77,6 +77,18 @@ Utilidades:
 
 Por contenido (índice v3): 457 con 1 denunciado, 102 con 2, 15 con 3 o más; 23 con confidencialidad; 336 aptas como base (0 falsadores).
 
+## Novedades v3.4 (24/09/2026)
+
+Estas son las correcciones definitivas de la revisión del Exp. 2889-2026, generalizadas a todo el sistema:
+
+| Mandato | Regla |
+|---|---|
+| Reclamos (numeral 88.1 del artículo 88 o artículo 24): en la considerativa, el hecho cierra con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, …». Nunca la frase de «expectativas» | R-208 (109 plantillas, 167 párrafos) |
+| Traslado: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita del PRIMERO; nunca «de la presente resolución» | R-209 (574 plantillas) |
+| Prima o condiciones cambiadas sin consentimiento: «literal c) del artículo 56» (nunca «numeral 56.1»), métodos comerciales coercitivos; no idoneidad | R-210 |
+
+El constructor aplica R-208 y R-209, y sincroniza la cita del traslado con el PRIMERO del caso. El verificador las exige, con 50 mutaciones y 14 casos ficticios en CI. Migraciones: `scripts/migraciones/afectacion_derecho_reclamos.py` y `traslado_denuncia.py`.
+
 ## Novedades v3.3 (24/09/2026)
 
 En la considerativa, toda imputación por el deber de información cierra el hecho con «; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de información, tipificado en el artículo 1, numeral 1, literal b) y al artículo 2 del Código.» Aplicado a 168 plantillas (232 párrafos); el constructor la añade y el verificador la exige (R-207). El resolutivo no cambia.

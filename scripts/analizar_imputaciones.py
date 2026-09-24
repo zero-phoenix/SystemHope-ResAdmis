@@ -325,6 +325,8 @@ def skill(c: dict) -> str:
         "- Núcleo sin palabras valorativas («únicamente», «totalmente», «pésimo»; R-203).",
         "- Considerativa: «… considera que el hecho denunciado, consistente en que [HECHO en condicional]. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de …, tipificado en … del Código».",
         "- **Información (R-207)**: la considerativa cierra el hecho con «; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, …»; el resolutivo, no.",
+        "- **Reclamos (R-208)**: la considerativa (88.1 o art. 24) cierra el hecho con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, …»; nunca «expectativas»; el resolutivo, no.",
+        "- **R-210**: prima o condiciones cambiadas sin consentimiento → «literal c) del artículo 56» (métodos coercitivos; nunca «numeral 56.1», R-143), no idoneidad.",
         "- Resolutivo: «Presunta infracción a [NORMA] de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto [SUJETO] habría(n) [CONDUCTA] [PRODUCTO] [FECHA/CIRCUNSTANCIA].» Una oración, una conducta.",
         "- Sujeto (R-188, instructor 24/09/2026), idéntico en la considerativa y en el resolutivo:",
         "  - aseguradora ÚNICA denunciada: «la compañía aseguradora» (nunca su razón social ni su alias);",

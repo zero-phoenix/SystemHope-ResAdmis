@@ -39,6 +39,8 @@ from pathlib import Path
 
 RAIZ = Path(__file__).resolve().parents[2]
 
+# HISTORICO (v3.0). Desde v3.4 (R-209) el traslado es «correr traslado de la denuncia del …»:
+# lo pone y sincroniza scripts/migraciones/traslado_denuncia.py (tambien desde sanear_admisorio.py).
 FORMULA = (
     "correr traslado de la presente resolución a {den} para que, de conformidad con lo "
     "dispuesto por el artículo 26 de la Ley sobre Facultades, Normas y Organización del "
