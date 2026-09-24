@@ -1007,7 +1007,7 @@ def prueba_r159_nota_traslado(z) -> list[str]:
     notas = [
         re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", n)).strip().lstrip("․ ").strip()
         for i, n in re.findall(
-            r'<w:footnote [^>]*w:id="(\d+)"[^>]*>(.*?)</w:footnote>', x, re.S
+            r'<w:footnote (?:(?!/>)[^>])*?w:id="(\d+)"[^>/]*>(.*?)</w:footnote>', x, re.S
         )
         if int(i) > 0
     ]
@@ -1141,7 +1141,7 @@ def notas_al_pie(z) -> list[str]:
     return [
         re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", n)).strip().lstrip("․ ").strip()
         for i, n in re.findall(
-            r'<w:footnote [^>]*w:id="(\d+)"[^>]*>(.*?)</w:footnote>', x, re.S
+            r'<w:footnote (?:(?!/>)[^>])*?w:id="(\d+)"[^>/]*>(.*?)</w:footnote>', x, re.S
         )
         if int(i) > 0
     ]
@@ -1763,7 +1763,137 @@ def prueba_r194_sin_huecos(doc) -> list[str]:
     return sorted(set(fallos))[:4]
 
 
+
+# --------------------------------------------------------------------------
+# v3.2 (revision del instructor del 24/09/2026 sobre la remesa de 11 admisorios)
+# --------------------------------------------------------------------------
+
+RE_ASEGURADORA_SOLA = re.compile(r"\b(?P<prev>\w+)\s+aseguradora\b")
+
+
+def prueba_r201_compania_aseguradora(doc) -> list[str]:
+    """R-201: nunca «aseguradora» a secas; siempre «compañía aseguradora»
+    (tambien en los hechos: «la vendedora de la compañía aseguradora»)."""
+    fallos = []
+    for p in doc:
+        for m in RE_ASEGURADORA_SOLA.finditer(p.texto):
+            if m.group("prev").lower() not in ("compañía", "compania"):
+                fallos.append("R-201: «%s aseguradora»: va «compañía aseguradora»" % m.group("prev"))
+    return fallos[:5]
+
+
+def prueba_r202_nota_norma_repetida(doc, z) -> list[str]:
+    """R-202: la nota de la norma imputada va solo en la PRIMERA imputacion de
+    ese articulo; las siguientes imputaciones por la misma norma no la repiten."""
+    try:
+        fx = z.read("word/footnotes.xml").decode("utf-8", "replace")
+        x = z.read("word/document.xml").decode("utf-8", "replace")
+    except KeyError:
+        return []
+    cuerpos = {
+        i: re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", c))
+        for i, c in re.findall(r'<w:footnote (?:(?!/>)[^>])*?w:id="(\d+)"[^>/]*>(.*?)</w:footnote>', fx, re.S)
+    }
+    vistas, fallos = set(), []
+    for par in re.findall(r"<w:p[ >].*?</w:p>", x, re.S):
+        t = "".join(re.findall(r"<w:t(?: [^>]*)?>([^<]*)</w:t>", par))
+        if not ("considera que el hecho denunciado" in t or t.strip().startswith("Presunta infracci")):
+            continue
+        for i in re.findall(r'<w:footnoteReference [^>]*w:id="(\d+)"', par):
+            c = cuerpos.get(i, "").strip()
+            if not c.startswith("LEY 29571") or "culo 105" in c:
+                continue
+            arts = tuple(re.findall(r"Art[íi]culo (\d+(?:\.\d+)?)\.-", c))
+            if arts in vistas:
+                fallos.append("R-202: la nota %s repite la norma de una imputacion anterior (arts. %s)" % (i, ", ".join(arts)))
+            vistas.add(arts)
+    return fallos
+
+
+RE_SUBJETIVO = re.compile(r"\b(únicamente|solamente|totalmente|absurd[ao]s?|pésim[ao]s?|poco profesionales?)\b", re.I)
+
+
+def prueba_r203_lexico_objetivo(doc) -> list[str]:
+    """R-203: hechos e imputaciones sin palabras valorativas («únicamente»,
+    «totalmente», «pésimo», «poco profesionales»): el estilo de las plantillas
+    narra lo que consta, sin calificarlo."""
+    fallos = []
+    for p in list(tramo_hechos(doc)) + [q for q in doc if "consistente en que" in q.texto or q.texto.strip().startswith("Presunta infracci")]:
+        m = RE_SUBJETIVO.search(p.texto)
+        if m:
+            fallos.append("R-203: palabra valorativa «%s»: «…%s…»" % (m.group(1), p.texto[max(0, m.start() - 30) : m.end() + 20]))
+    return fallos[:5]
+
+
+def prueba_r204_adquirio(doc) -> list[str]:
+    """R-204: el seguro o la poliza se «adquirió», nunca «contaba con»."""
+    return [
+        "R-204: «%s»: va «adquirió»" % m.group(0)
+        for p in doc
+        for m in re.finditer(r"\bcontaba(?:n)? con (?:el|la|un|una) (?:Seguro|seguro|P[óo]liza|p[óo]liza)", p.texto)
+    ][:3]
+
+
+def prueba_r205_la_denunciante(doc) -> list[str]:
+    """R-205: en las imputaciones se escribe «la denunciante» (o «el
+    denunciante»), nunca «la parte denunciante»."""
+    return [
+        "R-205: imputacion (%s) con «la parte denunciante»: va «la denunciante»" % seccion
+        for seccion, nucleo in _nucleos(doc)
+        if re.search(r"\bparte denunciante\b", nucleo)
+    ][:3]
+
+
+RE_FECHAS_UNIDAS = re.compile(
+    r"\bsolicitudes\b[^.;]*?\b\d{1,2}(?: de \w+)?(?: de \d{4})?,? (?:y|e|,) (?:el )?\d{1,2} de \w+", re.I
+)
+RE_COBERTURAS_UNIDAS = re.compile(r"\bcobertura[s]? (?:de )?[^,;.]{3,60}? y (?:de )?la cobertura\b", re.I)
+
+
+def prueba_r206_una_imputacion_por_hecho(doc) -> list[str]:
+    """R-206: una imputacion por cada solicitud y por cada cobertura
+    diferenciada, aunque se hayan pedido en una misma solicitud: nunca «pese a
+    sus solicitudes del 1 y el 23 de marzo», nunca «la cobertura de sepelio y
+    la cobertura oncológica» en un mismo nucleo."""
+    fallos = []
+    for seccion, nucleo in _nucleos(doc):
+        if RE_FECHAS_UNIDAS.search(nucleo):
+            fallos.append("R-206: imputacion (%s) que une varias solicitudes: una por solicitud" % seccion)
+        if RE_COBERTURAS_UNIDAS.search(nucleo):
+            fallos.append("R-206: imputacion (%s) que une varias coberturas: una por cobertura" % seccion)
+    return fallos[:4]
+
 PRUEBAS = [
+    (
+        "R-201 compañía aseguradora, nunca aseguradora a secas",
+        lambda d, s, z: prueba_r201_compania_aseguradora(d),
+        "falsador",
+    ),
+    (
+        "R-202 nota de la norma imputada solo en la primera imputacion",
+        lambda d, s, z: prueba_r202_nota_norma_repetida(d, z),
+        "falsador",
+    ),
+    (
+        "R-203 hechos e imputaciones sin palabras valorativas",
+        lambda d, s, z: prueba_r203_lexico_objetivo(d),
+        "falsador",
+    ),
+    (
+        "R-204 el seguro se adquirio",
+        lambda d, s, z: prueba_r204_adquirio(d),
+        "falsador",
+    ),
+    (
+        "R-205 la denunciante en las imputaciones",
+        lambda d, s, z: prueba_r205_la_denunciante(d),
+        "falsador",
+    ),
+    (
+        "R-206 una imputacion por solicitud y por cobertura",
+        lambda d, s, z: prueba_r206_una_imputacion_por_hecho(d),
+        "falsador",
+    ),
     (
         "R-183 notas integras (llamada <-> nota)",
         lambda d, s, z: prueba_r183_notas_integras(d, z),

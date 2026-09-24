@@ -79,9 +79,34 @@ def sin_tildes(t: str) -> str:
     )
 
 
+MESES_NUM = {
+    "enero": 1, "febrero": 2, "marzo": 3, "abril": 4, "mayo": 5, "junio": 6, "julio": 7,
+    "agosto": 8, "setiembre": 9, "septiembre": 9, "octubre": 10, "noviembre": 11, "diciembre": 12,
+}
+
+
+def fechas_dma(t: str) -> str:
+    """v3.2: una fecha es la misma escrita «10 de setiembre de 2026»,
+    «10 de septiembre de 2026», «10/09/2026» o «10.09.2026» (la Mesa de Partes y
+    la firma digital la escriben en numeros; la resolucion, en letras y con
+    «setiembre»). Se reducen todas a «fecha:10-9-2026»."""
+    t = sin_tildes(t).lower()
+    t = re.sub(
+        r"\b(\d{1,2}) de (%s) del? (\d{4})\b" % "|".join(MESES_NUM),
+        lambda m: " fecha:%d-%d-%s " % (int(m.group(1)), MESES_NUM[m.group(2)], m.group(3)),
+        t,
+    )
+    return re.sub(
+        r"\b(\d{1,2})[/.-](\d{1,2})[/.-](\d{4})\b",
+        lambda m: " fecha:%d-%d-%s " % (int(m.group(1)), int(m.group(2)), m.group(3)),
+        t,
+    )
+
+
 def normalizar(t: str) -> str:
-    """Un numero puede escribirse S/ 28 049,00 o S/28,049.00 y ser el mismo."""
-    return re.sub(r"[\s.,]", "", sin_tildes(t).lower())
+    """Un numero puede escribirse S/ 28 049,00 o S/28,049.00 y ser el mismo; una
+    fecha, en letras o en numeros (fechas_dma)."""
+    return re.sub(r"[\s.,]", "", fechas_dma(t))
 
 
 def texto_docx(ruta: Path) -> str:

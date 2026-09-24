@@ -750,6 +750,14 @@ def construir(mapa: dict) -> int:
         for n in nombres:
             z.writestr(n, datos[n])
 
+    # v3.2: saneamiento final (separadores entre imputaciones, notas del
+    # traslado, del Codigo y de competencia, una sola nota por norma imputada).
+    import sanear_admisorio
+
+    sanear_admisorio.sanear(salida)
+    with zipfile.ZipFile(salida) as z:
+        datos = {n: z.read(n) for n in z.namelist()}
+
     print("=" * 78)
     print("CONSTRUCCION  %s" % salida.name)
     print("=" * 78)

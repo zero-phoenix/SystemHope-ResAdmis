@@ -84,7 +84,9 @@ def paginas_de_pdf(ruta: Path) -> list[str]:
     paginas: list[str] | None = None
     if shutil.which("pdftotext"):
         salida = subprocess.run(
-            ["pdftotext", "-layout", str(ruta), "-"], capture_output=True
+            # -enc UTF-8: sin el, pdftotext escribe en la codificacion del sistema
+            # (cp1252 en Windows) y la lectura en UTF-8 dejaba «falleci�» (v3.2).
+            ["pdftotext", "-enc", "UTF-8", "-layout", str(ruta), "-"], capture_output=True
         ).stdout.decode("utf-8", "replace")
         paginas = salida.split("\f")
         # pdftotext cierra la salida con un form-feed: el ultimo trozo es vacio y

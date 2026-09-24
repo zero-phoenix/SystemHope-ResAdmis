@@ -35,7 +35,7 @@ RAIZ = Path(__file__).resolve().parent.parent
 ANCLAS = RAIZ / "docs" / "anclas_notas.json"
 TEXTOS = RAIZ / "docs" / "textos_normativos.json"
 
-RE_FN = re.compile(r'<w:footnote\b[^>]*w:id="(-?\d+)"[^>]*>.*?</w:footnote>', re.S)
+RE_FN = re.compile(r'<w:footnote\b(?:(?!/>)[^>])*?w:id="(-?\d+)"(?:[^>]*?/>|[^>/]*>.*?</w:footnote>)', re.S)
 RE_REF = re.compile(r'<w:footnoteReference\b[^>]*w:id="(\d+)"[^>]*/>')
 RE_P = re.compile(r"<w:p\b[^>]*>.*?</w:p>|<w:p\b[^>]*/>", re.S)
 RE_RUN = re.compile(r"<w:r\b[^>]*>(?:(?!</w:r>).)*?</w:r>", re.S)
