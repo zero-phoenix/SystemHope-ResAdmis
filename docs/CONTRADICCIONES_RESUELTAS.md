@@ -1,6 +1,6 @@
 # CONTRADICCIONES RESUELTAS
 
-> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3.2, 24/09/2026).
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3.3, 24/09/2026).
 
 
 > Un repositorio que se contradice a sí mismo le da al agente **permiso escrito**
@@ -239,3 +239,16 @@ Son mandatos del instructor y vencen al corpus. La columna «Corpus» dice cuán
 Contradicciones internas cerradas en el mismo cambio:
 - `docs/tabla_tipificacion.json`, `docs/catalogo_imputaciones.json`, `IMPUTACIONES_ANALITICO.md`, la ficha del caso y el README decían «tabla cerrada». Ahora dicen «referencial», igual que AGENTS.
 - El constructor ponía una nota en cada calificación, y el mandato pide una sola por artículo. Ahora `sanear_admisorio.py` deja solo la primera.
+
+## v3.3 (24/09/2026): revisión del Exp. 2898-2026 R2
+
+| Tema | Antes | Ahora (mandato) | Corpus | Falsador |
+|---|---|---|---|---|
+| Tratativa en las viñetas de HECHOS | «El 11 de mayo de 2021, la señora X suscribió…» | Sujeto tácito; tratativa solo en apertura y medida correctiva | 3 994 de 4 246 viñetas (94 %) ya lo hacen | R-209 |
+| Negativa de cobertura | «se habría negado injustificadamente» | «de manera injustificada» / «de manera indebida» | 239 plantillas con el adverbio; 52 ya con «de manera» | R-208 |
+| Rótulo del requerimiento | Se perdía el subrayado al sustituirlo con `"parrafos"` | Subrayado en cada denunciado; lo repone el saneador | 8 plantillas sin subrayar | R-207 |
+
+Por qué el sujeto tácito: la apertura ya identifica a quien narra («la señora X denunció…, señalando lo siguiente:»); las viñetas son lo que esa persona señaló, y repetir su nombre solo añade ruido. Las plantillas lo nombran cuando hay otra persona natural en la viñeta (un asesor, el conductor, un hijo), cuando hay varios denunciantes o en la medida correctiva.
+
+Las plantillas no se migran: el redactor corrige su texto en cada caso y el verificador lo exige.
+

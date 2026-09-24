@@ -21,6 +21,7 @@ verificador no veia o que el constructor producia:
     al reanclarse: se restituyen desde una plantilla maestra (R-184);
   - la nota de la norma imputada va SOLO en la primera imputacion de ese
     articulo: las siguientes no la repiten (mandato del instructor, R-202);
+  - rotulo del requerimiento («A Santander:») subrayado y el cuerpo sin subrayar (R-207);
   - renumeracion de notas en dos fases (sin colisiones de ids).
 
 Todo se hace sobre el XML como texto; ningun proceso WINWORD.EXE.
@@ -453,7 +454,6 @@ def renumerar(x: str, fx: str):
     return x, fx
 
 
-
 def nota_presentacion(ruta: Path):
     """R-167: denuncia presentada en CC1 -> ninguna nota sobre su presentacion
     («Denuncia presentada el …», «La denuncia se encuentra fechada …»). Se quitan
@@ -463,19 +463,101 @@ def nota_presentacion(ruta: Path):
     fx = datos["word/footnotes.xml"].decode("utf-8")
     quitar = [
         i
-        for i, n in re.findall(r'<w:footnote (?:(?!/>)[^>])*?w:id="([1-9]\d*)"[^>/]*>(.*?)</w:footnote>', fx, re.S)
-        if re.match(r"\W*(?:La )?[Dd]enuncia (?:presentada|se encuentra fechada)", NT.texto(n).strip())
+        for i, n in re.findall(
+            r'<w:footnote (?:(?!/>)[^>])*?w:id="([1-9]\d*)"[^>/]*>(.*?)</w:footnote>',
+            fx,
+            re.S,
+        )
+        if re.match(
+            r"\W*(?:La )?[Dd]enuncia (?:presentada|se encuentra fechada)",
+            NT.texto(n).strip(),
+        )
     ]
     if not quitar:
         return
     for i in quitar:
-        x = re.sub(r'<w:r(?: [^>]*)?>(?:(?!</w:r>).)*?<w:footnoteReference [^>]*w:id="%s"[^>]*/>(?:(?!</w:r>).)*?</w:r>' % i, "", x, count=1, flags=re.S)
-        fx = re.sub(r'<w:footnote (?:(?!/>)[^>])*?w:id="%s"[^>/]*>.*?</w:footnote>' % i, "", fx, count=1, flags=re.S)
+        x = re.sub(
+            r'<w:r(?: [^>]*)?>(?:(?!</w:r>).)*?<w:footnoteReference [^>]*w:id="%s"[^>]*/>(?:(?!</w:r>).)*?</w:r>'
+            % i,
+            "",
+            x,
+            count=1,
+            flags=re.S,
+        )
+        fx = re.sub(
+            r'<w:footnote (?:(?!/>)[^>])*?w:id="%s"[^>/]*>.*?</w:footnote>' % i,
+            "",
+            fx,
+            count=1,
+            flags=re.S,
+        )
     x, fx = renumerar(x, fx)
     datos["word/document.xml"] = x.encode("utf-8")
     datos["word/footnotes.xml"] = fx.encode("utf-8")
     _escribir(ruta, infos, datos)
     print("  nota sobre la presentacion de la denuncia quitada (R-167)")
+
+
+RE_ROTULO = re.compile(r"^((?:A|Al|A la|A los|A las) [^:]{2,80}?:)\s")
+RE_RUN_T = re.compile(
+    r"<w:r(?: [^>]*)?>(<w:rPr>(?:(?!</w:r>).)*?</w:rPr>)?<w:t(?: [^>]*)?>([^<]*)</w:t></w:r>",
+    re.S,
+)
+
+
+def _con_u(rpr, u):
+    rpr = re.sub(r"<w:u(?: [^>]*)?/>", "", rpr or "<w:rPr></w:rPr>")
+    if u:
+        rpr = rpr.replace("</w:rPr>", '<w:u w:val="single"/></w:rPr>')
+    return rpr
+
+
+def rotulos_requerimiento(ruta: Path):
+    """Rotulo del requerimiento («A Santander:») subrayado y el resto sin subrayar
+    (AGENTS §7, R-207). Al sustituir «A Autofondo:» por «A Santander:» el rotulo
+    caia en el run del cuerpo y perdia el subrayado (Exp. 2898-2026, 24/09/2026)."""
+    infos, datos = _leer(ruta)
+    x = datos["word/document.xml"].decode("utf-8")
+    n = 0
+
+    def fijar(m):
+        nonlocal n
+        p = m.group(0)
+        r = RE_ROTULO.match(NT.texto(p).lstrip())
+        if not r or "footnoteReference" in p:
+            return p
+        p = re.sub(r"<w:proofErr[^>]*/>|<w:lastRenderedPageBreak ?/>", "", p)
+        if "".join(rm.group(2) for rm in RE_RUN_T.finditer(p)) != NT.texto(p):
+            print(
+                "  AVISO: rotulo «%s» con runs no planos; se deja como esta"
+                % r.group(1)
+            )
+            return m.group(0)
+        corte = len(r.group(1))
+        lead = len(NT.texto(p)) - len(NT.texto(p).lstrip())
+        pos, out, fin = 0, [], 0
+        for rm in RE_RUN_T.finditer(p):
+            t, rpr = rm.group(2), rm.group(1)
+            a = max(0, min(len(t), corte + lead - pos))
+            trozos = [(t[:a], True), (t[a:], False)]
+            nuevo = "".join(
+                '<w:r>%s<w:t xml:space="preserve">%s</w:t></w:r>' % (_con_u(rpr, u), tt)
+                for tt, u in trozos
+                if tt
+            )
+            out += [p[fin : rm.start()], nuevo]
+            fin = rm.end()
+            pos += len(t)
+        q = "".join(out) + p[fin:]
+        if q != p:
+            n += 1
+        return q
+
+    x = re.sub(r"<w:p[ >](?:(?!</w:p>).)*</w:p>", fijar, x, flags=re.S)
+    datos["word/document.xml"] = x.encode("utf-8")
+    _escribir(ruta, infos, datos)
+    if n:
+        print("  Rotulos de requerimiento subrayados: %d" % n)
 
 
 def sanear(ruta) -> None:
@@ -492,6 +574,7 @@ def sanear(ruta) -> None:
     nota_codigo(p)
     nota_competencia(p)
     notas_repetidas(p)
+    rotulos_requerimiento(p)
     UT.main([str(p), "--aplicar"])
 
 

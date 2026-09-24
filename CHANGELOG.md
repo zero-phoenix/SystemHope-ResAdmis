@@ -4,6 +4,24 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.3.0] - 2026-09-24 (REVISIÓN DEL INSTRUCTOR SOBRE EL EXP. 2898-2026 R2)
+
+### Added
+- Falsadores y sus mutaciones en `prueba_verificador.py` (50 mutaciones):
+  - R-207: el rótulo del requerimiento de cada denunciado va subrayado;
+  - R-208: la negativa de cobertura se imputa «de manera injustificada» o «de manera indebida», nunca con el adverbio en -mente;
+  - R-209: las viñetas de HECHOS van con sujeto tácito; la tratativa solo en la apertura y en la medida correctiva (medido: 94 % del corpus).
+- `sanear_admisorio.py`: `rotulos_requerimiento` subraya el rótulo y quita el subrayado del cuerpo (el constructor lo llama solo).
+
+### Fixed
+- Al sustituir «A Autofondo:» por «A Santander:» con `"parrafos"`, el rótulo caía en el run del cuerpo y perdía el subrayado.
+- `notas_pie.nota_de_la_norma`: también sustituye la nota del 88.1 cuando la calificación no dice «tipificado».
+- R-204 ya no rechaza la negación que refiere lo que informó el proveedor («no contaba con una póliza vigente»).
+
+### Changed
+- AGENTS.md v3.3, skills `imputaciones` y `admisorio-flujo`, README y CONTRADICCIONES.
+- Casos ficticios 9904, 9908 y 9999 con las formas nuevas. Release `v3.3.N`; motor 3.3.0.
+
 ## [3.2.0] - 2026-09-24 (CORRECCIONES DEFINITIVAS DEL INSTRUCTOR: REMESA DE 11 ADMISORIOS Y EXP. 3092-2026)
 
 El instructor revisó la remesa del 24/09/2026 (11 admisorios corregidos) y el Exp. 3092-2026, rehecho con su expediente. Cada corrección se generalizó con su falsador y su mutación.

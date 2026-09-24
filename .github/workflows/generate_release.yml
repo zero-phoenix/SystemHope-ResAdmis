@@ -82,17 +82,23 @@ jobs:
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./arranque/construir_portable.ps1 -Version "v3.2.${{ github.run_number }}"
+        run: ./arranque/construir_portable.ps1 -Version "v3.3.${{ github.run_number }}"
 
       - name: Publicar Release en GitHub con Binarios y Memoria
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v3.2.${{ github.run_number }}
-          name: "SystemHope ResAdmis v3.2.${{ github.run_number }}"
+          tag_name: v3.3.${{ github.run_number }}
+          name: "SystemHope ResAdmis v3.3.${{ github.run_number }}"
           body: |
-            # SystemHope ResAdmis v3.2.${{ github.run_number }}
+            # SystemHope ResAdmis v3.3.${{ github.run_number }}
 
             Reglas vigentes: `AGENTS.md`. Cambios: `CHANGELOG.md`.
+
+            v3.3: revision del instructor sobre el Exp. 2898-2026 R2 (24/09/2026).
+            - HECHOS: sujeto tacito en las vinetas; la tratativa solo en la apertura y la medida correctiva (R-209; 94 % del corpus).
+            - Negativa de cobertura: «de manera injustificada / indebida», nunca «injustificadamente» (R-208).
+            - Rotulo del requerimiento de cada denunciado subrayado; el saneador lo repara solo (R-207).
+            - 50 mutaciones y 14 casos ficticios en CI.
 
             v3.2: correcciones definitivas del instructor sobre la remesa de 11 admisorios y el Exp. 3092-2026 (24/09/2026).
             - Imputaciones: mandan las plantillas por sentido y finalidad (la tabla es referencial); una imputacion por solicitud y por cobertura (R-206); «la denunciante» (R-205); «compañía aseguradora» (R-201).

@@ -295,6 +295,29 @@ MUTACIONES = [
         r"consistente en que ",
         "consistente en que pese a sus solicitudes del 1 y el 23 de marzo de 2026 ",
     ),
+    (
+        "R-207",
+        "rotulo del requerimiento sin subrayar",
+        r'<w:u w:val="single" ?/>',
+        "",
+    ),
+    (
+        "R-208",
+        "negativa de cobertura con adverbio en -mente",
+        r"consistente en que ",
+        "consistente en que se habría negado injustificadamente a otorgar la cobertura y ",
+    ),
+    (
+        "R-209",
+        "tratativa como sujeto en una vineta de HECHOS",
+        None,
+        lambda x: re.sub(
+            r"(\d{4}, )(adquirió|presentó|solicitó|contrató|suscribió)",
+            r"\1el señor Perez \2",
+            re.sub(r"\(SEÑORA? \[APELLIDO\]\)", "(SEÑOR PEREZ)", x, count=1),
+            count=1,
+        ),
+    ),
 ]
 REGLAS = sorted({m[0] for m in MUTACIONES})
 PARTE = "word/document.xml"
