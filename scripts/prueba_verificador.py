@@ -297,18 +297,24 @@ MUTACIONES = [
     ),
     (
         "R-207",
+        "informacion sin «afectación al derecho de información»",
+        r"; involucraría una presunta afectación al derecho de información de los consumidores",
+        "",
+    ),
+    (
+        "R-208",
         "rotulo del requerimiento sin subrayar",
         r'<w:u w:val="single" ?/>',
         "",
     ),
     (
-        "R-208",
+        "R-209",
         "negativa de cobertura con adverbio en -mente",
         r"consistente en que ",
         "consistente en que se habría negado injustificadamente a otorgar la cobertura y ",
     ),
     (
-        "R-209",
+        "R-210",
         "tratativa como sujeto en una vineta de HECHOS",
         None,
         lambda x: re.sub(

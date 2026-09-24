@@ -1,22 +1,22 @@
-# AGENTS.md — Admisorios CC1 Indecopi (seguros). Reglas vigentes v3.3
+# AGENTS.md — Admisorios CC1 Indecopi (seguros). Reglas vigentes v3.4
 
 Única fuente de reglas vigentes.
 Redactor: **Google Antigravity con el modelo de `config/modelo.json`** (Gemini 3.8 Flash High o superior).
 
 ## 0. Arranque
-0. **En otra computadora** (solo pegó el enlace): sigue `ARRANQUE.md`.
-   Lee además las skills de `.agents/skills/`: `admisorio-flujo`, `imputaciones` y `partes-y-notificacion`; y `confidencialidad` si el caso la tiene.
-1. Trabaja desde la **raíz de este repositorio**. Primer comando: `python scripts/comprobar_anclaje.py`. Si falla, para.
-2. Fecha de emisión: `python scripts/config_sistema.py`. Si dice «sin fijar», **pregúntala al instructor** antes de redactar.
-3. Si la carpeta del caso trae `_ORDEN_DE_TRABAJO.md`, manda para ese caso. Si trae `_ESTADO.md` con «CASO CERRADO», no generes nada.
-4. **Haz solo lo que se hace.** Únicos comandos: `comprobar_anclaje`, `config_sistema`, `admisorio.py preparar|previsualizar|entregar`, `similares`, `construir_admisorio`, `inspeccionar_docx`, `plazos`. Prohibido lo demás (`editar_cedulas`, `python -c`, scripts propios, Word, cédulas, borradores). En la carpeta del caso: originales, lo que generan esos comandos y un único `ADM <EXP> R<N>.docx`; `entregar` rechaza el resto.
+0. **En otra computadora** (solo el enlace): sigue `ARRANQUE.md`.
+   Lee las skills de `.agents/skills/`: `admisorio-flujo`, `imputaciones` y `partes-y-notificacion`; y `confidencialidad` si el caso la tiene.
+1. Trabaja desde la **raíz del repositorio**. Primer comando: `python scripts/comprobar_anclaje.py`. Si falla, para.
+2. Fecha de emisión: `python scripts/config_sistema.py`. Si dice «sin fijar», **pregúntala al instructor**.
+3. Si el caso trae `_ORDEN_DE_TRABAJO.md`, manda para ese caso. Si trae `_ESTADO.md` con «CASO CERRADO», no generes nada.
+4. **Haz solo lo que se hace.** Únicos comandos: `comprobar_anclaje`, `config_sistema`, `admisorio.py preparar|previsualizar|entregar`, `similares`, `construir_admisorio`, `inspeccionar_docx`, `plazos`. Prohibido lo demás (`editar_cedulas`, `python -c`, scripts propios, Word, borradores). En la carpeta del caso: originales, lo que generan esos comandos y un único `ADM <EXP> R<N>.docx`; `entregar` rechaza el resto.
 
 ## 1. Los pasos (≤ 12 llamadas en un expediente corto)
 1. `python scripts/admisorio.py preparar <carpeta>` — capturas, `_LECTURA.md`, `_FORMATO.md` y **`_FICHA.md`** (comandos exactos, firmas digitales, proveedores y vías, tipificación). **Ritmo** (~50 s por decisión): sin `-h`, sin leer scripts ni JSON del repositorio, `_hojas/` en una vuelta, `WaitMsBeforeAsync` 120000.
 2. **Lectura visual** de `_hojas/` (dos páginas por imagen): una fila por página en `_LECTURA.md`, con «Lo que vi» y «Formato que vi» (medidas en `_FORMATO.md`, cero OCR). Si el texto embebido discrepa, manda la imagen.
 2b. **OBLIGATORIO — las 10 plantillas más similares.** `_CASO.json` (`resolucion`, `carpeta_origen`, `traslado`, escritos con fecha, denunciados DEFINITIVOS, conductas y norma) y `python scripts/similares.py <carpeta>`. En `_SIMILARES.md`, el «Por qué» de las 10. La base sale de ellas; citar otra bloquea la entrega.
-3. `python scripts/construir_admisorio.py --mapa <mapa.json>` (para corregir un Word dado, ese Word es la plantilla). Claves = **texto de la plantilla**; `"parrafos"` sustituye un párrafo entero por su inicio. El constructor aplica reglas generales y saneamiento. Sin Word, win32com ni PDF.
-3b. `python scripts/admisorio.py previsualizar "<docx>" --contra "<plantilla>"` — `_vista/` con cada página junto a la de la plantilla. **Míralas todas en una vuelta** antes de entregar.
+3. `python scripts/construir_admisorio.py --mapa <mapa.json>` (para corregir un Word, él es la plantilla). Claves = **texto de la plantilla**; `"parrafos"` sustituye un párrafo entero por su inicio. El constructor sanea solo. Sin Word, win32com ni PDF.
+3b. `python scripts/admisorio.py previsualizar "<docx>" --contra "<plantilla>"` — `_vista/` con cada página junto a la de la plantilla. **Míralas todas en una vuelta**.
 4. `python scripts/admisorio.py entregar "<carpeta>/ADM <EXP> R<N>.docx" --recepcion DD/MM/AAAA` — debe decir **ENTREGABLE** y el verificador **APTO**; copia el Word a `carpeta_origen`. Pega la salida literal.
 
 Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de resolución que fija la cédula. Nunca PDF.
@@ -28,7 +28,7 @@ Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de reso
 4. **Imputación cerrada.** Como imputan **las plantillas** un hecho de igual sentido y finalidad, en su forma literal (`docs/tabla_tipificacion.json` es referencial); nunca una ausente de ellas. **Una por solicitud y por cobertura** diferenciada, aunque vayan juntas; sin cobertura precisa, «coberturas» (R-206).
    - **Nunca el artículo 3** ni la frase «inducción a error».
    - Reclamos: **numeral 88.1 del artículo 88** si el proveedor está regulado por el sistema financiero; **artículo 24** solo si NO lo está. **Un reclamo por imputación**: varios reclamos, varias imputaciones.
-   - Fallas de información: «el artículo 1, numeral 1, literal b) y al artículo 2 del Código» (forma de los modelos).
+   - Fallas de información: «el artículo 1, numeral 1, literal b) y al artículo 2 del Código»; considerativa: el hecho cierra **siempre** con «; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente…» (R-207)
    - Documentos contractuales no entregados **a la firma**: literal e) del artículo 47; pedidos **después** y no entregados: artículo 1, numeral 1, literal b) y artículo 2.
    - **Solicitud de gestión** mal atendida: idoneidad (artículos 18 y 19). **Solicitud de información o de copias**: información. Si la misma carta trae ambas, **dos imputaciones separadas**.
    - Cláusulas abusivas: **siempre** «numeral 49.1 del artículo 49 y al literal x) del artículo 50» (ineficacia absoluta) o «… del artículo 51» (ineficacia relativa).
@@ -43,10 +43,10 @@ Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de reso
    - Rótulo del requerimiento: el **alias** del encabezado («Al Banco:») (R-189). Ningún ordinal nombra a quien no es parte ni usa una vía que el caso no tiene (R-190).
 6. **Hechos** (sección I):
    - Pasado indicativo.
-   - **Nunca «denunciante»**. La tratativa («la señora X») solo en apertura y medida correctiva; viñetas con **sujeto tácito** (R-209).
+   - **Nunca «denunciante»**. La tratativa («la señora X») solo en apertura y medida correctiva; viñetas con **sujeto tácito** (R-210).
    - Abre con «Mediante el escrito del …, … denunció a … por presuntas infracciones a la Ley 29571, Código de Protección y Defensa del Consumidor (en adelante, Código), señalando lo siguiente:»; cierra con la medida correctiva. Varios denunciantes: «denunciaron», «señalaron».
    - Una viñeta por hecho, cronológica, con fecha; solo lo que sustenta las imputaciones, sin perder el contexto. «Adquirió» el seguro (R-204); sin valorativos («únicamente», R-203).
-   - **Imputaciones**: en condicional («habría denegado»). Negativa: «de manera injustificada/indebida», no en -mente (R-208). «Involucraría una presunta afectación…» solo califica **idoneidad**, nunca información ni 88.1.
+   - **Imputaciones**: en condicional («habría denegado»). Negativa: «de manera injustificada/indebida», no en -mente (R-209). «Involucraría una presunta afectación a sus expectativas…» solo califica **idoneidad** (información: R-207).
 7. **Nunca «N°», «N», «Nº», «Nro.» ni «°» ante un número**: «Ley 29571», «artículo 26», «Póliza 2101-1031084». Fechas: «de 2025», nunca «del 2025»; mes en minúscula.
 8. **TUO de la LPAG**: Decreto Supremo 006-2026-JUS. Nunca el 004-2019-JUS.
 9. **Enmascarado**: la **póliza nunca** lleva asteriscos. Tarjeta, crédito, cuenta y préstamo: **solo los dígitos del medio** («34\*\*\*83», «Crédito vehicular 53\*85»; R-176).
@@ -78,7 +78,7 @@ Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de reso
 ## 7. Forma (corpus y revisión del instructor del 24/09/2026)
 - Arial Narrow: cuerpo 11 pt, notas e iniciales («LSQ/DCQ») 8 pt. Interlineado sencillo, espaciado 0/0, justificado; sangría izquierda y francesa de 1,0 cm. A4, márgenes 2,5 cm (arriba/abajo) y 3,0 cm (lados). Pie `M-CPC-01/03`. Sin resaltados.
 - Negrita: **solo el rótulo de cada ordinal, también en PRIMERO** («**PRIMERO:** admitir…», R-164). Ordinales seguidos, sin saltos.
-- Subrayado: solo el rótulo del requerimiento de **cada** denunciado («A La Positiva:», R-207), nunca el párrafo ni frases del resolutivo (R-192). Encabezado «ETIQUETA<tab>:<tab>VALOR».
+- Subrayado: solo el rótulo del requerimiento de **cada** denunciado («A La Positiva:», R-208) y nada más (R-192). Encab. «ETIQUETA<tab>:<tab>VALOR».
 - Considerativa en una serie continua (R-191); una línea en blanco entre imputaciones, nunca dos (R-194). Si se deja sin efecto una inadmisibilidad, se conservan su apartado y su ordinal.
 - **Notas al pie** (R-183 a R-187): toda llamada con su nota y viceversa; **nunca dos llamadas juntas**; competencia tras «en ejercicio de sus facultades»; la nota de la norma imputada solo en la **primera** imputación de ese artículo (R-202); una tabulación tras la llamada y todas las líneas a 1 cm; sin líneas en blanco dentro y una al final; sin dobles espacios; literales completos y con su letra. El constructor lo aplica solo (anclas en `docs/anclas_notas.json`; detalle en la skill `admisorio-flujo`). La transcripción literal de una norma se respeta tal cual.
 - **Firma**: cuatro líneas centradas: «Firmado digitalmente por» / FIRMANTE / CARGO / «Comisión de Protección al Consumidor 1» (R-193).

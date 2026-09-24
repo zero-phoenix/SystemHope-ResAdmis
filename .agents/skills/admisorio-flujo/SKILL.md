@@ -93,6 +93,13 @@ Secciones:
 ## Corregir un Word que entrega el instructor
 Ese Word es la `plantilla` del `mapa.json`: `reemplazos` para el texto e `insertar_despues` para párrafos nuevos. Se conservan su numeración y sus notas. Nunca lo reescribas con ElementTree, python-docx ni `python -c` (Exp. 2835-2026: Word corrupto y numeración duplicada). El verificador rechaza numerales pegados («9.La», R-179) o duplicados («1. 1.», R-180).
 
+## Deber de información en la considerativa (v3.3, R-207)
+Toda imputación por el artículo 1, numeral 1, literal b) y el artículo 2 cierra el hecho, en la considerativa, así:
+«…consistente en que [SUJETO] no habría [HECHO, con fecha]; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de información, tipificado en el artículo 1, numeral 1, literal b) y al artículo 2 del Código.»
+- Las 168 plantillas que imputan información ya la traen (232 párrafos, `scripts/migraciones/afectacion_derecho_informacion.py`).
+- Si un `"parrafos"` del mapa la omite, el constructor la añade al sanear; el verificador rechaza la imputación que no la tenga.
+- El resolutivo («Presunta infracción al artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, … en tanto …») **no** la lleva.
+
 ## Revisión del instructor del 24/09/2026 (v3.2)
 Remesa de 11 admisorios corregidos y el Exp. 3092-2026 rehecho sobre su expediente. Lo que se generalizó:
 - **El constructor sanea solo** (`scripts/sanear_admisorio.py`, lo llama al terminar):
@@ -101,9 +108,9 @@ Remesa de 11 admisorios corregidos y el Exp. 3092-2026 rehecho sobre su expedien
   - restituye la nota del Código y la de competencia si se pierden al reanclarse;
   - deja la nota de la norma imputada **solo en la primera imputación** de ese artículo (R-202);
   - renumera las notas sin colisiones.
-- **Imputaciones** (skill `imputaciones`): mandan las plantillas por **sentido y finalidad**; la tabla es referencial. **Una por solicitud y por cobertura** (R-206). «La denunciante» (R-205), «compañía aseguradora» (R-201). Negativa de cobertura «de manera injustificada» (R-208).
-- **Hechos**: la tratativa («la señora X») solo en la apertura y en la medida correctiva; las viñetas van con **sujeto tácito** («El 29 de mayo de 2021, recibió…»). Medido: 3 994 de 4 246 viñetas del corpus (94 %) no la repiten; las demás nombran a terceros o distinguen a varios denunciantes (R-209).
-- **Requerimiento**: el rótulo de **cada** denunciado subrayado («A Santander:»). Al sustituir un rótulo con `"parrafos"`, el subrayado podía perderse; `sanear_admisorio.py` lo repone (R-207).
+- **Imputaciones** (skill `imputaciones`): mandan las plantillas por **sentido y finalidad**; la tabla es referencial. **Una por solicitud y por cobertura** (R-206). «La denunciante» (R-205), «compañía aseguradora» (R-201). Negativa de cobertura «de manera injustificada» (R-209).
+- **Hechos**: la tratativa («la señora X») solo en la apertura y en la medida correctiva; las viñetas van con **sujeto tácito** («El 29 de mayo de 2021, recibió…»). Medido: 3 994 de 4 246 viñetas del corpus (94 %) no la repiten; las demás nombran a terceros o distinguen a varios denunciantes (R-210).
+- **Requerimiento**: el rótulo de **cada** denunciado subrayado («A Santander:»). Al sustituir un rótulo con `"parrafos"`, el subrayado podía perderse; `sanear_admisorio.py` lo repone (R-208).
 - **Hechos**: «adquirió» el seguro (R-204); nada valorativo como «únicamente» (R-203); solo lo que sustenta las imputaciones, sin perder el contexto.
 - **Inadmisibilidad dejada sin efecto**: si el Word o el expediente la traen, se conservan el apartado «DE LA INADMISIBILIDAD» y el ordinal que la deja sin efecto.
 - **Nota sobre la presentación de la denuncia en CC1** (prohibida, R-167): el constructor la quita y renumera.

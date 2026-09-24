@@ -21,7 +21,10 @@ verificador no veia o que el constructor producia:
     al reanclarse: se restituyen desde una plantilla maestra (R-184);
   - la nota de la norma imputada va SOLO en la primera imputacion de ese
     articulo: las siguientes no la repiten (mandato del instructor, R-202);
-  - rotulo del requerimiento («A Santander:») subrayado y el cuerpo sin subrayar (R-207);
+  - la considerativa de cada imputacion por el deber de informacion cierra con
+    «; involucraría una presunta afectación al derecho de información de los
+    consumidores. Por consiguiente, …» (v3.3, R-207);
+  - rotulo del requerimiento («A Santander:») subrayado y el cuerpo sin subrayar (R-208);
   - renumeracion de notas en dos fases (sin colisiones de ids).
 
 Todo se hace sobre el XML como texto; ningun proceso WINWORD.EXE.
@@ -39,6 +42,7 @@ import normalizar_plantillas_popperianas as NP
 import notas_traslado as NT
 import migrar_v3_1 as M31
 import uniformar_tipografia as UT
+import afectacion_derecho_informacion as ADI
 
 RUN = re.compile(
     r"<w:r\b[^>]*>(<w:rPr>.*?</w:rPr>)?<w:t(?: [^>]*)?>([^<]*)</w:t></w:r>", re.S
@@ -514,7 +518,7 @@ def _con_u(rpr, u):
 
 def rotulos_requerimiento(ruta: Path):
     """Rotulo del requerimiento («A Santander:») subrayado y el resto sin subrayar
-    (AGENTS §7, R-207). Al sustituir «A Autofondo:» por «A Santander:» el rotulo
+    (AGENTS §7, R-208). Al sustituir «A Autofondo:» por «A Santander:» el rotulo
     caia en el run del cuerpo y perdia el subrayado (Exp. 2898-2026, 24/09/2026)."""
     infos, datos = _leer(ruta)
     x = datos["word/document.xml"].decode("utf-8")
@@ -574,6 +578,7 @@ def sanear(ruta) -> None:
     nota_codigo(p)
     nota_competencia(p)
     notas_repetidas(p)
+    ADI.migrar_docx(p, True)
     rotulos_requerimiento(p)
     UT.main([str(p), "--aplicar"])
 

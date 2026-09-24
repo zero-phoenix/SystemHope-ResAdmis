@@ -358,16 +358,12 @@
    "fundamento": "Derecho a acceder a informacion oportuna, suficiente, veraz y facilmente accesible (art. 1, numeral 1, literal b) y deber de informacion relevante (art. 2).",
    "frecuencia": {
     "resolutivo": 218,
-    "considerativa": 228
+    "considerativa": 231
    },
    "considerativa_canonica": "al deber de información",
    "considerativa_variantes": [
     {
      "forma": "al deber de idoneidad",
-     "frecuencia": 1
-    },
-    {
-     "forma": "a los derechos de los consumidores",
      "frecuencia": 1
     }
    ],

@@ -60,7 +60,7 @@
 - **Defectos medidos en el corpus (no copiar):** sin_'de la Ley 29571, Codigo...': 17, sin_condicional: 20, con_'y/o': 2
 - **Ejemplo literal:** Presunta infracción a los artículos 18 y 19 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto los proveedores denunciados no habrían cumplido con gestionar la solicitud del denunciante de ejercer su derecho de cancelar o sustituir la Póliza del Seguro Vehicular asociado al crédito vehicular CCV****8280, pese a la solicitud del denunciante.
 
-## `art.1|art.2|lit.b|num.1` — 218 en el resolutivo, 228 en la considerativa
+## `art.1|art.2|lit.b|num.1` — 218 en el resolutivo, 231 en la considerativa
 
 - **Hechos de la tabla:** Atención de requerimientos de información | Incumplimiento de la obligación de informar en general | Falta de entrega de documentación contractual DESPUÉS de firmado el contrato, cuando el consumidor la solicita (copia de contrato o póliza, requerimiento de información sobre sus productos)
 - **Fundamento:** Derecho a acceder a informacion oportuna, suficiente, veraz y facilmente accesible (art. 1, numeral 1, literal b) y deber de informacion relevante (art. 2).

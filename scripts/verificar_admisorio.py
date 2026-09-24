@@ -2001,8 +2001,8 @@ def prueba_r206_una_imputacion_por_hecho(doc) -> list[str]:
     return fallos[:4]
 
 
-def prueba_r207_rotulo_subrayado(doc) -> list[str]:
-    """R-207: todo rotulo del requerimiento («A La Positiva:», «A Santander:»)
+def prueba_r208_rotulo_subrayado(doc) -> list[str]:
+    """R-208: todo rotulo del requerimiento («A La Positiva:», «A Santander:»)
     va subrayado completo; se mide que cada denunciado tenga su rotulo con el
     mismo formato (Exp. 2898-2026: La Positiva subrayado y Santander no)."""
     fallos = []
@@ -2013,7 +2013,7 @@ def prueba_r207_rotulo_subrayado(doc) -> list[str]:
         sub = "".join(t for t, u in p.runs_und if u).strip()
         if sub.rstrip(":") != r.group(1).strip().rstrip(":"):
             fallos.append(
-                "R-207: rotulo del requerimiento «%s» sin subrayar (o subrayado incompleto)"
+                "R-208: rotulo del requerimiento «%s» sin subrayar (o subrayado incompleto)"
                 % r.group(1).strip()
             )
     return fallos[:4]
@@ -2029,12 +2029,12 @@ RE_MENTE_COBERTURA = re.compile(
 )
 
 
-def prueba_r208_de_manera(doc) -> list[str]:
-    """R-208: la negativa de cobertura se imputa «de manera injustificada» o
+def prueba_r209_de_manera(doc) -> list[str]:
+    """R-209: la negativa de cobertura se imputa «de manera injustificada» o
     «de manera indebida», nunca con el adverbio en -mente
     («injustificadamente», «indebidamente»): mandato del instructor 24/09/2026."""
     return [
-        "R-208: imputacion (%s) con «%s»: va «de manera %s»"
+        "R-209: imputacion (%s) con «%s»: va «de manera %s»"
         % (
             seccion,
             m.group(1),
@@ -2048,8 +2048,8 @@ def prueba_r208_de_manera(doc) -> list[str]:
     ][:4]
 
 
-def prueba_r209_sujeto_tacito(doc) -> list[str]:
-    """R-209: en las vinetas de HECHOS la persona denunciante es el sujeto
+def prueba_r210_sujeto_tacito(doc) -> list[str]:
+    """R-210: en las vinetas de HECHOS la persona denunciante es el sujeto
     tacito («El 11 de mayo de 2021, suscribió…»): la apertura ya dice quien
     narra («la señora X denunció…, señalando lo siguiente:»). Medido en las 515
     plantillas con tratativa en la apertura: 3 994 de 4 246 vinetas (94 %) no
@@ -2089,9 +2089,37 @@ def prueba_r209_sujeto_tacito(doc) -> list[str]:
             continue
         if rx.search(t):
             fallos.append(
-                "R-209: vineta de HECHOS con «%s» como sujeto: va el sujeto tacito («…%s…»)"
+                "R-210: vineta de HECHOS con «%s» como sujeto: va el sujeto tacito («…%s…»)"
                 % (trat, t[:70])
             )
+    return fallos[:4]
+
+
+# --------------------------------------------------------------------------
+# v3.3 (instructor 24/09/2026): calificacion del deber de informacion
+# --------------------------------------------------------------------------
+
+FRASE_R207 = "; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente"
+
+
+def prueba_r207_afectacion_derecho_informacion(doc) -> list[str]:
+    """R-207: en la considerativa, toda imputacion por el deber de informacion
+    cierra el hecho con «; involucraría una presunta afectación al derecho de
+    información de los consumidores. Por consiguiente, corresponde calificar
+    …». El resolutivo no la lleva."""
+    fallos = []
+    for p in doc:
+        t = p.texto
+        if (
+            "considera que el hecho" in t
+            and "presunta infracción al deber de información" in t
+        ):
+            if FRASE_R207 not in t:
+                i = t.find("consistente en que")
+                fallos.append(
+                    "R-207: imputacion por informacion sin «; involucraría una presunta afectación al derecho de información de los consumidores»: «%s…»"
+                    % t[i + 19 : i + 70]
+                )
     return fallos[:4]
 
 
@@ -2127,18 +2155,23 @@ PRUEBAS = [
         "falsador",
     ),
     (
-        "R-207 rotulo del requerimiento subrayado",
-        lambda d, s, z: prueba_r207_rotulo_subrayado(d),
+        "R-207 informacion: afectacion al derecho de informacion",
+        lambda d, s, z: prueba_r207_afectacion_derecho_informacion(d),
         "falsador",
     ),
     (
-        "R-208 de manera injustificada, no injustificadamente",
-        lambda d, s, z: prueba_r208_de_manera(d),
+        "R-208 rotulo del requerimiento subrayado",
+        lambda d, s, z: prueba_r208_rotulo_subrayado(d),
         "falsador",
     ),
     (
-        "R-209 sujeto tacito en las vinetas de HECHOS",
-        lambda d, s, z: prueba_r209_sujeto_tacito(d),
+        "R-209 de manera injustificada, no injustificadamente",
+        lambda d, s, z: prueba_r209_de_manera(d),
+        "falsador",
+    ),
+    (
+        "R-210 sujeto tacito en las vinetas de HECHOS",
+        lambda d, s, z: prueba_r210_sujeto_tacito(d),
         "falsador",
     ),
     (

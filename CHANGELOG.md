@@ -4,13 +4,13 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
-## [3.3.0] - 2026-09-24 (REVISIÓN DEL INSTRUCTOR SOBRE EL EXP. 2898-2026 R2)
+## [3.4.0] - 2026-09-24 (REVISIÓN DEL INSTRUCTOR SOBRE EL EXP. 2898-2026 R2)
 
 ### Added
-- Falsadores y sus mutaciones en `prueba_verificador.py` (50 mutaciones):
-  - R-207: el rótulo del requerimiento de cada denunciado va subrayado;
-  - R-208: la negativa de cobertura se imputa «de manera injustificada» o «de manera indebida», nunca con el adverbio en -mente;
-  - R-209: las viñetas de HECHOS van con sujeto tácito; la tratativa solo en la apertura y en la medida correctiva (medido: 94 % del corpus).
+- Falsadores y sus mutaciones en `prueba_verificador.py` (51 mutaciones):
+  - R-208: el rótulo del requerimiento de cada denunciado va subrayado;
+  - R-209: la negativa de cobertura se imputa «de manera injustificada» o «de manera indebida», nunca con el adverbio en -mente;
+  - R-210: las viñetas de HECHOS van con sujeto tácito; la tratativa solo en la apertura y en la medida correctiva (medido: 94 % del corpus).
 - `sanear_admisorio.py`: `rotulos_requerimiento` subraya el rótulo y quita el subrayado del cuerpo (el constructor lo llama solo).
 
 ### Fixed
@@ -19,8 +19,21 @@ El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este pro
 - R-204 ya no rechaza la negación que refiere lo que informó el proveedor («no contaba con una póliza vigente»).
 
 ### Changed
-- AGENTS.md v3.3, skills `imputaciones` y `admisorio-flujo`, README y CONTRADICCIONES.
-- Casos ficticios 9904, 9908 y 9999 con las formas nuevas. Release `v3.3.N`; motor 3.3.0.
+- AGENTS.md v3.4, skills `imputaciones` y `admisorio-flujo`, README y CONTRADICCIONES.
+- Casos ficticios 9904, 9908 y 9999 con las formas nuevas. Release `v3.4.N`; motor 3.4.0. Las reglas se numeran tras R-207 (deber de información, v3.3.0).
+
+## [3.3.0] - 2026-09-24 (DEBER DE INFORMACIÓN: AFECTACIÓN AL DERECHO DE INFORMACIÓN EN LA CONSIDERATIVA)
+
+Mandato del instructor, total y permanente: en la parte considerativa, toda imputación por el deber de información cierra el hecho con «; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de información, tipificado en el artículo 1, numeral 1, literal b) y al artículo 2 del Código.» El resolutivo no cambia.
+
+### Added
+- `scripts/migraciones/afectacion_derecho_informacion.py`: migración idempotente sobre el XML (solo los `<w:t>` del párrafo; formato y notas intactos).
+- R-207 en `verificar_admisorio.py` (falsador) y su mutación en `prueba_verificador.py` (48 mutaciones).
+
+### Changed
+- **168 plantillas maestras, 232 párrafos**: la considerativa de información lleva la fórmula. Las variantes antiguas se uniforman a ella («a los derechos de los consumidores», «literal b) del artículo 1 y artículo 2», «numeral 1.1 … numerales 2.1 y 2.2», «afectación al derecho de información que tiene el consumidor»).
+- `sanear_admisorio.py`: el constructor añade la fórmula si el mapa la omite.
+- AGENTS §2.4 y §2.6, skills `imputaciones` y `admisorio-flujo`, generador de la skill, catálogo analítico y caso ficticio 9998-2026.
 
 ## [3.2.0] - 2026-09-24 (CORRECCIONES DEFINITIVAS DEL INSTRUCTOR: REMESA DE 11 ADMISORIOS Y EXP. 3092-2026)
 
