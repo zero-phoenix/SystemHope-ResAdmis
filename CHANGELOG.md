@@ -10,7 +10,7 @@ Autorizado por el instructor: tercera pasada de la migracion, vista superior a L
 
 ### Added
 - `previsualizar` usa **ONLYOFFICE Document Builder** (gratuito; maquetacion que imita a Word) si esta instalado: medido en el 9998-2026, dibuja las notas como Word con el documento tal cual. LibreOffice queda de respaldo, con las imagenes rotuladas «VISTA APROXIMADA», aviso de letras sin la metrica de Arial Narrow y `PREVISUALIZAR_MOTOR` para forzar uno. `comprobar_entorno` informa el motor de vista; `ARRANQUE.md` indica como instalarlo.
-- 12 casos de regresion de forma sobre plantillas reales (1, 2 y 3 denunciados; casilla, correo y domicilio; SCTR, vida, desgravamen, hogar, vehicular, transporte, sepelio, tarjetas, salud): con los 2 casos ficticios, 14 casos que CI construye y exige APTO.
+- 12 casos de regresion de forma sobre plantillas reales (1 y 2 denunciados; casilla, correo y domicilio procesal; SCTR, desgravamen, hogar, vehicular, transporte, sepelio, tarjetas y accidentes personales): con los 2 casos ficticios, 14 casos que CI construye y exige APTO. Sin caso de 3 o mas denunciados: de 15 plantillas asi, solo 1 es APTA y conserva numeros de 8 cifras que la guardia de datos personales bloquea.
 - Autocomprobacion: AGENTS.md cabe en el limite de reglas de Antigravity (12 000 caracteres).
 
 ### Changed
