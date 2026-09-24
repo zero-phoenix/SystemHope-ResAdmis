@@ -4,29 +4,47 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
-## [3.4.0] - 2026-09-24 (CORRECCIONES DEFINITIVAS DE LA REVISIÓN DEL EXP. 2889-2026)
+## [3.5.0] - 2026-09-24 (CORRECCIONES DEFINITIVAS DE LA REVISIÓN DEL EXP. 2889-2026)
 
 La revisora corrigió el ADM 2889-2026 R2 y el instructor confirmó como reglas generales tres de sus correcciones.
 
 ### Added
-- **R-208 (reclamos)**: en la considerativa, toda imputación por el numeral 88.1 del artículo 88 (o el artículo 24) cierra el hecho con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, …». Nunca la frase de «expectativas». Falsador en `verificar_admisorio.py` y mutación en `prueba_verificador.py`.
-- **R-209 (traslado)**: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la misma cita del artículo que admite la denuncia. Falsador (rechaza «de la presente resolución» y la cita que difiera del PRIMERO) y mutación.
-- **R-210 (tipificación)**: la subida de la prima o el cambio de condiciones sin consentimiento expreso es el «literal c) del artículo 56» (nunca «numeral 56.1», R-143; métodos comerciales coercitivos), no idoneidad. Regla en AGENTS §2.4 y en las skills `imputaciones` y `admisorio-flujo`.
+- **R-211 (reclamos)**: en la considerativa, toda imputación por el numeral 88.1 del artículo 88 (o el artículo 24) cierra el hecho con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, …». Nunca la frase de «expectativas». Falsador en `verificar_admisorio.py` y mutación en `prueba_verificador.py`.
+- **R-212 (traslado)**: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la misma cita del artículo que admite la denuncia. Falsador (rechaza «de la presente resolución» y la cita que difiera del PRIMERO) y mutación.
+- **R-213 (tipificación)**: la subida de la prima o el cambio de condiciones sin consentimiento expreso es el «literal c) del artículo 56» (nunca «numeral 56.1», R-143; métodos comerciales coercitivos), no idoneidad. Regla en AGENTS §2.4 y en las skills `imputaciones` y `admisorio-flujo`.
 - `scripts/migraciones/afectacion_derecho_reclamos.py`, `scripts/migraciones/traslado_denuncia.py` y `scripts/migraciones/_tramos.py`: migraciones idempotentes que solo tocan los `<w:t>` del párrafo; la estructura, el formato y las notas quedan intactos (comprobado en las 574 plantillas).
 
 ### Changed
 - **Plantillas maestras**:
-  - 109 plantillas y 167 párrafos de reclamos llevan la frase de R-208; en 1 se sustituyó la frase de «expectativas».
+  - 109 plantillas y 167 párrafos de reclamos llevan la frase de R-211; en 1 se sustituyó la frase de «expectativas».
   - Las 574 plantillas corren traslado de la denuncia, con la cita copiada de su propio PRIMERO.
   - Cuatro plantillas arrastran al traslado erratas que ya tenía su PRIMERO: TPL_2150_2025 y TPL_1486_2025 («denuncia del escrito del …»), TPL_1326_2026 («denuncia del de abril») y TPL_1206_2026 («6 de abril de marzo»). La TPL_2059_2025 conserva el marcador de anonimización «[APELLIDO]» en la fecha. Se dejaron tal cual porque el dato real no consta.
 - **R-155**: el verificador exige el inicio nuevo; el resto de la fórmula literal no cambia.
-- **`sanear_admisorio.py`**: el constructor añade la frase de R-208 y pone o sincroniza la cita del traslado con el PRIMERO del caso, que antes heredaba las fechas de la plantilla.
+- **`sanear_admisorio.py`**: el constructor añade la frase de R-211 y pone o sincroniza la cita del traslado con el PRIMERO del caso, que antes heredaba las fechas de la plantilla.
 - **Reglas y documentación**:
-  - AGENTS v3.4, dentro del límite de 12 000 caracteres;
+  - AGENTS v3.5, dentro del límite de 12 000 caracteres;
   - skills `partes-y-notificacion`, `imputaciones` (regenerada) y `admisorio-flujo`;
-  - `REGLAS_DE_APRENDIZAJE.md`, README y release v3.4;
+  - `REGLAS_DE_APRENDIZAJE.md`, README y release v3.5;
   - casos ficticios 9908 y 9999 actualizados al texto nuevo de sus plantillas.
 - `migrar_v3_parte1.py` y `aplicar_traslado_r155.py` quedan marcados como históricos.
+
+## [3.4.0] - 2026-09-24 (REVISIÓN DEL INSTRUCTOR SOBRE EL EXP. 2898-2026 R2)
+
+### Added
+- Falsadores y sus mutaciones en `prueba_verificador.py` (51 mutaciones):
+  - R-208: el rótulo del requerimiento de cada denunciado va subrayado;
+  - R-209: la negativa de cobertura se imputa «de manera injustificada» o «de manera indebida», nunca con el adverbio en -mente;
+  - R-210: las viñetas de HECHOS van con sujeto tácito; la tratativa solo en la apertura y en la medida correctiva (medido: 94 % del corpus).
+- `sanear_admisorio.py`: `rotulos_requerimiento` subraya el rótulo y quita el subrayado del cuerpo (el constructor lo llama solo).
+
+### Fixed
+- Al sustituir «A Autofondo:» por «A Santander:» con `"parrafos"`, el rótulo caía en el run del cuerpo y perdía el subrayado.
+- `notas_pie.nota_de_la_norma`: también sustituye la nota del 88.1 cuando la calificación no dice «tipificado».
+- R-204 ya no rechaza la negación que refiere lo que informó el proveedor («no contaba con una póliza vigente»).
+
+### Changed
+- AGENTS.md v3.4, skills `imputaciones` y `admisorio-flujo`, README y CONTRADICCIONES.
+- Casos ficticios 9904, 9908 y 9999 con las formas nuevas. Release `v3.4.N`; motor 3.4.0. Las reglas se numeran tras R-207 (deber de información, v3.3.0).
 
 ## [3.3.0] - 2026-09-24 (DEBER DE INFORMACIÓN: AFECTACIÓN AL DERECHO DE INFORMACIÓN EN LA CONSIDERATIVA)
 

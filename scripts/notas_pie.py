@@ -744,8 +744,13 @@ def nota_de_la_norma(x: str, fx: str) -> tuple[str, str, list[str]]:
     for m in RE_P.finditer(x):
         p = m.group(0)
         t = desescapar(texto(p))
-        if "corresponde calificar" not in t or "tipificad" not in t:
+        if "corresponde calificar" not in t:
             continue
+        # «… tipificado en …» o, como en 88.1, «… presunta infraccion al numeral …»
+        ancla = "tipificad" if "tipificad" in t else ("presunta infracci" if "presunta infracci" in t else None)
+        if ancla is None:
+            continue
+        t = t[: t.index("corresponde calificar")] + t[t.index("corresponde calificar"):].replace(ancla, "tipificad", 1) if ancla != "tipificad" else t
         cola = _clave_norma(t[t.index("tipificad"):])
         k = next((orig for c, orig in claves if c in cola), None)
         if k is None:

@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Migración v3.4 (R-209, instructor 24/09/2026): el artículo resolutivo del
+"""Migración v3.5 (R-212, instructor 24/09/2026): el artículo resolutivo del
 traslado corre traslado de la **denuncia**, citada con sus escritos y fechas
 tal como la cita el artículo que la admite a trámite (y se mantiene
 sincronizada con él: el constructor hereda la cita de la plantilla):

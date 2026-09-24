@@ -93,10 +93,10 @@ Secciones:
 ## Corregir un Word que entrega el instructor
 Ese Word es la `plantilla` del `mapa.json`: `reemplazos` para el texto e `insertar_despues` para párrafos nuevos. Se conservan su numeración y sus notas. Nunca lo reescribas con ElementTree, python-docx ni `python -c` (Exp. 2835-2026: Word corrupto y numeración duplicada). El verificador rechaza numerales pegados («9.La», R-179) o duplicados («1. 1.», R-180).
 
-## Revisión del Exp. 2889-2026 (v3.4, 24/09/2026)
-- **Reclamos (R-208)**: toda imputación por el numeral 88.1 del artículo 88 (o el artículo 24) cierra el hecho, en la considerativa, con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, corresponde calificar …». Nunca la frase de «expectativas». El resolutivo no la lleva. Las 109 plantillas con reclamos ya la traen (167 párrafos).
-- **Traslado (R-209)**: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita del PRIMERO. Las 574 plantillas ya lo traen; el constructor sincroniza la cita con el PRIMERO del caso.
-- **Modificación unilateral (R-210)**: subir la prima o cambiar las condiciones sin consentimiento expreso (aunque se hubiera informado que se mantendrían) es el «literal c) del artículo 56» (nunca «numeral 56.1»: R-143) («deber de protección contra los métodos comerciales coercitivos»), no idoneidad; sin «expectativas»; su nota, la de `docs/notas_normas.json`.
+## Revisión del Exp. 2889-2026 (v3.5, 24/09/2026)
+- **Reclamos (R-211)**: toda imputación por el numeral 88.1 del artículo 88 (o el artículo 24) cierra el hecho, en la considerativa, con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, corresponde calificar …». Nunca la frase de «expectativas». El resolutivo no la lleva. Las 109 plantillas con reclamos ya la traen (167 párrafos).
+- **Traslado (R-212)**: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita del PRIMERO. Las 574 plantillas ya lo traen; el constructor sincroniza la cita con el PRIMERO del caso.
+- **Modificación unilateral (R-213)**: subir la prima o cambiar las condiciones sin consentimiento expreso (aunque se hubiera informado que se mantendrían) es el «literal c) del artículo 56» (nunca «numeral 56.1»: R-143) («deber de protección contra los métodos comerciales coercitivos»), no idoneidad; sin «expectativas»; su nota, la de `docs/notas_normas.json`.
 - Migraciones: `scripts/migraciones/afectacion_derecho_reclamos.py` y `traslado_denuncia.py` (idempotentes, solo el texto).
 
 ## Deber de información en la considerativa (v3.3, R-207)
@@ -114,7 +114,9 @@ Remesa de 11 admisorios corregidos y el Exp. 3092-2026 rehecho sobre su expedien
   - restituye la nota del Código y la de competencia si se pierden al reanclarse;
   - deja la nota de la norma imputada **solo en la primera imputación** de ese artículo (R-202);
   - renumera las notas sin colisiones.
-- **Imputaciones** (skill `imputaciones`): mandan las plantillas por **sentido y finalidad**; la tabla es referencial. **Una por solicitud y por cobertura** (R-206). «La denunciante» (R-205), «compañía aseguradora» (R-201).
+- **Imputaciones** (skill `imputaciones`): mandan las plantillas por **sentido y finalidad**; la tabla es referencial. **Una por solicitud y por cobertura** (R-206). «La denunciante» (R-205), «compañía aseguradora» (R-201). Negativa de cobertura «de manera injustificada» (R-209).
+- **Hechos**: la tratativa («la señora X») solo en la apertura y en la medida correctiva; las viñetas van con **sujeto tácito** («El 29 de mayo de 2021, recibió…»). Medido: 3 994 de 4 246 viñetas del corpus (94 %) no la repiten; las demás nombran a terceros o distinguen a varios denunciantes (R-210).
+- **Requerimiento**: el rótulo de **cada** denunciado subrayado («A Santander:»). Al sustituir un rótulo con `"parrafos"`, el subrayado podía perderse; `sanear_admisorio.py` lo repone (R-208).
 - **Hechos**: «adquirió» el seguro (R-204); nada valorativo como «únicamente» (R-203); solo lo que sustenta las imputaciones, sin perder el contexto.
 - **Inadmisibilidad dejada sin efecto**: si el Word o el expediente la traen, se conservan el apartado «DE LA INADMISIBILIDAD» y el ordinal que la deja sin efecto.
 - **Nota sobre la presentación de la denuncia en CC1** (prohibida, R-167): el constructor la quita y renumera.

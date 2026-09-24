@@ -303,12 +303,35 @@ MUTACIONES = [
     ),
     (
         "R-208",
+        "rotulo del requerimiento sin subrayar",
+        r'<w:u w:val="single" ?/>',
+        "",
+    ),
+    (
+        "R-209",
+        "negativa de cobertura con adverbio en -mente",
+        r"consistente en que ",
+        "consistente en que se habría negado injustificadamente a otorgar la cobertura y ",
+    ),
+    (
+        "R-210",
+        "tratativa como sujeto en una vineta de HECHOS",
+        None,
+        lambda x: re.sub(
+            r"(\d{4}, )(adquirió|presentó|solicitó|contrató|suscribió)",
+            r"\1el señor Perez \2",
+            re.sub(r"\(SEÑORA? \[APELLIDO\]\)", "(SEÑOR PEREZ)", x, count=1),
+            count=1,
+        ),
+    ),
+    (
+        "R-211",
         "reclamo sin «afectación a su derecho de recibir respuestas adecuadas»",
         r"; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados",
         "",
     ),
     (
-        "R-209",
+        "R-212",
         "traslado «de la presente resolución» en vez de la denuncia",
         r"correr traslado de la denuncia del [^<]*? a ",
         "correr traslado de la presente resolución a ",

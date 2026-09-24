@@ -14,8 +14,8 @@ description: Redactar y verificar las imputaciones de cargos (considerativa y re
 - Núcleo sin palabras valorativas («únicamente», «totalmente», «pésimo»; R-203).
 - Considerativa: «… considera que el hecho denunciado, consistente en que [HECHO en condicional]. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de …, tipificado en … del Código».
 - **Información (R-207)**: la considerativa cierra el hecho con «; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, …»; el resolutivo, no.
-- **Reclamos (R-208)**: la considerativa (88.1 o art. 24) cierra el hecho con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, …»; nunca «expectativas»; el resolutivo, no.
-- **R-210**: prima o condiciones cambiadas sin consentimiento → «literal c) del artículo 56» (métodos coercitivos; nunca «numeral 56.1», R-143), no idoneidad.
+- **Reclamos (R-211)**: la considerativa (88.1 o art. 24) cierra el hecho con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, …»; nunca «expectativas»; el resolutivo, no.
+- **R-213**: prima o condiciones cambiadas sin consentimiento → «literal c) del artículo 56» (métodos coercitivos; nunca «numeral 56.1», R-143), no idoneidad.
 - Resolutivo: «Presunta infracción a [NORMA] de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto [SUJETO] habría(n) [CONDUCTA] [PRODUCTO] [FECHA/CIRCUNSTANCIA].» Una oración, una conducta.
 - Sujeto (R-188, instructor 24/09/2026), idéntico en la considerativa y en el resolutivo:
   - aseguradora ÚNICA denunciada: «la compañía aseguradora» (nunca su razón social ni su alias);
@@ -23,6 +23,7 @@ description: Redactar y verificar las imputaciones de cargos (considerativa y re
   - conducta común a todos: «los proveedores denunciados» solo con EXACTAMENTE 2; con 3 o más, los dos nombres completos;
   - «el proveedor denunciado» solo si hay uno;
   - la denunciante o el denunciante: su **nombre completo** («la señora María Pérez Gómez») o «la denunciante», nunca la tratativa corta de los hechos ni «la parte denunciante» (R-205);
+  - negativa de cobertura: «se habría negado **de manera injustificada**» o «**de manera indebida**», nunca el adverbio «injustificadamente» / «indebidamente» (R-209, instructor 24/09/2026);
   - nunca «aseguradora» a secas: «la compañía aseguradora» (R-201).
 - La **primera** calificación de cada artículo termina con la llamada a la nota que transcribe SU norma (`docs/notas_normas.json`); las siguientes imputaciones por el mismo artículo **no repiten la nota** (R-202). El constructor lo aplica.
 - Mismo orden, misma norma y mismo núcleo fáctico en considerativa y resolutivo. Nunca «y/o», nunca «inducción a error», nunca «N°».
@@ -102,11 +103,6 @@ description: Redactar y verificar las imputaciones de cargos (considerativa y re
 - Considerativa: «presunta infracción al numeral 49.1 del artículo 49 y al literal a) y literal d) del artículo 51 del Código, tipificado en …»
 - Resolutivo: «Presunta infracción al numeral 49.1 del artículo 49 y al literal a) y literal d) del artículo 51 de la Ley 29571, en tanto …»
 - Conductas típicas: habría utilizado una cláusula abusiva
-
-### art.58 (2)
-- Considerativa: «presunta infracción a la protección contra los métodos comerciales agresivos o engañosos, tipificado en …»
-- Resolutivo: «Presunta infracción al artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto …»
-- Conductas típicas: habrían atribuido indebidamente la Póliza; habría atribuido indebidamente la Póliza
 
 
 Detalle completo: `docs/IMPUTACIONES_ANALITICO.md`.

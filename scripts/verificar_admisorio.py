@@ -47,9 +47,20 @@ def sin_tildes(texto: str) -> str:
 
 
 class Parrafo:
-    __slots__ = ("texto", "runs_bold", "numerado", "notas", "estilo", "ilvl", "numid", "runs_und")
+    __slots__ = (
+        "texto",
+        "runs_bold",
+        "numerado",
+        "notas",
+        "estilo",
+        "ilvl",
+        "numid",
+        "runs_und",
+    )
 
-    def __init__(self, texto, runs_bold, numerado, notas, estilo, ilvl, numid="", runs_und=()):
+    def __init__(
+        self, texto, runs_bold, numerado, notas, estilo, ilvl, numid="", runs_und=()
+    ):
         self.texto = texto
         self.runs_bold = runs_bold
         self.numerado = numerado
@@ -879,7 +890,7 @@ def prueba_r155_formula_traslado(doc) -> list[str]:
     exigidos = [
         (
             r"correr traslado de la denuncia del .+? al? .+? para que, de conformidad con lo dispuesto por el art[íi]culo 26 de la Ley sobre Facultades, Normas y Organizaci[oó]n del Indecopi, aprobada por Decreto Legislativo 807\b,",
-            "inicio literal: 'correr traslado de la denuncia del [fecha][, subsanada …] a … articulo 26 ..., aprobada por Decreto Legislativo 807,' (R-209)",
+            "inicio literal: 'correr traslado de la denuncia del [fecha][, subsanada …] a … articulo 26 ..., aprobada por Decreto Legislativo 807,' (R-212)",
         ),
         (
             r"sus descargos sobre la imputaci[oó]n de cargos realizada en un plazo no mayor a cinco \(5\) d[íi]as h[áa]biles contado a partir del d[íi]a siguiente de la notificaci[oó]n de la presente resoluci[oó]n, vencido el cual, el Secretario T[ée]cnico declarar[áa] en rebeld[íi]a",
@@ -1007,7 +1018,9 @@ def prueba_r159_nota_traslado(z) -> list[str]:
     notas = [
         re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", n)).strip().lstrip("․ ").strip()
         for i, n in re.findall(
-            r'<w:footnote (?:(?!/>)[^>])*?w:id="(\d+)"[^>/]*>(.*?)</w:footnote>', x, re.S
+            r'<w:footnote (?:(?!/>)[^>])*?w:id="(\d+)"[^>/]*>(.*?)</w:footnote>',
+            x,
+            re.S,
         )
         if int(i) > 0
     ]
@@ -1141,7 +1154,9 @@ def notas_al_pie(z) -> list[str]:
     return [
         re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", n)).strip().lstrip("․ ").strip()
         for i, n in re.findall(
-            r'<w:footnote (?:(?!/>)[^>])*?w:id="(\d+)"[^>/]*>(.*?)</w:footnote>', x, re.S
+            r'<w:footnote (?:(?!/>)[^>])*?w:id="(\d+)"[^>/]*>(.*?)</w:footnote>',
+            x,
+            re.S,
         )
         if int(i) > 0
     ]
@@ -1448,7 +1463,9 @@ def encabezado(doc) -> dict:
             actual = None
         if actual is None or not t:
             continue
-        cuerpo = re.sub(r"(?i)^DENUNCIA(?:NTE|D[OA])S?\s*(\(S\))?\s*:?\s*", "", t).strip()
+        cuerpo = re.sub(
+            r"(?i)^DENUNCIA(?:NTE|D[OA])S?\s*(\(S\))?\s*:?\s*", "", t
+        ).strip()
         for m in re.finditer(r"([^()]+?)\s*\(([^)]+)\)", cuerpo):
             salida[actual].append((m.group(1).strip(" ,;y"), m.group(2).strip()))
     return salida
@@ -1459,18 +1476,24 @@ def _nucleos(doc) -> list[tuple[str, str]]:
     salida = []
     for p in doc:
         m = re.search(
-            r"consistente en que (.+?)(?:;\s*involucrar|\.\s*Por consiguiente)", p.texto, re.S
+            r"consistente en que (.+?)(?:;\s*involucrar|\.\s*Por consiguiente)",
+            p.texto,
+            re.S,
         )
         if m:
             salida.append(("considerativa", re.sub(r"\s+", " ", m.group(1)).strip()))
-        m = re.search(r"Presunta infracci[oó]n .*?, en tanto (.+?)\s*\.\s*$", p.texto, re.S)
+        m = re.search(
+            r"Presunta infracci[oó]n .*?, en tanto (.+?)\s*\.\s*$", p.texto, re.S
+        )
         if m:
             salida.append(("resolutivo", re.sub(r"\s+", " ", m.group(1)).strip()))
     return salida
 
 
 def _clave(t: str) -> str:
-    return re.sub(r"\s+", " ", re.sub(r"[^A-Z0-9 ]", " ", sin_tildes(t).upper())).strip()
+    return re.sub(
+        r"\s+", " ", re.sub(r"[^A-Z0-9 ]", " ", sin_tildes(t).upper())
+    ).strip()
 
 
 def _nucleo_nombre(nombre: str) -> str:
@@ -1500,14 +1523,17 @@ def prueba_r184_anclas(doc, z) -> list[str]:
     return [
         "R-184: la nota %s (%s) no va tras «%s»; va tras «…%s»"
         % (f["id"], f["tipo"], f["ancla"], f["previo"].strip()[-40:])
-        for f in _N.anclas_incumplidas(_xml(z, "word/document.xml"), _xml(z, "word/footnotes.xml"))
+        for f in _N.anclas_incumplidas(
+            _xml(z, "word/document.xml"), _xml(z, "word/footnotes.xml")
+        )
     ]
 
 
 def prueba_r185_llamadas_pegadas(doc, z) -> list[str]:
     """R-185: nunca dos llamadas de nota seguidas («²³»): cada nota va en su ancla."""
     return [
-        "R-185: la llamada %s va pegada a la anterior tras «…%s»" % (ll["id"], ll["previo"][-40:])
+        "R-185: la llamada %s va pegada a la anterior tras «…%s»"
+        % (ll["id"], ll["previo"][-40:])
         for ll in _N.llamadas_pegadas(_xml(z, "word/document.xml"))
     ]
 
@@ -1518,8 +1544,15 @@ def prueba_r186_nota_corresponde(doc, z) -> list[str]:
     articulos 18 y 19)."""
     return [
         "R-186: la frase «…%s» cita el articulo %s y su nota %s transcribe el %s"
-        % (f["tramo"].strip()[-50:], "/".join(f["citados"]), f["id"], "/".join(f["transcritos"]))
-        for f in _N.notas_que_no_corresponden(_xml(z, "word/document.xml"), _xml(z, "word/footnotes.xml"))
+        % (
+            f["tramo"].strip()[-50:],
+            "/".join(f["citados"]),
+            f["id"],
+            "/".join(f["transcritos"]),
+        )
+        for f in _N.notas_que_no_corresponden(
+            _xml(z, "word/document.xml"), _xml(z, "word/footnotes.xml")
+        )
     ]
 
 
@@ -1553,7 +1586,9 @@ def prueba_r188_denominacion(doc) -> list[str]:
         clave = _clave(nucleo)
         for nombre, alias in enc["denunciantes"]:
             m = re.match(r"(SENORA?|SENORITA)\s+(.+)", _clave(alias))
-            if m and re.search(r"\b%s %s\b" % (m.group(1), re.escape(m.group(2))), clave):
+            if m and re.search(
+                r"\b%s %s\b" % (m.group(1), re.escape(m.group(2))), clave
+            ):
                 fallos.append(
                     "R-188: la imputacion (%s) dice «%s %s»: va el nombre completo «%s»"
                     % (seccion, m.group(1).lower(), m.group(2).title(), nombre.title())
@@ -1561,7 +1596,9 @@ def prueba_r188_denominacion(doc) -> list[str]:
         if n == 1 and RE_ASEGURADORA.search(ddos[0][0]):
             nucleo_rs = _nucleo_nombre(ddos[0][0])
             alias = _clave(ddos[0][1])
-            if (nucleo_rs and nucleo_rs in clave) or re.search(r"\b%s\b" % re.escape(alias), clave):
+            if (nucleo_rs and nucleo_rs in clave) or re.search(
+                r"\b%s\b" % re.escape(alias), clave
+            ):
                 fallos.append(
                     "R-188: aseguradora unica denunciada: en la imputacion (%s) va «la compañía aseguradora»"
                     % seccion
@@ -1573,9 +1610,15 @@ def prueba_r188_denominacion(doc) -> list[str]:
                 )
         if n >= 2:
             if "COMPANIA ASEGURADORA" in clave:
-                fallos.append("R-188: con %d denunciados no existe «la compañía aseguradora» (%s)" % (n, seccion))
+                fallos.append(
+                    "R-188: con %d denunciados no existe «la compañía aseguradora» (%s)"
+                    % (n, seccion)
+                )
             if "EL PROVEEDOR DENUNCIADO" in clave:
-                fallos.append("R-188: con %d denunciados no existe «el proveedor denunciado» (%s)" % (n, seccion))
+                fallos.append(
+                    "R-188: con %d denunciados no existe «el proveedor denunciado» (%s)"
+                    % (n, seccion)
+                )
             for nombre, alias in ddos:
                 a = _clave(alias)
                 nr = _nucleo_nombre(nombre)
@@ -1585,9 +1628,13 @@ def prueba_r188_denominacion(doc) -> list[str]:
                         % (seccion, alias.title())
                     )
         if n >= 3 and "LOS PROVEEDORES DENUNCIADOS" in clave:
-            fallos.append("R-188: con 3 o mas denunciados, los nombres de los implicados (AGENTS §5)")
+            fallos.append(
+                "R-188: con 3 o mas denunciados, los nombres de los implicados (AGENTS §5)"
+            )
         if n == 1 and "LOS PROVEEDORES DENUNCIADOS" in clave:
-            fallos.append("R-188: con un denunciado no existe «los proveedores denunciados»")
+            fallos.append(
+                "R-188: con un denunciado no existe «los proveedores denunciados»"
+            )
     return sorted(set(fallos))[:6]
 
 
@@ -1616,7 +1663,10 @@ def prueba_r189_rotulo_requerimiento(doc) -> list[str]:
         if m and _clave(m.group(1)) not in alias:
             fallos.append(
                 "R-189: rotulo «%s:» del requerimiento: va el alias del encabezado (%s)"
-                % (p.texto[: m.end(1)].strip(), ", ".join(sorted(a.title() for a in alias)))
+                % (
+                    p.texto[: m.end(1)].strip(),
+                    ", ".join(sorted(a.title() for a in alias)),
+                )
             )
     return fallos
 
@@ -1644,7 +1694,11 @@ def prueba_r190_partes_y_concordancia(doc) -> list[str]:
         # Las razones sociales se cotejan en los ordinales del resolutivo, que es
         # donde se nombra a quien se admite, requiere, traslada o notifica. En
         # los hechos puede aparecer un tercero real (la empleadora del SCTR).
-        entidades = RE_RAZON_SOCIAL.finditer(p.texto) if RE_ORDINAL.match(p.texto.strip()) else ()
+        entidades = (
+            RE_RAZON_SOCIAL.finditer(p.texto)
+            if RE_ORDINAL.match(p.texto.strip())
+            else ()
+        )
         for m in entidades:
             ent = _clave(m.group(1))
             palabras = ent.split()
@@ -1653,11 +1707,18 @@ def prueba_r190_partes_y_concordancia(doc) -> list[str]:
                 for nr in nucleos
             )
             if not ok and nucleos:
-                fallos.append("R-190: «%s» no es parte del caso (residuo)" % m.group(0).strip()[-70:])
+                fallos.append(
+                    "R-190: «%s» no es parte del caso (residuo)"
+                    % m.group(0).strip()[-70:]
+                )
         t = p.texto
-        if re.search(r"\bnotificarle\b", t) and re.search(r"\b(reciban|efect[uú]en)\b", t):
+        if re.search(r"\bnotificarle\b", t) and re.search(
+            r"\b(reciban|efect[uú]en)\b", t
+        ):
             fallos.append("R-190: varias partes y «notificarle»: va «notificarles»")
-        if re.search(r"\bnotificarles\b", t) and re.search(r"\b(reciba|efect[uú]e)\b", t):
+        if re.search(r"\bnotificarles\b", t) and re.search(
+            r"\b(reciba|efect[uú]e)\b", t
+        ):
             fallos.append("R-190: una parte y «notificarles»: va «notificarle»")
     return sorted(set(fallos))[:6]
 
@@ -1708,7 +1769,10 @@ def prueba_r192_subrayado(doc) -> list[str]:
         rotulo = re.match(r"\s*A(?:l| la)?\s+[^:,.]{2,60}:", p.texto)
         if rotulo and sub.strip() and sub.strip() in rotulo.group(0):
             continue
-        fallos.append("R-192: subrayado fuera del rotulo del requerimiento: «%s»" % sub.strip()[:60])
+        fallos.append(
+            "R-192: subrayado fuera del rotulo del requerimiento: «%s»"
+            % sub.strip()[:60]
+        )
     return fallos[:4]
 
 
@@ -1720,9 +1784,13 @@ def prueba_r193_firmado_digitalmente(doc) -> list[str]:
     digitalmente por» (instructor, 24/09/2026)."""
     for k, p in enumerate(doc):
         if sin_tildes(p.texto).strip().upper() in FIRMANTES:
-            previo = next((q.texto.strip() for q in reversed(doc[:k]) if q.texto.strip()), "")
+            previo = next(
+                (q.texto.strip() for q in reversed(doc[:k]) if q.texto.strip()), ""
+            )
             if previo != "Firmado digitalmente por":
-                return ["R-193: falta «Firmado digitalmente por» sobre el nombre de la firmante"]
+                return [
+                    "R-193: falta «Firmado digitalmente por» sobre el nombre de la firmante"
+                ]
             return []
     return []
 
@@ -1733,35 +1801,65 @@ def prueba_r194_separadores(z) -> list[str]:
     x = _xml(z, "word/document.xml")
     ps = list(_N.RE_P.finditer(x))
     textos = [_N.texto(m.group(0)) for m in ps]
-    ini = next((k for k, t in enumerate(textos) if sin_tildes(t).strip().upper().startswith("HECHOS")), None)
+    ini = next(
+        (
+            k
+            for k, t in enumerate(textos)
+            if sin_tildes(t).strip().upper().startswith("HECHOS")
+        ),
+        None,
+    )
     ords = [k for k, t in enumerate(textos) if RE_ORDINAL.match(t.strip())]
     if ini is None or not ords:
         return []
     malos = 0
     for k in range(ini + 1, ords[-1]):
         p = ps[k].group(0)
-        if textos[k].strip() or re.search(r"<w:numPr>|<w:br\b|<w:sectPr|<w:drawing|footnoteReference", p):
+        if textos[k].strip() or re.search(
+            r"<w:numPr>|<w:br\b|<w:sectPr|<w:drawing|footnoteReference", p
+        ):
             continue
         sp = re.search(r"<w:spacing\b[^>]*/>", p)
-        if not sp or not re.search(r'w:after="0"', sp.group(0)) or re.search(r'w:line="(?!240")', sp.group(0)):
+        if (
+            not sp
+            or not re.search(r'w:after="0"', sp.group(0))
+            or re.search(r'w:line="(?!240")', sp.group(0))
+        ):
             malos += 1
-    return ["R-194: %d linea(s) en blanco con espaciado heredado (miden mas de una linea)" % malos] if malos else []
+    return (
+        [
+            "R-194: %d linea(s) en blanco con espaciado heredado (miden mas de una linea)"
+            % malos
+        ]
+        if malos
+        else []
+    )
 
 
 def prueba_r194_sin_huecos(doc) -> list[str]:
     """R-194: ningun hueco en el cuerpo: nunca dos parrafos vacios seguidos entre
     HECHOS y el ultimo ordinal (el borrado de hechos dejaba sus separadores)."""
-    ini = next((k for k, p in enumerate(doc) if sin_tildes(p.texto).strip().upper().startswith("HECHOS")), None)
+    ini = next(
+        (
+            k
+            for k, p in enumerate(doc)
+            if sin_tildes(p.texto).strip().upper().startswith("HECHOS")
+        ),
+        None,
+    )
     ords = [k for k, p in enumerate(doc) if RE_ORDINAL.match(p.texto.strip())]
     if ini is None or not ords:
         return []
     fallos = []
     for k in range(ini, ords[-1]):
         if doc[k].vacio and doc[k + 1].vacio and not doc[k].numerado:
-            siguiente = next((q.texto.strip() for q in doc[k + 1 :] if q.texto.strip()), "")
-            fallos.append("R-194: dos lineas en blanco seguidas antes de «%s…»" % siguiente[:40])
+            siguiente = next(
+                (q.texto.strip() for q in doc[k + 1 :] if q.texto.strip()), ""
+            )
+            fallos.append(
+                "R-194: dos lineas en blanco seguidas antes de «%s…»" % siguiente[:40]
+            )
     return sorted(set(fallos))[:4]
-
 
 
 # --------------------------------------------------------------------------
@@ -1778,7 +1876,10 @@ def prueba_r201_compania_aseguradora(doc) -> list[str]:
     for p in doc:
         for m in RE_ASEGURADORA_SOLA.finditer(p.texto):
             if m.group("prev").lower() not in ("compañía", "compania"):
-                fallos.append("R-201: «%s aseguradora»: va «compañía aseguradora»" % m.group("prev"))
+                fallos.append(
+                    "R-201: «%s aseguradora»: va «compañía aseguradora»"
+                    % m.group("prev")
+                )
     return fallos[:5]
 
 
@@ -1792,12 +1893,19 @@ def prueba_r202_nota_norma_repetida(doc, z) -> list[str]:
         return []
     cuerpos = {
         i: re.sub(r"\s+", " ", re.sub(r"<[^>]+>", "", c))
-        for i, c in re.findall(r'<w:footnote (?:(?!/>)[^>])*?w:id="(\d+)"[^>/]*>(.*?)</w:footnote>', fx, re.S)
+        for i, c in re.findall(
+            r'<w:footnote (?:(?!/>)[^>])*?w:id="(\d+)"[^>/]*>(.*?)</w:footnote>',
+            fx,
+            re.S,
+        )
     }
     vistas, fallos = set(), []
     for par in re.findall(r"<w:p[ >].*?</w:p>", x, re.S):
         t = "".join(re.findall(r"<w:t(?: [^>]*)?>([^<]*)</w:t>", par))
-        if not ("considera que el hecho denunciado" in t or t.strip().startswith("Presunta infracci")):
+        if not (
+            "considera que el hecho denunciado" in t
+            or t.strip().startswith("Presunta infracci")
+        ):
             continue
         for i in re.findall(r'<w:footnoteReference [^>]*w:id="(\d+)"', par):
             c = cuerpos.get(i, "").strip()
@@ -1805,12 +1913,18 @@ def prueba_r202_nota_norma_repetida(doc, z) -> list[str]:
                 continue
             arts = tuple(re.findall(r"Art[íi]culo (\d+(?:\.\d+)?)\.-", c))
             if arts in vistas:
-                fallos.append("R-202: la nota %s repite la norma de una imputacion anterior (arts. %s)" % (i, ", ".join(arts)))
+                fallos.append(
+                    "R-202: la nota %s repite la norma de una imputacion anterior (arts. %s)"
+                    % (i, ", ".join(arts))
+                )
             vistas.add(arts)
     return fallos
 
 
-RE_SUBJETIVO = re.compile(r"\b(únicamente|solamente|totalmente|absurd[ao]s?|pésim[ao]s?|poco profesionales?)\b", re.I)
+RE_SUBJETIVO = re.compile(
+    r"\b(únicamente|solamente|totalmente|absurd[ao]s?|pésim[ao]s?|poco profesionales?)\b",
+    re.I,
+)
 
 
 def prueba_r203_lexico_objetivo(doc) -> list[str]:
@@ -1818,19 +1932,32 @@ def prueba_r203_lexico_objetivo(doc) -> list[str]:
     «totalmente», «pésimo», «poco profesionales»): el estilo de las plantillas
     narra lo que consta, sin calificarlo."""
     fallos = []
-    for p in list(tramo_hechos(doc)) + [q for q in doc if "consistente en que" in q.texto or q.texto.strip().startswith("Presunta infracci")]:
+    for p in list(tramo_hechos(doc)) + [
+        q
+        for q in doc
+        if "consistente en que" in q.texto
+        or q.texto.strip().startswith("Presunta infracci")
+    ]:
         m = RE_SUBJETIVO.search(p.texto)
         if m:
-            fallos.append("R-203: palabra valorativa «%s»: «…%s…»" % (m.group(1), p.texto[max(0, m.start() - 30) : m.end() + 20]))
+            fallos.append(
+                "R-203: palabra valorativa «%s»: «…%s…»"
+                % (m.group(1), p.texto[max(0, m.start() - 30) : m.end() + 20])
+            )
     return fallos[:5]
 
 
 def prueba_r204_adquirio(doc) -> list[str]:
-    """R-204: el seguro o la poliza se «adquirió», nunca «contaba con»."""
+    """R-204: el seguro o la poliza se «adquirió», nunca «contaba con». La
+    negacion que refiere lo que informo el proveedor («no contaba con una
+    póliza vigente») no es la forma vetada."""
     return [
         "R-204: «%s»: va «adquirió»" % m.group(0)
         for p in doc
-        for m in re.finditer(r"\bcontaba(?:n)? con (?:el|la|un|una) (?:Seguro|seguro|P[óo]liza|p[óo]liza)", p.texto)
+        for m in re.finditer(
+            r"(?<!\bno )\bcontaba(?:n)? con (?:el|la|un|una) (?:Seguro|seguro|P[óo]liza|p[óo]liza)",
+            p.texto,
+        )
     ][:3]
 
 
@@ -1838,16 +1965,20 @@ def prueba_r205_la_denunciante(doc) -> list[str]:
     """R-205: en las imputaciones se escribe «la denunciante» (o «el
     denunciante»), nunca «la parte denunciante»."""
     return [
-        "R-205: imputacion (%s) con «la parte denunciante»: va «la denunciante»" % seccion
+        "R-205: imputacion (%s) con «la parte denunciante»: va «la denunciante»"
+        % seccion
         for seccion, nucleo in _nucleos(doc)
         if re.search(r"\bparte denunciante\b", nucleo)
     ][:3]
 
 
 RE_FECHAS_UNIDAS = re.compile(
-    r"\bsolicitudes\b[^.;]*?\b\d{1,2}(?: de \w+)?(?: de \d{4})?,? (?:y|e|,) (?:el )?\d{1,2} de \w+", re.I
+    r"\bsolicitudes\b[^.;]*?\b\d{1,2}(?: de \w+)?(?: de \d{4})?,? (?:y|e|,) (?:el )?\d{1,2} de \w+",
+    re.I,
 )
-RE_COBERTURAS_UNIDAS = re.compile(r"\bcobertura[s]? (?:de )?[^,;.]{3,60}? y (?:de )?la cobertura\b", re.I)
+RE_COBERTURAS_UNIDAS = re.compile(
+    r"\bcobertura[s]? (?:de )?[^,;.]{3,60}? y (?:de )?la cobertura\b", re.I
+)
 
 
 def prueba_r206_una_imputacion_por_hecho(doc) -> list[str]:
@@ -1858,10 +1989,111 @@ def prueba_r206_una_imputacion_por_hecho(doc) -> list[str]:
     fallos = []
     for seccion, nucleo in _nucleos(doc):
         if RE_FECHAS_UNIDAS.search(nucleo):
-            fallos.append("R-206: imputacion (%s) que une varias solicitudes: una por solicitud" % seccion)
+            fallos.append(
+                "R-206: imputacion (%s) que une varias solicitudes: una por solicitud"
+                % seccion
+            )
         if RE_COBERTURAS_UNIDAS.search(nucleo):
-            fallos.append("R-206: imputacion (%s) que une varias coberturas: una por cobertura" % seccion)
+            fallos.append(
+                "R-206: imputacion (%s) que une varias coberturas: una por cobertura"
+                % seccion
+            )
     return fallos[:4]
+
+
+def prueba_r208_rotulo_subrayado(doc) -> list[str]:
+    """R-208: todo rotulo del requerimiento («A La Positiva:», «A Santander:»)
+    va subrayado completo; se mide que cada denunciado tenga su rotulo con el
+    mismo formato (Exp. 2898-2026: La Positiva subrayado y Santander no)."""
+    fallos = []
+    for p in doc[8:]:
+        r = re.match(r"\s*(A(?:l| la| los| las)?\s+[^:,.]{2,60}:)\s", p.texto)
+        if not r or "consistente en" in p.texto:
+            continue
+        sub = "".join(t for t, u in p.runs_und if u).strip()
+        if sub.rstrip(":") != r.group(1).strip().rstrip(":"):
+            fallos.append(
+                "R-208: rotulo del requerimiento «%s» sin subrayar (o subrayado incompleto)"
+                % r.group(1).strip()
+            )
+    return fallos[:4]
+
+
+# Negativa de cobertura: el verbo de rechazo seguido del adverbio en -mente y,
+# en la misma oracion, la cobertura, el siniestro o la indemnizacion.
+RE_MENTE_COBERTURA = re.compile(
+    r"\b(?:negado|denegado|rechazado|negó|denegó|rechazó)\s+"
+    r"(injustificadamente|indebidamente|arbitrariamente|ilegítimamente|irregularmente)\b"
+    r"(?=[^.;]*\b(?:cobertura|siniestro|indemniza))",
+    re.I,
+)
+
+
+def prueba_r209_de_manera(doc) -> list[str]:
+    """R-209: la negativa de cobertura se imputa «de manera injustificada» o
+    «de manera indebida», nunca con el adverbio en -mente
+    («injustificadamente», «indebidamente»): mandato del instructor 24/09/2026."""
+    return [
+        "R-209: imputacion (%s) con «%s»: va «de manera %s»"
+        % (
+            seccion,
+            m.group(1),
+            {"injustificadamente": "injustificada", "indebidamente": "indebida"}.get(
+                m.group(1).lower(), "…"
+            ),
+        )
+        for seccion, nucleo in _nucleos(doc)
+        for m in [RE_MENTE_COBERTURA.search(nucleo)]
+        if m
+    ][:4]
+
+
+def prueba_r210_sujeto_tacito(doc) -> list[str]:
+    """R-210: en las vinetas de HECHOS la persona denunciante es el sujeto
+    tacito («El 11 de mayo de 2021, suscribió…»): la apertura ya dice quien
+    narra («la señora X denunció…, señalando lo siguiente:»). Medido en las 515
+    plantillas con tratativa en la apertura: 3 994 de 4 246 vinetas (94 %) no
+    la repiten; las 252 restantes nombran a terceros, cierran con la medida
+    correctiva o distinguen a varios denunciantes. Se admite la tratativa en
+    la medida correctiva y cuando la vineta nombra a otra persona natural."""
+    cab = " ".join(p.texto for p in doc[:6])
+    m = re.search(r"\((SEÑORA|SEÑOR|SEÑORITA) ([^)]+)\)", cab)
+    if not m or re.search(r"DENUNCIANTES\s", cab):
+        return []
+    trat = (
+        (
+            "la señora"
+            if m.group(1) == "SEÑORA"
+            else "el señor"
+            if m.group(1) == "SEÑOR"
+            else "la señorita"
+        )
+        + " "
+        + m.group(2).title()
+    )
+    rx = re.compile(
+        r"(?:^|[,;:] (?:sin embargo, |luego, |asimismo, )?)%s(?= (?:no |le |se |lo |la )?\w+(?:ó|aron|ió)\b)"
+        % re.escape(trat),
+        re.I,
+    )
+    fallos = []
+    for p in [q for q in tramo_hechos(doc) if q.texto.strip()][1:]:
+        t = p.texto.strip()
+        if (
+            m.group(2).startswith("[")
+            or re.search(r"medidas? correctivas?", t)
+            or re.search(
+                r"\b(el señor|la señora)\b(?!\s+%s)" % re.escape(m.group(2).title()), t
+            )
+        ):
+            continue
+        if rx.search(t):
+            fallos.append(
+                "R-210: vineta de HECHOS con «%s» como sujeto: va el sujeto tacito («…%s…»)"
+                % (trat, t[:70])
+            )
+    return fallos[:4]
+
 
 # --------------------------------------------------------------------------
 # v3.3 (instructor 24/09/2026): calificacion del deber de informacion
@@ -1878,7 +2110,10 @@ def prueba_r207_afectacion_derecho_informacion(doc) -> list[str]:
     fallos = []
     for p in doc:
         t = p.texto
-        if "considera que el hecho" in t and "presunta infracción al deber de información" in t:
+        if (
+            "considera que el hecho" in t
+            and "presunta infracción al deber de información" in t
+        ):
             if FRASE_R207 not in t:
                 i = t.find("consistente en que")
                 fallos.append(
@@ -1889,15 +2124,15 @@ def prueba_r207_afectacion_derecho_informacion(doc) -> list[str]:
 
 
 # --------------------------------------------------------------------------
-# v3.4 (instructor 24/09/2026, revision del Exp. 2889-2026): reclamos y traslado
+# v3.5 (instructor 24/09/2026, revision del Exp. 2889-2026): reclamos y traslado
 # --------------------------------------------------------------------------
 
-FRASE_R208 = "; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente"
+FRASE_R211 = "; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente"
 RE_NORMA_RECLAMO = re.compile(r"art[ií]culo 88\b|art[ií]culo 24 del C[oó]digo")
 
 
-def prueba_r208_afectacion_reclamos(doc) -> list[str]:
-    """R-208: en la considerativa, toda imputacion por reclamos (numeral 88.1
+def prueba_r211_afectacion_reclamos(doc) -> list[str]:
+    """R-211: en la considerativa, toda imputacion por reclamos (numeral 88.1
     del articulo 88, o articulo 24) cierra el hecho con «; involucraría una
     presunta afectación a su derecho de recibir respuestas adecuadas a los
     reclamos formulados. Por consiguiente, …». Nunca la frase de expectativas
@@ -1910,19 +2145,19 @@ def prueba_r208_afectacion_reclamos(doc) -> list[str]:
         cola = t[t.rfind("Por consiguiente"):]
         if not RE_NORMA_RECLAMO.search(cola) or "idoneidad" in cola:
             continue
-        if FRASE_R208 not in t:
+        if FRASE_R211 not in t:
             i = t.find("consistente en que")
             fallos.append(
-                "R-208: imputacion por reclamo sin «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados»: «%s…»"
+                "R-211: imputacion por reclamo sin «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados»: «%s…»"
                 % t[i + 19 : i + 70]
             )
         if "afectación a sus expectativas" in t:
-            fallos.append("R-208: imputacion por reclamo con la frase de expectativas (solo idoneidad)")
+            fallos.append("R-211: imputacion por reclamo con la frase de expectativas (solo idoneidad)")
     return fallos[:4]
 
 
-def prueba_r209_traslado_de_la_denuncia(doc) -> list[str]:
-    """R-209: el traslado es de la denuncia, citada con sus escritos y fechas
+def prueba_r212_traslado_de_la_denuncia(doc) -> list[str]:
+    """R-212: el traslado es de la denuncia, citada con sus escritos y fechas
     como en el articulo que la admite: «correr traslado de la denuncia del
     [fecha][, subsanada mediante escrito del [fecha]] a …». Nunca «de la
     presente resolución»."""
@@ -1932,13 +2167,13 @@ def prueba_r209_traslado_de_la_denuncia(doc) -> list[str]:
         return []
     fallos = []
     if re.search(r"correr traslado de la presente resoluci[oó]n", tr):
-        fallos.append("R-209: «correr traslado de la presente resolución»: va «correr traslado de la denuncia del …»")
+        fallos.append("R-212: «correr traslado de la presente resolución»: va «correr traslado de la denuncia del …»")
         return fallos
     adm = next((t for t in textos if "admitir a trámite la denuncia del" in t), None)
     m = re.search(r"correr traslado de la (denuncia del .+?),? al? ", tr)
     if adm and m and m.group(1).rstrip(", ") not in adm:
         fallos.append(
-            "R-209: la cita del traslado («%s») no coincide con la del articulo que admite la denuncia"
+            "R-212: la cita del traslado («%s») no coincide con la del articulo que admite la denuncia"
             % m.group(1)[:90]
         )
     return fallos
@@ -1981,13 +2216,28 @@ PRUEBAS = [
         "falsador",
     ),
     (
-        "R-208 reclamos: afectacion al derecho de recibir respuestas adecuadas",
-        lambda d, s, z: prueba_r208_afectacion_reclamos(d),
+        "R-208 rotulo del requerimiento subrayado",
+        lambda d, s, z: prueba_r208_rotulo_subrayado(d),
         "falsador",
     ),
     (
-        "R-209 traslado de la denuncia, citada como en su admision",
-        lambda d, s, z: prueba_r209_traslado_de_la_denuncia(d),
+        "R-209 de manera injustificada, no injustificadamente",
+        lambda d, s, z: prueba_r209_de_manera(d),
+        "falsador",
+    ),
+    (
+        "R-210 sujeto tacito en las vinetas de HECHOS",
+        lambda d, s, z: prueba_r210_sujeto_tacito(d),
+        "falsador",
+    ),
+    (
+        "R-211 reclamos: afectacion al derecho de recibir respuestas adecuadas",
+        lambda d, s, z: prueba_r211_afectacion_reclamos(d),
+        "falsador",
+    ),
+    (
+        "R-212 traslado de la denuncia, citada como en su admision",
+        lambda d, s, z: prueba_r212_traslado_de_la_denuncia(d),
         "falsador",
     ),
     (

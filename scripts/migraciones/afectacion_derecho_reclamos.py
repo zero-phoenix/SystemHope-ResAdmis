@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
 # -*- coding: utf-8 -*-
-"""Migración v3.4 (R-208, instructor 24/09/2026): la considerativa de toda
+"""Migración v3.5 (R-211, instructor 24/09/2026): la considerativa de toda
 imputación por reclamos (numeral 88.1 del artículo 88, o artículo 24) cierra
 el hecho con
 

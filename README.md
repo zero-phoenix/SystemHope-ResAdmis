@@ -77,17 +77,27 @@ Utilidades:
 
 Por contenido (índice v3): 457 con 1 denunciado, 102 con 2, 15 con 3 o más; 23 con confidencialidad; 336 aptas como base (0 falsadores).
 
-## Novedades v3.4 (24/09/2026)
+## Novedades v3.5 (24/09/2026)
 
 Estas son las correcciones definitivas de la revisión del Exp. 2889-2026, generalizadas a todo el sistema:
 
 | Mandato | Regla |
 |---|---|
-| Reclamos (numeral 88.1 del artículo 88 o artículo 24): en la considerativa, el hecho cierra con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, …». Nunca la frase de «expectativas» | R-208 (109 plantillas, 167 párrafos) |
-| Traslado: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita del PRIMERO; nunca «de la presente resolución» | R-209 (574 plantillas) |
-| Prima o condiciones cambiadas sin consentimiento: «literal c) del artículo 56» (nunca «numeral 56.1»), métodos comerciales coercitivos; no idoneidad | R-210 |
+| Reclamos (numeral 88.1 del artículo 88 o artículo 24): en la considerativa, el hecho cierra con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, …». Nunca la frase de «expectativas» | R-211 (109 plantillas, 167 párrafos) |
+| Traslado: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita del PRIMERO; nunca «de la presente resolución» | R-212 (574 plantillas) |
+| Prima o condiciones cambiadas sin consentimiento: «literal c) del artículo 56» (nunca «numeral 56.1»), métodos comerciales coercitivos; no idoneidad | R-213 |
 
-El constructor aplica R-208 y R-209, y sincroniza la cita del traslado con el PRIMERO del caso. El verificador las exige, con 50 mutaciones y 14 casos ficticios en CI. Migraciones: `scripts/migraciones/afectacion_derecho_reclamos.py` y `traslado_denuncia.py`.
+El constructor aplica R-211 y R-212, y sincroniza la cita del traslado con el PRIMERO del caso. El verificador las exige, con 53 mutaciones y 14 casos ficticios en CI. Migraciones: `scripts/migraciones/afectacion_derecho_reclamos.py` y `traslado_denuncia.py`.
+
+## Novedades v3.4 (24/09/2026)
+
+Revisión del instructor sobre el Exp. 2898-2026 R2. Cada mandato tiene su falsador y su mutación en CI (51 mutaciones).
+
+| Mandato | Regla |
+|---|---|
+| Viñetas de HECHOS con sujeto tácito; la tratativa («la señora X») solo en la apertura y en la medida correctiva (94 % del corpus) | R-210 |
+| Negativa de cobertura «de manera injustificada» o «de manera indebida», nunca «injustificadamente» | R-209 |
+| El rótulo del requerimiento de cada denunciado va subrayado; el saneador lo repone | R-208 |
 
 ## Novedades v3.3 (24/09/2026)
 
