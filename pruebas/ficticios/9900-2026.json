@@ -1,0 +1,37 @@
+{
+ "plantilla": "plantillas_maestras/06_seguro_hogar_e_inmuebles/negativa_cobertura/2_o_mas_ddos_varios/varon/TPL_0697_2026_SEGURO_HOGAR_E_INMUEBLES_NEGATIVA_COBERTURA_ASEGURADORA_VARON_R2.docx",
+ "partes": [
+  "Ficticia",
+  "PACÍFICO",
+  "ABACO",
+  "PACÍFICO COMPAÑÍA DE SEGUROS Y REASEGUROS S.A.",
+  "ABACO PERÚ INTERNATIONAL LOSS ADJUSTERS AJUSTADORES Y PERITOS DE SEGUROS S.A.C."
+ ],
+ "reemplazos": {
+  "[DENUNCIANTE]": "ANA PRUEBA FICTICIA",
+  "[APELLIDO]": "Ficticia",
+  "Lima, 30 de marzo de 2026": "Lima, 25 de setiembre de 2026",
+  "0697-2026/CC1": "9900-2026/CC1"
+ },
+ "conservar": [
+  "17 de marzo de 2025",
+  "18 de marzo de 2026",
+  "2 de marzo de 2025",
+  "2011148043",
+  "202581955",
+  "3 de marzo de 2025",
+  "30 de marzo de 2026",
+  "Póliza 2011148043",
+  "S/ 41 879,00",
+  "S/ 42 679,00",
+  "S/ 600,00",
+  "S/ 95 000,00",
+  "S/ 950,00"
+ ],
+ "_prueba": {
+  "expediente": "9900-2026",
+  "resolucion": "R1",
+  "espera": "APTO",
+  "origen": "Regresion de forma v3.1 sobre una plantilla real; se conservan sus hechos; los nombres de persona son ficticios."
+ }
+}
