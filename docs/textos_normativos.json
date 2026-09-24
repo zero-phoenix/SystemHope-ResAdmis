@@ -1,0 +1,21 @@
+{
+  "_fuente": "Ley 29571, Codigo de Proteccion y Defensa del Consumidor (texto vigente). Revision del instructor del 24/09/2026: la transcripcion del numeral 115.1 omitia las letras h. e i. R-187b.",
+  "_regla": "Una nota que transcribe una disposicion la transcribe completa y con la misma forma: cada literal de `literales` es un parrafo propio, todos con la misma numeracion automatica (o con su letra escrita). La transcripcion literal de una norma se respeta tal cual (tildes incluidas).",
+  "exigencias": [
+    {
+      "disposicion": "numeral 115.1 del artículo 115",
+      "si_contiene": "115\\.1 Las medidas correctivas reparadoras",
+      "literales": [
+        "Reparar productos.",
+        "Cambiar productos por otros",
+        "Entregar un producto de idénticas",
+        "Cumplir con ejecutar la prestación",
+        "Cumplir con ejecutar otras prestaciones",
+        "Devolver la contraprestación",
+        "En los supuestos de pagos indebidos",
+        "Pagar los gastos incurridos",
+        "Otras medidas reparadoras análogas"
+      ]
+    }
+  ]
+}

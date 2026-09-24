@@ -15,7 +15,7 @@ Un `ADM <EXP> R<N>.docx` que el verificador declare **APTO** y `entregar` declar
    - `N` es el número real de proveedores denunciados (1, 2, o 3 = 3 o más).
    - Las candidatas marcadas **APTA** (0 falsadores) van primero. Elige una APTA de la misma rama, el mismo número de denunciados y la misma clase de denunciante.
    - La carpeta física de la plantilla **no** indica el número de denunciados; el índice sí.
-4. **Leer**: abre **cada** PNG de `_paginas/` (captura de la página completa) y llena su fila de `_LECTURA.md` con lo que ves, incluidos formato, sellos, firmas y resaltados. Cero OCR; el texto seleccionable solo sirve para contrastar.
+4. **Leer**: abre **cada** PNG de `_paginas/` (captura de la página completa) y llena su fila de `_LECTURA.md`: «Lo que vi» (contenido, sellos, firmas, resaltados) y «Formato que vi» (letra, negritas, subrayados, alineación, encabezado, pie). Las medidas exactas de formato de cada página están en `_FORMATO.md` (estructura del PDF; cero OCR). El texto seleccionable solo sirve para contrastar.
 5. **Las 10 plantillas más similares (obligatorio)**: `_CASO.json` y `scripts/similares.py <carpeta>`; justifica cada una en `_SIMILARES.md` (imputaciones: norma, sujeto, conducta y fecha; hechos; partes). La base sale de esas 10.
 6. **Anclar los datos** de cada documento (escrito de parte = fecha de su FIRMA DIGITAL; documento de Indecopi = fecha de emisión del texto):
    - denuncia: fecha y hechos;
@@ -23,7 +23,8 @@ Un `ADM <EXP> R<N>.docx` que el verificador declare **APTO** y `entregar` declar
    - memorándum o documento de traslado: número, fecha de emisión y fecha de recepción en CC1;
    - cédula: partes, vía de cada parte y número de resolución;
    - resolución de programación de audiencia de conciliación: es anterior y no se cita como hecho.
-7. **Redactar el mapa** (`mapa.json`, en la carpeta del caso) sobre la plantilla y construir con `scripts/construir_admisorio.py --mapa`.
+7. **Redactar el mapa** (`mapa.json`, en la carpeta del caso) sobre la plantilla y construir con `scripts/construir_admisorio.py --mapa`. Las claves son texto de la **plantilla**. El constructor aplica solo las reglas generales v3.1: quita notas huérfanas y renumera, lleva cada nota canónica a su ancla, pone a cada calificación la nota de SU norma, deja una tabulación tras cada llamada, quita dobles espacios y líneas en blanco de más, deja en negrita solo el rótulo de cada ordinal, quita el subrayado fuera del rótulo del requerimiento, fija la firma según `config/firmas.json` con «Firmado digitalmente por». Lo que imprime en «NORMALIZACION v3.1» es informativo.
+7b. **Ver**: `scripts/admisorio.py previsualizar "<docx>" --contra "<plantilla>"` y mira **todas** las imágenes de `_vista/` en una vuelta (cada página junto a la de la plantilla).
 8. **Entregar**: `scripts/admisorio.py entregar "<docx>" --recepcion DD/MM/AAAA`. Si algo falla, corrige y repite. No entregues sin ENTREGABLE.
 
 ## Estructura (orden fijo)
@@ -62,6 +63,10 @@ Secciones:
 
 ## Formato
 - Arial Narrow; 11 pt en el cuerpo y 8 pt en las notas.
+- Negrita solo en el rótulo de cada ordinal, **también PRIMERO**; subrayado solo en el rótulo del requerimiento.
+- Notas: una tabulación tras la llamada; sin líneas en blanco dentro; nunca dos llamadas juntas; la del Código tras «Consumidor»; la de competencia tras «en ejercicio de sus facultades»; cada calificación con la nota de su norma.
+- Firma de cuatro líneas: «Firmado digitalmente por» / firmante / cargo / Comisión.
+- Una sola numeración en la considerativa; nunca dos líneas en blanco seguidas.
 - Interlineado sencillo, espaciado 0/0, justificado.
 - Sangría izquierda de 1,0 cm y francesa de 1,0 cm.
 - Márgenes de 2,5 cm arriba y abajo y 3,0 cm a los lados.

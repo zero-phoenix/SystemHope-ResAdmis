@@ -36,6 +36,9 @@ ORDINALES = (
 
 
 def marca(texto: str, bold: bool, subrayado: bool) -> str:
+    # Asteriscos y guiones bajos LITERALES («53******85») se escapan: sin esto
+    # «53******85» se leia «53**85», como si fuera marca de negrita (9999-2026).
+    texto = texto.replace("*", "\\*").replace("_", "\\_")
     if bold:
         texto = "**%s**" % texto
     if subrayado:

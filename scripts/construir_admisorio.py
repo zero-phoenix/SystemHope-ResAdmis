@@ -202,7 +202,91 @@ def por_longitud(reemplazos: dict[str, str]) -> list[tuple[str, str]]:
     return sorted(reemplazos.items(), key=lambda kv: -len(kv[0]))
 
 
+def _en_parrafos(xml: str, viejo: str, nuevo: str) -> tuple[str, int]:
+    """Sustituye `viejo` en el texto UNIDO de cada parrafo (sirve aunque la frase
+    este partida en varios runs por una negrita o un subrayado)."""
+    piezas: list[str] = []
+    fin = 0
+    n = 0
+    for m in RE_PARRAFO.finditer(xml):
+        parrafo = m.group(0)
+        texto = texto_parrafo(parrafo)
+        if viejo not in texto:
+            continue
+        n += texto.count(viejo)
+        piezas.append(xml[fin : m.start()])
+        piezas.append(reescribir_parrafo(parrafo, texto.replace(viejo, nuevo)))
+        fin = m.end()
+    piezas.append(xml[fin:])
+    return "".join(piezas), n
+
+
+def _ventana(texto: str, clave: str) -> tuple[int, int, float] | None:
+    """Tramo de `texto` que mas se parece a `clave` (clave = fragmento de parrafo).
+
+    Se ancla en los bloques coincidentes extremos y se ajusta a limites de
+    palabra. Devuelve (inicio, fin, parecido) o None."""
+    sm = difflib.SequenceMatcher(None, texto, clave, autojunk=False)
+    bloques = [b for b in sm.get_matching_blocks() if b.size >= 4]
+    if not bloques:
+        return None
+    ini = max(0, bloques[0].a - bloques[0].b)
+    fin = min(len(texto), bloques[-1].a + bloques[-1].size + (len(clave) - bloques[-1].b - bloques[-1].size))
+    while ini > 0 and texto[ini - 1].isalnum() and texto[ini].isalnum():
+        ini -= 1
+    while fin < len(texto) and fin > 0 and texto[fin - 1].isalnum() and texto[fin].isalnum():
+        fin += 1
+    r = difflib.SequenceMatcher(None, texto[ini:fin], clave, autojunk=False).ratio()
+    return ini, fin, r
+
+
+def _clave_inicio(t: str) -> str:
+    return re.sub(r"\s+", " ", t).strip()
+
+
+def aplicar_parrafos(xml: str, parrafos: dict[str, str]) -> tuple[str, list[str]]:
+    """`"parrafos": {"inicio del parrafo": "texto nuevo" | ""}` (v3.1).
+
+    Reemplaza (o borra, con "") el parrafo ENTERO cuyo texto empieza por la
+    clave, conservando el formato de cada tramo y sus llamadas de nota. La clave
+    debe identificar un solo parrafo. Evita copiar parrafos largos al caracter
+    en `reemplazos`, que era donde se iban las vueltas del redactor."""
+    fallos = []
+    for inicio, nuevo in parrafos.items():
+        clave = _clave_inicio(inicio)
+        cand = [
+            m for m in RE_PARRAFO.finditer(xml)
+            if _clave_inicio(texto_parrafo(m.group(0))).startswith(clave)
+        ]
+        if len(cand) != 1:
+            fallos.append(
+                "parrafos: «%s…» identifica %d parrafos (debe ser 1): alarga la clave"
+                % (clave[:60], len(cand))
+            )
+            continue
+        m = cand[0]
+        xml = xml[: m.start()] + reescribir_parrafo(m.group(0), nuevo) + xml[m.end():]
+    return xml, fallos
+
+
 def aplicar(xml: str, reemplazos: dict[str, str]) -> tuple[str, dict[str, int]]:
+    """Aplica el mapa clave por clave, de la mas larga a la mas corta (v3.1).
+
+    Por que asi (revision del instructor, 24/09/2026, admisorio 9999-2026):
+
+    - Antes una clave que coincidia contigua en UN sitio se daba por aplicada y
+      las demas apariciones --partidas en varios runs por una negrita o un
+      subrayado-- se quedaban sin sustituir: «Banco de Crédito del Perú S.A.»
+      sobrevivio en el rotulo del requerimiento, TERCERO, QUINTO y SEXTO. Ahora
+      cada clave se busca en el XML contiguo Y en el texto unido de cada parrafo.
+    - Antes las etapas iban por separado y una clave corta de la primera etapa
+      rompia una frase larga que solo casaba en la segunda. Ahora la regla «manda
+      la mas especifica» vale en todas las etapas: cada clave hace todas sus
+      etapas antes de pasar a la siguiente mas corta.
+    - La alineacion aproximada ya no sustituye el parrafo entero cuando la clave
+      es un fragmento: sustituye solo el tramo que se parece (el rotulo «A Seguros
+      Ficticios S.A.: (i)» se perdia).
+    """
     malos = [v for v in reemplazos.values() if re.search(r"__\S|\S__|\*\*[A-Za-zÁÉÍÓÚÑáéíóúñ]", v)]
     if malos:
         raise SystemExit(
@@ -210,77 +294,51 @@ def aplicar(xml: str, reemplazos: dict[str, str]) -> tuple[str, dict[str, int]]:
             "el formato de la plantilla; escribe solo el texto (R-177)." % malos[0][:60]
         )
     hechos: dict[str, int] = {}
-
-    # 1) Lo que este contiguo se sustituye directo: es lo barato y lo mas comun.
-    for viejo, nuevo in por_longitud(reemplazos):
-        if not nuevo.strip():
-            # Borrar texto a pelo deja el <w:p> vacio con su numeracion viva, que
-            # es la vineta huerfana de R-105. Las supresiones se resuelven a nivel
-            # de parrafo, donde el parrafo entero se puede quitar.
-            continue
-        n = xml.count(viejo)
-        if n:
-            xml = xml.replace(viejo, nuevo)
-            hechos[viejo] = hechos.get(viejo, 0) + n
-
-    # 2) Lo que quede se busca a nivel de parrafo, donde el texto ya esta unido.
-    pendientes = {v: n for v, n in reemplazos.items() if v not in hechos}
-    if pendientes:
-        piezas: list[str] = []
-        fin = 0
-        for m in RE_PARRAFO.finditer(xml):
-            parrafo = m.group(0)
-            texto = texto_parrafo(parrafo)
-            nuevo_texto = texto
-            tocado = False
-            for viejo, nuevo in pendientes.items():
-                if viejo in nuevo_texto:
-                    nuevo_texto = nuevo_texto.replace(viejo, nuevo)
-                    hechos[viejo] = hechos.get(viejo, 0) + 1
-                    tocado = True
-            if tocado:
-                piezas.append(xml[fin : m.start()])
-                piezas.append(reescribir_parrafo(parrafo, nuevo_texto))
-                fin = m.end()
-        piezas.append(xml[fin:])
-        xml = "".join(piezas)
-
-    # 3) Alineacion. Una clave copiada a mano de un volcado casi nunca coincide al
-    # caracter con la plantilla: sobra un espacio, falta una tilde, se colo el
-    # numero de una nota al pie. Obligar al redactor a cazar esa diferencia a ojo
-    # cuesta una vuelta entera del bucle (~30 s). Si la clave se parece a UN solo
-    # parrafo por encima del 92 %, se usa ese parrafo y se dice en voz alta.
-    pendientes = {v: n for v, n in reemplazos.items() if v not in hechos}
     alineados: dict[str, tuple[str, float]] = {}
-    if pendientes:
-        parrafos = [
-            (m.start(), m.end(), m.group(0), texto_parrafo(m.group(0)).strip())
-            for m in RE_PARRAFO.finditer(xml)
-        ]
-        candidatos = [p for p in parrafos if len(p[3]) > 20]
-        # Se decide todo primero y se aplica despues de atras hacia delante: si se
-        # sustituyera sobre la marcha, la primera sustitucion desplazaria los
-        # offsets de las siguientes y el XML acabaria partido por la mitad.
-        planeados: list[tuple[int, int, str, str]] = []
-        usados: set[int] = set()
-        for viejo, nuevo in pendientes.items():
-            if len(viejo) < 40:
-                continue  # una clave corta se alinea con cualquier cosa
-            mejor = None
-            for ini, fin_p, parrafo, texto in candidatos:
-                if ini in usados:
+
+    for viejo, nuevo in por_longitud(reemplazos):
+        n = 0
+        # 1) Contiguo en el XML: lo barato. Una supresion no se hace aqui: borrar
+        # texto a pelo deja el <w:p> vacio con su numeracion viva (R-105).
+        if nuevo.strip():
+            n = xml.count(viejo)
+            if n:
+                xml = xml.replace(viejo, nuevo)
+        # 2) Partido en varios runs: en el texto unido de cada parrafo. Si el
+        # nuevo contiene al viejo y ya se aplico, repetir lo duplicaria.
+        if not (n and viejo in nuevo):
+            xml, k = _en_parrafos(xml, viejo, nuevo)
+            n += k
+        if n:
+            hechos[viejo] = n
+            continue
+        # 3) Alineacion: la clave no coincide al caracter (un espacio, una tilde,
+        # la llamada de una nota). Solo claves largas: una corta casa con todo.
+        if len(viejo) < 40:
+            continue
+        # Todas las apariciones que se parezcan (la considerativa y su espejo en
+        # el resolutivo): alinear solo la mejor dejaba la otra con el residuo.
+        candidatos = []
+        for m in RE_PARRAFO.finditer(xml):
+            texto = texto_parrafo(m.group(0))
+            if len(texto.strip()) <= 20:
+                continue
+            if len(viejo) >= 0.9 * len(texto.strip()):
+                r = difflib.SequenceMatcher(None, viejo, texto.strip()).ratio()
+                tramo = (0, len(texto), r)
+            else:
+                tramo = _ventana(texto, viejo)
+                if tramo is None:
                     continue
-                r = difflib.SequenceMatcher(None, viejo, texto).ratio()
-                if r >= 0.92 and (mejor is None or r > mejor[0]):
-                    mejor = (r, ini, fin_p, parrafo, texto)
-            if mejor:
-                r, ini, fin_p, parrafo, texto = mejor
-                usados.add(ini)
-                planeados.append((ini, fin_p, parrafo, nuevo))
-                hechos[viejo] = hechos.get(viejo, 0) + 1
-                alineados[viejo] = (texto, r)
-        for ini, fin_p, parrafo, nuevo in sorted(planeados, reverse=True):
-            xml = xml[:ini] + reescribir_parrafo(parrafo, nuevo) + xml[fin_p:]
+            if tramo[2] >= 0.92:
+                candidatos.append((m.start(), m.end(), m.group(0), texto) + tramo)
+        for ini, fin_p, parrafo, texto, a, b, r in reversed(candidatos):
+            nuevo_texto = texto[:a] + nuevo + texto[b:]
+            xml = xml[:ini] + reescribir_parrafo(parrafo, nuevo_texto if nuevo_texto.strip() else "") + xml[fin_p:]
+        if candidatos:
+            hechos[viejo] = len(candidatos)
+            ini, fin_p, parrafo, texto, a, b, r = max(candidatos, key=lambda c: c[-1])
+            alineados[viejo] = (texto[a:b].strip() or texto.strip(), r)
 
     return xml, hechos, alineados
 
@@ -308,6 +366,38 @@ def fijar_iniciales(xml: str) -> str:
         return p
 
     return RE_PARRAFO.sub(_p, xml)
+
+
+FIRMANTES = ("EVELING ROA QUISPE", "LUISA ANALÍ SILVA MALPARTIDA", "LUISA ANALI SILVA MALPARTIDA")
+
+
+def fijar_firma(xml: str) -> str:
+    """Firmante y cargo segun config/firmas.json y los denunciados del
+    encabezado (R-103): Rimac -> Secretaria Tecnica Ad Hoc; los demas -> la
+    titular. La plantilla trae la firma de SU caso, no la de este."""
+    try:
+        cfg = json.loads((RAIZ / "config/firmas.json").read_text(encoding="utf-8"))
+    except Exception:
+        return xml
+    parrafos = list(RE_PARRAFO.finditer(xml))
+    textos = [texto_parrafo(m.group(0)).strip() for m in parrafos]
+    ini = next((k for k, t in enumerate(textos[:30]) if sin_tildes(t).upper().startswith("DENUNCIAD")), None)
+    fin = next((k for k in range(ini or 0, min(len(textos), 30)) if sin_tildes(textos[k]).upper().startswith("MATERIA")), None)
+    bloque = sin_tildes(" ".join(textos[ini:fin] if ini is not None and fin else [])).upper()
+    firma = cfg["titular"]
+    for exc in cfg.get("excepciones", []):
+        if any(sin_tildes(c).upper() in bloque for c in exc["si_denunciado_contiene"]):
+            firma = exc
+    k = next((k for k, t in enumerate(textos) if sin_tildes(t).upper() in {sin_tildes(f) for f in FIRMANTES}), None)
+    if k is None:
+        return xml
+    j = next((j for j in range(k + 1, min(k + 4, len(textos))) if textos[j].startswith("Secretaria")), None)
+    cambios = [(k, firma["nombre"])] + ([(j, firma["cargo"])] if j is not None else [])
+    for idx, nuevo in sorted(cambios, reverse=True):
+        m = parrafos[idx]
+        if textos[idx] != nuevo:
+            xml = xml[: m.start()] + reescribir_parrafo(m.group(0), nuevo) + xml[m.end():]
+    return xml
 
 
 def insertar_despues(
@@ -353,7 +443,26 @@ def insertar_despues(
             texto = item.get("texto", "") if isinstance(item, dict) else item
             if not texto.strip():
                 continue
-            clon = reescribir_parrafo(base, texto)
+            modelo = item.get("modelo") if isinstance(item, dict) else None
+            base_item = base
+            if modelo:
+                # v3.1: clonar OTRO parrafo como molde (p. ej. la linea de
+                # continuacion del encabezado para un segundo denunciante).
+                mods = [q for q in RE_PARRAFO.finditer(xml) if modelo in texto_parrafo(q.group(0))]
+                if len(mods) != 1:
+                    fallos.append(
+                        "insertar_despues: el modelo %r aparece en %d parrafos (debe ser 1)"
+                        % (modelo[:60], len(mods))
+                    )
+                    continue
+                base_item = re.sub(
+                    r"<w:r\b(?:(?!</w:r>).)*?<w:footnoteReference\b[^>]*/>(?:(?!</w:r>).)*?</w:r>",
+                    "",
+                    mods[0].group(0),
+                    flags=re.S,
+                )
+                base_item = re.sub(r'\s(?:w14:paraId|w14:textId)="[^"]*"', "", base_item)
+            clon = reescribir_parrafo(base_item, texto)
             nota = item.get("nota") if isinstance(item, dict) else None
             if nota:
                 if nota not in catalogo:
@@ -405,11 +514,29 @@ def limpiar_vinetas_huerfanas(xml: str) -> tuple[str, int]:
     return "".join(piezas), quitados
 
 
+RE_NOTA = re.compile(r'<w:footnote\b[^>]*w:id="(-?\d+)"[^>]*>.*?</w:footnote>', re.S)
+RE_NOTA_DEL_CASO = re.compile(r"^\W*(?:\d+\s*)?Denuncia (?:remitida|desacumulada)")
+
+
 def texto_plano(datos: dict[str, bytes]) -> str:
+    """Texto que puede traer datos del caso de origen.
+
+    De las notas al pie solo cuenta la de la denuncia (traslado o
+    desacumulacion): las demas transcriben normas, y sus fechas («publicado el
+    2 de setiembre de 2010») no son residuo. Medido en el 9999-2026: cinco
+    «datos duros heredados» falsos, todos de notas normativas."""
     trozos = []
     for nombre, crudo in datos.items():
-        if nombre.startswith("word/") and nombre.endswith(".xml"):
-            trozos.append(re.sub(r"<[^>]+>", " ", crudo.decode("utf-8", "replace")))
+        if not (nombre.startswith("word/") and nombre.endswith(".xml")):
+            continue
+        xml = crudo.decode("utf-8", "replace")
+        if nombre == "word/footnotes.xml":
+            xml = " ".join(
+                m.group(0)
+                for m in RE_NOTA.finditer(xml)
+                if RE_NOTA_DEL_CASO.match(re.sub(r"<[^>]+>", "", m.group(0)).strip())
+            )
+        trozos.append(re.sub(r"<[^>]+>", " ", xml))
     return " ".join(trozos)
 
 
@@ -420,12 +547,18 @@ MESES = (
 RE_FECHA = re.compile(r"\d{1,2} de (?:%s) de \d{4}" % MESES, re.I)
 RE_MONTO = re.compile(r"(?:US\$|S/)\s?[\d][\d\s.,]{2,}\d")
 RE_CIFRA = re.compile(r"\b\d{6,}\b")  # polizas, siniestros, RUC, certificados
+# Identificadores del caso de origen con menos de 6 cifras («Póliza 49645»,
+# «Reclamo 777»): RE_CIFRA no los veia y la Póliza 49645 sobrevivio en SEXTO.
+RE_IDENTIFICADOR = re.compile(
+    r"\b(?:P[óo]liza|Certificado|Reclamo|Siniestro|Carta|Oficio|Solicitud|Cr[ée]dito)\s+(?:N[°º.]?\s*)?[\w/-]*\d[\w/-]*",
+    re.I,
+)
 
 
 def datos_duros(texto: str) -> set[str]:
     """Fechas, montos y numeros largos: lo que un admisorio no puede heredar."""
     duros: set[str] = set()
-    for patron in (RE_FECHA, RE_MONTO, RE_CIFRA):
+    for patron in (RE_FECHA, RE_MONTO, RE_CIFRA, RE_IDENTIFICADOR):
         duros.update(
             re.sub(r"\s+", " ", m.group(0)).strip() for m in patron.finditer(texto)
         )
@@ -566,6 +699,11 @@ def construir(mapa: dict) -> int:
     hechos: dict[str, int] = {}
     alineados: dict[str, tuple[str, float]] = {}
     huerfanas = 0
+    if mapa.get("parrafos"):
+        x_par, fallos_par = aplicar_parrafos(datos["word/document.xml"].decode("utf-8"), mapa["parrafos"])
+        if fallos_par:
+            raise SystemExit("\n".join(fallos_par))
+        datos["word/document.xml"] = x_par.encode("utf-8")
     for n in objetivo:
         xml = datos[n].decode("utf-8")
         xml, parciales, alin = aplicar(xml, reemplazos)
@@ -591,6 +729,23 @@ def construir(mapa: dict) -> int:
         datos["word/document.xml"] = x_ins.encode("utf-8")
         datos["word/footnotes.xml"] = notas_traslado.ordenar_notas(fx_ins, x_ins).encode("utf-8")
 
+    # v3.1: las reglas generales se aplican a TODO documento que sale del
+    # constructor, venga de la plantilla que venga (las mismas que la migracion
+    # del corpus; cada una tiene su falsador en verificar_admisorio.py).
+    sys.path.insert(0, str(RAIZ / "scripts" / "migraciones"))
+    import migrar_v3_1
+    import notas_pie
+
+    x = fijar_firma(datos["word/document.xml"].decode("utf-8"))
+    fx = datos["word/footnotes.xml"].decode("utf-8") if "word/footnotes.xml" in datos else ""
+    informe_notas: list[str] = []
+    if fx:
+        x, fx, informe_notas = notas_pie.nota_de_la_norma(x, fx)
+    x, fx, normalizacion = migrar_v3_1.migrar(x, fx)
+    datos["word/document.xml"] = x.encode("utf-8")
+    if fx:
+        datos["word/footnotes.xml"] = fx.encode("utf-8")
+
     with zipfile.ZipFile(salida, "w", zipfile.ZIP_DEFLATED) as z:
         for n in nombres:
             z.writestr(n, datos[n])
@@ -606,6 +761,14 @@ def construir(mapa: dict) -> int:
             "  Vinetas huerfanas retiradas: %d (parrafos numerados sin texto, R-105)"
             % huerfanas
         )
+    hecho_v31 = {k: v for k, v in normalizacion.items() if v}
+    if hecho_v31 or informe_notas:
+        print()
+        print("  NORMALIZACION v3.1 (reglas generales, sin intervencion del redactor):")
+        for k, v in sorted(hecho_v31.items()):
+            print("    %4d  %s" % (v, k))
+        for linea in informe_notas:
+            print("          %s" % linea)
     if alineados:
         print()
         print("  ALINEADOS AUTOMATICAMENTE (tu clave no coincidia al caracter):")
@@ -621,7 +784,7 @@ def construir(mapa: dict) -> int:
         plantilla,
         partes,
         duros_plantilla,
-        mapa.get("conservar", []),
+        list(mapa.get("conservar", [])) + list((mapa.get("parrafos") or {}).values()),
         parrafos_plantilla,
     )
     print("AUDITORIA DE RESIDUOS DEL CASO DE ORIGEN")

@@ -1,6 +1,6 @@
 # MATRIZ MAESTRA PHOENYX: ARQUITECTURA POPPERIANA DE RESOLUCIONES ADMISORIAS CC1
 
-> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3.1, 24/09/2026).
 
 
 **Autoridad:** Secretaría Técnica de la Comisión de Protección al Consumidor 1 (CC1) - INDECOPI (Sede Central, Perú)  

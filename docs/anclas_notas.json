@@ -1,0 +1,46 @@
+{
+  "_fuente": "Revision del instructor del 24/09/2026 (admisorio de prueba 9999-2026) y medicion del corpus de 574 plantillas (scripts/notas_pie.py). R-184.",
+  "_regla": "Cada nota canonica va detras de su ancla. Si la entrada trae `parrafo`, la regla solo rige para llamadas de un parrafo que lo contiene, y el ancla se busca en ese parrafo; si no, en la primera aparicion del ancla en el documento. Una nota no puede ir pegada a otra (R-185).",
+  "anclas": [
+    {
+      "id": "traslado_denuncia",
+      "nota": "^\\W*Denuncia (?:remitida|desacumulada)",
+      "parrafo": "Mediante",
+      "ancla_regex": "Mediante (?:el |la )?(?:escrito|denuncia)[^,.:;]*? del \\d{1,2} de [a-záéíóú]+ de \\d{4}",
+      "medicion": "222 de 229 la llevaban tras «señalando lo siguiente:», junto a la del Codigo. Al pasar la del Codigo tras «Consumidor» (24/09/2026), la del traslado va tras la fecha del escrito para seguir siendo la nota 1 (AGENTS §5). Confirmado por el instructor (24/09/2026)."
+    },
+    {
+      "id": "codigo_publicacion",
+      "nota": "^\\W*Publicado el 2 de setiembre de 2010",
+      "ancla": "Código de Protección y Defensa del Consumidor",
+      "medicion": "547 de 549 plantillas la llevaban tras «señalando lo siguiente:»; el instructor la fija tras «Consumidor» (24/09/2026)"
+    },
+    {
+      "id": "competencia",
+      "nota": "Art[íi]culo 105\\b",
+      "ancla": "en ejercicio de sus facultades",
+      "medicion": "495 de 573 en el ancla; 62 pegadas a la nota de la norma imputada (R-185)"
+    },
+    {
+      "id": "sanciones_110",
+      "nota": "Art[íi]culo 110\\.-",
+      "parrafo": "faculta a la Comisión a calificar",
+      "ancla": "Código de Protección y Defensa del Consumidor",
+      "medicion": "568 de 574"
+    },
+    {
+      "id": "medidas_114",
+      "nota": "Art[íi]culo 114\\.-",
+      "parrafo": "faculta a la Comisión a calificar",
+      "ancla": "115 y 116 de la referida norma",
+      "medicion": "568 de 574"
+    },
+    {
+      "id": "atenuantes_112",
+      "nota": "Art[íi]culo 112\\.-",
+      "parrafo": "faculta a la Comisión a calificar",
+      "ancla": "con el artículo 112 del Código",
+      "medicion": "536 de 542"
+    }
+  ]
+}

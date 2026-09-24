@@ -1,0 +1,29 @@
+{
+ "plantilla": "plantillas_maestras/07_seguro_sctr/materia_general_asegurativa/2_o_mas_ddos_varios/varon/TPL_1037_2025_SEGURO_SCTR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_VARON_R2.docx",
+ "partes": [
+  "Ficticia",
+  "RÍMAC",
+  "RÍMAC SEGUROS Y REASEGUROS S.A."
+ ],
+ "reemplazos": {
+  "[DENUNCIANTE]": "ANA PRUEBA FICTICIA",
+  "[APELLIDO]": "Ficticia",
+  "Lima, 13 de junio de 2025": "Lima, 25 de setiembre de 2026",
+  "1037-2025/CC1": "9910-2026/CC1"
+ },
+ "conservar": [
+  "13 de junio de 2025",
+  "13 de marzo de 2025",
+  "14 de enero de 2025",
+  "22 de enero de 2025",
+  "26 de febrero de 2025",
+  "5 de mayo de 2025",
+  "Póliza P0245983"
+ ],
+ "_prueba": {
+  "expediente": "9910-2026",
+  "resolucion": "R1",
+  "espera": "APTO",
+  "origen": "Regresion de forma v3.1 sobre una plantilla real; se conservan sus hechos; los nombres de persona son ficticios."
+ }
+}

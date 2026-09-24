@@ -4,6 +4,65 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.1.1] - 2026-09-24 (CIERRE DE LA v3.1: VISTA FIEL A WORD, CORPUS Y CONTRADICCIONES)
+
+Autorizado por el instructor: tercera pasada de la migracion, vista superior a LibreOffice y limpieza de contradicciones.
+
+### Added
+- `previsualizar` usa **ONLYOFFICE Document Builder** (gratuito; maquetacion que imita a Word) si esta instalado: medido en el 9998-2026, dibuja las notas como Word con el documento tal cual. LibreOffice queda de respaldo, con las imagenes rotuladas «VISTA APROXIMADA», aviso de letras sin la metrica de Arial Narrow y `PREVISUALIZAR_MOTOR` para forzar uno. `comprobar_entorno` informa el motor de vista; `ARRANQUE.md` indica como instalarlo.
+- 12 casos de regresion de forma sobre plantillas reales (1 y 2 denunciados; casilla, correo y domicilio procesal; SCTR, desgravamen, hogar, vehicular, transporte, sepelio, tarjetas y accidentes personales): con los 2 casos ficticios, 14 casos que CI construye y exige APTO. Sin caso de 3 o mas denunciados: de 15 plantillas asi, solo 1 es APTA y conserva numeros de 8 cifras que la guardia de datos personales bloquea.
+- Autocomprobacion: AGENTS.md cabe en el limite de reglas de Antigravity (12 000 caracteres).
+
+### Changed
+- Tercera pasada de la migracion (autorizada): nota del traslado tras la fecha del escrito (sigue siendo la nota 1), subrayado solo en el rotulo, una tabulacion tras cada llamada. Plantillas sin ningun falsador: 294 de 574 (180 antes de esta pasada).
+- AGENTS.md condensado a 11 970 caracteres (la v3.1 llego a 15 184): la formula literal del traslado vive en la skill `partes-y-notificacion`; el detalle de las notas, en `admisorio-flujo`.
+- `docs/CONTRADICCIONES_RESUELTAS.md`: tabla de los mandatos v3.1 que vencen al corpus; derogado el «subrayado de la conciliacion no es defecto». Encabezados de consulta apuntan a las reglas v3.1.
+- Release: etiqueta `v3.1.N` y notas de la v3.1; motor `systemhope-engine` 3.1.0.
+
+### Fixed
+- La migracion renumera las notas despues de moverlas (la del traslado dejaba de ser la nota 1: R-167 en 222 plantillas).
+- R-187: un parrafo de nota con etiqueta y tabulacion («20.4.<tab>El administrado…», «a.<tab>…») conserva su sangria francesa; la regla de alineacion se la quitaba (388 notas restauradas).
+
+### Removed
+- Del arbol: `automatizacion_antigravity/temp_*` y `automatizacion_antigravity/casos/` (borradores con datos personales: DNI, correos). Siguen en el historial de git; purgarlo exige reescribirlo y lo decide el instructor. `.gitignore` y la autocomprobacion los bloquean.
+
+## [3.1.0] - 2026-09-24 (REVISION PAGINA POR PAGINA DEL INSTRUCTOR: PLAN POPPERIANO)
+
+El instructor reviso pagina por pagina un admisorio de prueba (expediente ficticio 9999-2026, dos denunciados) y hallo 38 defectos. Cada uno se generalizo como conjetura con su falsador: si el supuesto se repite en cualquier expediente, el sistema lo corrige al construir o lo rechaza al verificar. Linea base con las reglas nuevas: 0 de 574 plantillas sin falsadores; tras la migracion: 178 sin ninguno (el resto, defectos de contenido de cada plantilla, que el constructor corrige o el redactor sustituye).
+
+### Added
+- `scripts/notas_pie.py`: una sola fuente para las notas al pie (construir, migrar, verificar).
+- R-183 notas integras: ninguna nota huerfana; ids 1..n en orden de llamada (una nota huerfana corria el texto de todas las siguientes en la vista).
+- R-184 anclas canonicas (`docs/anclas_notas.json`): Codigo tras «Código de Protección y Defensa del Consumidor»; competencia tras «en ejercicio de sus facultades»; 110, 114-116 y 112 en SETIMO; traslado de la denuncia tras la fecha del escrito (para seguir siendo la nota 1).
+- R-185 nunca dos llamadas pegadas («²³»).
+- R-186 la nota transcribe la norma que cita la frase que la llama.
+- R-187 forma de las notas: una tabulacion tras la llamada, parrafos interiores alineados a 1 cm, sin lineas en blanco internas (una al final), sin dobles espacios, con el titulo de la norma, literales completos y con su letra (`docs/textos_normativos.json`: 115.1 a. a i.).
+- R-188 denominacion en las imputaciones: denunciante con nombre completo; aseguradora unica = «la compañía aseguradora»; con dos o mas, razon social completa; «los proveedores denunciados» solo con exactamente 2.
+- R-189 rotulo del requerimiento con el alias del encabezado.
+- R-190 ningun ordinal nombra a quien no es parte; «notificarle/s» concuerda con el numero de partes.
+- R-191 una sola numeracion en la considerativa.
+- R-192 subrayado solo en el rotulo del requerimiento (NOVENO sin subrayado).
+- R-193 «Firmado digitalmente por» sobre la firmante.
+- R-194 sin huecos: nunca dos lineas en blanco seguidas; cada una mide una linea (espaciado 0/0).
+- R-195 (observacion) articulo ante la razon social («al Banco…»).
+- Constructor: normalizacion v3.1 automatica de todo documento (las reglas anteriores), nota de la norma imputada desde el catalogo, firma segun `config/firmas.json`, `"parrafos"` (reemplazar o borrar un parrafo entero por su inicio) y `"modelo"` en `insertar_despues`.
+- `admisorio.py previsualizar <docx> [--contra <plantilla>]`: cada pagina como imagen en `_vista/`, junto a la de la plantilla (LibreOffice sin ventana, PDF temporal fuera del caso).
+- `scripts/formato_paginas.py` y `_FORMATO.md` en `preparar`: letra, tamaños, negritas, subrayados, cursivas, color, resaltados, alineacion, interlineado, encuadre, encabezado y pie (lo que se repite), imagenes y campos de firma de cada pagina. Estructura del PDF, cero OCR. Columna «Formato que vi» en `_LECTURA.md`.
+- `scripts/migraciones/migrar_v3_1.py`: lleva todo lo anterior al corpus.
+- `scripts/prueba_casos.py` y `pruebas/ficticios/`: dos expedientes ficticios (9999-2026 y 9998-2026, Rimac y banco, padre e hijo beneficiarios, seis imputaciones) se construyen y deben salir APTO en CI.
+- `prueba_verificador`: 41 mutaciones (16 nuevas), cada una con la primera plantilla normalizada donde su regla pasa.
+
+### Changed
+- R-164: en TODOS los ordinales, incluido PRIMERO, solo el rotulo va en negrita (mandato del 24/09/2026; deroga «PRIMERO entero»).
+- AGENTS.md (v3.1) y skills `admisorio-flujo`, `imputaciones` y `partes-y-notificacion` con las reglas anteriores.
+
+### Fixed
+- Constructor: una clave que coincidia contigua en un sitio dejaba sin sustituir sus apariciones partidas en varios runs; las claves cortas rompian frases largas entre etapas; la alineacion aproximada sustituia el parrafo entero cuando la clave era un fragmento (se perdia el rotulo) y solo la primera aparicion; las fechas de publicacion de las normas en las notas se daban por residuo; los identificadores cortos («Póliza 49645») no se auditaban.
+- R-110 no reconocia «señaló» (buscaba «senal») ni la atribucion en plural («señalaron»).
+- R-155 rechazaba «correr traslado … al Banco …».
+- `entregar` rechazaba todo caso sin cedula; ahora toma la resolucion de `_CASO.json` y sigue anclando los datos al expediente.
+- `medir_formato` confundia el salto entre parrafos con el interlineado y daba «justificado» con tres lineas; `inspeccionar_docx` leia «53******85» como negrita; el triaje llamaba «sin capa de texto» a paginas con poco texto.
+
 ## [3.0.0-parte2.6] - 2026-09-23 (REVISION DEL 2898-2026: IMPUTACIONES AÑADIDAS)
 
 Revision de pagina completa del Exp. 2898-2026 (APTO en v3.0.60): las dos imputaciones por 88.1 añadidas con `insertar_despues` salieron enteras en negrita en PRIMERO y sin la nota al pie que transcribe el articulo 88.

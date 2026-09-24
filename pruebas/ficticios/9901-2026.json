@@ -1,0 +1,42 @@
+{
+ "plantilla": "plantillas_maestras/03_seguro_desgravamen/materia_general_asegurativa/1_ddo_banco_o_financiera/sucesion_intestada/TPL_1758_2026_SEGURO_DESGRAVAMEN_MATERIA_GENERAL_ASEGURATIVA_BANCO_SUCESION_INTESTADA_R1.docx",
+ "partes": [
+  "Ficticia",
+  "BANCO",
+  "MAPFRE"
+ ],
+ "reemplazos": {
+  "[DENUNCIANTE]": "ANA PRUEBA FICTICIA",
+  "[APELLIDO]": "Ficticia",
+  "Lima, 5 de junio de 2026": "Lima, 25 de setiembre de 2026",
+  "1758-2026/CC1": "9901-2026/CC1"
+ },
+ "conservar": [
+  "1 de agosto de 2025",
+  "10 de julio de 2025",
+  "12 de mayo de 2025",
+  "15 de julio de 2025",
+  "16 de julio de 2025",
+  "17 de julio de 2025",
+  "2 de julio de 2025",
+  "2 de setiembre de 2025",
+  "20 de noviembre de 2025",
+  "21 de agosto de 2025",
+  "22 de agosto de 2025",
+  "22 de setiembre de 2025",
+  "25 de junio de 2025",
+  "3 de setiembre de 2025",
+  "31 de julio de 2025",
+  "5 de junio de 2026",
+  "6202500179199",
+  "9 de setiembre de 2025",
+  "Póliza 6202500179199",
+  "crédito 8"
+ ],
+ "_prueba": {
+  "expediente": "9901-2026",
+  "resolucion": "R1",
+  "espera": "APTO",
+  "origen": "Regresion de forma v3.1 sobre una plantilla real (2 denunciado(s), 03_seguro_desgravamen): se conservan sus hechos; los nombres de persona son ficticios. El constructor no debe romperla."
+ }
+}

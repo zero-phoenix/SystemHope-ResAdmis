@@ -47,15 +47,17 @@ def sin_tildes(texto: str) -> str:
 
 
 class Parrafo:
-    __slots__ = ("texto", "runs_bold", "numerado", "notas", "estilo", "ilvl")
+    __slots__ = ("texto", "runs_bold", "numerado", "notas", "estilo", "ilvl", "numid", "runs_und")
 
-    def __init__(self, texto, runs_bold, numerado, notas, estilo, ilvl):
+    def __init__(self, texto, runs_bold, numerado, notas, estilo, ilvl, numid="", runs_und=()):
         self.texto = texto
         self.runs_bold = runs_bold
         self.numerado = numerado
         self.notas = notas
         self.estilo = estilo
         self.ilvl = ilvl
+        self.numid = numid
+        self.runs_und = runs_und
 
     @property
     def vacio(self) -> bool:
@@ -79,6 +81,7 @@ def leer_parrafos(xml: bytes) -> list[Parrafo]:
         estilo = ""
         numerado = False
         ilvl = -1
+        numid = ""
         if pr is not None:
             s = pr.find(W + "pStyle")
             estilo = s.get(W + "val") if s is not None else ""
@@ -87,18 +90,25 @@ def leer_parrafos(xml: bytes) -> list[Parrafo]:
             if num is not None:
                 nivel = num.find(W + "ilvl")
                 ilvl = int(nivel.get(W + "val")) if nivel is not None else 0
-        partes, bolds, notas = [], [], []
+                nid = num.find(W + "numId")
+                numid = nid.get(W + "val") if nid is not None else ""
+        partes, bolds, notas, unds = [], [], [], []
         for r in p.iter(W + "r"):
             rpr = r.find(W + "rPr")
             b = rpr.find(W + "b") if rpr is not None else None
             es_bold = b is not None and b.get(W + "val") not in ("0", "false")
+            u = rpr.find(W + "u") if rpr is not None else None
+            es_und = u is not None and u.get(W + "val") not in ("none", "0", "false")
             texto = "".join(t.text or "" for t in r.iter(W + "t"))
             for fr in r.iter(W + "footnoteReference"):
                 notas.append(fr.get(W + "id"))
             if texto:
                 partes.append(texto)
                 bolds.append((texto, es_bold))
-        salida.append(Parrafo("".join(partes), bolds, numerado, notas, estilo, ilvl))
+                unds.append((texto, es_und))
+        salida.append(
+            Parrafo("".join(partes), bolds, numerado, notas, estilo, ilvl, numid, unds)
+        )
     return salida
 
 
@@ -437,8 +447,11 @@ def prueba_r110_modo_verbal(doc) -> list[str]:
     atribucion al denunciante (estilo indirecto) o en modo potencial. Afirmarla
     en indicativo asertivo prejuzga el fondo antes de los descargos."""
     atribucion = re.compile(
-        r"\b(senal[oó]|indic[oó]|precis[oó]|manifest[oó]|refiri[oó]|sostuvo|agreg[oó]"
-        r"|aleg[oó]|cuestion[oó]|denunci[oó]|afirm[oó]|declar[oó])\b",
+        # Singular y plural (varios denunciantes: «señalaron»), y con ñ: la
+        # version anterior buscaba «senal» y nunca reconocia «señaló» (v3.1).
+        r"\b(se[nñ]al(?:[oó]|aron)|indic(?:[oó]|aron)|precis(?:[oó]|aron)|manifest(?:[oó]|aron)"
+        r"|refiri(?:[oó]|eron)|sostuv(?:o|ieron)|agreg(?:[oó]|aron)"
+        r"|aleg(?:[oó]|aron)|cuestion(?:[oó]|aron)|denunci(?:[oó]|aron)|afirm(?:[oó]|aron)|declar(?:[oó]|aron))\b",
         re.I,
     )
     potencial = re.compile(r"\bhabr[ií]a\b", re.I)
@@ -865,7 +878,7 @@ def prueba_r155_formula_traslado(doc) -> list[str]:
         )
     exigidos = [
         (
-            r"correr traslado de la presente resoluci[oó]n a .+? para que, de conformidad con lo dispuesto por el art[íi]culo 26 de la Ley sobre Facultades, Normas y Organizaci[oó]n del Indecopi, aprobada por Decreto Legislativo 807\b,",
+            r"correr traslado de la presente resoluci[oó]n al? .+? para que, de conformidad con lo dispuesto por el art[íi]culo 26 de la Ley sobre Facultades, Normas y Organizaci[oó]n del Indecopi, aprobada por Decreto Legislativo 807\b,",
             "inicio literal: '... articulo 26 ..., aprobada por Decreto Legislativo 807,'",
         ),
         (
@@ -1082,22 +1095,19 @@ def prueba_r163_ordinales_consecutivos(doc) -> list[str]:
 
 
 def prueba_r164_negrita_solo_rotulo(doc) -> list[str]:
-    """R-164: negrita de los ordinales segun la moda MEDIDA en 574 plantillas.
+    """R-164: en TODOS los ordinales del resolutivo, incluido PRIMERO, solo el
+    rotulo va en negrita.
 
-    PRIMERO: el parrafo entero en negrita (541 de 574).
-    SEGUNDO a NOVENO: solo el rotulo (SEGUNDO 513, TERCERO 573, CUARTO 574,
-    QUINTO 561, SEXTO 555, SETIMO 566, OCTAVO 569, NOVENO 572 de 574).
-    DECIMO en adelante: solo el rotulo (303 frente a 111; normalizado en las 577,
-    migraciones/normalizar_rotulos.py, 23/09/2026).
+    Mandato del instructor (24/09/2026, revision del admisorio de prueba
+    9999-2026): «solo la palabra PRIMERO debe estar en negrita». Deroga la moda
+    medida del 23/09/2026 (PRIMERO entero en 541 de 574); el corpus se migro
+    (migraciones/migrar_v3_1.py).
     """
     fallos = []
     for ordinal, p in _ordinales(doc):
-        total = len(p.texto)
         negrita = sum(len(t) for t, b in p.runs_bold if b)
         rotulo = len(re.match(r"\s*[A-ZÉÍ ]+:\s*", p.texto).group(0))
-        if ordinal == "PRIMERO" and negrita < total - 3:
-            fallos.append("R-164: PRIMERO va entero en negrita (541 de 574 plantillas)")
-        elif ordinal != "PRIMERO" and negrita > rotulo + 2:
+        if negrita > rotulo + 2:
             fallos.append("R-164: en %s solo el rotulo va en negrita" % ordinal)
     return fallos[:4]
 
@@ -1400,7 +1410,430 @@ def prueba_r160_fecha_remesa(doc) -> list[str]:
     return []
 
 
+# --------------------------------------------------------------------------- #
+# v3.1 (revision del instructor del 24/09/2026, admisorio de prueba 9999-2026).
+# Cada prueba es la forma GENERAL de un defecto hallado pagina por pagina.
+# --------------------------------------------------------------------------- #
+
+sys.path.insert(0, str(pathlib_Path(__file__).resolve().parent))
+import notas_pie as _N  # noqa: E402
+
+RE_ASEGURADORA = re.compile(
+    r"SEGUROS|REASEGUROS|ASEGURADORA|R[IÍ]MAC|PAC[IÍ]FICO|MAPFRE|INTERSEGURO|"
+    r"POSITIVA|CARDIF|PROTECTA|CRECER|CHUBB|Q[UÚ]ALITAS|VIVIR|SANITAS",
+    re.I,
+)
+RE_SOCIEDAD = re.compile(r"\s+(?:S\.A\.A\.|S\.A\.C\.|S\.A\.?|E\.P\.S\.)\s*$")
+
+
+def _xml(z, nombre: str) -> str:
+    try:
+        return z.read(nombre).decode("utf-8", "replace")
+    except KeyError:
+        return ""
+
+
+def encabezado(doc) -> dict:
+    """Partes del encabezado: [(nombre, alias)] de denunciantes y denunciados."""
+    textos = [p.texto.strip() for p in doc[:30]]
+    salida = {"denunciantes": [], "denunciados": []}
+    actual = None
+    for t in textos:
+        u = sin_tildes(t).upper()
+        if re.match(r"DENUNCIANTE", u):
+            actual = "denunciantes"
+        elif re.match(r"DENUNCIAD", u):
+            actual = "denunciados"
+        elif re.match(r"(MATERIA|RESOLUCION|EXPEDIENTE|LIMA,)", u):
+            actual = None
+        if actual is None or not t:
+            continue
+        cuerpo = re.sub(r"(?i)^DENUNCIA(?:NTE|D[OA])S?\s*(\(S\))?\s*:?\s*", "", t).strip()
+        for m in re.finditer(r"([^()]+?)\s*\(([^)]+)\)", cuerpo):
+            salida[actual].append((m.group(1).strip(" ,;y"), m.group(2).strip()))
+    return salida
+
+
+def _nucleos(doc) -> list[tuple[str, str]]:
+    """(seccion, nucleo) de cada imputacion: considerativa y resolutivo."""
+    salida = []
+    for p in doc:
+        m = re.search(
+            r"consistente en que (.+?)(?:;\s*involucrar|\.\s*Por consiguiente)", p.texto, re.S
+        )
+        if m:
+            salida.append(("considerativa", re.sub(r"\s+", " ", m.group(1)).strip()))
+        m = re.search(r"Presunta infracci[oó]n .*?, en tanto (.+?)\s*\.\s*$", p.texto, re.S)
+        if m:
+            salida.append(("resolutivo", re.sub(r"\s+", " ", m.group(1)).strip()))
+    return salida
+
+
+def _clave(t: str) -> str:
+    return re.sub(r"\s+", " ", re.sub(r"[^A-Z0-9 ]", " ", sin_tildes(t).upper())).strip()
+
+
+def _nucleo_nombre(nombre: str) -> str:
+    return _clave(RE_SOCIEDAD.sub("", nombre))
+
+
+def prueba_r183_notas_integras(doc, z) -> list[str]:
+    """R-183: toda llamada tiene su nota y toda nota su llamada. Falsador medido
+    (9999-2026): borrar un parrafo dejo su nota huerfana y el visor corrio el
+    texto de todas las notas siguientes una posicion."""
+    x, fx = _xml(z, "word/document.xml"), _xml(z, "word/footnotes.xml")
+    if not fx:
+        return []
+    fallos = []
+    ns = _N.notas(fx)
+    for ll in _N.llamadas(x):
+        if ll["id"] not in ns:
+            fallos.append("R-183: la llamada %s no tiene nota" % ll["id"])
+    _x, _fx, inf = _N.normalizar(x, fx)
+    if inf["huerfanas"]:
+        fallos.append("R-183: nota(s) sin llamada: %s" % ", ".join(inf["huerfanas"]))
+    return fallos
+
+
+def prueba_r184_anclas(doc, z) -> list[str]:
+    """R-184: cada nota canonica va detras de su ancla (docs/anclas_notas.json)."""
+    return [
+        "R-184: la nota %s (%s) no va tras «%s»; va tras «…%s»"
+        % (f["id"], f["tipo"], f["ancla"], f["previo"].strip()[-40:])
+        for f in _N.anclas_incumplidas(_xml(z, "word/document.xml"), _xml(z, "word/footnotes.xml"))
+    ]
+
+
+def prueba_r185_llamadas_pegadas(doc, z) -> list[str]:
+    """R-185: nunca dos llamadas de nota seguidas («²³»): cada nota va en su ancla."""
+    return [
+        "R-185: la llamada %s va pegada a la anterior tras «…%s»" % (ll["id"], ll["previo"][-40:])
+        for ll in _N.llamadas_pegadas(_xml(z, "word/document.xml"))
+    ]
+
+
+def prueba_r186_nota_corresponde(doc, z) -> list[str]:
+    """R-186: la nota transcribe la norma que cita la frase que la llama (la
+    imputacion por el literal e) del articulo 47 no lleva la nota de los
+    articulos 18 y 19)."""
+    return [
+        "R-186: la frase «…%s» cita el articulo %s y su nota %s transcribe el %s"
+        % (f["tramo"].strip()[-50:], "/".join(f["citados"]), f["id"], "/".join(f["transcritos"]))
+        for f in _N.notas_que_no_corresponden(_xml(z, "word/document.xml"), _xml(z, "word/footnotes.xml"))
+    ]
+
+
+def prueba_r187_forma_notas(doc, z) -> list[str]:
+    """R-187: forma de cada nota: tabulacion tras la llamada, sin lineas en
+    blanco internas, sin dobles espacios, con el titulo de la norma; y la
+    transcripcion completa de sus literales (docs/textos_normativos.json)."""
+    fx = _xml(z, "word/footnotes.xml")
+    fallos = ["R-187: " + f for f in _N.defectos_de_forma(fx)]
+    fallos += ["R-187: " + f for f in _N.transcripciones_incompletas(fx)]
+    return fallos[:8]
+
+
+def prueba_r188_denominacion(doc) -> list[str]:
+    """R-188: como se nombra a cada parte en las imputaciones (instructor, 24/09/2026).
+
+    - La denunciante, con su nombre completo («la señora María Prueba
+      Ficticia»), nunca con la tratativa corta de los hechos («la señora Prueba»).
+    - Una aseguradora UNICA denunciada: «la compañía aseguradora», nunca su
+      razon social ni su alias.
+    - Con dos o mas denunciados: nunca «la compañía aseguradora» ni «el
+      proveedor denunciado»; cada proveedor con su razon social completa, no
+      con su alias; «los proveedores denunciados» solo si son exactamente dos
+      (imputacion conjunta; con tres o mas, los nombres, AGENTS §5).
+    """
+    enc = encabezado(doc)
+    ddos = enc["denunciados"]
+    n = len(ddos)
+    fallos = []
+    for seccion, nucleo in _nucleos(doc):
+        clave = _clave(nucleo)
+        for nombre, alias in enc["denunciantes"]:
+            m = re.match(r"(SENORA?|SENORITA)\s+(.+)", _clave(alias))
+            if m and re.search(r"\b%s %s\b" % (m.group(1), re.escape(m.group(2))), clave):
+                fallos.append(
+                    "R-188: la imputacion (%s) dice «%s %s»: va el nombre completo «%s»"
+                    % (seccion, m.group(1).lower(), m.group(2).title(), nombre.title())
+                )
+        if n == 1 and RE_ASEGURADORA.search(ddos[0][0]):
+            nucleo_rs = _nucleo_nombre(ddos[0][0])
+            alias = _clave(ddos[0][1])
+            if (nucleo_rs and nucleo_rs in clave) or re.search(r"\b%s\b" % re.escape(alias), clave):
+                fallos.append(
+                    "R-188: aseguradora unica denunciada: en la imputacion (%s) va «la compañía aseguradora»"
+                    % seccion
+                )
+            elif "COMPANIA ASEGURADORA" not in clave:
+                fallos.append(
+                    "R-188: aseguradora unica denunciada: la imputacion (%s) no dice «la compañía aseguradora»"
+                    % seccion
+                )
+        if n >= 2:
+            if "COMPANIA ASEGURADORA" in clave:
+                fallos.append("R-188: con %d denunciados no existe «la compañía aseguradora» (%s)" % (n, seccion))
+            if "EL PROVEEDOR DENUNCIADO" in clave:
+                fallos.append("R-188: con %d denunciados no existe «el proveedor denunciado» (%s)" % (n, seccion))
+            for nombre, alias in ddos:
+                a = _clave(alias)
+                nr = _nucleo_nombre(nombre)
+                if a and re.search(r"\b%s\b" % re.escape(a), clave) and nr not in clave:
+                    fallos.append(
+                        "R-188: la imputacion (%s) nombra a «%s» por su alias: va la razon social completa"
+                        % (seccion, alias.title())
+                    )
+        if n >= 3 and "LOS PROVEEDORES DENUNCIADOS" in clave:
+            fallos.append("R-188: con 3 o mas denunciados, los nombres de los implicados (AGENTS §5)")
+        if n == 1 and "LOS PROVEEDORES DENUNCIADOS" in clave:
+            fallos.append("R-188: con un denunciado no existe «los proveedores denunciados»")
+    return sorted(set(fallos))[:6]
+
+
+def _tramo(doc, desde: str, hasta: str):
+    dentro = False
+    for p in doc:
+        u = sin_tildes(p.texto).upper()
+        if desde in u and len(p.texto) < 90:
+            dentro = True
+            continue
+        if dentro and hasta in u and len(p.texto) < 90:
+            return
+        if dentro:
+            yield p
+
+
+def prueba_r189_rotulo_requerimiento(doc) -> list[str]:
+    """R-189: el rotulo del requerimiento de la considerativa es el ALIAS del
+    encabezado («Al Banco:», «A Rímac:»), no la razon social (instructor, 24/09/2026)."""
+    alias = {_clave(a) for _n, a in encabezado(doc)["denunciados"]}
+    if not alias:
+        return []
+    fallos = []
+    for p in _tramo(doc, "REQUERIMIENTO DE INFORMACION", "RESOLUCION DE LA SECRETARIA"):
+        m = re.match(r"\s*A(?:l)?\s+(.{2,90}?)\s*:\s*\(i\)", p.texto)
+        if m and _clave(m.group(1)) not in alias:
+            fallos.append(
+                "R-189: rotulo «%s:» del requerimiento: va el alias del encabezado (%s)"
+                % (p.texto[: m.end(1)].strip(), ", ".join(sorted(a.title() for a in alias)))
+            )
+    return fallos
+
+
+RE_RAZON_SOCIAL = re.compile(
+    r"((?:[A-ZÁÉÍÓÚÑ][\wÁÉÍÓÚÑáéíóúñ&.'-]*\s+)(?:(?:[A-ZÁÉÍÓÚÑ][\wÁÉÍÓÚÑáéíóúñ&.'-]*|de|del|la|las|los|y|e)\s+){0,8})"
+    r"(?:S\.A\.A\.|S\.A\.C\.|S\.A\.?|E\.P\.S\.)(?![\w])"
+)
+
+
+def prueba_r190_partes_y_concordancia(doc) -> list[str]:
+    """R-190: el documento solo nombra a sus partes y concuerda con ellas.
+
+    - Ninguna razon social que no este en el encabezado (residuo de plantilla:
+      «Pacífico Compañía de Seguros y Reaseguros S.A.» en un caso contra otros).
+    - «notificarles» si el ordinal requiere a varias partes («reciban»,
+      «efectúen»); «notificarle» si a una.
+    - Articulo ante la razon social: «al Banco…», nunca «a Banco…».
+    """
+    enc = encabezado(doc)
+    nucleos = [_nucleo_nombre(n) for n, _a in enc["denunciados"]]
+    fallos = []
+    cuerpo = doc[12:]
+    for p in cuerpo:
+        # Las razones sociales se cotejan en los ordinales del resolutivo, que es
+        # donde se nombra a quien se admite, requiere, traslada o notifica. En
+        # los hechos puede aparecer un tercero real (la empleadora del SCTR).
+        entidades = RE_RAZON_SOCIAL.finditer(p.texto) if RE_ORDINAL.match(p.texto.strip()) else ()
+        for m in entidades:
+            ent = _clave(m.group(1))
+            palabras = ent.split()
+            ok = any(
+                nr and (nr in ent or ent in nr or " ".join(palabras[-3:]) in nr)
+                for nr in nucleos
+            )
+            if not ok and nucleos:
+                fallos.append("R-190: «%s» no es parte del caso (residuo)" % m.group(0).strip()[-70:])
+        t = p.texto
+        if re.search(r"\bnotificarle\b", t) and re.search(r"\b(reciban|efect[uú]en)\b", t):
+            fallos.append("R-190: varias partes y «notificarle»: va «notificarles»")
+        if re.search(r"\bnotificarles\b", t) and re.search(r"\b(reciba|efect[uú]e)\b", t):
+            fallos.append("R-190: una parte y «notificarles»: va «notificarle»")
+    return sorted(set(fallos))[:6]
+
+
+def prueba_r195_articulo_ante_razon_social(doc) -> list[str]:
+    """R-195 (observacion): una razon social que empieza por un nombre comun
+    lleva articulo: «al Banco…», «de la Caja…», no «a Banco…». El instructor no
+    lo fijo como regla (24/09/2026): se eleva, no bloquea."""
+    fallos = []
+    for p in doc[12:]:
+        for m in re.finditer(
+            r"(?<![\wáéíóú])(a|de)\s+(Banco|Caja|Financiera|Empresa|Cooperativa|Edpyme|Corporaci[oó]n)\s+[A-ZÁÉÍÓÚ]",
+            p.texto,
+        ):
+            fallos.append("R-195: «%s»: ¿falta el articulo?" % m.group(0)[:-2])
+    return sorted(set(fallos))[:4]
+
+
+def prueba_r191_numeracion_continua(doc) -> list[str]:
+    """R-191: la considerativa se numera con UNA sola serie (en el 9999-2026 salio
+    «(i)», «3.», «4.»: el primer parrafo heredo la lista de otro nivel)."""
+    series = Counter()
+    ejemplo = {}
+    for p in _tramo(doc, "DE LA ADMISION A TRAMITE", "RESOLUCION DE LA SECRETARIA"):
+        t = p.texto.strip()
+        if not p.numerado or not t or t.upper() == t:
+            continue
+        clave = (p.numid, p.ilvl)
+        series[clave] += 1
+        ejemplo.setdefault(clave, t[:50])
+    if len(series) > 1:
+        minoritaria = min(series, key=lambda k: series[k])
+        return [
+            "R-191: la considerativa mezcla %d numeraciones; «%s…» no sigue la serie de los demas"
+            % (len(series), ejemplo[minoritaria])
+        ]
+    return []
+
+
+def prueba_r192_subrayado(doc) -> list[str]:
+    """R-192: solo se subraya el rotulo del requerimiento («A La Positiva:»),
+    nunca frases del cuerpo (NOVENO, instructor 24/09/2026)."""
+    fallos = []
+    for p in doc[8:]:
+        sub = "".join(t for t, u in p.runs_und if u)
+        if not sub.strip():
+            continue
+        rotulo = re.match(r"\s*A(?:l| la)?\s+[^:,.]{2,60}:", p.texto)
+        if rotulo and sub.strip() and sub.strip() in rotulo.group(0):
+            continue
+        fallos.append("R-192: subrayado fuera del rotulo del requerimiento: «%s»" % sub.strip()[:60])
+    return fallos[:4]
+
+
+FIRMANTES = ("EVELING ROA QUISPE", "LUISA ANALI SILVA MALPARTIDA")
+
+
+def prueba_r193_firmado_digitalmente(doc) -> list[str]:
+    """R-193: el bloque de firma tiene cuatro lineas; la primera es «Firmado
+    digitalmente por» (instructor, 24/09/2026)."""
+    for k, p in enumerate(doc):
+        if sin_tildes(p.texto).strip().upper() in FIRMANTES:
+            previo = next((q.texto.strip() for q in reversed(doc[:k]) if q.texto.strip()), "")
+            if previo != "Firmado digitalmente por":
+                return ["R-193: falta «Firmado digitalmente por» sobre el nombre de la firmante"]
+            return []
+    return []
+
+
+def prueba_r194_separadores(z) -> list[str]:
+    """R-194b: cada linea en blanco del cuerpo mide una linea (espaciado 0/0,
+    interlineado sencillo), no la herencia de 8 pt del estilo por defecto."""
+    x = _xml(z, "word/document.xml")
+    ps = list(_N.RE_P.finditer(x))
+    textos = [_N.texto(m.group(0)) for m in ps]
+    ini = next((k for k, t in enumerate(textos) if sin_tildes(t).strip().upper().startswith("HECHOS")), None)
+    ords = [k for k, t in enumerate(textos) if RE_ORDINAL.match(t.strip())]
+    if ini is None or not ords:
+        return []
+    malos = 0
+    for k in range(ini + 1, ords[-1]):
+        p = ps[k].group(0)
+        if textos[k].strip() or re.search(r"<w:numPr>|<w:br\b|<w:sectPr|<w:drawing|footnoteReference", p):
+            continue
+        sp = re.search(r"<w:spacing\b[^>]*/>", p)
+        if not sp or not re.search(r'w:after="0"', sp.group(0)) or re.search(r'w:line="(?!240")', sp.group(0)):
+            malos += 1
+    return ["R-194: %d linea(s) en blanco con espaciado heredado (miden mas de una linea)" % malos] if malos else []
+
+
+def prueba_r194_sin_huecos(doc) -> list[str]:
+    """R-194: ningun hueco en el cuerpo: nunca dos parrafos vacios seguidos entre
+    HECHOS y el ultimo ordinal (el borrado de hechos dejaba sus separadores)."""
+    ini = next((k for k, p in enumerate(doc) if sin_tildes(p.texto).strip().upper().startswith("HECHOS")), None)
+    ords = [k for k, p in enumerate(doc) if RE_ORDINAL.match(p.texto.strip())]
+    if ini is None or not ords:
+        return []
+    fallos = []
+    for k in range(ini, ords[-1]):
+        if doc[k].vacio and doc[k + 1].vacio and not doc[k].numerado:
+            siguiente = next((q.texto.strip() for q in doc[k + 1 :] if q.texto.strip()), "")
+            fallos.append("R-194: dos lineas en blanco seguidas antes de «%s…»" % siguiente[:40])
+    return sorted(set(fallos))[:4]
+
+
 PRUEBAS = [
+    (
+        "R-183 notas integras (llamada <-> nota)",
+        lambda d, s, z: prueba_r183_notas_integras(d, z),
+        "falsador",
+    ),
+    (
+        "R-184 notas canonicas en su ancla",
+        lambda d, s, z: prueba_r184_anclas(d, z),
+        "falsador",
+    ),
+    (
+        "R-185 sin llamadas de nota pegadas",
+        lambda d, s, z: prueba_r185_llamadas_pegadas(d, z),
+        "falsador",
+    ),
+    (
+        "R-186 la nota transcribe la norma citada",
+        lambda d, s, z: prueba_r186_nota_corresponde(d, z),
+        "falsador",
+    ),
+    (
+        "R-187 forma y literales de las notas",
+        lambda d, s, z: prueba_r187_forma_notas(d, z),
+        "falsador",
+    ),
+    (
+        "R-188 denominacion de las partes en las imputaciones",
+        lambda d, s, z: prueba_r188_denominacion(d),
+        "falsador",
+    ),
+    (
+        "R-189 rotulo del requerimiento con el alias",
+        lambda d, s, z: prueba_r189_rotulo_requerimiento(d),
+        "falsador",
+    ),
+    (
+        "R-190 partes del caso y concordancia",
+        lambda d, s, z: prueba_r190_partes_y_concordancia(d),
+        "falsador",
+    ),
+    (
+        "R-191 numeracion continua de la considerativa",
+        lambda d, s, z: prueba_r191_numeracion_continua(d),
+        "falsador",
+    ),
+    (
+        "R-192 subrayado solo en el rotulo del requerimiento",
+        lambda d, s, z: prueba_r192_subrayado(d),
+        "falsador",
+    ),
+    (
+        "R-193 Firmado digitalmente por",
+        lambda d, s, z: prueba_r193_firmado_digitalmente(d),
+        "falsador",
+    ),
+    (
+        "R-195 articulo ante la razon social",
+        lambda d, s, z: prueba_r195_articulo_ante_razon_social(d),
+        "observacion",
+    ),
+    (
+        "R-194b lineas en blanco de una linea",
+        lambda d, s, z: prueba_r194_separadores(z),
+        "falsador",
+    ),
+    (
+        "R-194 sin huecos en el cuerpo",
+        lambda d, s, z: prueba_r194_sin_huecos(d),
+        "falsador",
+    ),
     (
         "R-97  isomorfismo considerativa/resolutiva",
         lambda d, s, z: prueba_r97_isomorfismo(d),

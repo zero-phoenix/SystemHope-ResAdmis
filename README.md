@@ -18,8 +18,10 @@ de la Comisión.
 pip install -r requirements.txt
 python scripts/comprobar_anclaje.py
 python scripts/admisorio.py preparar <carpeta_del_expediente>
-#  -> lectura visual de cada página (_paginas/*.png) y _LECTURA.md
+#  -> lectura visual de cada página (_paginas/*.png), _LECTURA.md y _FORMATO.md (formato de cada hoja, sin OCR)
 python scripts/construir_admisorio.py --mapa <mapa.json>
+python scripts/admisorio.py previsualizar "<carpeta>/ADM <EXP> R<N>.docx" --contra <plantilla.docx>
+#  -> _vista/: cada página como imagen (ONLYOFFICE, fiel a Word; LibreOffice solo como vista aproximada)
 python scripts/admisorio.py entregar "<carpeta>/ADM <EXP> R<N>.docx"
 ```
 
@@ -28,6 +30,8 @@ Utilidades:
 - `scripts/medir_formato.py <docx|pdf> [--comparar]` mide la huella de formato sin OCR (estructura del archivo).
 - `scripts/clasificar_corpus.py` clasifica las plantillas por contenido (denunciantes, denunciados, vías, subtipos, calidad).
 - `scripts/prueba_verificador.py` somete al verificador a mutaciones: cada regla debe rechazar su error.
+- `scripts/prueba_casos.py` construye los expedientes ficticios de `pruebas/ficticios/` y exige APTO (regresión de extremo a extremo).
+- `scripts/migraciones/migrar_v3_1.py [--escribir]` aplica al corpus las reglas generales v3.1 (idempotente).
 
 ## Datos de referencia (`docs/`)
 

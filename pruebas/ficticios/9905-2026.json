@@ -1,0 +1,27 @@
+{
+ "plantilla": "plantillas_maestras/07_seguro_sctr/materia_general_asegurativa/2_o_mas_ddos_varios/mujer/TPL_1306_2025_SEGURO_SCTR_MATERIA_GENERAL_ASEGURATIVA_ASEGURADORA_MUJER_R1.docx",
+ "partes": [
+  "Ficticia",
+  "MAPFRE"
+ ],
+ "reemplazos": {
+  "[DENUNCIANTE]": "ANA PRUEBA FICTICIA",
+  "[APELLIDO]": "Ficticia",
+  "Lima, 11 de julio de 2025": "Lima, 25 de setiembre de 2026",
+  "1306-2025/CC1": "9905-2026/CC1"
+ },
+ "conservar": [
+  "1 de julio de 2024",
+  "11 de julio de 2025",
+  "14 de julio de 2024",
+  "14 de noviembre de 2024",
+  "2 de abril de 2025",
+  "4 de junio de 2025"
+ ],
+ "_prueba": {
+  "expediente": "9905-2026",
+  "resolucion": "R1",
+  "espera": "APTO",
+  "origen": "Regresion de forma v3.1 sobre una plantilla real (1 denunciado(s), 07_seguro_sctr): se conservan sus hechos; los nombres de persona son ficticios. El constructor no debe romperla."
+ }
+}

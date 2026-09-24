@@ -1,0 +1,37 @@
+{
+ "plantilla": "plantillas_maestras/10_seguro_sepelio/contratacion_no_consentida/2_o_mas_ddos_varios/varon/TPL_3339_2025_SEGURO_SEPELIO_CONTRATACION_NO_CONSENTIDA_ASEGURADORA_VARON_R2.docx",
+ "partes": [
+  "Ficticia",
+  "MAPFRE"
+ ],
+ "reemplazos": {
+  "[DENUNCIANTE]": "ANA PRUEBA FICTICIA",
+  "[APELLIDO]": "Ficticia",
+  "Lima, 30 de enero de 2026": "Lima, 25 de setiembre de 2026",
+  "3339-2025/CC1": "9907-2026/CC1"
+ },
+ "conservar": [
+  "12 de diciembre de 2025",
+  "14 de noviembre de 2025",
+  "15 de agosto de 2025",
+  "15 de julio de 2025",
+  "2 de junio de 2025",
+  "21 de julio de 2025",
+  "27 de enero de 2026",
+  "30 de abril de 2025",
+  "30 de enero de 2026",
+  "5 de setiembre de 2025",
+  "812680003026",
+  "8126800030264",
+  "Póliza 812680003026",
+  "Póliza 8126800030264",
+  "S/ 36,00",
+  "reclamo 001-1001-2025-01793"
+ ],
+ "_prueba": {
+  "expediente": "9907-2026",
+  "resolucion": "R1",
+  "espera": "APTO",
+  "origen": "Regresion de forma v3.1 sobre una plantilla real (1 denunciado(s), 10_seguro_sepelio): se conservan sus hechos; los nombres de persona son ficticios. El constructor no debe romperla."
+ }
+}

@@ -12,7 +12,13 @@ description: Redactar y verificar las imputaciones de cargos (considerativa y re
 - Solicitud de GESTIÓN mal atendida → idoneidad (arts. 18 y 19). Solicitud de INFORMACIÓN o copias → información. Si la misma carta tiene ambas, dos imputaciones separadas.
 - Considerativa: «… considera que el hecho denunciado, consistente en que [HECHO en condicional]. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de …, tipificado en … del Código».
 - Resolutivo: «Presunta infracción a [NORMA] de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto [SUJETO] habría(n) [CONDUCTA] [PRODUCTO] [FECHA/CIRCUNSTANCIA].» Una oración, una conducta.
-- Sujeto: nombre del proveedor; «los proveedores denunciados» solo con EXACTAMENTE 2 denunciados y conducta común; con 3 o más, los dos nombres completos. «El proveedor denunciado» solo si hay uno.
+- Sujeto (R-188, instructor 24/09/2026), idéntico en la considerativa y en el resolutivo:
+  - aseguradora ÚNICA denunciada: «la compañía aseguradora» (nunca su razón social ni su alias);
+  - dos o más denunciados, imputaciones separadas: la **razón social completa** de cada uno (también la aseguradora), nunca el alias;
+  - conducta común a todos: «los proveedores denunciados» solo con EXACTAMENTE 2; con 3 o más, los dos nombres completos;
+  - «el proveedor denunciado» solo si hay uno;
+  - la denunciante o el denunciante: su **nombre completo** («la señora María Pérez Gómez»), nunca la tratativa corta de los hechos.
+- Cada calificación termina con la llamada a la nota que transcribe SU norma (`docs/notas_normas.json`): el constructor la pone o la sustituye.
 - Mismo orden, misma norma y mismo núcleo fáctico en considerativa y resolutivo. Nunca «y/o», nunca «inducción a error», nunca «N°».
 
 ## Por norma (forma canónica medida → úsala; variantes → no)
