@@ -77,6 +77,16 @@ Utilidades:
 
 Por contenido (índice v3): 457 con 1 denunciado, 102 con 2, 15 con 3 o más; 23 con confidencialidad; 336 aptas como base (0 falsadores).
 
+## Novedades v3.4 (24/09/2026)
+
+Revisión del instructor sobre el Exp. 2898-2026 R2. Cada mandato tiene su falsador y su mutación en CI (51 mutaciones).
+
+| Mandato | Regla |
+|---|---|
+| Viñetas de HECHOS con sujeto tácito; la tratativa («la señora X») solo en la apertura y en la medida correctiva (94 % del corpus) | R-210 |
+| Negativa de cobertura «de manera injustificada» o «de manera indebida», nunca «injustificadamente» | R-209 |
+| El rótulo del requerimiento de cada denunciado va subrayado; el saneador lo repone | R-208 |
+
 ## Novedades v3.3 (24/09/2026)
 
 En la considerativa, toda imputación por el deber de información cierra el hecho con «; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de información, tipificado en el artículo 1, numeral 1, literal b) y al artículo 2 del Código.» Aplicado a 168 plantillas (232 párrafos); el constructor la añade y el verificador la exige (R-207). El resolutivo no cambia.

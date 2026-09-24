@@ -108,7 +108,9 @@ Remesa de 11 admisorios corregidos y el Exp. 3092-2026 rehecho sobre su expedien
   - restituye la nota del Código y la de competencia si se pierden al reanclarse;
   - deja la nota de la norma imputada **solo en la primera imputación** de ese artículo (R-202);
   - renumera las notas sin colisiones.
-- **Imputaciones** (skill `imputaciones`): mandan las plantillas por **sentido y finalidad**; la tabla es referencial. **Una por solicitud y por cobertura** (R-206). «La denunciante» (R-205), «compañía aseguradora» (R-201).
+- **Imputaciones** (skill `imputaciones`): mandan las plantillas por **sentido y finalidad**; la tabla es referencial. **Una por solicitud y por cobertura** (R-206). «La denunciante» (R-205), «compañía aseguradora» (R-201). Negativa de cobertura «de manera injustificada» (R-209).
+- **Hechos**: la tratativa («la señora X») solo en la apertura y en la medida correctiva; las viñetas van con **sujeto tácito** («El 29 de mayo de 2021, recibió…»). Medido: 3 994 de 4 246 viñetas del corpus (94 %) no la repiten; las demás nombran a terceros o distinguen a varios denunciantes (R-210).
+- **Requerimiento**: el rótulo de **cada** denunciado subrayado («A Santander:»). Al sustituir un rótulo con `"parrafos"`, el subrayado podía perderse; `sanear_admisorio.py` lo repone (R-208).
 - **Hechos**: «adquirió» el seguro (R-204); nada valorativo como «únicamente» (R-203); solo lo que sustenta las imputaciones, sin perder el contexto.
 - **Inadmisibilidad dejada sin efecto**: si el Word o el expediente la traen, se conservan el apartado «DE LA INADMISIBILIDAD» y el ordinal que la deja sin efecto.
 - **Nota sobre la presentación de la denuncia en CC1** (prohibida, R-167): el constructor la quita y renumera.

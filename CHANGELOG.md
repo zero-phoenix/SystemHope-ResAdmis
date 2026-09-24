@@ -4,6 +4,24 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.4.0] - 2026-09-24 (REVISIÓN DEL INSTRUCTOR SOBRE EL EXP. 2898-2026 R2)
+
+### Added
+- Falsadores y sus mutaciones en `prueba_verificador.py` (51 mutaciones):
+  - R-208: el rótulo del requerimiento de cada denunciado va subrayado;
+  - R-209: la negativa de cobertura se imputa «de manera injustificada» o «de manera indebida», nunca con el adverbio en -mente;
+  - R-210: las viñetas de HECHOS van con sujeto tácito; la tratativa solo en la apertura y en la medida correctiva (medido: 94 % del corpus).
+- `sanear_admisorio.py`: `rotulos_requerimiento` subraya el rótulo y quita el subrayado del cuerpo (el constructor lo llama solo).
+
+### Fixed
+- Al sustituir «A Autofondo:» por «A Santander:» con `"parrafos"`, el rótulo caía en el run del cuerpo y perdía el subrayado.
+- `notas_pie.nota_de_la_norma`: también sustituye la nota del 88.1 cuando la calificación no dice «tipificado».
+- R-204 ya no rechaza la negación que refiere lo que informó el proveedor («no contaba con una póliza vigente»).
+
+### Changed
+- AGENTS.md v3.4, skills `imputaciones` y `admisorio-flujo`, README y CONTRADICCIONES.
+- Casos ficticios 9904, 9908 y 9999 con las formas nuevas. Release `v3.4.N`; motor 3.4.0. Las reglas se numeran tras R-207 (deber de información, v3.3.0).
+
 ## [3.3.0] - 2026-09-24 (DEBER DE INFORMACIÓN: AFECTACIÓN AL DERECHO DE INFORMACIÓN EN LA CONSIDERATIVA)
 
 Mandato del instructor, total y permanente: en la parte considerativa, toda imputación por el deber de información cierra el hecho con «; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de información, tipificado en el artículo 1, numeral 1, literal b) y al artículo 2 del Código.» El resolutivo no cambia.

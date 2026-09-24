@@ -82,18 +82,23 @@ jobs:
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./arranque/construir_portable.ps1 -Version "v3.3.${{ github.run_number }}"
+        run: ./arranque/construir_portable.ps1 -Version "v3.4.${{ github.run_number }}"
 
       - name: Publicar Release en GitHub con Binarios y Memoria
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v3.3.${{ github.run_number }}
-          name: "SystemHope ResAdmis v3.3.${{ github.run_number }}"
+          tag_name: v3.4.${{ github.run_number }}
+          name: "SystemHope ResAdmis v3.4.${{ github.run_number }}"
           body: |
-            # SystemHope ResAdmis v3.3.${{ github.run_number }}
+            # SystemHope ResAdmis v3.4.${{ github.run_number }}
 
             Reglas vigentes: `AGENTS.md`. Cambios: `CHANGELOG.md`.
 
+            v3.4: revision del instructor sobre el Exp. 2898-2026 R2 (24/09/2026).
+            - HECHOS: sujeto tacito en las vinetas; la tratativa solo en la apertura y la medida correctiva (R-210; 94 % del corpus).
+            - Negativa de cobertura: «de manera injustificada / indebida», nunca «injustificadamente» (R-209).
+            - Rotulo del requerimiento de cada denunciado subrayado; el saneador lo repara solo (R-208).
+            - 51 mutaciones y 14 casos ficticios en CI.
             v3.3: deber de informacion en la considerativa (24/09/2026).
             - Toda imputacion por el articulo 1, numeral 1, literal b) y el articulo 2 cierra el hecho con «; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, corresponde calificar…» (R-207). El resolutivo no cambia.
             - 168 plantillas maestras migradas (232 parrafos); el constructor la añade y el verificador la exige; 48 mutaciones en CI.

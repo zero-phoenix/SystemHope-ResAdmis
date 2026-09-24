@@ -21,6 +21,7 @@ description: Redactar y verificar las imputaciones de cargos (considerativa y re
   - conducta común a todos: «los proveedores denunciados» solo con EXACTAMENTE 2; con 3 o más, los dos nombres completos;
   - «el proveedor denunciado» solo si hay uno;
   - la denunciante o el denunciante: su **nombre completo** («la señora María Pérez Gómez») o «la denunciante», nunca la tratativa corta de los hechos ni «la parte denunciante» (R-205);
+  - negativa de cobertura: «se habría negado **de manera injustificada**» o «**de manera indebida**», nunca el adverbio «injustificadamente» / «indebidamente» (R-209, instructor 24/09/2026);
   - nunca «aseguradora» a secas: «la compañía aseguradora» (R-201).
 - La **primera** calificación de cada artículo termina con la llamada a la nota que transcribe SU norma (`docs/notas_normas.json`); las siguientes imputaciones por el mismo artículo **no repiten la nota** (R-202). El constructor lo aplica.
 - Mismo orden, misma norma y mismo núcleo fáctico en considerativa y resolutivo. Nunca «y/o», nunca «inducción a error», nunca «N°».
