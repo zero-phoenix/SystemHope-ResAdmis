@@ -93,6 +93,13 @@ Secciones:
 ## Corregir un Word que entrega el instructor
 Ese Word es la `plantilla` del `mapa.json`: `reemplazos` para el texto e `insertar_despues` para párrafos nuevos. Se conservan su numeración y sus notas. Nunca lo reescribas con ElementTree, python-docx ni `python -c` (Exp. 2835-2026: Word corrupto y numeración duplicada). El verificador rechaza numerales pegados («9.La», R-179) o duplicados («1. 1.», R-180).
 
+## Deber de información en la considerativa (v3.3, R-207)
+Toda imputación por el artículo 1, numeral 1, literal b) y el artículo 2 cierra el hecho, en la considerativa, así:
+«…consistente en que [SUJETO] no habría [HECHO, con fecha]; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de información, tipificado en el artículo 1, numeral 1, literal b) y al artículo 2 del Código.»
+- Las 168 plantillas que imputan información ya la traen (232 párrafos, `scripts/migraciones/afectacion_derecho_informacion.py`).
+- Si un `"parrafos"` del mapa la omite, el constructor la añade al sanear; el verificador rechaza la imputación que no la tenga.
+- El resolutivo («Presunta infracción al artículo 1, numeral 1, literal b) y al artículo 2 de la Ley 29571, … en tanto …») **no** la lleva.
+
 ## Revisión del instructor del 24/09/2026 (v3.2)
 Remesa de 11 admisorios corregidos y el Exp. 3092-2026 rehecho sobre su expediente. Lo que se generalizó:
 - **El constructor sanea solo** (`scripts/sanear_admisorio.py`, lo llama al terminar):

@@ -21,6 +21,9 @@ verificador no veia o que el constructor producia:
     al reanclarse: se restituyen desde una plantilla maestra (R-184);
   - la nota de la norma imputada va SOLO en la primera imputacion de ese
     articulo: las siguientes no la repiten (mandato del instructor, R-202);
+  - la considerativa de cada imputacion por el deber de informacion cierra con
+    «; involucraría una presunta afectación al derecho de información de los
+    consumidores. Por consiguiente, …» (v3.3, R-207);
   - renumeracion de notas en dos fases (sin colisiones de ids).
 
 Todo se hace sobre el XML como texto; ningun proceso WINWORD.EXE.
@@ -38,6 +41,7 @@ import normalizar_plantillas_popperianas as NP
 import notas_traslado as NT
 import migrar_v3_1 as M31
 import uniformar_tipografia as UT
+import afectacion_derecho_informacion as ADI
 
 RUN = re.compile(
     r"<w:r\b[^>]*>(<w:rPr>.*?</w:rPr>)?<w:t(?: [^>]*)?>([^<]*)</w:t></w:r>", re.S
@@ -492,6 +496,7 @@ def sanear(ruta) -> None:
     nota_codigo(p)
     nota_competencia(p)
     notas_repetidas(p)
+    ADI.migrar_docx(p, True)
     UT.main([str(p), "--aplicar"])
 
 

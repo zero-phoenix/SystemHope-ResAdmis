@@ -1863,6 +1863,30 @@ def prueba_r206_una_imputacion_por_hecho(doc) -> list[str]:
             fallos.append("R-206: imputacion (%s) que une varias coberturas: una por cobertura" % seccion)
     return fallos[:4]
 
+# --------------------------------------------------------------------------
+# v3.3 (instructor 24/09/2026): calificacion del deber de informacion
+# --------------------------------------------------------------------------
+
+FRASE_R207 = "; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente"
+
+
+def prueba_r207_afectacion_derecho_informacion(doc) -> list[str]:
+    """R-207: en la considerativa, toda imputacion por el deber de informacion
+    cierra el hecho con «; involucraría una presunta afectación al derecho de
+    información de los consumidores. Por consiguiente, corresponde calificar
+    …». El resolutivo no la lleva."""
+    fallos = []
+    for p in doc:
+        t = p.texto
+        if "considera que el hecho" in t and "presunta infracción al deber de información" in t:
+            if FRASE_R207 not in t:
+                i = t.find("consistente en que")
+                fallos.append(
+                    "R-207: imputacion por informacion sin «; involucraría una presunta afectación al derecho de información de los consumidores»: «%s…»"
+                    % t[i + 19 : i + 70]
+                )
+    return fallos[:4]
+
 PRUEBAS = [
     (
         "R-201 compañía aseguradora, nunca aseguradora a secas",
@@ -1892,6 +1916,11 @@ PRUEBAS = [
     (
         "R-206 una imputacion por solicitud y por cobertura",
         lambda d, s, z: prueba_r206_una_imputacion_por_hecho(d),
+        "falsador",
+    ),
+    (
+        "R-207 informacion: afectacion al derecho de informacion",
+        lambda d, s, z: prueba_r207_afectacion_derecho_informacion(d),
         "falsador",
     ),
     (
