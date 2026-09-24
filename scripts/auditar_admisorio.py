@@ -80,8 +80,13 @@ def sin_tildes(t: str) -> str:
 
 
 def normalizar(t: str) -> str:
-    """Un numero puede escribirse S/ 28 049,00 o S/28,049.00 y ser el mismo."""
-    return re.sub(r"[\s.,]", "", sin_tildes(t).lower())
+    """Un numero puede escribirse S/ 28 049,00 o S/28,049.00 y ser el mismo.
+
+    Igual con el mes: el admisorio escribe «setiembre» (forma de la Comision) y
+    el expediente puede decir «septiembre»; es la misma fecha. En el Exp.
+    2889-2026 «1 de setiembre de 2025» salia sin ancla frente a la subsanacion,
+    que dice «1 de septiembre de 2025»."""
+    return re.sub(r"[\s.,]", "", sin_tildes(t).lower().replace("septiembre", "setiembre"))
 
 
 def texto_docx(ruta: Path) -> str:

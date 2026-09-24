@@ -21,7 +21,8 @@ python scripts/admisorio.py preparar <carpeta_del_expediente>
 #  -> lectura visual de cada página (_paginas/*.png), _LECTURA.md y _FORMATO.md (formato de cada hoja, sin OCR)
 python scripts/construir_admisorio.py --mapa <mapa.json>
 python scripts/admisorio.py previsualizar "<carpeta>/ADM <EXP> R<N>.docx" --contra <plantilla.docx>
-#  -> _vista/: cada página como imagen (ONLYOFFICE, fiel a Word; LibreOffice solo como vista aproximada)
+#  -> _vista/: cada página como imagen (ONLYOFFICE, fiel a Word; LibreOffice solo como vista aproximada;
+#     en Linux instala fonts-liberation-sans-narrow: misma métrica que Arial Narrow)
 python scripts/admisorio.py entregar "<carpeta>/ADM <EXP> R<N>.docx"
 ```
 
@@ -32,6 +33,13 @@ Utilidades:
 - `scripts/prueba_verificador.py` somete al verificador a mutaciones: cada regla debe rechazar su error.
 - `scripts/prueba_casos.py` construye los expedientes ficticios de `pruebas/ficticios/` y exige APTO (regresión de extremo a extremo).
 - `scripts/migraciones/migrar_v3_1.py [--escribir]` aplica al corpus las reglas generales v3.1 (idempotente).
+
+## Criterios de imputación consolidados (v3.1.2)
+
+- **Reclamos** ante aseguradoras y bancos (supervisados por la SBS): **numeral 88.1 del artículo 88**, una imputación por reclamo, con su código y fecha, aunque el reclamo pida información.
+- **Comunicación enviada a un domicilio en el que el consumidor no reside**: **idoneidad (artículos 18 y 19)**, una imputación por comunicación; nunca información (medido en el corpus).
+- **Información** (artículo 1, numeral 1, literal b) y artículo 2): el contenido de lo informado o la copia pedida y no entregada.
+- Detalle y ejemplos: [`docs/IMPUTACIONES_ANALITICO.md`](docs/IMPUTACIONES_ANALITICO.md).
 
 ## Datos de referencia (`docs/`)
 

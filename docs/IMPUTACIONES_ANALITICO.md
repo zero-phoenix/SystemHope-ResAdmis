@@ -15,6 +15,8 @@
 4. **Isomorfismo.** El hecho que la considerativa califica es el mismo que el resolutivo imputa, en el mismo orden y con la misma norma. Si difieren, el cargo formulado no es el cargo motivado.
 5. **Una solicitud mal gestionada es idoneidad; una solicitud de información o de copias es información.** Si una misma carta contiene ambas, se imputan por separado.
 6. **Nunca** el artículo 3 ni «inducción a error». **Nunca** «y/o». **Nunca** mezclar dos conductas distintas en una imputación.
+7. **El lugar de envío no es información.** Una comunicación remitida a un domicilio en el que el consumidor no reside es un servicio mal prestado: idoneidad (artículos 18 y 19), una imputación por comunicación y fecha. La información (artículo 1, numeral 1, literal b) y artículo 2) califica el contenido de lo informado. Medido: TPL_2088_2025 y TPL_0600_2026; aplicado en el Exp. 2889-2026.
+8. **Un reclamo es 88.1 aunque pida información.** Ante un proveedor supervisado por la SBS, la respuesta que no entrega lo que el reclamo pedía se imputa por el numeral 88.1 del artículo 88, una imputación por reclamo, con su código y fecha; no se duplica como información.
 
 ## `art.150` — 11 en el resolutivo, 11 en la considerativa
 
