@@ -4,6 +4,22 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.1.2] - 2026-09-24 (CORRECCIONES DEFINITIVAS DEL INSTRUCTOR: EXP. 2889-2026)
+
+Revision del instructor sobre un admisorio real (Exp. 2889-2026/CC1, seguro de vida, una aseguradora, denuncia derivada del ORPS 1). Cada correccion se contrasto (metodo popperiano) con las 1 936 imputaciones de las 574 plantillas antes de volverla regla.
+
+### Changed
+- **Envio a un domicilio en el que el consumidor no reside: idoneidad (articulos 18 y 19), una imputacion por comunicacion y fecha; nunca informacion.** El corpus no tiene una sola imputacion por informacion para ese supuesto y si por idoneidad (TPL_2088_2025: liquidacion no notificada al domicilio; TPL_0600_2026: boletas no remitidas al domicilio). La informacion califica el contenido de lo informado, no el lugar de envio. En `AGENTS.md` §2.4, la skill `imputaciones` y `docs/IMPUTACIONES_ANALITICO.md` (regla 7).
+- **Un reclamo es 88.1 aunque pida informacion**: ante un proveedor supervisado por la SBS, la respuesta que no entrega el sustento pedido se imputa por el numeral 88.1 del articulo 88, una imputacion por reclamo con su codigo y fecha; no se duplica como informacion (regla 8).
+- `AGENTS.md` sigue dentro del limite de Antigravity (11 993 de 12 000 caracteres).
+
+### Fixed
+- `auditar_admisorio`: «setiembre» y «septiembre» anclan la misma fecha. En el 2889-2026, «1 de setiembre de 2025» salia «sin ancla» porque la subsanacion escribe «septiembre». Nueva comprobacion en `autocomprobacion.py`.
+
+### Notes
+- Vista en Linux sin ONLYOFFICE: con la letra **Liberation Sans Narrow** (misma metrica que Arial Narrow; paquete `fonts-liberation-sans-narrow`) LibreOffice conserva los cortes de linea de Word. `previsualizar` ya la reconoce como fiel en metrica.
+- Ningun dato del expediente 2889-2026 entra al repositorio (guardia de datos personales).
+
 ## [3.1.1] - 2026-09-24 (CIERRE DE LA v3.1: VISTA FIEL A WORD, CORPUS Y CONTRADICCIONES)
 
 Autorizado por el instructor: tercera pasada de la migracion, vista superior a LibreOffice y limpieza de contradicciones.

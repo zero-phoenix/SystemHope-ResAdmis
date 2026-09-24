@@ -154,6 +154,16 @@ def agents_cabe() -> list[str]:
     return [] if n <= 12000 else ["AGENTS.md tiene %d caracteres; el limite de Antigravity es 12 000" % n]
 
 
+def auditor_meses() -> list[str]:
+    """El auditor de fondo ancla una fecha aunque el expediente escriba
+    «septiembre» y el admisorio «setiembre» (Exp. 2889-2026: falso «sin ancla»)."""
+    sys.path.insert(0, str(RAIZ / "scripts"))
+    import auditar_admisorio as A
+    if A.normalizar("1 de septiembre de 2025") != A.normalizar("1 de setiembre de 2025"):
+        return ["auditar_admisorio: «setiembre» y «septiembre» deben anclar la misma fecha"]
+    return []
+
+
 OCR_PROHIBIDO = re.compile(
     r"\b(?:import|from)\s+(?:pytesseract|easyocr|paddleocr|ocrmypdf|rapidocr\w*|doctr|kraken)\b"
     r"|get_textpage_ocr|\.ocr_page\(|tesseract_cmd"
@@ -229,6 +239,7 @@ def main() -> int:
         ("Sin artefactos de trabajo rastreados", sin_artefactos),
         ("Cero OCR (R-137)", cero_ocr),
         ("AGENTS.md cabe en Antigravity (12 000 caracteres)", agents_cabe),
+        ("El auditor ancla setiembre y septiembre por igual", auditor_meses),
         ("Nunca ElementTree escribiendo .docx", sin_elementtree_escribiendo),
         ("Plantillas que Word abre (R-168)", plantillas_abren_en_word),
     )

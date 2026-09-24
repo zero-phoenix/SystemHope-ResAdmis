@@ -22,15 +22,16 @@ Redactor: **Google Antigravity con el modelo de `config/modelo.json`** (Gemini 3
 Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de resolución que fija la cédula. Nunca PDF.
 
 ## 2. Reglas no negociables
-1. **Nada que no conste en el expediente.** Dato que no ves en una página, se declara pendiente del instructor. **Nunca modifiques el repositorio**: si ves un error del sistema, repórtalo; `entregar` comprueba la integridad.
+1. **Nada que no conste en el expediente.** Dato que no ves en una página: pendiente del instructor. **Nunca modifiques el repositorio**: si ves un error, repórtalo; `entregar` comprueba la integridad.
 2. **Fechas de los documentos.** Escrito de parte (denuncia, subsanación, complementario), presentado por mesa de partes virtual o presencial: su fecha es la de su **firma digital**, no la que el escrito dice. Resolución, memorándum o documento de traslado de Indecopi: la **fecha de emisión escrita en su texto**, nunca la de la firma digital.
 3. **Denunciados definitivos.** Los que resultan tras la resolución de requerimiento y el escrito que la absuelve: la denuncia inicial puede nombrar a uno y la subsanación añadir otro. Todos los escritos se citan con su fecha en la apertura de HECHOS, en PRIMERO y en SEGUNDO («denuncia del …, subsanada mediante escrito del …»).
 4. **Imputación cerrada.** Solo por los artículos de `docs/tabla_tipificacion.json` (tabla del instructor) y en la **forma literal de las plantillas**. Prohibido inventar imputaciones o combinar artículos de otro modo.
    - **Nunca el artículo 3** ni la frase «inducción a error».
-   - Reclamos: **numeral 88.1 del artículo 88** si el proveedor está regulado por el sistema financiero; **artículo 24** solo si NO lo está. **Un reclamo por imputación**: varios reclamos, varias imputaciones.
+   - Reclamos: **numeral 88.1 del artículo 88** si el proveedor está regulado por el sistema financiero; **artículo 24** solo si NO lo está. **Un reclamo por imputación**, aunque pida información.
    - Fallas de información: «el artículo 1, numeral 1, literal b) y al artículo 2 del Código» (forma de los modelos).
    - Documentos contractuales no entregados **a la firma**: literal e) del artículo 47; pedidos **después** y no entregados: artículo 1, numeral 1, literal b) y artículo 2.
-   - **Solicitud de gestión** mal atendida: idoneidad (artículos 18 y 19). **Solicitud de información o de copias**: información. Si la misma carta trae ambas, **dos imputaciones separadas**.
+   - **Solicitud de gestión** mal atendida: idoneidad (arts. 18 y 19); **de información o copias**: información; ambas en una carta: **dos imputaciones**.
+   - Envío a un domicilio donde no reside: **idoneidad**, una por comunicación; no información.
    - Cláusulas abusivas: **siempre** «numeral 49.1 del artículo 49 y al literal x) del artículo 50» (ineficacia absoluta) o «… del artículo 51» (ineficacia relativa).
    - Formas canónicas y lo que no se hace: `docs/IMPUTACIONES_ANALITICO.md`.
    - Si la imputación necesaria no está en la tabla, **se eleva al instructor**.

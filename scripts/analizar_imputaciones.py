@@ -321,6 +321,8 @@ def skill(c: dict) -> str:
         "- Cláusulas abusivas: SIEMPRE «numeral 49.1 del artículo 49 y al literal x) del artículo 50» (ineficacia absoluta) o «... del artículo 51» (ineficacia relativa).",
         "- Documentos contractuales: a la FIRMA → literal e) del art. 47. DESPUÉS, cuando el consumidor los pide → art. 1, numeral 1, literal b) y art. 2.",
         "- Solicitud de GESTIÓN mal atendida → idoneidad (arts. 18 y 19). Solicitud de INFORMACIÓN o copias → información. Si la misma carta tiene ambas, dos imputaciones separadas.",
+        '- Reclamo ante aseguradora o banco (regulados por la SBS) que pide el sustento de un cobro o incremento y recibe una respuesta sin él → numeral 88.1 del art. 88, UNA imputación por reclamo, con su código y fecha: «habría brindado una respuesta inadecuada al reclamo REC-3094 presentado por la denunciante el 3 de marzo de 2026, al no haberle entregado …». No se duplica como información (Exp. 2889-2026).',
+        '- Comunicación remitida a un domicilio en el que el consumidor no reside (notificación deficiente) → idoneidad (arts. 18 y 19), UNA imputación por comunicación y fecha: «no habría cumplido con notificar a la denunciante en su domicilio la comunicación del [fecha] sobre …, al haberla remitido a un domicilio en el que no residía». Nunca información: el corpus lo imputa por idoneidad (TPL_2088_2025: liquidación no notificada al domicilio; TPL_0600_2026: boletas no remitidas al domicilio); información es el CONTENIDO de lo informado, no el lugar de envío (Exp. 2889-2026).',
         "- Considerativa: «… considera que el hecho denunciado, consistente en que [HECHO en condicional]. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de …, tipificado en … del Código».",
         "- Resolutivo: «Presunta infracción a [NORMA] de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto [SUJETO] habría(n) [CONDUCTA] [PRODUCTO] [FECHA/CIRCUNSTANCIA].» Una oración, una conducta.",
         "- Sujeto: nombre del proveedor; «los proveedores denunciados» solo con EXACTAMENTE 2 denunciados y conducta común; con 3 o más, los dos nombres completos. «El proveedor denunciado» solo si hay uno.",
@@ -383,6 +385,8 @@ def markdown(c: dict) -> str:
         "4. **Isomorfismo.** El hecho que la considerativa califica es el mismo que el resolutivo imputa, en el mismo orden y con la misma norma. Si difieren, el cargo formulado no es el cargo motivado.",
         "5. **Una solicitud mal gestionada es idoneidad; una solicitud de información o de copias es información.** Si una misma carta contiene ambas, se imputan por separado.",
         "6. **Nunca** el artículo 3 ni «inducción a error». **Nunca** «y/o». **Nunca** mezclar dos conductas distintas en una imputación.",
+        '7. **El lugar de envío no es información.** Una comunicación remitida a un domicilio en el que el consumidor no reside es un servicio mal prestado: idoneidad (artículos 18 y 19), una imputación por comunicación y fecha. La información (artículo 1, numeral 1, literal b) y artículo 2) califica el contenido de lo informado. Medido: TPL_2088_2025 y TPL_0600_2026; aplicado en el Exp. 2889-2026.',
+        '8. **Un reclamo es 88.1 aunque pida información.** Ante un proveedor supervisado por la SBS, la respuesta que no entrega lo que el reclamo pedía se imputa por el numeral 88.1 del artículo 88, una imputación por reclamo, con su código y fecha; no se duplica como información.',
         "",
     ]
     for k, v in c["normas"].items():
