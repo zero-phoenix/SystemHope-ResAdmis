@@ -1,6 +1,6 @@
 # ANATOMÍA DEL ADMISORIO
 
-> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3.1, 24/09/2026).
 
 
 > Qué comparten los 630 modelos, qué varía y por qué. Todo medido el 15/09/2026
@@ -129,7 +129,7 @@ Por eso un admisorio tiene 10, 11 o 12 ordinales: **uno por parte a notificar**.
 |---|---:|---|
 | Libro de reclamaciones | 7,8 % | Solo cuando la conducta denunciada lo involucra (art. 150) |
 | Medida correctiva | 91,9 % | Falta cuando el denunciante no la pidió |
-| Bloque de firma digital | 44,3 % | La mitad de las plantillas se guardó sin el sello gráfico |
+| Bloque de firma digital | 44,3 % → 100 % | La mitad de las plantillas se guardó sin «Firmado digitalmente por»; desde v3.1 es obligatorio (R-193) y el corpus está migrado |
 | Apertura «Mediante el escrito» | 79,8 % | El resto abre por subsanación o por traslado de otra comisión |
 
 ## 5. Qué se puede parametrizar, y qué no

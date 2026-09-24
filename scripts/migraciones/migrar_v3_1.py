@@ -303,6 +303,9 @@ def migrar(x: str, fx: str) -> tuple[str, str, Counter]:
         c["R-183 notas huerfanas retiradas"] += len(inf["huerfanas"])
         x, hechos = N.reanclar(x, fx)
         c["R-184 notas reancladas"] += len(hechos)
+        # Mover una llamada cambia el orden de lectura: se renumera otra vez
+        # (sin esto la nota del traslado dejaba de ser la nota 1, R-167).
+        x, fx, _inf = N.normalizar(x, fx)
         fx, inf = N.formatear_notas(fx)
         c["R-187 notas con forma corregida"] += len(inf)
         fx, k = literales_con_letra(fx)

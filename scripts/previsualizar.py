@@ -1,5 +1,5 @@
 # -*- coding: utf-8 -*-
-"""Vista de cada pagina del admisorio, como la vera el instructor (v3.1).
+"""Vista de cada pagina del admisorio, como la vera el instructor en Word (v3.1).
 
 Por que existe (24/09/2026): la revision pagina por pagina del admisorio de
 prueba 9999-2026 encontro 38 defectos; la mayoria (notas corridas, huecos,
@@ -7,11 +7,22 @@ negritas, subrayados, firma) no se ven leyendo XML, se ven MIRANDO la pagina.
 Este comando deja en `<carpeta>/_vista/` una imagen por pagina del Word y, con
 `--contra`, la misma pagina de la plantilla a su lado.
 
-Sin Word ni win32com (prohibidos): LibreOffice en modo sin ventana convierte el
-Word a un PDF TEMPORAL fuera de la carpeta del caso (R-125: ningun PDF en la
-carpeta), PyMuPDF lo pasa a imagenes y el PDF se borra. Arial Narrow se sustituye
-por Liberation Sans Narrow cuando no esta instalada (mismas metricas: la
-paginacion no cambia).
+Sin Word ni win32com (prohibidos). Motor, por orden de fidelidad a Word:
+
+1. **ONLYOFFICE Document Builder** (gratuito; su motor de maquetacion imita el
+   de Microsoft Word). Medido en el 9998-2026: dibuja las notas al pie como
+   Word (llamada a 0, texto a 1 cm) con el Word tal cual.
+2. **LibreOffice** sin ventana, solo si ONLYOFFICE no esta. Se come la primera
+   tabulacion de cada nota; para que la vista no engañe, en la COPIA temporal
+   esa tabulacion se dibuja como un espacio fijo hasta 1 cm. Las imagenes llevan
+   el rotulo «VISTA APROXIMADA (LibreOffice)».
+
+El Word del caso nunca se toca: se convierte una copia a un PDF TEMPORAL fuera
+de la carpeta del caso (R-125), PyMuPDF lo pasa a imagenes y todo se borra.
+Si la letra del documento no esta instalada y el motor la sustituye por otra de
+distinta metrica, se avisa: la paginacion de la vista podria no ser la de Word.
+
+`PREVISUALIZAR_MOTOR=libreoffice` fuerza el respaldo (para comparar).
 
 Uso (lo llama `admisorio.py previsualizar`):
     python scripts/previsualizar.py <admisorio.docx> [--contra <plantilla.docx>]
@@ -34,6 +45,23 @@ RUTAS_SOFFICE = (
     "/usr/lib/libreoffice/program/soffice",
     "/Applications/LibreOffice.app/Contents/MacOS/soffice",
 )
+
+
+RUTAS_DOCBUILDER = (
+    r"C:\Program Files\ONLYOFFICE\DocumentBuilder\docbuilder.exe",
+    r"C:\Program Files (x86)\ONLYOFFICE\DocumentBuilder\docbuilder.exe",
+    "/opt/onlyoffice/documentbuilder/docbuilder",
+    "/Applications/ONLYOFFICE DocumentBuilder.app/Contents/MacOS/docbuilder",
+)
+# Letras que se ven como Arial Narrow (misma metrica): la paginacion se conserva.
+LETRAS_FIELES = ("ARIALNARROW", "ARIAL NARROW", "LIBERATIONSANSNARROW", "LIBERATION SANS NARROW")
+
+
+def docbuilder() -> str | None:
+    ruta = shutil.which("docbuilder")
+    if ruta:
+        return ruta
+    return next((r for r in RUTAS_DOCBUILDER if os.path.exists(r)), None)
 
 
 def soffice() -> str | None:
@@ -106,36 +134,110 @@ def _como_word(copia: Path) -> None:
             z.writestr(info, d)
 
 
-def paginas_png(docx: Path, destino: Path, prefijo: str, dpi: int = 100) -> list[Path]:
-    """Word -> PDF temporal -> un PNG por pagina en `destino`."""
+def _pdf_onlyoffice(exe: str, copia: Path, tmp: Path) -> Path:
+    pdf = tmp / "vista.pdf"
+    guion = tmp / "vista.docbuilder"
+    a = copia.resolve().as_posix()
+    b = pdf.resolve().as_posix()
+    guion.write_text(
+        'builder.OpenFile("%s");\nbuilder.SaveFile("pdf", "%s");\nbuilder.CloseFile();\n' % (a, b),
+        encoding="utf-8",
+    )
+    subprocess.run([exe, str(guion)], capture_output=True, timeout=180, cwd=str(tmp))
+    return pdf
+
+
+def _pdf_libreoffice(exe: str, copia: Path, tmp: Path) -> Path:
+    _como_word(copia)
+    perfil = (tmp / "perfil").resolve().as_uri()
+    subprocess.run(
+        [exe, "-env:UserInstallation=" + perfil, "--headless", "--convert-to", "pdf", "--outdir", str(tmp), str(copia)],
+        capture_output=True,
+        timeout=180,
+    )
+    return tmp / (copia.stem + ".pdf")
+
+
+def motores() -> list[tuple[str, str]]:
+    """(nombre, ejecutable) en orden de fidelidad; PREVISUALIZAR_MOTOR fuerza uno."""
+    lista = []
+    ob, lo = docbuilder(), soffice()
+    if ob:
+        lista.append(("ONLYOFFICE", ob))
+    if lo:
+        lista.append(("LibreOffice", lo))
+    forzado = os.environ.get("PREVISUALIZAR_MOTOR", "").lower()
+    if forzado:
+        lista = [m for m in lista if m[0].lower() == forzado] or lista
+    return lista
+
+
+def letras_sustituidas(pdf: Path) -> list[str]:
+    """Familias del PDF que no tienen la metrica de Arial Narrow."""
     import fitz  # PyMuPDF
 
-    exe = soffice()
-    if not exe:
+    raras = set()
+    with fitz.open(str(pdf)) as doc:
+        for p in doc:
+            for f in p.get_fonts():
+                nombre = f[3].split("+", 1)[-1]
+                clave = re.sub(r"[-,](Bold|Italic|BoldItalic|Regular).*$", "", nombre, flags=re.I).upper()
+                if not any(clave.replace(" ", "").startswith(x.replace(" ", "")) for x in LETRAS_FIELES):
+                    raras.add(nombre)
+    # El membrete institucional lleva su propia letra (cursiva del encabezado):
+    # solo se informa, no invalida la vista.
+    return sorted(raras)
+
+
+def paginas_png(docx: Path, destino: Path, prefijo: str, dpi: int = 100) -> tuple[list[Path], str, list[str]]:
+    """Word -> PDF temporal -> un PNG por pagina en `destino`.
+
+    Devuelve (imagenes, motor usado, letras sustituidas)."""
+    import fitz  # PyMuPDF
+
+    candidatos = motores()
+    if not candidatos:
         raise FileNotFoundError(
-            "LibreOffice no esta instalado: sin el no hay vista (instalalo o revisa en Word a mano)"
+            "no hay motor de vista: instala ONLYOFFICE Document Builder (recomendado) o LibreOffice"
         )
     with tempfile.TemporaryDirectory(prefix="vista_") as t:
         tmp = Path(t)
-        copia = tmp / "vista.docx"
-        shutil.copyfile(docx, copia)
-        _como_word(copia)
-        perfil = (tmp / "perfil").resolve().as_uri()
-        subprocess.run(
-            [exe, "-env:UserInstallation=" + perfil, "--headless", "--convert-to", "pdf", "--outdir", str(tmp), str(copia)],
-            capture_output=True,
-            timeout=180,
-        )
-        pdf = tmp / "vista.pdf"
-        if not pdf.exists():
-            raise RuntimeError("LibreOffice no pudo convertir %s" % docx.name)
-        salida = []
-        with fitz.open(str(pdf)) as doc:
-            for p in doc:
-                png = destino / ("%s_%02d.png" % (prefijo, p.number + 1))
-                p.get_pixmap(dpi=dpi).save(str(png))
-                salida.append(png)
-    return salida
+        ultimo_error = ""
+        for nombre, exe in candidatos:
+            copia = tmp / ("vista_%s.docx" % nombre.lower())
+            shutil.copyfile(docx, copia)
+            try:
+                pdf = (_pdf_onlyoffice if nombre == "ONLYOFFICE" else _pdf_libreoffice)(exe, copia, tmp)
+            except subprocess.TimeoutExpired:
+                ultimo_error = "%s no respondio en 180 s" % nombre
+                continue
+            if not pdf.exists() or pdf.stat().st_size == 0:
+                ultimo_error = "%s no pudo convertir %s" % (nombre, docx.name)
+                continue
+            raras = letras_sustituidas(pdf)
+            salida = []
+            with fitz.open(str(pdf)) as doc:
+                for p in doc:
+                    png = destino / ("%s_%02d.png" % (prefijo, p.number + 1))
+                    p.get_pixmap(dpi=dpi).save(str(png))
+                    salida.append(png)
+            _rotular(salida, nombre)
+            return salida, nombre, raras
+        raise RuntimeError(ultimo_error or "ningun motor pudo convertir %s" % docx.name)
+
+
+def _rotular(pngs: list[Path], motor: str) -> None:
+    """Rotulo del motor sobre cada imagen: una vista aproximada no se confunde
+    con la de Word."""
+    from PIL import Image, ImageDraw
+
+    texto = "Vista ONLYOFFICE (fiel a Word)" if motor == "ONLYOFFICE" else "VISTA APROXIMADA (LibreOffice): notas y tabulaciones simuladas"
+    for png in pngs:
+        img = Image.open(png).convert("RGB")
+        lienzo = Image.new("RGB", (img.width, img.height + 22), "white")
+        lienzo.paste(img, (0, 22))
+        ImageDraw.Draw(lienzo).text((6, 5), texto, fill=(0, 90, 0) if motor == "ONLYOFFICE" else (170, 0, 0))
+        lienzo.save(png)
 
 
 def lado_a_lado(izq: Path | None, der: Path | None, salida: Path) -> Path:
@@ -157,17 +259,17 @@ def lado_a_lado(izq: Path | None, der: Path | None, salida: Path) -> Path:
     return salida
 
 
-def previsualizar(docx: Path, contra: Path | None = None) -> list[Path]:
+def previsualizar(docx: Path, contra: Path | None = None) -> tuple[list[Path], str, list[str]]:
     carpeta = docx.parent
     destino = carpeta / "_vista"
     destino.mkdir(exist_ok=True)
     for viejo in destino.glob("*.png"):
         viejo.unlink()
-    propias = paginas_png(docx, destino, "pagina")
+    propias, motor, raras = paginas_png(docx, destino, "pagina")
     if not contra:
-        return propias
+        return propias, motor, raras
     with tempfile.TemporaryDirectory(prefix="vista_base_") as t:
-        base = paginas_png(contra, Path(t), "base")
+        base, _m, _r = paginas_png(contra, Path(t), "base")
         pares = []
         for k in range(max(len(propias), len(base))):
             a = propias[k] if k < len(propias) else None
@@ -175,7 +277,7 @@ def previsualizar(docx: Path, contra: Path | None = None) -> list[Path]:
             pares.append(lado_a_lado(a, b, destino / ("comparada_%02d.png" % (k + 1))))
     for p in propias:
         p.unlink()
-    return pares
+    return pares, motor, raras
 
 
 def main(argv: list[str]) -> int:
@@ -186,10 +288,14 @@ def main(argv: list[str]) -> int:
     ap.add_argument("--contra")
     a = ap.parse_args(argv[1:])
     try:
-        hechas = previsualizar(Path(a.docx), Path(a.contra) if a.contra else None)
-    except (FileNotFoundError, RuntimeError, subprocess.TimeoutExpired) as exc:
+        hechas, motor, raras = previsualizar(Path(a.docx), Path(a.contra) if a.contra else None)
+    except (FileNotFoundError, RuntimeError) as exc:
         print("  AVISO  sin vista: %s" % exc)
         return 0
+    print("  Motor: %s%s" % (motor, "" if motor == "ONLYOFFICE" else "  (VISTA APROXIMADA: instala ONLYOFFICE Document Builder para una vista fiel a Word)"))
+    if raras:
+        print("  AVISO  letras sin la metrica de Arial Narrow en la vista: %s" % ", ".join(raras[:6]))
+        print("         Si alguna es del cuerpo, la paginacion de la vista puede no ser la de Word.")
     print("  %d imagen(es) en %s" % (len(hechas), Path(a.docx).parent / "_vista"))
     for h in hechas:
         print("    %s" % h.name)

@@ -7,7 +7,7 @@
       "nota": "^\\W*Denuncia (?:remitida|desacumulada)",
       "parrafo": "Mediante",
       "ancla_regex": "Mediante (?:el |la )?(?:escrito|denuncia)[^,.:;]*? del \\d{1,2} de [a-záéíóú]+ de \\d{4}",
-      "medicion": "222 de 229 la llevaban tras «señalando lo siguiente:», junto a la del Codigo. Al pasar la del Codigo tras «Consumidor» (24/09/2026), la del traslado va tras la fecha del escrito para seguir siendo la nota 1 (AGENTS §5). Pendiente de confirmacion del instructor."
+      "medicion": "222 de 229 la llevaban tras «señalando lo siguiente:», junto a la del Codigo. Al pasar la del Codigo tras «Consumidor» (24/09/2026), la del traslado va tras la fecha del escrito para seguir siendo la nota 1 (AGENTS §5). Confirmado por el instructor (24/09/2026)."
     },
     {
       "id": "codigo_publicacion",

@@ -269,7 +269,7 @@ def _francesa_sin_tab(p: str) -> bool:
     inicio: su primera linea queda a 0 y las demas a 1 cm (nota 18 del
     9998-2026, «20.4. El administrado…»)."""
     m = RE_FRANCESA.search(p)
-    if not m or m.group(2) == "0" or "footnoteRef" in p or not texto(p).strip():
+    if not m or m.group(2) == "0" or "footnoteRef" in p or not texto(p).strip() or _con_etiqueta(p):
         return False
     primero = re.search(r"<w:tab/>|<w:t(?:\s[^>/]*)?>([^<]*)</w:t>", p[p.find("</w:pPr>") + 1 if "</w:pPr>" in p else 0:])
     while primero and primero.group(0) != "<w:tab/>" and not primero.group(1).strip():
@@ -281,7 +281,26 @@ def _francesa_sin_tab(p: str) -> bool:
     return bool(primero) and primero.group(0) != "<w:tab/>"
 
 
+RE_ETIQUETA_TAB = re.compile(r"^(?:<[^>]+>|\s)*?<w:t(?:\s[^>/]*)?>\s*[\w.()ºª-]{1,10}\s*</w:t>(?:<[^>]+>|\s)*?<w:tab/>", re.S)
+
+
+def _con_etiqueta(p: str) -> bool:
+    """«20.4.<tab>El administrado…», «a.<tab>…»: etiqueta corta y tabulacion.
+    Ese parrafo SI lleva sangria francesa (la etiqueta cuelga a 0 y el texto
+    va a 1 cm): quitarsela lo desalineaba (9998-2026, vista ONLYOFFICE)."""
+    cuerpo = p.split("</w:pPr>", 1)[1] if "</w:pPr>" in p else p
+    return bool(RE_ETIQUETA_TAB.match(cuerpo))
+
+
 def _alinear_interior(p: str) -> str:
+    if _con_etiqueta(p):
+        ind = re.search(r"<w:ind\b[^>]*/>", p)
+        if ind and "w:hanging" not in ind.group(0):
+            izq = re.search(r'w:(?:left|start)="(\d+)"', ind.group(0))
+            val = izq.group(1) if izq and izq.group(1) != "0" else "567"
+            nuevo = '<w:ind w:left="%s" w:hanging="%s"/>' % (val, val)
+            return p.replace(ind.group(0), nuevo, 1)
+        return p
     if not _francesa_sin_tab(p):
         return p
     return RE_FRANCESA.sub(lambda m: "<w:ind%s%s/>" % (m.group(1), m.group(3)), p, count=1)
@@ -633,6 +652,8 @@ def defectos_de_forma(fx: str) -> list[str]:
                     "nota %s: %s tras la llamada (lineas desalineadas)"
                     % (nid, "sin tabulacion" if n_tabs == 0 else ("%d tabulaciones" % n_tabs if n_tabs > 1 else "espacio y tabulacion"))
                 )
+        if any(_con_etiqueta(p) and _alinear_interior(p) != p for p in ps[1:]):
+            salida.append("nota %s: parrafo con etiqueta («20.4.», «a.») sin sangria francesa (el texto no se alinea a 1 cm)" % nid)
         if any(_francesa_sin_tab(p) for p in ps[1:]):
             salida.append("nota %s: parrafo interior con sangria francesa (primera linea a 0 y el resto a 1 cm)" % nid)
         if "footnoteRef" in p0 and _tope_de_tabulacion(p0) != p0:

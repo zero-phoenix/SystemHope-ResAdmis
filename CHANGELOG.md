@@ -4,6 +4,28 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.1.1] - 2026-09-24 (CIERRE DE LA v3.1: VISTA FIEL A WORD, CORPUS Y CONTRADICCIONES)
+
+Autorizado por el instructor: tercera pasada de la migracion, vista superior a LibreOffice y limpieza de contradicciones.
+
+### Added
+- `previsualizar` usa **ONLYOFFICE Document Builder** (gratuito; maquetacion que imita a Word) si esta instalado: medido en el 9998-2026, dibuja las notas como Word con el documento tal cual. LibreOffice queda de respaldo, con las imagenes rotuladas «VISTA APROXIMADA», aviso de letras sin la metrica de Arial Narrow y `PREVISUALIZAR_MOTOR` para forzar uno. `comprobar_entorno` informa el motor de vista; `ARRANQUE.md` indica como instalarlo.
+- 12 casos de regresion de forma sobre plantillas reales (1, 2 y 3 denunciados; casilla, correo y domicilio; SCTR, vida, desgravamen, hogar, vehicular, transporte, sepelio, tarjetas, salud): con los 2 casos ficticios, 14 casos que CI construye y exige APTO.
+- Autocomprobacion: AGENTS.md cabe en el limite de reglas de Antigravity (12 000 caracteres).
+
+### Changed
+- Tercera pasada de la migracion (autorizada): nota del traslado tras la fecha del escrito (sigue siendo la nota 1), subrayado solo en el rotulo, una tabulacion tras cada llamada. Plantillas sin ningun falsador: 294 de 574 (180 antes de esta pasada).
+- AGENTS.md condensado a 11 970 caracteres (la v3.1 llego a 15 184): la formula literal del traslado vive en la skill `partes-y-notificacion`; el detalle de las notas, en `admisorio-flujo`.
+- `docs/CONTRADICCIONES_RESUELTAS.md`: tabla de los mandatos v3.1 que vencen al corpus; derogado el «subrayado de la conciliacion no es defecto». Encabezados de consulta apuntan a las reglas v3.1.
+- Release: etiqueta `v3.1.N` y notas de la v3.1; motor `systemhope-engine` 3.1.0.
+
+### Fixed
+- La migracion renumera las notas despues de moverlas (la del traslado dejaba de ser la nota 1: R-167 en 222 plantillas).
+- R-187: un parrafo de nota con etiqueta y tabulacion («20.4.<tab>El administrado…», «a.<tab>…») conserva su sangria francesa; la regla de alineacion se la quitaba (388 notas restauradas).
+
+### Removed
+- Del arbol: `automatizacion_antigravity/temp_*` y `automatizacion_antigravity/casos/` (borradores con datos personales: DNI, correos). Siguen en el historial de git; purgarlo exige reescribirlo y lo decide el instructor. `.gitignore` y la autocomprobacion los bloquean.
+
 ## [3.1.0] - 2026-09-24 (REVISION PAGINA POR PAGINA DEL INSTRUCTOR: PLAN POPPERIANO)
 
 El instructor reviso pagina por pagina un admisorio de prueba (expediente ficticio 9999-2026, dos denunciados) y hallo 38 defectos. Cada uno se generalizo como conjetura con su falsador: si el supuesto se repite en cualquier expediente, el sistema lo corrige al construir o lo rechaza al verificar. Linea base con las reglas nuevas: 0 de 574 plantillas sin falsadores; tras la migracion: 178 sin ninguno (el resto, defectos de contenido de cada plantilla, que el constructor corrige o el redactor sustituye).

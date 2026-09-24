@@ -53,6 +53,7 @@ ARTEFACTOS = (
     "_CEDULA.md",
     "gen_map.py",
     "make_map.py",
+    "temp_*",
 )
 
 
@@ -145,6 +146,14 @@ def sin_artefactos() -> list[str]:
     return fallos
 
 
+def agents_cabe() -> list[str]:
+    """AGENTS.md debe caber en el limite de reglas de Antigravity (12 000
+    caracteres): si no, el agente lo lee truncado y la regla que falta no existe
+    para el. Medido el 24/09/2026: la v3.1 llego a 15 184 antes de condensarse."""
+    n = len((RAIZ / "AGENTS.md").read_text(encoding="utf-8"))
+    return [] if n <= 12000 else ["AGENTS.md tiene %d caracteres; el limite de Antigravity es 12 000" % n]
+
+
 OCR_PROHIBIDO = re.compile(
     r"\b(?:import|from)\s+(?:pytesseract|easyocr|paddleocr|ocrmypdf|rapidocr\w*|doctr|kraken)\b"
     r"|get_textpage_ocr|\.ocr_page\(|tesseract_cmd"
@@ -219,6 +228,7 @@ def main() -> int:
         ("Todos los modulos compilan", modulos_compilan),
         ("Sin artefactos de trabajo rastreados", sin_artefactos),
         ("Cero OCR (R-137)", cero_ocr),
+        ("AGENTS.md cabe en Antigravity (12 000 caracteres)", agents_cabe),
         ("Nunca ElementTree escribiendo .docx", sin_elementtree_escribiendo),
         ("Plantillas que Word abre (R-168)", plantillas_abren_en_word),
     )

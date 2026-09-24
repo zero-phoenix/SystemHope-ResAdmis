@@ -1,6 +1,6 @@
 # MEGA PLAN — VELOCIDAD SIN COLGARSE NI PERDER CALIDAD
 
-> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3.1, 24/09/2026).
 
 
 > Encargo del instructor, 14/09/2026, al abrir el tercer caso de prueba (3054-2026).

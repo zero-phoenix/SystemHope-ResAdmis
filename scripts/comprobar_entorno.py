@@ -60,6 +60,18 @@ def main() -> int:
             else shutil.which("git") or "no disponible (no imprescindible)"
         )
     )
+    import previsualizar
+
+    motores = previsualizar.motores()
+    print(
+        "  Vista    : %s"
+        % (
+            ", ".join(m for m, _e in motores)
+            + ("" if any(m == "ONLYOFFICE" for m, _e in motores) else "  (opcional: instala ONLYOFFICE Document Builder para una vista fiel a Word)")
+            if motores
+            else "sin motor (opcional: ONLYOFFICE Document Builder, gratuito; previsualizar no dara imagenes)"
+        )
+    )
     import autocomprobacion
 
     ocr = autocomprobacion.cero_ocr()

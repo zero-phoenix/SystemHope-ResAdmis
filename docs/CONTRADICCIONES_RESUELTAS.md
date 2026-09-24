@@ -1,6 +1,6 @@
 # CONTRADICCIONES RESUELTAS
 
-> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3, 23/09/2026).
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3.1, 24/09/2026).
 
 
 > Un repositorio que se contradice a sí mismo le da al agente **permiso escrito**
@@ -9,7 +9,7 @@
 > septiembre, y por eso este documento existe.
 >
 > Cada entrada dice qué decía cada lado, **qué cifra lo dirime** y dónde quedó
-> arreglado. Resuelto el 18/09/2026.
+> arreglado. Resuelto el 18/09/2026; ampliado el 24/09/2026 (v3.1).
 
 ## El árbitro
 
@@ -191,9 +191,33 @@ Tres «defectos» que parecían evidentes y resultaron ser la casa:
 
 | Candidato | Medición | Veredicto |
 |---|---:|---|
-| El subrayado del ordinal OCTAVO | **593 de 593** | no es defecto |
+| El subrayado del ordinal OCTAVO | **593 de 593** | ~~no es defecto~~ **derogado el 24/09/2026**: el instructor ordenó quitar el subrayado de la conciliación; solo el rótulo del requerimiento va subrayado (R-192, migrado en las 574) |
 | `indebidamente` en los hechos | 149 de 593 (25 %) | uso corriente |
 | `carro` / `auto` | 11 de 593 | infrecuente, no prohibido |
 
 Medir antes de corregir evitó tres correcciones falsas. Es el mismo hábito que la
 escala de arriba: **una prohibición sin frecuencia detrás es una opinión.**
+
+---
+
+## v3.1 (24/09/2026): revisión página por página del instructor
+
+Mandatos del instructor que vencen al corpus (se declaran como mandato, según el árbitro de arriba). Cada uno tiene su falsador y el corpus está migrado (`scripts/migraciones/migrar_v3_1.py`).
+
+| Tema | Antes (corpus o regla) | Ahora (mandato) | Falsador |
+|---|---|---|---|
+| Negrita de PRIMERO | Párrafo entero (541 de 574, R-164 del 23/09) | Solo el rótulo, como los demás ordinales | R-164 |
+| Nota del Código | Tras «señalando lo siguiente:» (547 de 549) | Tras «Código de Protección y Defensa del Consumidor» | R-184 |
+| Nota del traslado | Tras «señalando lo siguiente:», junto a la del Código | Tras la fecha del escrito, para seguir siendo la nota 1 (AGENTS §5) | R-184, R-167 |
+| Nota de competencia | Pegada a la de la norma (62 plantillas) | Tras «en ejercicio de sus facultades» | R-184, R-185 |
+| Llamada y texto de la nota | Espacio tras la llamada (7 268 notas): primera línea corrida | Una tabulación: todas las líneas a 1 cm | R-187 |
+| Literales h. e i. del 115.1 | Sin letra (544 plantillas) | Con su letra, como a. a g. | R-187 |
+| Subrayado en la conciliación | «no es defecto» (593 de 593) | Solo el rótulo del requerimiento | R-192 |
+| «Firmado digitalmente por» | 250 de 574 | Siempre | R-193 |
+| Sujeto de la imputación con aseguradora | «la compañía aseguradora» con cualquier número de denunciados | Solo si es la única denunciada; con dos o más, razón social completa | R-188 |
+| Denunciante en la imputación | Tratativa corta («la señora Pérez») | Nombre completo, idéntico en considerativa y resolutivo | R-188, R-97 |
+| Rótulo del requerimiento | Razón social o alias | Alias del encabezado | R-189 |
+| Transcripción literal de una norma («éste») | — | Se respeta tal cual; el léxico de AGENTS §2.10 rige la redacción propia | — |
+| Vista del documento | LibreOffice | ONLYOFFICE (fiel a Word); LibreOffice solo como vista aproximada rotulada | — |
+
+Retirados del árbol el mismo día, por datos personales y por ser borradores: `automatizacion_antigravity/temp_*` y `automatizacion_antigravity/casos/`. Siguen en el historial de git hasta que el instructor decida purgarlo.

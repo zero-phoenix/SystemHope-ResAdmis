@@ -82,21 +82,24 @@ jobs:
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./arranque/construir_portable.ps1 -Version "v3.0.${{ github.run_number }}"
+        run: ./arranque/construir_portable.ps1 -Version "v3.1.${{ github.run_number }}"
 
       - name: Publicar Release en GitHub con Binarios y Memoria
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v3.0.${{ github.run_number }}
-          name: "SystemHope ResAdmis v3.0.${{ github.run_number }}"
+          tag_name: v3.1.${{ github.run_number }}
+          name: "SystemHope ResAdmis v3.1.${{ github.run_number }}"
           body: |
-            # SystemHope ResAdmis v3.0.${{ github.run_number }}
+            # SystemHope ResAdmis v3.1.${{ github.run_number }}
 
             Reglas vigentes: `AGENTS.md`. Cambios: `CHANGELOG.md`.
 
-            - Formula de traslado R-155 corregida segun la ley (Decreto Legislativo 807, «merituadas»), singular o plural por el numero real de denunciados.
-            - Imputacion cerrada por la tabla de tipificacion del instructor; nunca art. 3.
-            - Lectura visual de cada pagina completa, cero OCR. Prohibido generar PDF.
+            v3.1: revision pagina por pagina del instructor (24/09/2026), plan popperiano.
+            - Notas al pie: integras, en su ancla, sin llamadas pegadas, con la norma que cita la frase, alineadas a 1 cm (R-183 a R-187).
+            - Partes: nombre completo de la denunciante en las imputaciones, «la compañía aseguradora» solo si es la unica denunciada, alias en el rotulo del requerimiento (R-188 a R-190).
+            - Forma: solo el rotulo en negrita (tambien PRIMERO), subrayado solo en el rotulo del requerimiento, «Firmado digitalmente por», sin huecos (R-164, R-191 a R-194).
+            - `admisorio.py previsualizar` (ONLYOFFICE, fiel a Word) y `_FORMATO.md` (formato de cada hoja, cero OCR).
+            - Corpus de 574 plantillas migrado; 41 mutaciones y casos ficticios de extremo a extremo en CI.
 
           files: |
             dist/systemhope-engine.exe

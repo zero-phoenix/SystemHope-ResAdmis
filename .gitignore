@@ -90,3 +90,7 @@ ReportePersonas*.xls*
 *AceptacionBajaTyC*
 padron_casillas*
 /INTEGRIDAD.json
+
+# v3.1: artefactos de trabajo con datos personales (retirados del arbol el 24/09/2026)
+automatizacion_antigravity/temp_*
+automatizacion_antigravity/casos/
