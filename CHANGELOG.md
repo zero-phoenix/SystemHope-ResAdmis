@@ -4,6 +4,39 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.2.0] - 2026-09-24 (CORRECCIONES DEFINITIVAS DEL INSTRUCTOR: REMESA DE 11 ADMISORIOS Y EXP. 3092-2026)
+
+El instructor revisó la remesa del 24/09/2026 (11 admisorios corregidos) y el Exp. 3092-2026, rehecho con su expediente. Cada corrección se generalizó con su falsador y su mutación.
+
+### Added
+- `scripts/sanear_admisorio.py`: saneamiento final que `construir_admisorio.py` llama solo. Hace lo siguiente:
+  - añade una línea en blanco entre imputaciones contiguas;
+  - une los tramos del párrafo del traslado para anclar sus dos notas, y quita las notas sobrantes (R-173);
+  - restituye desde una plantilla maestra la nota del Código y la de competencia, si se pierden o quedan con el id repetido (R-184);
+  - quita la nota sobre la presentación en CC1 (R-167);
+  - deja la nota de la norma imputada solo en su primera imputación (R-202);
+  - elimina llamadas duplicadas y justifica los párrafos que venían alineados a la izquierda (R-144);
+  - quita la sangría francesa de la 2.ª línea de MATERIAS y los «N°» de las notas repetidas (R-156);
+  - renumera las notas en dos fases.
+- Falsadores nuevos y su mutación en `prueba_verificador.py` (47 mutaciones):
+  - R-201 «compañía aseguradora»;
+  - R-202 una nota por norma imputada;
+  - R-203 léxico valorativo;
+  - R-204 «adquirió»;
+  - R-205 «la denunciante»;
+  - R-206 una imputación por solicitud y por cobertura.
+
+### Changed
+- La imputación la dictan las plantillas, por sentido y finalidad; `tabla_tipificacion.json` pasa a ser referencial (AGENTS, skill `imputaciones` y su generador, ficha del caso, README y catálogo).
+- AGENTS.md v3.2, con 11 967 caracteres. La skill `admisorio-flujo` recoge la revisión.
+- Casos ficticios 9902, 9903, 9908 y 9909: se corrigen las frases que los nuevos mandatos prohíben.
+- Release: etiqueta `v3.2.N`; motor `systemhope-engine` 3.2.0.
+
+### Fixed
+- Separadores de nota autocerrados (`<w:footnote … w:id="0"/>`): el verificador y `notas_pie` se tragaban la nota siguiente y daban falsos R-183.
+- `entregar` rechazaba «10 de setiembre de 2026» cuando el expediente lo escribe «10/09/2026» o «septiembre». Ahora las fechas se comparan normalizadas.
+- `extraer_expediente.py`: `pdftotext` sin `-enc UTF-8` escribía en cp1252 y se perdían las tildes del texto extraído («falleci�»).
+
 ## [3.1.1] - 2026-09-24 (CIERRE DE LA v3.1: VISTA FIEL A WORD, CORPUS Y CONTRADICCIONES)
 
 Autorizado por el instructor: tercera pasada de la migracion, vista superior a LibreOffice y limpieza de contradicciones.

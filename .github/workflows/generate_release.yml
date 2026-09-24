@@ -82,17 +82,25 @@ jobs:
         shell: pwsh
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
-        run: ./arranque/construir_portable.ps1 -Version "v3.1.${{ github.run_number }}"
+        run: ./arranque/construir_portable.ps1 -Version "v3.2.${{ github.run_number }}"
 
       - name: Publicar Release en GitHub con Binarios y Memoria
         uses: softprops/action-gh-release@v2
         with:
-          tag_name: v3.1.${{ github.run_number }}
-          name: "SystemHope ResAdmis v3.1.${{ github.run_number }}"
+          tag_name: v3.2.${{ github.run_number }}
+          name: "SystemHope ResAdmis v3.2.${{ github.run_number }}"
           body: |
-            # SystemHope ResAdmis v3.1.${{ github.run_number }}
+            # SystemHope ResAdmis v3.2.${{ github.run_number }}
 
             Reglas vigentes: `AGENTS.md`. Cambios: `CHANGELOG.md`.
+
+            v3.2: correcciones definitivas del instructor sobre la remesa de 11 admisorios y el Exp. 3092-2026 (24/09/2026).
+            - Imputaciones: mandan las plantillas por sentido y finalidad (la tabla es referencial); una imputacion por solicitud y por cobertura (R-206); «la denunciante» (R-205); «compañía aseguradora» (R-201).
+            - Hechos: «adquirio» (R-204); sin palabras valorativas (R-203).
+            - Notas: la de la norma imputada solo en la primera imputacion de ese articulo (R-202); nota de presentacion en CC1 quitada y renumerada (R-167).
+            - `scripts/sanear_admisorio.py`: el constructor sanea solo (separadores entre imputaciones, notas del traslado, Codigo y competencia, ids sin colisiones).
+            - `entregar`: fechas en letras o en numeros y «setiembre/septiembre» se anclan igual; `pdftotext` en UTF-8.
+            - 47 mutaciones y 14 casos ficticios en CI.
 
             v3.1: revision pagina por pagina del instructor (24/09/2026), plan popperiano.
             - Notas al pie: integras, en su ancla, sin llamadas pegadas, con la norma que cita la frase, alineadas a 1 cm (R-183 a R-187).

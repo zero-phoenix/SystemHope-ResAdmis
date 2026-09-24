@@ -173,7 +173,7 @@ def escribir(carpeta: Path) -> Path:
     ]
     for r, nombres in hojas(carpeta):
         L.append("- `_hojas/%s`: %s" % (r.name, ", ".join(nombres)))
-    L += ["", "## Tabla de tipificación (cerrada)", ""] + tipificacion()
+    L += ["", "## Tabla de tipificación (referencial: mandan las plantillas)", ""] + tipificacion()
     destino = carpeta / "_FICHA.md"
     destino.write_text("\n".join(L) + "\n", encoding="utf-8")
     return destino

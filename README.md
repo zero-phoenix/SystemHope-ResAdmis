@@ -32,12 +32,13 @@ Utilidades:
 - `scripts/prueba_verificador.py` somete al verificador a mutaciones: cada regla debe rechazar su error.
 - `scripts/prueba_casos.py` construye los expedientes ficticios de `pruebas/ficticios/` y exige APTO (regresión de extremo a extremo).
 - `scripts/migraciones/migrar_v3_1.py [--escribir]` aplica al corpus las reglas generales v3.1 (idempotente).
+- `scripts/sanear_admisorio.py <docx>` es el saneamiento final v3.2. `construir_admisorio.py` lo llama solo; se puede correr a mano sobre un Word ya construido.
 
 ## Datos de referencia (`docs/`)
 
 | Archivo | Contenido |
 |---|---|
-| `tabla_tipificacion.json` | Tabla de hechos infractores y tipificación del instructor: lista **cerrada** de artículos imputables. |
+| `tabla_tipificacion.json` | Tabla de hechos infractores y tipificación del instructor: **referencial**. Mandan las plantillas: se imputa como ellas imputan un hecho de igual sentido y finalidad (v3.2). |
 | `catalogo_imputaciones.json` | Formas literales de imputación del corpus, depuradas contra la tabla. |
 | `plantillas_maestras_index.json` | Índice de las **574 plantillas** de `plantillas_maestras/`. |
 | `estilo_formato.json` | Perfil de formato medido del corpus (`scripts/medir_formato.py`). |
@@ -75,6 +76,29 @@ Utilidades:
 | 17 seguro no especificado | 55 |
 
 Por contenido (índice v3): 457 con 1 denunciado, 102 con 2, 15 con 3 o más; 23 con confidencialidad; 336 aptas como base (0 falsadores).
+
+## Novedades v3.2 (24/09/2026)
+
+Estas son las correcciones definitivas del instructor sobre la remesa de 11 admisorios y sobre el Exp. 3092-2026, rehecho con su expediente. Cada una tiene su falsador en el verificador y su mutación en CI.
+
+| Mandato | Regla |
+|---|---|
+| Mandan las plantillas: se imputa como ellas imputan un hecho de igual sentido y finalidad; la tabla es referencial | AGENTS §2.4 |
+| Una imputación por cada solicitud y por cada cobertura diferenciada, aunque se hayan pedido juntas | R-206 |
+| «La denunciante» en las imputaciones, nunca «la parte denunciante» | R-205 |
+| «Compañía aseguradora», nunca «aseguradora» a secas | R-201 |
+| El seguro «se adquirió», no «contaba con» | R-204 |
+| Hechos e imputaciones sin palabras valorativas («únicamente», «totalmente»…) | R-203 |
+| La nota de la norma imputada va solo en la primera imputación de ese artículo | R-202 |
+| Una línea en blanco entre imputaciones; se conserva la inadmisibilidad dejada sin efecto | AGENTS §7 |
+
+El constructor sanea el documento al terminar (`scripts/sanear_admisorio.py`):
+- separa las imputaciones;
+- repara las notas del traslado, del Código y de competencia;
+- quita la nota sobre la presentación en CC1;
+- renumera las notas sin colisiones.
+
+Además, `entregar` ancla la misma fecha escrita en letras o en números, y con «setiembre» o «septiembre».
 
 ## Integración continua
 

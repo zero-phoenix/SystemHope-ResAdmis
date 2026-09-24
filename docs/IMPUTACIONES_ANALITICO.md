@@ -5,7 +5,7 @@
 
 ## Reglas generales (por qué se redacta así)
 
-1. **Tipicidad** (principio del numeral 4 del artículo 230 del TUO de la LPAG, D.S. 006-2026-JUS): solo es imputable lo que la ley tipifica. Por eso la norma se toma **solo** de la tabla del instructor y se cita completa y sin «N°».
+1. **Tipicidad** (principio del numeral 4 del artículo 230 del TUO de la LPAG, D.S. 006-2026-JUS): solo es imputable lo que la ley tipifica. Por eso la norma se toma de como las plantillas imputan un hecho de igual sentido y finalidad (la tabla del instructor es referencial) y se cita completa y sin «N°».
 2. **Presunción de licitud** (numeral 9 del mismo artículo 230): la conducta **no está probada**. Por eso la imputación va en **condicional** («habría denegado») y los hechos van en pasado, atribuidos a lo que el consumidor señaló.
 3. **Imputación concreta.** El administrado se defiende de lo que se le imputa. Por eso **cada imputación**:
    - dice **quién** (el proveedor nombrado, o «los proveedores denunciados» solo si son exactamente dos y la conducta es de ambos);

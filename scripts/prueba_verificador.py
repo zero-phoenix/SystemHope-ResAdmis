@@ -264,6 +264,37 @@ MUTACIONES = [
         r"(?s)(Decreto Legislativo 807</w:t></w:r>)<w:r\b(?:(?!</w:r>).)*?<w:footnoteReference[^>]*/></w:r>",
         r"\1",
     ),
+    (
+        "R-201",
+        "«aseguradora» a secas",
+        r"señalando lo siguiente",
+        "señalando la aseguradora lo siguiente",
+    ),
+    (
+        "R-202",
+        "la primera calificacion repetida con su nota de la norma imputada",
+        None,
+        lambda x: re.sub(
+            r"(?s)<w:p[ >](?:(?!</w:p>).)*?considera que el hecho denunciado(?:(?!</w:p>).)*?</w:p>",
+            lambda m: m.group(0) + m.group(0),
+            x,
+            count=1,
+        ),
+    ),
+    ("R-203", "palabra valorativa en los hechos", r"señalando lo siguiente", "señalando únicamente lo siguiente"),
+    ("R-204", "«contaba con» el seguro", r"señalando lo siguiente", "señalando que contaba con el Seguro lo siguiente"),
+    (
+        "R-205",
+        "«la parte denunciante» en la imputacion",
+        r"consistente en que ",
+        "consistente en que respecto de la parte denunciante ",
+    ),
+    (
+        "R-206",
+        "dos solicitudes en una imputacion",
+        r"consistente en que ",
+        "consistente en que pese a sus solicitudes del 1 y el 23 de marzo de 2026 ",
+    ),
 ]
 REGLAS = sorted({m[0] for m in MUTACIONES})
 PARTE = "word/document.xml"

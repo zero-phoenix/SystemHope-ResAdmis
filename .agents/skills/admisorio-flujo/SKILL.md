@@ -92,3 +92,18 @@ Secciones:
 
 ## Corregir un Word que entrega el instructor
 Ese Word es la `plantilla` del `mapa.json`: `reemplazos` para el texto e `insertar_despues` para párrafos nuevos. Se conservan su numeración y sus notas. Nunca lo reescribas con ElementTree, python-docx ni `python -c` (Exp. 2835-2026: Word corrupto y numeración duplicada). El verificador rechaza numerales pegados («9.La», R-179) o duplicados («1. 1.», R-180).
+
+## Revisión del instructor del 24/09/2026 (v3.2)
+Remesa de 11 admisorios corregidos y el Exp. 3092-2026 rehecho sobre su expediente. Lo que se generalizó:
+- **El constructor sanea solo** (`scripts/sanear_admisorio.py`, lo llama al terminar):
+  - añade una línea en blanco entre imputaciones contiguas, incluidas las de `insertar_despues`;
+  - une los tramos del párrafo del traslado para que sus dos notas se anclen, y quita las notas sobrantes;
+  - restituye la nota del Código y la de competencia si se pierden al reanclarse;
+  - deja la nota de la norma imputada **solo en la primera imputación** de ese artículo (R-202);
+  - renumera las notas sin colisiones.
+- **Imputaciones** (skill `imputaciones`): mandan las plantillas por **sentido y finalidad**; la tabla es referencial. **Una por solicitud y por cobertura** (R-206). «La denunciante» (R-205), «compañía aseguradora» (R-201).
+- **Hechos**: «adquirió» el seguro (R-204); nada valorativo como «únicamente» (R-203); solo lo que sustenta las imputaciones, sin perder el contexto.
+- **Inadmisibilidad dejada sin efecto**: si el Word o el expediente la traen, se conservan el apartado «DE LA INADMISIBILIDAD» y el ordinal que la deja sin efecto.
+- **Nota sobre la presentación de la denuncia en CC1** (prohibida, R-167): el constructor la quita y renumera.
+- **Vista**: `previsualizar` usa ONLYOFFICE Document Builder si está instalado; si es LibreOffice, rotula «VISTA APROXIMADA».
+- **Anclaje de fechas**: `entregar` reconoce la misma fecha escrita «10 de setiembre de 2026», «10 de septiembre de 2026» o «10/09/2026». `pdftotext` extrae en UTF-8; antes se perdían las tildes («falleci�»).

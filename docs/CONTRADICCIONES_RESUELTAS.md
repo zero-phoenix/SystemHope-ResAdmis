@@ -1,6 +1,6 @@
 # CONTRADICCIONES RESUELTAS
 
-> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3.1, 24/09/2026).
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3.2, 24/09/2026).
 
 
 > Un repositorio que se contradice a sí mismo le da al agente **permiso escrito**
@@ -221,3 +221,21 @@ Mandatos del instructor que vencen al corpus (se declaran como mandato, según e
 | Vista del documento | LibreOffice | ONLYOFFICE (fiel a Word); LibreOffice solo como vista aproximada rotulada | — |
 
 Retirados del árbol el mismo día, por datos personales y por ser borradores: `automatizacion_antigravity/temp_*` y `automatizacion_antigravity/casos/`. Siguen en el historial de git hasta que el instructor decida purgarlo.
+
+## v3.2 (24/09/2026): correcciones definitivas sobre la remesa de 11 admisorios
+
+Son mandatos del instructor y vencen al corpus. La columna «Corpus» dice cuántas de las 574 plantillas incumplen cada mandato, medido con el propio falsador. Las plantillas no se migraron: el redactor corrige su texto en cada caso, y el verificador lo exige.
+
+| Tema | Antes | Ahora (mandato) | Corpus | Falsador |
+|---|---|---|---|---|
+| Fuente de la imputación | «Solo los artículos de la tabla» (tabla cerrada) | Mandan las plantillas: igual sentido y finalidad; la tabla es referencial | — | AGENTS §2.4 |
+| Solicitudes y coberturas | Varias fechas o coberturas en un núcleo | Una imputación por solicitud y por cobertura diferenciada | 0 | R-206 |
+| Denunciante en la imputación | «la parte denunciante» | «la denunciante» (o su nombre completo) | 35 | R-205 |
+| Aseguradora | «dicha aseguradora», «la empresa aseguradora» | «compañía aseguradora» siempre | 61 | R-201 |
+| El seguro | «contaba con el Seguro…» | «adquirió el Seguro…» | 37 | R-204 |
+| Léxico valorativo | «únicamente», «totalmente»… | Se narra lo que consta, sin calificarlo | 62 | R-203 |
+| Nota de la norma imputada | Una nota por calificación (lo hacía el constructor) | Solo en la primera imputación de ese artículo | 10 | R-202 |
+
+Contradicciones internas cerradas en el mismo cambio:
+- `docs/tabla_tipificacion.json`, `docs/catalogo_imputaciones.json`, `IMPUTACIONES_ANALITICO.md`, la ficha del caso y el README decían «tabla cerrada». Ahora dicen «referencial», igual que AGENTS.
+- El constructor ponía una nota en cada calificación, y el mandato pide una sola por artículo. Ahora `sanear_admisorio.py` deja solo la primera.
