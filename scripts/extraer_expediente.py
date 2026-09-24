@@ -227,7 +227,7 @@ def informe(carpeta: Path, volcar: bool) -> None:
         estado = (
             "con capa de texto (sirve de contraste)"
             if not i["sin_texto"]
-            else "sin capa de texto en p. %s" % i["sin_texto"]
+            else "poco o ningun texto embebido (<%d car.) en p. %s" % (UMBRAL_TEXTO, i["sin_texto"])
         )
         print(
             "  %-46s %2d pag  %6d car  %s"

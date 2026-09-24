@@ -193,9 +193,20 @@ def medir_pdf(ruta: Path) -> dict:
             ancho, alto = pagina.rect.width, pagina.rect.height
             pt_cm = 2.54 / 72
             bordes_der = Counter(round(x, 0) for x in x1s)
+            # v3.1: el interlineado y la alineacion salen de formato_paginas
+            # (lineas de un mismo parrafo; antes el salto entre parrafos se
+            # tomaba por interlineado y tres lineas daban «justificado»).
+            import formato_paginas
+
+            fp = formato_paginas.formato_pagina(pagina)
+            paso = re.match(r"([\d.]+) pt", fp.get("interlineado") or "")
+            par = fp.get("parrafos") or {}
             salida["paginas"].append(
                 {
                     "n": pagina.number + 1,
+                    "interlineado_pt": float(paso.group(1)) if paso else None,
+                    "parrafos_por_alineacion": par,
+                    "justificado_probable": bool(par) and par.get("justificado", 0) >= max(par.values()),
                     "fuentes": dict(fuentes.most_common(3)),
                     "tamanos_pt": dict(tamanos.most_common(3)),
                     "negrita_%": round(
@@ -207,11 +218,6 @@ def medir_pdf(ruta: Path) -> dict:
                         "superior": round(min(ys) * pt_cm, 2),
                         "inferior": round((alto - max(ys)) * pt_cm, 2),
                     },
-                    "interlineado_pt": statistics.mode(pasos) if pasos else None,
-                    "justificado_probable": bordes_der.most_common(1)[0][1]
-                    >= 0.4 * len(x1s)
-                    if x1s
-                    else None,
                 }
             )
     return salida

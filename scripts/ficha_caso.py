@@ -131,9 +131,13 @@ def escribir(carpeta: Path) -> Path:
         % (py, RAIZ / "scripts/construir_admisorio.py", carpeta / "mapa.json"),
         '& "%s" "%s" "%s" --diff "<plantilla base>"'
         % (py, RAIZ / "scripts/inspeccionar_docx.py", carpeta / "ADM <EXP> R<N>.docx"),
+        '& "%s" "%s" previsualizar "%s" --contra "<plantilla base>"'
+        % (py, RAIZ / "scripts/admisorio.py", carpeta / "ADM <EXP> R<N>.docx"),
         '& "%s" "%s" entregar "%s" --recepcion DD/MM/AAAA'
         % (py, RAIZ / "scripts/admisorio.py", carpeta / "ADM <EXP> R<N>.docx"),
         "```",
+        "`previsualizar` deja en `_vista/` cada página del Word como imagen, al lado de la misma página de la "
+        "plantilla: míralas TODAS en una vuelta antes de entregar (notas, huecos, negritas, subrayados, firma).",
         'mapa.json: {"plantilla": "plantillas_maestras/...docx", "salida": "<carpeta>/ADM <EXP> R<N>.docx", '
         '"partes": ["alias", ...], "reemplazos": {"texto de la plantilla": "texto del caso", ...}}. '
         "Reemplaza párrafos enteros o frases; el formato de cada tramo se conserva. "
@@ -162,6 +166,9 @@ def escribir(carpeta: Path) -> Path:
         "",
         "## Hojas de lectura visual (dos páginas por imagen)",
         "Ábrelas **todas en una misma vuelta** y llena una fila por página en `_LECTURA.md`.",
+        "El formato medido de cada página (letra, tamaños, negritas, subrayados, alineación, encuadre, "
+        "encabezado, pie, imágenes y campos de firma; estructura del PDF, cero OCR) está en `_FORMATO.md`: "
+        "úsalo para la columna «Formato que vi».",
         "",
     ]
     for r, nombres in hojas(carpeta):

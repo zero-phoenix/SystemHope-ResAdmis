@@ -146,6 +146,118 @@ MUTACIONES = [
         r'(?s)<w:sz w:val="22"/><w:szCs w:val="22"/>((?:(?!</w:r>|<w:rPr>).)*?</w:rPr><w:t[^>]*>[^<\s])',
         r'<w:sz w:val="20"/><w:szCs w:val="20"/>\1',
     ),
+    # ---- v3.1 (revision del instructor del 24/09/2026, admisorio 9999-2026) ----
+    (
+        "R-164",
+        "PRIMERO con el parrafo entero en negrita",
+        r"(?s)<w:p[ >](?:(?!</w:p>).)*?<w:t[^>]*>PRIMERO(?:(?!</w:p>).)*</w:p>",
+        lambda m: m.group(0).replace("<w:rPr>", "<w:rPr><w:b/>"),
+    ),
+    (
+        "R-183",
+        "llamada borrada: su nota queda huerfana",
+        r'(?s)<w:r\b(?:(?!</w:r>).)*?<w:footnoteReference[^>]*w:id="3"[^>]*/></w:r>',
+        "",
+    ),
+    (
+        "R-184",
+        "nota del Codigo fuera de su ancla",
+        r"(?s)Defensa del Consumidor(</w:t></w:r><w:r\b(?:(?!</w:r>).)*?<w:footnoteReference)",
+        r"Defensa del Consumidor peruano\1",
+    ),
+    (
+        "R-185",
+        "dos llamadas de nota pegadas",
+        r"(?s)(<w:r\b(?:(?!</w:r>).)*?<w:footnoteReference[^>]*/></w:r>)",
+        r"\1\1",
+    ),
+    (
+        "R-186",
+        "la calificacion cita una norma y su nota transcribe otra",
+        r"tipificado en los artículos 18 y 19 del Código",
+        "tipificado en el artículo 38 del Código",
+    ),
+    (
+        "R-187",
+        "nota sin tabulacion tras la llamada",
+        r"(?s)(<w:footnoteRef/>(?:(?!<w:tab/>|</w:p>).)*?)<w:tab/>",
+        r"\1",
+        "word/footnotes.xml",
+    ),
+    (
+        "R-187",
+        "literal h. del 115.1 sin su letra",
+        r"(?s)<w:numPr>(?:(?!</w:numPr>).)*</w:numPr>((?:(?!<w:p[ >]).)*?Pagar los gastos)",
+        r"\1",
+        "word/footnotes.xml",
+    ),
+    (
+        "R-187",
+        "doble espacio dentro de una nota",
+        r"(?s)(<w:footnoteRef/>(?:(?!</w:p>).)*?<w:t[^>]*>[^<\s]+) ",
+        r"\1  x ",
+        "word/footnotes.xml",
+    ),
+    (
+        "R-188",
+        "«los proveedores denunciados» y «el proveedor denunciado» a la vez",
+        r"consistente en que ",
+        "consistente en que el proveedor denunciado y los proveedores denunciados y ",
+    ),
+    (
+        "R-189",
+        "rotulo del requerimiento con la razon social en vez del alias",
+        None,
+        lambda x: re.sub(
+            r"(?s)<w:p[ >](?:(?!</w:p>).)*?</w:p>",
+            lambda m: re.sub(r"(<w:t[^>]*>)(Al? )", r"\1\2Empresa Ajena Inventada ", m.group(0), count=1)
+            if re.match(r"\s*Al?\s+[^:]{2,60}:\s*\(i\)", re.sub(r"<[^>]+>", "", m.group(0)))
+            else m.group(0),
+            x,
+        ),
+    ),
+    (
+        "R-190",
+        "razon social ajena al caso en el traslado",
+        r"correr traslado de la presente resolución a",
+        "correr traslado de la presente resolución a Empresa Ajena Inventada S.A. y a",
+    ),
+    (
+        "R-191",
+        "un parrafo de la considerativa con otra numeracion",
+        None,
+        lambda x: re.sub(
+            r"(?s)<w:p[ >](?:(?!</w:p>).)*?</w:p>",
+            lambda m: re.sub(r'(<w:numId w:val=")\d+(")', r"\g<1>97\2", m.group(0), count=1)
+            if "En tanto la denuncia" in re.sub(r"<[^>]+>", "", m.group(0))
+            else m.group(0),
+            x,
+        ),
+    ),
+    (
+        "R-192",
+        "NOVENO con una frase subrayada",
+        r"(?s)<w:p[ >](?:(?!</w:p>).)*?<w:t[^>]*>NOVENO(?:(?!</w:p>).)*</w:p>",
+        lambda m: m.group(0).replace("<w:rPr>", '<w:rPr><w:u w:val="single"/>', 2),
+    ),
+    (
+        "R-193",
+        "firma sin «Firmado digitalmente por»",
+        r"Firmado digitalmente por",
+        "",
+    ),
+    (
+        "R-194",
+        "dos lineas en blanco seguidas en el cuerpo",
+        r'(?s)(<w:p\b[^>]*><w:pPr>(?:<w:pStyle\b[^>]*/>)?<w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>(?:(?!</w:p>|<w:t[ >]).)*?</w:p>)',
+        r"\1\1",
+    ),
+    (
+        "R-194b",
+        "linea en blanco con el espaciado heredado (mide casi dos lineas)",
+        r'<w:spacing w:before="0" w:after="0" w:line="240" w:lineRule="auto"/>',
+        "",
+    ),
     (
         "R-173",
         "nota del articulo 26 borrada del traslado",
@@ -154,11 +266,39 @@ MUTACIONES = [
     ),
 ]
 REGLAS = sorted({m[0] for m in MUTACIONES})
+PARTE = "word/document.xml"
 
 
-def texto_xml(ruta: Path) -> str:
+def _parte(m) -> str:
+    return m[4] if len(m) > 4 else PARTE
+
+
+def texto_xml(ruta: Path, parte: str = PARTE) -> str:
     with zipfile.ZipFile(ruta) as z:
-        return z.read("word/document.xml").decode("utf-8", "replace")
+        return z.read(parte).decode("utf-8", "replace")
+
+
+def normalizada(p: Path, destino: Path) -> Path:
+    """La plantilla tal como la entregaria el constructor: con las reglas
+    generales v3.1 aplicadas (las mismas que la migracion del corpus). Asi la
+    prueba no depende de que el corpus este migrado."""
+    sys.path.insert(0, str(RAIZ / "scripts" / "migraciones"))
+    import migrar_v3_1
+
+    with zipfile.ZipFile(p) as z:
+        items = [(i, z.read(i.filename)) for i in z.infolist()]
+    datos = {i.filename: d for i, d in items}
+    x = datos["word/document.xml"].decode("utf-8")
+    fx = datos.get("word/footnotes.xml", b"").decode("utf-8")
+    x, fx, _c = migrar_v3_1.migrar(x, fx)
+    with zipfile.ZipFile(destino, "w", zipfile.ZIP_DEFLATED) as zout:
+        for info, d in items:
+            if info.filename == "word/document.xml":
+                d = x.encode("utf-8")
+            elif info.filename == "word/footnotes.xml" and fx:
+                d = fx.encode("utf-8")
+            zout.writestr(info, d)
+    return destino
 
 
 def fallos_de(ruta: Path, regla: str) -> list[str]:
@@ -169,50 +309,73 @@ def fallos_de(ruta: Path, regla: str) -> list[str]:
     raise KeyError(regla)
 
 
-def elegir_base() -> Path | None:
-    for p in sorted((RAIZ / "plantillas_maestras").rglob("*")):
-        if p.suffix.lower() != ".docx":
-            continue
-        xml = texto_xml(p)
-        if not all(re.search(pat, xml) for _r, _d, pat, _s in MUTACIONES):
-            continue
-        if any(fallos_de(p, r) for r in REGLAS):
-            continue
-        return p
-    return None
+def _aplica(m, ruta: Path, cache: dict) -> bool:
+    clave = (ruta, _parte(m))
+    if clave not in cache:
+        cache[clave] = texto_xml(ruta, _parte(m))
+    t = cache[clave]
+    return (m[3](t) != t) if m[2] is None else bool(re.search(m[2], t))
 
 
-def mutar(base: Path, patron: str, sustituto: str, destino: Path) -> bool:
+def bases(tmp: Path):
+    """Plantillas normalizadas v3.1, en orden estable y bajo demanda."""
+    for k, p in enumerate(sorted((RAIZ / "plantillas_maestras").rglob("*.docx"))):
+        yield p, normalizada(p, tmp / ("base_%03d.docx" % k))
+
+
+def elegir_base(m, tmp: Path, hechas: list, cache: dict):
+    """Primera plantilla donde la mutacion se puede introducir y cuya regla
+    PASA antes de mutar: si no pasara, rechazar el mutante no probaria nada."""
+    for p, n in hechas:
+        if _aplica(m, n, cache) and not fallos_de(n, m[0]):
+            return p, n
+    for p, n in BASES:
+        hechas.append((p, n))
+        if _aplica(m, n, cache) and not fallos_de(n, m[0]):
+            return p, n
+    return None, None
+
+
+def mutar(base: Path, patron: str, sustituto, destino: Path, parte: str = PARTE) -> bool:
     with zipfile.ZipFile(base) as z:
         items = [(i, z.read(i.filename)) for i in z.infolist()]
     hecho = False
     with zipfile.ZipFile(destino, "w", zipfile.ZIP_DEFLATED) as zout:
         for info, datos in items:
-            if info.filename == "word/document.xml":
+            if info.filename == parte:
                 xml = datos.decode("utf-8")
-                nuevo, n = re.subn(patron, sustituto, xml, count=1)
-                hecho = n > 0
+                if patron is None:
+                    nuevo = sustituto(xml)
+                    hecho = nuevo != xml
+                else:
+                    nuevo, n = re.subn(patron, sustituto, xml, count=1)
+                    hecho = n > 0
                 datos = nuevo.encode("utf-8")
             zout.writestr(info, datos)
     return hecho
 
 
 def main() -> int:
-    base = elegir_base()
-    if base is None:
-        print("  FALLA  ninguna plantilla sirve de base limpia para las mutaciones.")
-        return 1
-    print("Base: %s" % base.name)
     tmp = Path(tempfile.mkdtemp(prefix="prueba_ver_"))
+    global BASES
+    BASES = bases(tmp)
+    hechas: list = []
+    cache: dict = {}
     malas = 0
-    for i, (regla, que, patron, sustituto) in enumerate(MUTACIONES):
+    for i, m in enumerate(MUTACIONES):
+        regla, que, patron, sustituto = m[:4]
+        origen, base = elegir_base(m, tmp, hechas, cache)
+        if base is None:
+            print("  FALLA  %-6s %s: ninguna plantilla sirve de base (la regla falla en todas o el error no se puede introducir)" % (regla, que))
+            malas += 1
+            continue
         destino = tmp / ("mutante_%02d.docx" % i)
-        if not mutar(base, patron, sustituto, destino):
+        if not mutar(base, patron, sustituto, destino, _parte(m)):
             print("  FALLA  %-6s %s: la mutacion no se pudo aplicar" % (regla, que))
             malas += 1
             continue
         if fallos_de(destino, regla):
-            print("  OK     %-6s rechaza: %s" % (regla, que))
+            print("  OK     %-6s rechaza: %s  [%s]" % (regla, que, origen.name[:22]))
         else:
             print("  FALLA  %-6s APRUEBA un documento con: %s" % (regla, que))
             malas += 1

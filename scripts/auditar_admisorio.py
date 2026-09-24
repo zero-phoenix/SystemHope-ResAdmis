@@ -132,10 +132,25 @@ def auditar(carpeta: Path, ver_anclados: bool) -> int:
     fallos: list[str] = []
 
     cedulas = sorted(carpeta.glob("ADM*CEDULAS*.docx"))
-    if not cedulas:
-        print("No hay cedula en %s: sin ella no hay contra que contrastar." % carpeta)
-        return 2
-    resolucion, partes = PR.censo_cedula(cedulas[0])
+    if cedulas:
+        resolucion, partes = PR.censo_cedula(cedulas[0])
+    else:
+        # Sin cedula (AGENTS §4: se repite la via historica). El numero de
+        # resolucion sale de _CASO.json y los datos duros y apellidos se siguen
+        # contrastando con el expediente. Antes esto devolvia 2 y `entregar`
+        # rechazaba todo caso sin cedula (9998-2026, 24/09/2026).
+        import json as _json
+
+        try:
+            caso = _json.loads((carpeta / "_CASO.json").read_text(encoding="utf-8"))
+        except Exception:
+            caso = {}
+        resolucion = str(caso.get("resolucion") or "")
+        partes = []
+        print("Sin cedula en %s: resolucion segun _CASO.json (%s); partes y via, las del encabezado." % (carpeta.name, resolucion or "?"))
+        if not resolucion:
+            print("  FALLA  sin cedula y sin 'resolucion' en _CASO.json: no hay de donde tomar el numero.")
+            return 1
 
     esperado = "ADM %s R%s.docx" % (carpeta.name, resolucion)
     entregables = [

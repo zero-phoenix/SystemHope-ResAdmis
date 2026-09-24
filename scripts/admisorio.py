@@ -20,6 +20,7 @@ raiz del repositorio para que nadie vuelva a buscar un script propio con
 Uso:
     python scripts/admisorio.py preparar <carpeta-del-expediente> [--contiene "texto"]
                                           [--rama 02_seguro_vida] [--sujeto varon]
+    python scripts/admisorio.py previsualizar <generado.docx> [--contra <plantilla.docx>]
     python scripts/admisorio.py entregar <generado.docx> [--caso 3054]
 """
 
@@ -161,25 +162,32 @@ def preparar(
     if not paginas and any(carpeta.glob("*.pdf")):
         print("  FALLA  no se pudieron renderizar las paginas (falta PyMuPDF).")
         return 4
+    import formato_paginas
+
+    formato = formato_paginas.escribir(carpeta)
     lectura = carpeta / "_LECTURA.md"
     if not lectura.exists():
         filas = "\n".join(
-            "| %s | %s | %d | | |" % (png.name, pdf, n) for pdf, n, png in paginas
+            "| %s | %s | %d | | | |" % (png.name, pdf, n) for pdf, n, png in paginas
         )
         lectura.write_text(
             "# Lectura visual del expediente (R-137)\n\n"
             "Una fila por pagina. Abre cada PNG de `_paginas/` y anota con TUS palabras\n"
             "el tipo de documento y lo que VES: fechas, montos, numeros, sellos, firmas,\n"
             "resaltados y todo lo que no este en la capa de texto. Copiar el texto\n"
-            "embebido no cuenta como lectura: `entregar` lo rechaza.\n\n"
-            "| Imagen | PDF | Pagina | Tipo de documento | Lo que vi |\n"
-            "|---|---|---|---|---|\n" + filas + "\n",
+            "embebido no cuenta como lectura: `entregar` lo rechaza.\n"
+            "En «Formato que vi» anota la forma de la hoja (letra, negritas, subrayados,\n"
+            "alineacion, encabezado, pie, sellos, firma); `_FORMATO.md` trae las medidas.\n\n"
+            "| Imagen | PDF | Pagina | Tipo de documento | Lo que vi | Formato que vi |\n"
+            "|---|---|---|---|---|---|\n" + filas + "\n",
             encoding="utf-8",
         )
     print(
         "  %d paginas en _paginas/ y plantilla de constancia en %s."
         % (len(paginas), lectura.name)
     )
+    if formato:
+        print("  Formato medido de cada pagina (sin OCR) en %s." % formato.name)
 
     _titulo("FICHA DEL CASO (comandos exactos, firmas, proveedores, tipificacion)")
     import ficha_caso
@@ -317,6 +325,8 @@ PERMITIDOS_CASO = {
     "mapa.json",
     "_FICHA.md",
     "_hojas",
+    "_FORMATO.md",
+    "_vista",
 }
 
 
@@ -693,6 +703,12 @@ def main(argv: list[str]) -> int:
         help="confidencialidad | inclusion_de_oficio (sin esto se excluyen)",
     )
 
+    v = sub.add_parser(
+        "previsualizar", help="Cada pagina del Word como imagen en _vista/ (con --contra, junto a la plantilla)"
+    )
+    v.add_argument("docx")
+    v.add_argument("--contra", help="Plantilla base, para verla pagina a pagina al lado")
+
     e = sub.add_parser(
         "entregar", help="Verificador + guardia + restricciones, en una llamada"
     )
@@ -712,6 +728,15 @@ def main(argv: list[str]) -> int:
             args.sujeto,
             args.denunciados,
             args.subtipo,
+        )
+    if args.orden == "previsualizar":
+        import previsualizar
+
+        contra = Path(args.contra) if args.contra else None
+        if contra and not contra.is_absolute():
+            contra = RAIZ / contra
+        return previsualizar.main(
+            ["previsualizar", str(args.docx)] + (["--contra", str(contra)] if contra else [])
         )
     return entregar(Path(args.docx), args.caso, args.recepcion)
 

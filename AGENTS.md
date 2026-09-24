@@ -1,4 +1,4 @@
-# AGENTS.md — Admisorios CC1 Indecopi (seguros). Reglas vigentes v3
+# AGENTS.md — Admisorios CC1 Indecopi (seguros). Reglas vigentes v3.1
 
 Única fuente de reglas **vigentes**.
 Redactor: **Google Antigravity con el modelo de `config/modelo.json`** (Gemini 3.8 Flash High o superior).
@@ -9,13 +9,14 @@ Redactor: **Google Antigravity con el modelo de `config/modelo.json`** (Gemini 3
 1. Trabaja desde la **raíz de este repositorio**. Primer comando: `python scripts/comprobar_anclaje.py`. Si falla, para.
 2. Fecha de emisión: `python scripts/config_sistema.py`. Si dice «sin fijar», **pregúntala al instructor** antes de redactar.
 3. Si la carpeta del caso trae `_ORDEN_DE_TRABAJO.md`, manda para ese caso. Si trae `_ESTADO.md` con «CASO CERRADO», no generes nada.
-4. **Haz solo lo que se hace.** Únicos comandos: `comprobar_anclaje`, `config_sistema`, `admisorio.py preparar|entregar`, `similares`, `construir_admisorio`, `inspeccionar_docx`, `plazos`. Prohibido lo demás (`editar_cedulas`, `python -c`, scripts propios, Word, cédulas, borradores). En la carpeta del caso: originales, lo que generan esos comandos y un único `ADM <EXP> R<N>.docx`; `entregar` rechaza el resto.
+4. **Haz solo lo que se hace.** Únicos comandos: `comprobar_anclaje`, `config_sistema`, `admisorio.py preparar|previsualizar|entregar`, `similares`, `construir_admisorio`, `inspeccionar_docx`, `plazos`. Prohibido lo demás (`editar_cedulas`, `python -c`, scripts propios, Word, cédulas, borradores). En la carpeta del caso: originales, lo que generan esos comandos y un único `ADM <EXP> R<N>.docx`; `entregar` rechaza el resto.
 
 ## 1. Los pasos (≤ 12 llamadas en un expediente corto)
 1. `python scripts/admisorio.py preparar <carpeta>` — capturas, `_LECTURA.md` y **`_FICHA.md`**: comandos exactos, firmas digitales, proveedores (casilla y vía) y tipificación. **Ritmo**: cada decisión cuesta ~50 s; no uses `-h`, no leas scripts ni JSON del repositorio, abre las `_hojas/` en una sola vuelta y usa `WaitMsBeforeAsync` 120000.
-2. **Lectura visual** de `_hojas/` (dos páginas por imagen): una fila por página en `_LECTURA.md`. Cero OCR; si el texto embebido discrepa, manda la imagen.
+2. **Lectura visual** de `_hojas/` (dos páginas por imagen): una fila por página en `_LECTURA.md`, con «Lo que vi» y «Formato que vi» (letra, negritas, subrayados, alineación, encabezado, pie, sellos, firma). Las medidas exactas de formato de cada página están en `_FORMATO.md` (estructura del PDF, cero OCR). Si el texto embebido discrepa, manda la imagen.
 2b. **OBLIGATORIO — las 10 plantillas más similares.** Escribe `_CASO.json` (`carpeta_origen`, `traslado`, escritos con su fecha, denunciados DEFINITIVOS, conductas y norma; formato en `scripts/similares.py -h`) y ejecuta `python scripts/similares.py <carpeta>`. Completa en `_SIMILARES.md` el «Por qué» de las 10: qué imputaciones (norma, sujeto, conducta), hechos y partes coinciden o difieren y qué tomarás de cada una. Solo plantillas que el script lista: citar una que no existe bloquea la entrega. La base se elige entre ellas.
-3. `python scripts/construir_admisorio.py --mapa <mapa.json>` sobre la plantilla elegida; para corregir un Word dado, ese Word es la plantilla. Sin Word, win32com ni PDF.
+3. `python scripts/construir_admisorio.py --mapa <mapa.json>` sobre la plantilla elegida; para corregir un Word dado, ese Word es la plantilla. Sin Word, win32com ni PDF. Las claves del mapa son **texto de la plantilla** (nunca texto ya sustituido por otra clave). El constructor aplica solo las reglas generales v3.1 (notas, negritas, subrayado, firma, huecos): no las repitas en el mapa.
+3b. `python scripts/admisorio.py previsualizar "<docx>" --contra "<plantilla>"` — deja en `_vista/` cada página junto a la de la plantilla. **Míralas todas en una vuelta** antes de entregar: notas en su sitio y con su norma, huecos, negritas, subrayados, firma.
 4. `python scripts/admisorio.py entregar "<carpeta>/ADM <EXP> R<N>.docx" --recepcion DD/MM/AAAA` — debe decir **ENTREGABLE** y el verificador **APTO**; copia el Word a `carpeta_origen`. Pega la salida literal.
 
 Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de resolución que fija la cédula. Nunca PDF.
@@ -36,12 +37,18 @@ Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de reso
    - Formas canónicas y lo que no se hace: `docs/IMPUTACIONES_ANALITICO.md`.
    - Si la imputación necesaria no está en la tabla, **se eleva al instructor**.
 5. **Uno o varios denunciados** (el número real es el de alias entre paréntesis del encabezado DENUNCIADO(S)):
-   - Cada imputación dice **a quién** se atribuye. Una conducta de un solo proveedor lleva el nombre de ese proveedor.
+   - Cada imputación dice **a quién** se atribuye, **idéntica** en la considerativa y en el resolutivo (R-97, R-188):
+     - **la denunciante**: con su **nombre completo** («la señora María Pérez Gómez»), nunca con la tratativa corta de los hechos («la señora Pérez»);
+     - **aseguradora ÚNICA denunciada** (una sola imputada y única parte): «**la compañía aseguradora**», nunca su razón social ni su alias;
+     - **dos o más denunciados, imputaciones separadas**: la **razón social completa** de cada proveedor (también la aseguradora), nunca su alias;
+     - **imputación conjunta a todos**: «los proveedores denunciados» (solo con exactamente 2).
    - **Imputación conjunta** solo si la conducta es común a ambos (p. ej., el banco contratante y la aseguradora emisora del desgravamen que no entregan el contrato).
      - Con **exactamente 2** denunciados: «**los proveedores denunciados** no habrían…».
      - Con **3 o más**: los **nombres completos** de los dos implicados.
    - «El proveedor denunciado» solo existe cuando hay uno.
    - TERCERO nombra a todos los denunciados. Cada denunciado tiene su propio ordinal de requerimiento de información.
+   - Rótulo del requerimiento en la considerativa: el **alias** del encabezado («Al Banco:», «A Rímac:»), nunca la razón social (R-189).
+   - Ningún ordinal nombra a quien no es parte del caso, ni notifica por una vía que el caso no tiene (R-190). Artículo según la razón social: «al Banco …», «a Rímac …».
 6. **Hechos** (sección I):
    - Pasado indicativo.
    - **Nunca «denunciante»** en la narración: se usa la tratativa del encabezado («el señor X», «la señora X», «la Sucesión…»).
@@ -71,7 +78,8 @@ Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de reso
 - Dos partes con la misma vía comparten ordinal («y a»/«y al», verbo en plural). Dos vías distintas llevan dos ordinales.
 
 ## 5. Nota al pie 1 y plazo
-- **Solo** si la denuncia llegó derivada (MEMORANDUM, Documento u Hoja de Traslado) **y el usuario entregó ese documento**, la nota 1 dice: «Denuncia remitida a esta Comisión mediante [documento] de fecha [emisión], recibida el [recepción en CC1].» Desacumulada de otro expediente: forma de las plantillas («Denuncia desacumulada mediante Resolución …»). Nunca inventes esos datos.
+- **Nota del Código** («Publicado el 2 de setiembre de 2010…»): detrás de «Ley 29571, Código de Protección y Defensa del Consumidor», en la apertura de HECHOS, **nunca** detrás de «señalando lo siguiente:» (R-184).
+- **Solo** si la denuncia llegó derivada (MEMORANDUM, Documento u Hoja de Traslado) **y el usuario entregó ese documento**, la nota 1 va detrás de la fecha del escrito («Mediante el escrito del 10 de abril de 2025¹») y dice: «Denuncia remitida a esta Comisión mediante [documento] de fecha [emisión], recibida el [recepción en CC1].» Desacumulada de otro expediente: forma de las plantillas («Denuncia desacumulada mediante Resolución …»). Nunca inventes esos datos.
 - Si se presentó en CC1: **ninguna nota sobre la denuncia** (nunca «Denuncia presentada…», «Mesa de Partes…»). Declara `traslado` en `_CASO.json` (null o el documento); `entregar` lo coteja.
 - El **plazo de 20 días hábiles** (desde el día siguiente a la recepción en CC1 o a la presentación) se **calcula** con `python scripts/plazos.py --desde DD/MM/AAAA` y se informa. **No se menciona en la resolución.**
 
@@ -79,13 +87,21 @@ Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de reso
 - **Firma** (`config/firmas.json`): EVELING ROA QUISPE, «Secretaria Técnica». Si entre los denunciados está **Rímac**: LUISA ANALÍ SILVA MALPARTIDA, «Secretaria Técnica Ad Hoc». Nunca «(e)». El refrendo se copia del control o de la cédula.
 - **Fecha**: «Lima, [fecha de config/remesa.json]», igual para toda la remesa.
 
-## 7. Forma (medida en el corpus)
+## 7. Forma (medida en el corpus; v3.1 con la revisión del instructor del 24/09/2026)
 - Arial Narrow en todo: cuerpo 11 pt (iniciales «LSQ/DCQ», 8 pt); notas 8 pt, cada una seguida de una línea en blanco (R-174).
 - Interlineado sencillo, espaciado 0/0, justificado. Sangría izquierda de 1,0 cm y francesa de 1,0 cm (571 de 574 plantillas).
 - Márgenes A4: 2,5 cm arriba y abajo, 3,0 cm a izquierda y derecha.
 - Notas al pie con llamada en superíndice, estilo `Refdenotaalpie`. Pie `M-CPC-01/03`. Sin resaltados.
-- Negrita: PRIMERO entero; los demás ordinales, solo el rótulo. Ordinales seguidos, sin saltos.
-- Subrayado: solo el rótulo del requerimiento («A La Positiva:»), nunca el párrafo. Encabezado «ETIQUETA<tab>:<tab>VALOR».
+- Negrita: **solo el rótulo de cada ordinal, también en PRIMERO** («**PRIMERO:** admitir…», R-164). Ordinales seguidos, sin saltos.
+- Subrayado: solo el rótulo del requerimiento («A La Positiva:»), nunca el párrafo ni frases del resolutivo (NOVENO sin subrayado, R-192). Encabezado «ETIQUETA<tab>:<tab>VALOR».
+- La considerativa se numera con una sola serie continua (R-191). Nunca dos líneas en blanco seguidas, y cada línea en blanco mide una línea (R-194).
+- **Notas al pie** (R-183 a R-187; `docs/anclas_notas.json`, `docs/textos_normativos.json`):
+  - toda llamada tiene su nota y toda nota su llamada; **nunca dos llamadas juntas** («²³»);
+  - nota de competencia (artículo 105) detrás de «en ejercicio de sus facultades» del primer párrafo de la considerativa;
+  - cada calificación lleva la nota que transcribe **su** norma (la del literal e) del artículo 47 no lleva la de los artículos 18 y 19): el constructor la pone del catálogo `docs/notas_normas.json`;
+  - SÉTIMO: artículo 110 tras «Consumidor», 114 a 116 tras «de la referida norma», 112 tras «artículo 112 del Código»;
+  - forma: llamada, **una tabulación** y el texto (todas las líneas alineadas a 1 cm); sin líneas en blanco dentro de la nota y una al final; sin dobles espacios; con el título de la norma; los literales transcritos completos y con su letra (115.1: a. a i.). La transcripción literal de una norma se respeta tal cual.
+- **Firma**: cuatro líneas centradas: «Firmado digitalmente por» / FIRMANTE / CARGO / «Comisión de Protección al Consumidor 1» (R-193).
 - El núcleo fáctico de cada imputación es idéntico en la considerativa y en el resolutivo, **en el mismo orden y con el mismo artículo**.
 
 ## 8. Control y consulta

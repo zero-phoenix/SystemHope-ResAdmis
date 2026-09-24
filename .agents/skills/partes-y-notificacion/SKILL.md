@@ -6,7 +6,7 @@ description: Identificar y nombrar correctamente a denunciantes (varón, mujer, 
 # Partes y notificación
 
 ## Denunciantes: cómo se nombran (medido en 574 plantillas)
-| Clase | Encabezado | HECHOS y considerativa | PRIMERO («interpuesta por …») |
+| Clase | Encabezado | HECHOS | Imputaciones y PRIMERO («interpuesta por …») |
 |---|---|---|---|
 | Varón (321) | `DENUNCIANTE: NOMBRE (SEÑOR APELLIDO)` | «el señor Apellido» | «el señor Nombre Completo» |
 | Mujer (199) | `(SEÑORA APELLIDO)` | «la señora Apellido» | «la señora Nombre Completo» |
@@ -15,6 +15,7 @@ description: Identificar y nombrar correctamente a denunciantes (varón, mujer, 
 | Persona jurídica o asociación | `RAZÓN SOCIAL (ALIAS)` | el alias | la razón social |
 
 - Con varios denunciantes cambia la concordancia: «denunciaron», «solicitaron», «sus». Cada uno se notifica por su vía.
+- En las **imputaciones** (considerativa y resolutivo) la persona va con su **nombre completo**; la tratativa corta («la señora Apellido») es solo de los hechos (R-188).
 - Si los herederos **no** acreditaron la sucesión, se nombran como personas, no como «la Sucesión».
 - Nunca «denunciante» en HECHOS.
 
@@ -26,6 +27,9 @@ description: Identificar y nombrar correctamente a denunciantes (varón, mujer, 
   - La conjunta, solo si la conducta es común: con 2 denunciados, «los proveedores denunciados»; con 3 o más, los dos nombres completos.
   - TERCERO nombra a todos.
   - Un ordinal de requerimiento de información por proveedor.
+  - Rótulo del requerimiento en la considerativa: el **alias** del encabezado («Al Banco:»), subrayado solo el rótulo (R-189, R-192).
+  - Aseguradora **única** denunciada: en las imputaciones, «la compañía aseguradora». Con dos o más: razón social completa de cada una (R-188).
+  - Artículo según la razón social: «al Banco …», «a Rímac …». Ningún ordinal nombra a quien no es parte (R-190).
 - Destinatario del traslado: razón social completa, terminada en «S.A.» (o «S.A.A.», «S.A.C.»).
 
 ## Traslado (literal)
@@ -37,7 +41,7 @@ description: Identificar y nombrar correctamente a denunciantes (varón, mujer, 
   - **Correo**: Rímac, BCP, Scotiabank, Interbank, Ripley.
   - **Domicilio procesal**: AFOCAT, CAFAE, corredores, talleres y personas naturales sin canal.
 - La casilla exige padrón ACTIVO, e-casilla y móvil registrado (`docs/casillas_habilitadas.json`). Si falta alguno, no se usa.
-- **Un ordinal por vía, no por parte.** Las partes que comparten vía van juntas, con «y a» o «y al» y el verbo en plural.
+- **Un ordinal por vía, no por parte.** Las partes que comparten vía van juntas, con «y a» o «y al» y el verbo en plural («reciban», «efectúen», «notificarles»); con una sola parte, singular («notificarle»). Ninguna vía que el caso no tenga (R-190).
 
 ### Casilla electrónica (5 días)
 «requerir a [PARTE(S)] para que efectúe[n] el acuse de recibo mediante la confirmación de recepción de la notificación remitida por este despacho a su[s] Casilla[s] Electrónica[s], dentro de los cinco (5) primeros días hábiles siguientes a la fecha en que recibe[n] la notificación.»
@@ -49,7 +53,8 @@ description: Identificar y nombrar correctamente a denunciantes (varón, mujer, 
 «requerir a [PARTE(S)] para que, dentro del plazo de dos (2) días hábiles siguientes a la fecha en que reciba[n] la notificación en su domicilio procesal, señale[n] un correo electrónico autorizando recibir las notificaciones correspondientes por dicho medio.»
 
 ## Nota al pie 1 (primera página)
-- **Solo** si la denuncia llegó derivada de otro órgano (MEMORANDUM, Documento de Traslado u Hoja de Traslado/Trámite) y el usuario entregó ese documento: «Denuncia remitida a esta Comisión mediante [documento] [número] de fecha [fecha de emisión], recibida el [fecha de recepción en CC1].»
+- La nota del Código va detrás de «Código de Protección y Defensa del Consumidor» en la apertura de HECHOS (R-184).
+- **Solo** si la denuncia llegó derivada de otro órgano (MEMORANDUM, Documento de Traslado u Hoja de Traslado/Trámite) y el usuario entregó ese documento, la nota 1 va detrás de la fecha del escrito («Mediante el escrito del …¹») y dice: «Denuncia remitida a esta Comisión mediante [documento] [número] de fecha [fecha de emisión], recibida el [fecha de recepción en CC1].»
 - Denuncia **desacumulada** de un expediente previo (caso particular): la forma de las plantillas, p. ej. «Denuncia desacumulada mediante Resolución 0155-2026/CC1-ST de fecha 29 de abril de 2026, recibida el 30 de abril de 2026.» En `_CASO.json`: `traslado.nota` con ese texto literal, más `documento`, `fecha` y `recibida`.
 - Siempre «recibida», nunca «recepcionada». Siempre «de 2026», nunca «del 2026». Sin «N°».
 - Si la denuncia se presentó directamente en CC1: **ninguna** nota sobre la denuncia. Prohibido «Denuncia presentada el …», «ante la Mesa de Partes …» o cualquier variante (R-167). La primera nota es la del Código.

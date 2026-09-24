@@ -55,6 +55,9 @@ jobs:
           python -m src.systemhope_engine notifications --proveedor pacifico
           python -m src.systemhope_engine templates --rama vehicular --limit 2
 
+      - name: El constructor produce casos APTO (regresion de extremo a extremo)
+        run: python scripts/prueba_casos.py
+
       - name: El verificador distingue de verdad
         # Una regla que nunca falla no es una regla que se cumple: es una regla
         # que no se esta ejecutando. Se le da un documento que DEBE rechazar.
