@@ -219,8 +219,8 @@ MUTACIONES = [
     (
         "R-190",
         "razon social ajena al caso en el traslado",
-        r"correr traslado de la presente resolución a",
-        "correr traslado de la presente resolución a Empresa Ajena Inventada S.A. y a",
+        r"(correr traslado de la denuncia del [^<]*?) a ",
+        r"\1 a Empresa Ajena Inventada S.A. y a ",
     ),
     (
         "R-191",
@@ -323,6 +323,18 @@ MUTACIONES = [
             re.sub(r"\(SEÑORA? \[APELLIDO\]\)", "(SEÑOR PEREZ)", x, count=1),
             count=1,
         ),
+    ),
+    (
+        "R-211",
+        "reclamo sin «afectación a su derecho de recibir respuestas adecuadas»",
+        r"; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados",
+        "",
+    ),
+    (
+        "R-212",
+        "traslado «de la presente resolución» en vez de la denuncia",
+        r"correr traslado de la denuncia del [^<]*? a ",
+        "correr traslado de la presente resolución a ",
     ),
 ]
 REGLAS = sorted({m[0] for m in MUTACIONES})

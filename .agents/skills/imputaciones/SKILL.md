@@ -14,6 +14,8 @@ description: Redactar y verificar las imputaciones de cargos (considerativa y re
 - Núcleo sin palabras valorativas («únicamente», «totalmente», «pésimo»; R-203).
 - Considerativa: «… considera que el hecho denunciado, consistente en que [HECHO en condicional]. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de …, tipificado en … del Código».
 - **Información (R-207)**: la considerativa cierra el hecho con «; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, …»; el resolutivo, no.
+- **Reclamos (R-211)**: la considerativa (88.1 o art. 24) cierra el hecho con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, …»; nunca «expectativas»; el resolutivo, no.
+- **R-213**: prima o condiciones cambiadas sin consentimiento → «literal c) del artículo 56» (métodos coercitivos; nunca «numeral 56.1», R-143), no idoneidad.
 - Resolutivo: «Presunta infracción a [NORMA] de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto [SUJETO] habría(n) [CONDUCTA] [PRODUCTO] [FECHA/CIRCUNSTANCIA].» Una oración, una conducta.
 - Sujeto (R-188, instructor 24/09/2026), idéntico en la considerativa y en el resolutivo:
   - aseguradora ÚNICA denunciada: «la compañía aseguradora» (nunca su razón social ni su alias);
@@ -102,39 +104,5 @@ description: Redactar y verificar las imputaciones de cargos (considerativa y re
 - Resolutivo: «Presunta infracción al numeral 49.1 del artículo 49 y al literal a) y literal d) del artículo 51 de la Ley 29571, en tanto …»
 - Conductas típicas: habría utilizado una cláusula abusiva
 
-### art.58 (2)
-- Considerativa: «presunta infracción a la protección contra los métodos comerciales agresivos o engañosos, tipificado en …»
-- Resolutivo: «Presunta infracción al artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto …»
-- Conductas típicas: habrían atribuido indebidamente la Póliza; habría atribuido indebidamente la Póliza
 
-### art.56|lit.d (1)
-- Considerativa: «presunta infracción al deber de protección contra los métodos comerciales coercitivos, tipificado en …»
-- Resolutivo: «Presunta infracción al literal d) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto …»
-- Conductas típicas: habría llenado de forma unilateral
-
-### art.56|lit.e (1)
-- Considerativa: «presunta infracción al deber de protección contra los métodos comerciales coercitivos, tipificado en …»
-- Resolutivo: «Presunta infracción al literal e) del artículo 56 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto …»
-- Conductas típicas: habría establecido limitaciones injustificadas al
-
-### art.58|lit.b (1)
-- Considerativa: «presunta infracción al literal b) del artículo 58 del Código, tipificado en …»
-- Resolutivo: «Presunta infracción al artículo 58, literal b), de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto …»
-- Conductas típicas: habría desplegado una práctica comercial
-
-### art.58|lit.b|num.58.1 (1)
-- Considerativa: «presunta infracción al deber de información, tipificado en …»
-- Resolutivo: «Presunta infracción al literal b) del numeral 58.1 del artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto …»
-- Conductas típicas: habría cambiado la información originalmente
-
-### art.58|lit.c (1)
-- Considerativa: «presunta infracción al deber de protección contra [APELLIDO] métodos comerciales coercitivos, tipificado en …»
-- Resolutivo: «Presunta infracción al literal c) del artículo 58 de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto …»
-- Conductas típicas: habría realizado una práctica comercial
-
-### art.58|lit.f (1)
-- Considerativa: «presunta infracción al artículo 58, literal f) del Código, tipificado en …»
-- Resolutivo: «Presunta infracción al artículo 58, literal f) de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto …»
-- Conductas típicas: habría inducido indebidamente a la
-
-Detalle completo, fundamentos y ejemplos: `docs/IMPUTACIONES_ANALITICO.md`.
+Detalle completo: `docs/IMPUTACIONES_ANALITICO.md`.

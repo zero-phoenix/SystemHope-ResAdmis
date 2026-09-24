@@ -889,8 +889,8 @@ def prueba_r155_formula_traslado(doc) -> list[str]:
         )
     exigidos = [
         (
-            r"correr traslado de la presente resoluci[oó]n al? .+? para que, de conformidad con lo dispuesto por el art[íi]culo 26 de la Ley sobre Facultades, Normas y Organizaci[oó]n del Indecopi, aprobada por Decreto Legislativo 807\b,",
-            "inicio literal: '... articulo 26 ..., aprobada por Decreto Legislativo 807,'",
+            r"correr traslado de la denuncia del .+? al? .+? para que, de conformidad con lo dispuesto por el art[íi]culo 26 de la Ley sobre Facultades, Normas y Organizaci[oó]n del Indecopi, aprobada por Decreto Legislativo 807\b,",
+            "inicio literal: 'correr traslado de la denuncia del [fecha][, subsanada …] a … articulo 26 ..., aprobada por Decreto Legislativo 807,' (R-212)",
         ),
         (
             r"sus descargos sobre la imputaci[oó]n de cargos realizada en un plazo no mayor a cinco \(5\) d[íi]as h[áa]biles contado a partir del d[íi]a siguiente de la notificaci[oó]n de la presente resoluci[oó]n, vencido el cual, el Secretario T[ée]cnico declarar[áa] en rebeld[íi]a",
@@ -2123,6 +2123,62 @@ def prueba_r207_afectacion_derecho_informacion(doc) -> list[str]:
     return fallos[:4]
 
 
+# --------------------------------------------------------------------------
+# v3.5 (instructor 24/09/2026, revision del Exp. 2889-2026): reclamos y traslado
+# --------------------------------------------------------------------------
+
+FRASE_R211 = "; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente"
+RE_NORMA_RECLAMO = re.compile(r"art[ií]culo 88\b|art[ií]culo 24 del C[oó]digo")
+
+
+def prueba_r211_afectacion_reclamos(doc) -> list[str]:
+    """R-211: en la considerativa, toda imputacion por reclamos (numeral 88.1
+    del articulo 88, o articulo 24) cierra el hecho con «; involucraría una
+    presunta afectación a su derecho de recibir respuestas adecuadas a los
+    reclamos formulados. Por consiguiente, …». Nunca la frase de expectativas
+    (propia de idoneidad). El resolutivo no la lleva."""
+    fallos = []
+    for p in doc:
+        t = p.texto
+        if "considera que el hecho" not in t or "Por consiguiente" not in t:
+            continue
+        cola = t[t.rfind("Por consiguiente"):]
+        if not RE_NORMA_RECLAMO.search(cola) or "idoneidad" in cola:
+            continue
+        if FRASE_R211 not in t:
+            i = t.find("consistente en que")
+            fallos.append(
+                "R-211: imputacion por reclamo sin «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados»: «%s…»"
+                % t[i + 19 : i + 70]
+            )
+        if "afectación a sus expectativas" in t:
+            fallos.append("R-211: imputacion por reclamo con la frase de expectativas (solo idoneidad)")
+    return fallos[:4]
+
+
+def prueba_r212_traslado_de_la_denuncia(doc) -> list[str]:
+    """R-212: el traslado es de la denuncia, citada con sus escritos y fechas
+    como en el articulo que la admite: «correr traslado de la denuncia del
+    [fecha][, subsanada mediante escrito del [fecha]] a …». Nunca «de la
+    presente resolución»."""
+    textos = [p.texto for p in doc]
+    tr = next((t for t in textos if "correr traslado" in t), None)
+    if tr is None:
+        return []
+    fallos = []
+    if re.search(r"correr traslado de la presente resoluci[oó]n", tr):
+        fallos.append("R-212: «correr traslado de la presente resolución»: va «correr traslado de la denuncia del …»")
+        return fallos
+    adm = next((t for t in textos if "admitir a trámite la denuncia del" in t), None)
+    m = re.search(r"correr traslado de la (denuncia del .+?),? al? ", tr)
+    if adm and m and m.group(1).rstrip(", ") not in adm:
+        fallos.append(
+            "R-212: la cita del traslado («%s») no coincide con la del articulo que admite la denuncia"
+            % m.group(1)[:90]
+        )
+    return fallos
+
+
 PRUEBAS = [
     (
         "R-201 compañía aseguradora, nunca aseguradora a secas",
@@ -2172,6 +2228,16 @@ PRUEBAS = [
     (
         "R-210 sujeto tacito en las vinetas de HECHOS",
         lambda d, s, z: prueba_r210_sujeto_tacito(d),
+        "falsador",
+    ),
+    (
+        "R-211 reclamos: afectacion al derecho de recibir respuestas adecuadas",
+        lambda d, s, z: prueba_r211_afectacion_reclamos(d),
+        "falsador",
+    ),
+    (
+        "R-212 traslado de la denuncia, citada como en su admision",
+        lambda d, s, z: prueba_r212_traslado_de_la_denuncia(d),
         "falsador",
     ),
     (

@@ -25,6 +25,13 @@ verificador no veia o que el constructor producia:
     «; involucraría una presunta afectación al derecho de información de los
     consumidores. Por consiguiente, …» (v3.3, R-207);
   - rotulo del requerimiento («A Santander:») subrayado y el cuerpo sin subrayar (R-208);
+  - la considerativa de cada imputacion por reclamos (88.1 o articulo 24) cierra
+    con «; involucraría una presunta afectación a su derecho de recibir
+    respuestas adecuadas a los reclamos formulados. Por consiguiente, …»
+    (v3.5, R-211);
+  - el traslado es de la denuncia, citada como en el articulo que la admite:
+    «correr traslado de la denuncia del …, subsanada mediante escrito del … a
+    …» (v3.5, R-212);
   - renumeracion de notas en dos fases (sin colisiones de ids).
 
 Todo se hace sobre el XML como texto; ningun proceso WINWORD.EXE.
@@ -43,6 +50,8 @@ import notas_traslado as NT
 import migrar_v3_1 as M31
 import uniformar_tipografia as UT
 import afectacion_derecho_informacion as ADI
+import afectacion_derecho_reclamos as ADR
+import traslado_denuncia as TD
 
 RUN = re.compile(
     r"<w:r\b[^>]*>(<w:rPr>.*?</w:rPr>)?<w:t(?: [^>]*)?>([^<]*)</w:t></w:r>", re.S
@@ -580,6 +589,8 @@ def sanear(ruta) -> None:
     notas_repetidas(p)
     ADI.migrar_docx(p, True)
     rotulos_requerimiento(p)
+    ADR.migrar_docx(p, True)
+    TD.migrar_docx(p, True)
     UT.main([str(p), "--aplicar"])
 
 

@@ -61,7 +61,7 @@ Unificación del PRIMERO Resolutivo: El punto PRIMERO de la Resolución de la Se
 Tipificación de Solicitud Histórica de Documentos: Si el consumidor solicita documentos históricos (ej. un estado de cuenta de hace años) y el proveedor no los remite, se tipifica como infracción al Deber de Información (Art. 1°, numeral 1, literal b y Art. 2°), NO como Idoneidad ni como la obligación sectorial de remisión periódica mensual.
 Formato Estricto de Viñetas Resolutivas: En la sección RESOLUCIÓN (punto PRIMERO), las viñetas de las imputaciones admitidas NO deben empezar simplemente con la norma abreviada ("A los artículos..."). Deben empezar obligatoriamente con la frase formal y la norma legal completa: "Presunta infracción a [norma] de la Ley N° 29571, Código de Protección y Defensa del Consumidor, en tanto [Nombre Completo del Proveedor]...".
 Orden Lógico de Viñetas Resolutivas: En el punto PRIMERO, las imputaciones deben agruparse por NORMA INFRINGIDA, no cronológicamente. Primero todas las imputaciones por Idoneidad (Arts. 18° y 19°), luego Métodos Coercitivos (Art. 56°), y finalmente Deber de Información (Arts. 1° y 2°).
-Precisión Resolutiva en SEGUNDO y CUARTO: El punto SEGUNDO (medios probatorios) debe mencionar las fechas exactas del escrito de denuncia y su subsanación. El punto CUARTO (traslado) se rige obligatoria y exclusivamente por la fórmula literal canónica R-155 (traslado de la presente resolución con apercibimiento de rebeldía y cita al artículo 223° del TUO de la LPAG, quedando derogadas las fórmulas históricas anteriores).
+Precisión Resolutiva en SEGUNDO y CUARTO: El punto SEGUNDO (medios probatorios) debe mencionar las fechas exactas del escrito de denuncia y su subsanación. El punto CUARTO (traslado) se rige obligatoria y exclusivamente por la fórmula literal canónica R-155 (desde v3.5, R-212: traslado **de la denuncia del …**, citada como en el PRIMERO, con apercibimiento de rebeldía y cita al artículo 223° del TUO de la LPAG, quedando derogadas las fórmulas históricas anteriores).
 El Filtro MYPE (Inclusión Obligatoria): NUNCA se debe eliminar la viñeta que requiere la acreditación de micro/pequeña empresa (MYPE) en el requerimiento general (TERCERO), sin importar si los denunciados son manifiestamente grandes corporaciones (Bancos, Aseguradoras). Es un requerimiento de inclusión obligatoria y universal por estricto rigor procedimental ("en caso califique...").
 Reiteración de Requerimientos Específicos: Los requerimientos específicos detallados para cada proveedor en la Sección III NO se resumen con una referencia cruzada en la parte resolutiva (PROHIBIDO usar "cumpla con lo requerido en el numeral 11"). En los numerales respectivos de la Resolución (ej. QUINTO y SEXTO), se DEBEN volver a transcribir literalmente todas las viñetas del requerimiento para cada proveedor.
 Formato de Notas al Pie (Alineación y Espaciado): Las notas al pie deben tener una alineación de sangría francesa (Hanging Indent) perfecta. El número de la nota debe estar alineado al margen izquierdo (LeftIndent=1cm, FirstLineIndent=-1cm), seguido de una tabulación explícita (	) antes del texto. Todas las líneas del párrafo de la nota deben alinearse exactamente a 1 cm. Además, debe existir un espacio en blanco (SpaceAfter = 10pt) entre cada nota al pie para separar visualmente las referencias.
@@ -1294,6 +1294,7 @@ El normalizador popperiano `scripts/normalizar_plantillas_popperianas.py` purgó
 
 ## R-155 — FORMULA OBLIGATORIA DE TRASLADO DE RESOLUCION Y DESCARGOS (DEROGACION DE FORMULAS HISTORICAS A Y B)
 
+> **INICIO SUSTITUIDO EL 24/09/2026 (R-212, v3.5):** «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», nunca «de la presente resolución».
 > **CORREGIDA EL 23/09/2026 (ver R-155bis al final).** El texto de abajo conserva la version del 21/09 como historial: contenia «Decreto Legislativo N° 8079», «meritadas», «aprobado» y la volada. La forma vigente esta en `AGENTS.md` §3.
 
 **21/09/2026.** Mandato imperativo del instructor.
@@ -1366,3 +1367,10 @@ Lo comprueba y refuta `prueba_r155_formula_traslado` en `scripts/verificar_admis
 - **Firma**: «LUISA ANALÍ SILVA MALPARTIDA» con tilde; Ad Hoc solo con Rimac, tambien en cedulas; nunca «(e)».
 - **Confidencialidad**: 23 admisorios con PRIMERO de confidencialidad se conservan como subtipo (skill `confidencialidad`).
 - **Admisorio corregido por el instructor**: solo cuando el instructor lo dice expresamente y da la ruta; se compara con `inspeccionar_docx --diff`.
+
+
+## MANDATOS DEL INSTRUCTOR DEL 24/09/2026 (revision del Exp. 2889-2026, v3.5)
+
+- **R-211 (reclamos)**: en la considerativa, toda imputacion por el numeral 88.1 del articulo 88 (o el articulo 24) cierra el hecho con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, corresponde calificar …». Nunca la frase de «expectativas» (solo idoneidad). El resolutivo no la lleva.
+- **R-212 (traslado)**: «correr traslado de la denuncia del [fecha][, subsanada mediante escrito del [fecha]] a …», con la misma cita del articulo que admite la denuncia; sustituye el inicio «de la presente resolución» de R-155 (el resto de la formula no cambia).
+- **R-213 (modificacion unilateral)**: subir la prima o cambiar las condiciones sin consentimiento expreso (aunque se hubiera informado que se mantendrian) es el «literal c) del artículo 56» (nunca «numeral 56.1»), deber de proteccion contra los metodos comerciales coercitivos; no idoneidad.

@@ -77,6 +77,18 @@ Utilidades:
 
 Por contenido (índice v3): 457 con 1 denunciado, 102 con 2, 15 con 3 o más; 23 con confidencialidad; 336 aptas como base (0 falsadores).
 
+## Novedades v3.5 (24/09/2026)
+
+Estas son las correcciones definitivas de la revisión del Exp. 2889-2026, generalizadas a todo el sistema:
+
+| Mandato | Regla |
+|---|---|
+| Reclamos (numeral 88.1 del artículo 88 o artículo 24): en la considerativa, el hecho cierra con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, …». Nunca la frase de «expectativas» | R-211 (109 plantillas, 167 párrafos) |
+| Traslado: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita del PRIMERO; nunca «de la presente resolución» | R-212 (574 plantillas) |
+| Prima o condiciones cambiadas sin consentimiento: «literal c) del artículo 56» (nunca «numeral 56.1»), métodos comerciales coercitivos; no idoneidad | R-213 |
+
+El constructor aplica R-211 y R-212, y sincroniza la cita del traslado con el PRIMERO del caso. El verificador las exige, con 53 mutaciones y 14 casos ficticios en CI. Migraciones: `scripts/migraciones/afectacion_derecho_reclamos.py` y `traslado_denuncia.py`.
+
 ## Novedades v3.4 (24/09/2026)
 
 Revisión del instructor sobre el Exp. 2898-2026 R2. Cada mandato tiene su falsador y su mutación en CI (51 mutaciones).

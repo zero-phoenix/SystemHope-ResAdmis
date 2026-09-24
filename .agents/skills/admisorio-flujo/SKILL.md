@@ -93,6 +93,12 @@ Secciones:
 ## Corregir un Word que entrega el instructor
 Ese Word es la `plantilla` del `mapa.json`: `reemplazos` para el texto e `insertar_despues` para párrafos nuevos. Se conservan su numeración y sus notas. Nunca lo reescribas con ElementTree, python-docx ni `python -c` (Exp. 2835-2026: Word corrupto y numeración duplicada). El verificador rechaza numerales pegados («9.La», R-179) o duplicados («1. 1.», R-180).
 
+## Revisión del Exp. 2889-2026 (v3.5, 24/09/2026)
+- **Reclamos (R-211)**: toda imputación por el numeral 88.1 del artículo 88 (o el artículo 24) cierra el hecho, en la considerativa, con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, corresponde calificar …». Nunca la frase de «expectativas». El resolutivo no la lleva. Las 109 plantillas con reclamos ya la traen (167 párrafos).
+- **Traslado (R-212)**: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita del PRIMERO. Las 574 plantillas ya lo traen; el constructor sincroniza la cita con el PRIMERO del caso.
+- **Modificación unilateral (R-213)**: subir la prima o cambiar las condiciones sin consentimiento expreso (aunque se hubiera informado que se mantendrían) es el «literal c) del artículo 56» (nunca «numeral 56.1»: R-143) («deber de protección contra los métodos comerciales coercitivos»), no idoneidad; sin «expectativas»; su nota, la de `docs/notas_normas.json`.
+- Migraciones: `scripts/migraciones/afectacion_derecho_reclamos.py` y `traslado_denuncia.py` (idempotentes, solo el texto).
+
 ## Deber de información en la considerativa (v3.3, R-207)
 Toda imputación por el artículo 1, numeral 1, literal b) y el artículo 2 cierra el hecho, en la considerativa, así:
 «…consistente en que [SUJETO] no habría [HECHO, con fecha]; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de información, tipificado en el artículo 1, numeral 1, literal b) y al artículo 2 del Código.»
