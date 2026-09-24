@@ -4,7 +4,7 @@
 Redactor: **Google Antigravity con el modelo de `config/modelo.json`** (Gemini 3.8 Flash High o superior).
 
 ## 0. Arranque
-0. **En otra computadora** (el usuario solo pegó el enlace): sigue `ARRANQUE.md`.
+0. **En otra computadora** (solo pegó el enlace): sigue `ARRANQUE.md`.
    Lee además las skills de `.agents/skills/`: `admisorio-flujo`, `imputaciones` y `partes-y-notificacion`; y `confidencialidad` si el caso la tiene.
 1. Trabaja desde la **raíz de este repositorio**. Primer comando: `python scripts/comprobar_anclaje.py`. Si falla, para.
 2. Fecha de emisión: `python scripts/config_sistema.py`. Si dice «sin fijar», **pregúntala al instructor** antes de redactar.
