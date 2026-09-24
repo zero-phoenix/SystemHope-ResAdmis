@@ -324,6 +324,7 @@ def skill(c: dict) -> str:
         "- **Una imputación por cada solicitud y por cada cobertura diferenciada**, aunque se hayan pedido en una misma solicitud (Exp. 3092-2026: gastos de sepelio y oncológica pedidas el 1 y el 23 de marzo → cuatro imputaciones). Si el expediente no precisa la cobertura: «coberturas». Nunca «pese a sus solicitudes del 1 y el 23 de marzo» ni «la cobertura de sepelio y la cobertura oncológica» en un núcleo (R-206).",
         "- Núcleo sin palabras valorativas («únicamente», «totalmente», «pésimo»; R-203).",
         "- Considerativa: «… considera que el hecho denunciado, consistente en que [HECHO en condicional]. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de …, tipificado en … del Código».",
+        "- **Información (R-207)**: la considerativa cierra el hecho con «; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, …»; el resolutivo, no.",
         "- Resolutivo: «Presunta infracción a [NORMA] de la Ley 29571, Código de Protección y Defensa del Consumidor, en tanto [SUJETO] habría(n) [CONDUCTA] [PRODUCTO] [FECHA/CIRCUNSTANCIA].» Una oración, una conducta.",
         "- Sujeto (R-188, instructor 24/09/2026), idéntico en la considerativa y en el resolutivo:",
         "  - aseguradora ÚNICA denunciada: «la compañía aseguradora» (nunca su razón social ni su alias);",

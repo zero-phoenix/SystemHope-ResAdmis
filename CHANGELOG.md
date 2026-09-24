@@ -4,6 +4,19 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.3.0] - 2026-09-24 (DEBER DE INFORMACIÓN: AFECTACIÓN AL DERECHO DE INFORMACIÓN EN LA CONSIDERATIVA)
+
+Mandato del instructor, total y permanente: en la parte considerativa, toda imputación por el deber de información cierra el hecho con «; involucraría una presunta afectación al derecho de información de los consumidores. Por consiguiente, corresponde calificar el hecho materia de denuncia como una presunta infracción al deber de información, tipificado en el artículo 1, numeral 1, literal b) y al artículo 2 del Código.» El resolutivo no cambia.
+
+### Added
+- `scripts/migraciones/afectacion_derecho_informacion.py`: migración idempotente sobre el XML (solo los `<w:t>` del párrafo; formato y notas intactos).
+- R-207 en `verificar_admisorio.py` (falsador) y su mutación en `prueba_verificador.py` (48 mutaciones).
+
+### Changed
+- **168 plantillas maestras, 232 párrafos**: la considerativa de información lleva la fórmula. Las variantes antiguas se uniforman a ella («a los derechos de los consumidores», «literal b) del artículo 1 y artículo 2», «numeral 1.1 … numerales 2.1 y 2.2», «afectación al derecho de información que tiene el consumidor»).
+- `sanear_admisorio.py`: el constructor añade la fórmula si el mapa la omite.
+- AGENTS §2.4 y §2.6, skills `imputaciones` y `admisorio-flujo`, generador de la skill, catálogo analítico y caso ficticio 9998-2026.
+
 ## [3.2.0] - 2026-09-24 (CORRECCIONES DEFINITIVAS DEL INSTRUCTOR: REMESA DE 11 ADMISORIOS Y EXP. 3092-2026)
 
 El instructor revisó la remesa del 24/09/2026 (11 admisorios corregidos) y el Exp. 3092-2026, rehecho con su expediente. Cada corrección se generalizó con su falsador y su mutación.

@@ -295,6 +295,12 @@ MUTACIONES = [
         r"consistente en que ",
         "consistente en que pese a sus solicitudes del 1 y el 23 de marzo de 2026 ",
     ),
+    (
+        "R-207",
+        "informacion sin «afectación al derecho de información»",
+        r"; involucraría una presunta afectación al derecho de información de los consumidores",
+        "",
+    ),
 ]
 REGLAS = sorted({m[0] for m in MUTACIONES})
 PARTE = "word/document.xml"
