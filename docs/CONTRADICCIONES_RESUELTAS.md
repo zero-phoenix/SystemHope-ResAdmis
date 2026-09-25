@@ -11,6 +11,23 @@
 > Cada entrada dice qué decía cada lado, **qué cifra lo dirime** y dónde quedó
 > arreglado. Resuelto el 18/09/2026; ampliado el 24/09/2026 (v3.1).
 
+## v3.5.3: el enumerador literal del caso no es texto
+
+**Contradicción:** dos controles buscaban el ancla por el inicio exacto del
+párrafo («Mediante…» en la apertura de HECHOS; la fórmula de la nota al pie en
+su llamada) y trataban el enumerador escrito a mano («1.», «2)») como parte del
+texto. Los admisorios del Exp. 2958-2026 salían «no entregables» por fechas que
+sí estaban citadas y una nota canónica que sí estaba en su ancla.
+
+**Cifra que lo dirime:** 0 de las 574 plantillas escriben el enumerador como
+texto (todas usan numeración automática `numPr`); el enumerador es maquetación
+del caso.
+
+**Arreglo:** `_sin_enumerador` en `admision._control_fechas_escritos` y el mismo
+criterio en `notas_pie.anclas_incumplidas`; falsador en `prueba_traslado.py`
+(fecha con «septiembre» en el caso) y control con los 9 admisorios de la remesa
+del 25/09/2026 (0 falsadores tras el arreglo).
+
 ## v3.5.2: la cita no termina en «presentado»
 
 **Contradicción:** el terminador de cita (`interpuesta por`, `presentada por`,

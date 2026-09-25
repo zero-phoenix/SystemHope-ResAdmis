@@ -472,7 +472,10 @@ def anclas_incumplidas(x: str, fx: str) -> list[dict]:
         if not a:
             continue
         if a.get("ancla_regex"):
-            bien = re.fullmatch(r"\s*(?:%s)" % a["ancla_regex"], _norm(ll["previo"])) is not None
+            # El enumerador literal del parrafo («1.», «2)») es maquetacion del
+            # caso, no texto del ancla: se ignora antes de comparar.
+            previo = re.sub(r"^\d+[.)]\s*", "", _norm(ll["previo"]))
+            bien = re.fullmatch(r"\s*(?:%s)" % a["ancla_regex"], previo) is not None
         else:
             bien = _norm(ll["previo"]).endswith(a["ancla"])
         if not bien:
