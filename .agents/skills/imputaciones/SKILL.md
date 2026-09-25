@@ -1,6 +1,6 @@
 ---
 name: imputaciones
-description: Redactar y verificar las imputaciones de cargos (considerativa y resolutivo PRIMERO) de un admisorio CC1 de Indecopi, eligiendo la norma de la tabla del instructor y la forma literal de las plantillas.
+description: Redactar y verificar las imputaciones de cargos (considerativa y ordinal de admisión) de un admisorio CC1 de Indecopi, siguiendo el sentido, finalidad y forma literal de las plantillas; la tabla del instructor es referencial.
 ---
 
 # Imputaciones de cargos (generado por scripts/analizar_imputaciones.py; no editar a mano)

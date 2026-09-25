@@ -1,6 +1,6 @@
 # CONTRADICCIONES RESUELTAS
 
-> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3.4, 24/09/2026).
+> **Documento de consulta.** Si contradice a `AGENTS.md`, manda `AGENTS.md` (reglas vigentes v3.5, 24/09/2026). Las entradas conservan la fecha y el alcance de su revisión.
 
 
 > Un repositorio que se contradice a sí mismo le da al agente **permiso escrito**
@@ -11,7 +11,36 @@
 > Cada entrada dice qué decía cada lado, **qué cifra lo dirime** y dónde quedó
 > arreglado. Resuelto el 18/09/2026; ampliado el 24/09/2026 (v3.1).
 
-## El árbitro
+## v3.5.1: admisión por función y cita completa del traslado
+
+**Contradicción:** AGENTS y las skills decían «cita del PRIMERO», pero el saneador
+ya buscaba «admitir a trámite» en cualquier ordinal. `entregar` seguía buscando
+las fechas exclusivamente en PRIMERO. El verificador R-212 admitía además una
+cita incompleta por compararla como subcadena.
+
+**Medición reproducible** (`python scripts/prueba_traslado.py --corpus`, corpus de 574):
+
+| Dato | Plantillas |
+|---|---:|
+| Admisión en PRIMERO | 516 |
+| Admisión en SEGUNDO | 57 |
+| Admisión en TERCERO | 1 |
+| Cita con subsanación o complemento | 252 |
+| Dejan sin efecto una inadmisibilidad | 2 |
+
+**Única regla vigente:** identificar el ordinal que admite la denuncia por su
+contenido y conservar los ordinales previos. La cita del traslado debe ser
+completa e idéntica a la de admisión; no basta con repetir la denuncia inicial.
+El constructor/saneador, el verificador y `entregar` aplican ese criterio.
+
+**Falsador R-212 ampliado:** una admisión ficticia cita denuncia del 30 de abril
+de 2026 y subsanación del 7 de setiembre de 2026; el traslado que omite la
+subsanación o cambia su fecha debe fallar. Antes, la omisión pasaba. Las pruebas
+positivas conservan inadmisibilidad/confidencialidad con admisión posterior y
+exigen idempotencia. No se migran plantillas: la corrección afecta al control y
+a la selección del ordinal, sin cambiar datos ni normas.
+
+## Criterio histórico de medición
 
 ```
    0 de 593  ──►  PROHIBICIÓN ABSOLUTA        se corrige

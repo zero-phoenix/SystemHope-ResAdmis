@@ -28,6 +28,38 @@ sys.path.insert(0, str(RAIZ / "scripts"))
 
 import verificar_admisorio as V  # noqa: E402
 
+
+def mutar_escrito_traslado(xml: str, escrito: str, cambiar_fecha: bool = False) -> str:
+    """Omite un escrito o altera su fecha SOLO en la cita del traslado.
+
+    Opera por texto de parrafo para abarcar citas partidas en varios runs.
+    Si la plantilla no tiene ese escrito, no es candidata para la mutacion.
+    """
+    from migraciones import traslado_denuncia as TD
+
+    for p in TD.T.N.RE_P.finditer(xml):
+        texto = TD.T.texto(p.group(0))
+        tramo = TD.TRAMO.search(texto)
+        if not tramo:
+            continue
+        cita = tramo.group(0)
+        marca = re.search(r"\b" + escrito + r"[ao]\b", cita)
+        if not marca:
+            continue
+        if cambiar_fecha:
+            fecha = re.search(r"\b(\d{1,2})( de [a-záéíóú]+ de \d{4})\b", cita[marca.end():])
+            if not fecha:
+                continue
+            ini = marca.end() + fecha.start(1)
+            fin = marca.end() + fecha.end(1)
+            nuevo = cita[:ini] + ("2" if fecha.group(1) == "1" else "1") + cita[fin:]
+        else:
+            nuevo = re.sub(r"(?:,?\s+y)?\s*,?\s*$", "", cita[:marca.start()])
+        cambiado = TD.T.reemplazar(p.group(0), tramo.start(), tramo.end(), nuevo)
+        return xml[:p.start()] + cambiado + xml[p.end():]
+    return xml
+
+
 # (regla que debe caer, descripcion, patron a buscar en document.xml, reemplazo:
 # texto con referencias o funcion sobre el match)
 MUTACIONES = [
@@ -335,6 +367,30 @@ MUTACIONES = [
         "traslado «de la presente resolución» en vez de la denuncia",
         r"correr traslado de la denuncia del [^<]*? a ",
         "correr traslado de la presente resolución a ",
+    ),
+    (
+        "R-212",
+        "subsanacion omitida en el traslado",
+        None,
+        lambda x: mutar_escrito_traslado(x, "subsanad"),
+    ),
+    (
+        "R-212",
+        "fecha de subsanacion cambiada solo en el traslado",
+        None,
+        lambda x: mutar_escrito_traslado(x, "subsanad", cambiar_fecha=True),
+    ),
+    (
+        "R-212",
+        "complemento omitido en el traslado",
+        None,
+        lambda x: mutar_escrito_traslado(x, "complementad"),
+    ),
+    (
+        "R-212",
+        "fecha de complemento cambiada solo en el traslado",
+        None,
+        lambda x: mutar_escrito_traslado(x, "complementad", cambiar_fecha=True),
     ),
 ]
 REGLAS = sorted({m[0] for m in MUTACIONES})
