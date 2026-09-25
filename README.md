@@ -77,6 +77,11 @@ Utilidades:
 
 Por contenido (índice v3): 457 con 1 denunciado, 102 con 2, 15 con 3 o más; 23 con confidencialidad; 336 aptas como base (0 falsadores).
 
+## Novedades v3.5.2 (25/09/2026)
+
+- **R-212 conserva la cita completa cuando el escrito se cita como «presentado el [fecha]»**: el terminador ya exige «por»; una cita de traslado truncada se rechaza (Exp. 3110-2026).
+- Medición del corpus actualizada: 574 plantillas, 252 citas compuestas y **17 rechazadas R-212**; cuatro de ellas (TPL_2292_2025, TPL_2816_2025, TPL_0713_2025, TPL_276_2026) quedan documentadas como divergencia real detectada, sin migrarlas.
+
 ## Novedades v3.5.1 (24/09/2026)
 
 - **R-212 compara la cita completa**: omitir una subsanación o cambiar su fecha ya no puede pasar por coincidencia parcial.

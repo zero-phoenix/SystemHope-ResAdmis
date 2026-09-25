@@ -4,6 +4,15 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.5.2] - 2026-09-25 (CITA COMPLETA: «ESCRITO PRESENTADO EL …»)
+
+### Fixed
+- **R-212** truncaba la cita de admisión en «subsanada mediante escrito» cuando el escrito se citaba como «presentado el [fecha]»: la comparación daba por idéntica una cita de traslado incompleta (detectado en el Exp. 3110-2026). El terminador de cita ahora exige «por» («interpuesta por», «presentada por», «formulada por») y conserva la fecha del escrito.
+- Con la comparación completa afloran 4 plantillas cuya cita de traslado diverge de su admisión: TPL_2292_2025, TPL_2816_2025, TPL_0713_2025 y TPL_276_2026. No se migran: el constructor sincroniza la cita en los documentos que construye.
+
+### Added
+- Falsador sintético en `scripts/prueba_traslado.py`: una admisión «…subsanada mediante escrito presentado el 7 de setiembre de 2026» exige esa misma cita completa en el traslado; la omisión se rechaza.
+
 ## [3.5.1] - 2026-09-24 (CITA COMPLETA Y ORDINAL DE ADMISIÓN)
 
 ### Fixed
