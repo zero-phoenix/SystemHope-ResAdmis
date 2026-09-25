@@ -90,6 +90,22 @@ class Traslado(unittest.TestCase):
     def test_cita_truncada_no_pasa_como_subcadena(self):
         self.assertTrue(fallos([admision(), traslado("denuncia del 30 de abril de 2026")]))
 
+    def test_escrito_presentado_el_es_cita_y_no_terminador(self):
+        cita = (
+            "denuncia del 28 de agosto de 2026, subsanada mediante escrito"
+            " presentado el 7 de setiembre de 2026"
+        )
+        self.assertEqual(TD.cita_admision(admision(cita=cita)), cita)
+        self.assertEqual(fallos([admision(cita=cita), traslado(cita)]), [])
+        self.assertTrue(
+            fallos(
+                [
+                    admision(cita=cita),
+                    traslado("denuncia del 28 de agosto de 2026, subsanada mediante escrito"),
+                ]
+            )
+        )
+
     def test_espacios_de_maquetacion_no_cambian_cita(self):
         self.assertEqual(fallos([admision(), traslado(CITA.replace("mediante", "  mediante\u00a0"))]), [])
 

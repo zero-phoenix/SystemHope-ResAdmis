@@ -29,9 +29,14 @@ sys.path.insert(0, str(Path(__file__).resolve().parent))
 import _tramos as T  # noqa: E402
 
 # La cita se copia literal del artículo que admite: desde «denuncia del» hasta
-# donde empieza quién la interpuso («, interpuesta por …», «contra …»).
+# donde empieza quién la interpuso («, interpuesta por …», «contra …»). El
+# terminador exige «por»: «subsanada mediante escrito presentado el 7 de
+# setiembre de 2026» es cita, no la fórmula de interposición (Exp. 3110-2026:
+# truncar ahí dejaba pasar como validas citas incompletas).
 RE_ADMITE = re.compile(r"admitir a trámite (?:la )?(?=denuncia del )")
-RE_FIN_CITA = re.compile(r",?\s+(?:interpuest[ao]s?|presentad[ao]s?|formulad[ao]s?|en contra|contra)\b")
+RE_FIN_CITA = re.compile(
+    r",?\s+(?:(?:interpuest[ao]s?|presentad[ao]s?|formulad[ao]s?)\s+por|en contra|contra)\b"
+)
 # Lo que va entre «correr traslado de la» y el destinatario: la fórmula
 # anterior («presente resolución») o una cita ya puesta, que se sincroniza con
 # la del artículo que admite (el constructor hereda la de la plantilla).

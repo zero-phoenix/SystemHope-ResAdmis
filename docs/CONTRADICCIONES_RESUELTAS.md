@@ -11,6 +11,34 @@
 > Cada entrada dice qué decía cada lado, **qué cifra lo dirime** y dónde quedó
 > arreglado. Resuelto el 18/09/2026; ampliado el 24/09/2026 (v3.1).
 
+## v3.5.2: la cita no termina en «presentado»
+
+**Contradicción:** el terminador de cita (`interpuesta por`, `presentada por`,
+`contra`) no exigía «por», así que «subsanada mediante escrito **presentado** el
+7 de setiembre de 2026» se tomaba como fin de cita. Admisión y traslado se
+truncaban por igual y el verificador daba por idénticas dos citas incompletas
+(detectado en el Exp. 3110-2026: el traslado omite la fecha de la subsanación).
+
+**Medición reproducible** (`python scripts/prueba_traslado.py --corpus`):
+
+| Dato | Plantillas |
+|---|---:|
+| Admisión en PRIMERO | 516 |
+| Admisión en SEGUNDO | 57 |
+| Admisión en TERCERO | 1 |
+| Cita con subsanación o complemento | 252 |
+| Rechazadas R-212 con la comparación completa | 17 |
+
+**Única regla vigente:** el terminador exige «por» y la cita conserva las fechas
+de los escritos («presentado el …» es cita, no interposición). Las cuatro
+plantillas que afloran con divergencia real entre su admisión y su traslado
+(TPL_2292_2025, TPL_2816_2025, TPL_0713_2025, TPL_276_2026) quedan documentadas;
+no se migran: el constructor sincroniza la cita en los documentos construidos.
+
+**Falsador:** en `scripts/prueba_traslado.py`, `test_escrito_presentado_el_es_cita_y_no_terminador`:
+admisión con «presentado el 7 de setiembre de 2026» contra traslado truncado en
+«mediante escrito»; antes de v3.5.2 la mutación pasaba.
+
 ## v3.5.1: admisión por función y cita completa del traslado
 
 **Contradicción:** AGENTS y las skills decían «cita del PRIMERO», pero el saneador
