@@ -40,15 +40,35 @@ TRAMO = re.compile(
 )
 
 
-def cita_denuncia(xml: str) -> str | None:
-    for m in T.N.RE_P.finditer(xml):
-        t = T.texto(m.group(0))
-        a = RE_ADMITE.search(t)
-        if a:
-            f = RE_FIN_CITA.search(t, a.end())
-            if f:
-                return t[a.end():f.start()].rstrip(", ")
+def normalizar_cita(cita: str) -> str:
+    """Ignora solo espacios de maquetacion y la coma separadora final."""
+    return re.sub(r"\s+", " ", cita).strip().rstrip(", ")
+
+
+def cita_admision(texto: str) -> str | None:
+    """Cita completa del ordinal de admision, sea PRIMERO, SEGUNDO u otro."""
+    a = RE_ADMITE.search(texto)
+    if a:
+        f = RE_FIN_CITA.search(texto, a.end())
+        if f:
+            return texto[a.end():f.start()].rstrip(", ")
     return None
+
+
+def cita_traslado(texto: str) -> str | None:
+    m = TRAMO.search(texto)
+    if m:
+        cita = m.group(0).removeprefix("correr traslado de la ")
+        if cita.startswith("denuncia del "):
+            return cita.rstrip(", ")
+    return None
+
+
+def cita_denuncia(xml: str) -> str | None:
+    return next(
+        (c for m in T.N.RE_P.finditer(xml) if (c := cita_admision(T.texto(m.group(0))))),
+        None,
+    )
 
 
 def migrar_xml(xml: str) -> tuple[str, int, bool]:

@@ -43,7 +43,7 @@ Secciones:
   - cierra con «[Tratativa] solicitó, en calidad de medida correctiva, que … cumpla con: (i) …; y, (ii) …. Asimismo, requirió el reembolso de costos y costas del presente procedimiento.» (573 de 585).
 - **II. DE LA ADMISIÓN A TRÁMITE**: un párrafo por imputación (skill `imputaciones`) y «En tanto la denuncia reúne los requisitos…, corresponde admitirla a trámite».
 - **III. REQUERIMIENTO DE INFORMACIÓN**: lo que se pide a **cada** denunciado.
-- **RESOLUCIÓN DE LA SECRETARÍA TÉCNICA**:
+- **RESOLUCIÓN DE LA SECRETARÍA TÉCNICA** (esquema ordinario; si hay ordinales previos de inadmisibilidad, confidencialidad o incorporación de partes, consérvalos y desplaza consecutivamente los siguientes):
   1. PRIMERO: admitir, con las imputaciones en el mismo orden;
   2. SEGUNDO: medios probatorios;
   3. TERCERO: requisitos a **todos** los denunciados;
@@ -88,14 +88,14 @@ Secciones:
 - Objetivo: ≤ 25 decisiones por expediente.
 
 ## Añadir párrafos (imputaciones o hechos de más)
-`mapa.json` admite `"insertar_despues": {"fragmento del párrafo ancla": [{"texto": "...", "nota": "numeral 88.1 del artículo 88"}]}`. Clona el párrafo ancla (sangría, numeración y formato) y lo coloca detrás; `nota` añade la nota normativa del corpus (normas en `docs/notas_normas.json`: «artículos 18 y 19», «artículo 1, numeral 1, literal b) y al artículo 2», «literal e) del artículo 47», «numeral 88.1 del artículo 88», …). Úsalo en la considerativa y en PRIMERO. Nunca inspecciones el XML ni el código para esto.
+`mapa.json` admite `"insertar_despues": {"fragmento del párrafo ancla": [{"texto": "...", "nota": "numeral 88.1 del artículo 88"}]}`. Clona el párrafo ancla (sangría, numeración y formato) y lo coloca detrás; `nota` añade la nota normativa del corpus (normas en `docs/notas_normas.json`: «artículos 18 y 19», «artículo 1, numeral 1, literal b) y al artículo 2», «literal e) del artículo 47», «numeral 88.1 del artículo 88», …). Úsalo en la considerativa y en el ordinal de admisión. Nunca inspecciones el XML ni el código para esto.
 
 ## Corregir un Word que entrega el instructor
 Ese Word es la `plantilla` del `mapa.json`: `reemplazos` para el texto e `insertar_despues` para párrafos nuevos. Se conservan su numeración y sus notas. Nunca lo reescribas con ElementTree, python-docx ni `python -c` (Exp. 2835-2026: Word corrupto y numeración duplicada). El verificador rechaza numerales pegados («9.La», R-179) o duplicados («1. 1.», R-180).
 
 ## Revisión del Exp. 2889-2026 (v3.5, 24/09/2026)
 - **Reclamos (R-211)**: toda imputación por el numeral 88.1 del artículo 88 (o el artículo 24) cierra el hecho, en la considerativa, con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, corresponde calificar …». Nunca la frase de «expectativas». El resolutivo no la lleva. Las 109 plantillas con reclamos ya la traen (167 párrafos).
-- **Traslado (R-212)**: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita del PRIMERO. Las 574 plantillas ya lo traen; el constructor sincroniza la cita con el PRIMERO del caso.
+- **Traslado (R-212)**: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita completa del ordinal que admite la denuncia. Las 574 plantillas ya lo traen; el constructor sincroniza denuncia, subsanaciones y complementos con ese ordinal. El verificador rechaza también una cita que solo repita la denuncia y omita la subsanación. No se presupone PRIMERO: 58 plantillas admiten en SEGUNDO o TERCERO.
 - **Modificación unilateral (R-213)**: subir la prima o cambiar las condiciones sin consentimiento expreso (aunque se hubiera informado que se mantendrían) es el «literal c) del artículo 56» (nunca «numeral 56.1»: R-143) («deber de protección contra los métodos comerciales coercitivos»), no idoneidad; sin «expectativas»; su nota, la de `docs/notas_normas.json`.
 - Migraciones: `scripts/migraciones/afectacion_derecho_reclamos.py` y `traslado_denuncia.py` (idempotentes, solo el texto).
 

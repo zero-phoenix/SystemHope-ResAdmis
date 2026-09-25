@@ -2161,6 +2161,8 @@ def prueba_r212_traslado_de_la_denuncia(doc) -> list[str]:
     como en el articulo que la admite: «correr traslado de la denuncia del
     [fecha][, subsanada mediante escrito del [fecha]] a …». Nunca «de la
     presente resolución»."""
+    from migraciones import traslado_denuncia as TD
+
     textos = [p.texto for p in doc]
     tr = next((t for t in textos if "correr traslado" in t), None)
     if tr is None:
@@ -2169,12 +2171,14 @@ def prueba_r212_traslado_de_la_denuncia(doc) -> list[str]:
     if re.search(r"correr traslado de la presente resoluci[oó]n", tr):
         fallos.append("R-212: «correr traslado de la presente resolución»: va «correr traslado de la denuncia del …»")
         return fallos
-    adm = next((t for t in textos if "admitir a trámite la denuncia del" in t), None)
-    m = re.search(r"correr traslado de la (denuncia del .+?),? al? ", tr)
-    if adm and m and m.group(1).rstrip(", ") not in adm:
+    adm = next((c for t in textos if (c := TD.cita_admision(t))), None)
+    cita = TD.cita_traslado(tr)
+    if adm is None or cita is None:
+        fallos.append("R-212: no se puede comprobar la cita completa de admision y traslado")
+    elif TD.normalizar_cita(cita) != TD.normalizar_cita(adm):
         fallos.append(
             "R-212: la cita del traslado («%s») no coincide con la del articulo que admite la denuncia"
-            % m.group(1)[:90]
+            % cita[:90]
         )
     return fallos
 

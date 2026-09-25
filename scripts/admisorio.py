@@ -437,13 +437,35 @@ def _copiar_a_origen(docx: Path) -> None:
     print("  Copiado a la carpeta del usuario: %s" % (d / docx.name))
 
 
+def _control_fechas_escritos(caso: dict, textos: list[str]) -> list[str]:
+    """Las fechas van en HECHOS y en la admision, cualquiera sea su ordinal."""
+    from migraciones.traslado_denuncia import cita_admision
+
+    apertura = next((t for t in textos if t.strip().startswith("Mediante")), "")
+    admision = next((c for t in textos if (c := cita_admision(t))), "")
+    fallos = []
+    for e in caso.get("escritos", []):
+        f = e.get("fecha", "")
+        if f and f not in apertura:
+            fallos.append(
+                "el escrito '%s' del %s no se cita en la apertura de HECHOS"
+                % (e.get("tipo", "?"), f)
+            )
+        if f and f not in admision:
+            fallos.append(
+                "el escrito '%s' del %s no se cita en el ordinal de admision"
+                % (e.get("tipo", "?"), f)
+            )
+    return fallos
+
+
 def _control_del_caso(docx: Path) -> list[str]:
     """Controles que dependen del caso y no solo del .docx (supervision 2898-2026).
 
     - integridad: el agente no modifico el sistema;
     - _CASO.json: existe y declara los escritos y los denunciados definitivos;
     - todos los escritos (denuncia, subsanacion, complementarios) se citan con su
-      fecha en la apertura de HECHOS y en PRIMERO;
+      fecha en la apertura de HECHOS y en el ordinal que admite la denuncia;
     - _SIMILARES.md: 10 plantillas REALES del indice, cada una justificada;
     - ningun documento del expediente fabricado (cedulas, escritos).
     """
@@ -468,19 +490,7 @@ def _control_del_caso(docx: Path) -> list[str]:
         caso = json.loads(caso_p.read_text(encoding="utf-8"))
     doc, _s, _z = verificar_admisorio.leer_documento(str(docx))
     textos = [p.texto for p in doc]
-    apertura = next((t for t in textos if t.strip().startswith("Mediante")), "")
-    primero = next((t for t in textos if t.strip().startswith("PRIMERO")), "")
-    for e in caso.get("escritos", []):
-        f = e.get("fecha", "")
-        if f and f not in apertura:
-            fallos.append(
-                "el escrito '%s' del %s no se cita en la apertura de HECHOS"
-                % (e.get("tipo", "?"), f)
-            )
-        if f and f not in primero:
-            fallos.append(
-                "el escrito '%s' del %s no se cita en PRIMERO" % (e.get("tipo", "?"), f)
-            )
+    fallos += _control_fechas_escritos(caso, textos)
     fallos += similares.justificacion_completa(carpeta)
     sim = carpeta / "_SIMILARES.md"
     if sim.exists():

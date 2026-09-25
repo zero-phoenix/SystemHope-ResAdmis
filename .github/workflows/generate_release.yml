@@ -94,11 +94,14 @@ jobs:
 
             Reglas vigentes: `AGENTS.md`. Cambios: `CHANGELOG.md`.
 
+            Motor v3.5.1: R-212 compara la cita completa del traslado, incluidas subsanaciones y complementos; `entregar` identifica el ordinal de admision por su contenido. Pruebas de conservacion de inadmisibilidad/confidencialidad e idempotencia en CI.
+            - Corpus medido: 574 plantillas; 516 admiten en PRIMERO, 57 en SEGUNDO y 1 en TERCERO; 252 citas compuestas.
+
             v3.5: correcciones definitivas de la revision del Exp. 2889-2026 (24/09/2026).
             - Reclamos: la considerativa (88.1 o art. 24) cierra el hecho con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente…» (R-211); 109 plantillas, 167 parrafos.
-            - Traslado: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita del PRIMERO; nunca «de la presente resolución» (R-212); 574 plantillas.
+            - Traslado: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita completa del ordinal de admision; nunca «de la presente resolución» (R-212); 574 plantillas.
             - Modificacion unilateral de la prima o de las condiciones: literal c) del articulo 56 (metodos comerciales coercitivos), no idoneidad (R-213).
-            - El constructor aplica ambas y sincroniza la cita del traslado; el verificador las exige; 53 mutaciones y 14 casos ficticios en CI.
+            - El constructor aplica ambas y sincroniza la cita del traslado; el verificador las exige; 57 mutaciones, 14 casos ficticios y regresiones de traslado en CI.
 
             v3.4: revision del instructor sobre el Exp. 2898-2026 R2 (24/09/2026).
             - HECHOS: sujeto tacito en las vinetas; la tratativa solo en la apertura y la medida correctiva (R-210; 94 % del corpus).

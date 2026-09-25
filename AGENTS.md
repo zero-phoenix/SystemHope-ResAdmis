@@ -4,27 +4,27 @@
 Redactor: **Google Antigravity con el modelo de `config/modelo.json`** (Gemini 3.8 Flash High o más).
 
 ## 0. Arranque
-0. **En otra computadora** (solo el enlace): sigue `ARRANQUE.md`.
-   Lee las skills de `.agents/skills/`: `admisorio-flujo`, `imputaciones` y `partes-y-notificacion`; y `confidencialidad` si el caso la tiene.
+0. **En otra computadora**: sigue `ARRANQUE.md`.
+   Lee las skills de `.agents/skills/`: `admisorio-flujo`, `imputaciones` y `partes-y-notificacion`; y `confidencialidad` si la tiene.
 1. Trabaja desde la **raíz del repositorio**. Primer comando: `python scripts/comprobar_anclaje.py`. Si falla, para.
 2. Fecha de emisión: `python scripts/config_sistema.py`. Si dice «sin fijar», **pregúntala al instructor**.
 3. Si el caso trae `_ORDEN_DE_TRABAJO.md`, manda para ese caso. Si trae `_ESTADO.md` con «CASO CERRADO», no generes nada.
-4. **Haz solo lo que se hace.** Únicos comandos: `comprobar_anclaje`, `config_sistema`, `admisorio.py preparar|previsualizar|entregar`, `similares`, `construir_admisorio`, `inspeccionar_docx`, `plazos`. Prohibido lo demás (`editar_cedulas`, `python -c`, scripts propios, Word, borradores). En la carpeta del caso: originales, lo que generan esos comandos y un único `ADM <EXP> R<N>.docx`; `entregar` rechaza el resto.
+4. **Haz solo lo que se hace.** Únicos comandos: `comprobar_anclaje`, `config_sistema`, `admisorio.py preparar|previsualizar|entregar`, `similares`, `construir_admisorio`, `inspeccionar_docx`, `plazos`. Prohibido lo demás (`editar_cedulas`, `python -c`, scripts propios, Word, borradores). En la carpeta del caso: originales, lo generado y un único `ADM <EXP> R<N>.docx`; `entregar` rechaza el resto.
 
 ## 1. Los pasos (≤ 12 llamadas en un expediente corto)
-1. `python scripts/admisorio.py preparar <carpeta>` — capturas, `_LECTURA.md`, `_FORMATO.md` y **`_FICHA.md`** (comandos, firmas digitales, proveedores y vías, tipificación). **Ritmo**: sin `-h` ni leer scripts o JSON del repositorio; `_hojas/` en una vuelta; `WaitMsBeforeAsync` 120000.
+1. `python scripts/admisorio.py preparar <carpeta>` — capturas, `_LECTURA.md`, `_FORMATO.md` y **`_FICHA.md`** (comandos, firmas digitales, proveedores y vías, tipificación). **Ritmo**: sin `-h` ni leer scripts o JSON; `_hojas/` en una vuelta; `WaitMsBeforeAsync` 120000.
 2. **Lectura visual** de `_hojas/` (dos páginas por imagen): una fila por página en `_LECTURA.md`, con «Lo que vi» y «Formato que vi» (medidas en `_FORMATO.md`, cero OCR). Si el texto discrepa, manda la imagen.
-2b. **OBLIGATORIO — las 10 plantillas más similares.** `_CASO.json` (`resolucion`, `carpeta_origen`, `traslado`, escritos con fecha, denunciados DEFINITIVOS, conductas y norma) y `python scripts/similares.py <carpeta>`. `_SIMILARES.md`: el «Por qué» de las 10; la base sale de ellas.
+2b. **OBLIGATORIO: las 10 plantillas más similares.** `_CASO.json` (`resolucion`, `carpeta_origen`, `traslado`, escritos con fecha, denunciados DEFINITIVOS, conductas y norma) y `python scripts/similares.py <carpeta>`. `_SIMILARES.md`: el «Por qué» de las 10; la base sale de ellas.
 3. `python scripts/construir_admisorio.py --mapa <mapa.json>` (para corregir un Word, él es la plantilla). Claves = **texto de la plantilla**; `"parrafos"` sustituye un párrafo entero por su inicio. El constructor sanea solo. Sin Word, win32com ni PDF.
 3b. `python scripts/admisorio.py previsualizar "<docx>" --contra "<plantilla>"` — `_vista/` con cada página junto a la de la plantilla. **Míralas todas en una vuelta**.
 4. `python scripts/admisorio.py entregar "<carpeta>/ADM <EXP> R<N>.docx" --recepcion DD/MM/AAAA` — debe decir **ENTREGABLE** y el verificador **APTO**; copia el Word a `carpeta_origen`. Pega la salida literal.
 
-Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de resolución que fija la cédula. Nunca PDF.
+Entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de resolución que fija la cédula. Nunca PDF.
 
 ## 2. Reglas no negociables
-1. **Nada que no conste en el expediente.** Lo que no ves, pendiente del instructor. **Nunca modifiques el repositorio**: si ves un error del sistema, repórtalo; `entregar` comprueba la integridad.
+1. **Nada que no conste en el expediente.** Lo que no ves, pendiente del instructor. **Nunca modifiques el repositorio**: si ves un error, repórtalo; `entregar` comprueba la integridad.
 2. **Fechas de los documentos.** Escrito de parte (denuncia, subsanación…): la de su **firma digital**, no la que dice. Resolución, memorándum o documento de traslado de Indecopi: la **fecha de emisión de su texto**, nunca la de la firma.
-3. **Denunciados definitivos.** Los que quedan tras el requerimiento y su absolución (la subsanación puede añadir uno). Todos los escritos se citan con su fecha en la apertura de HECHOS, en PRIMERO, SEGUNDO y el traslado («denuncia del …, subsanada mediante escrito del …»).
+3. **Denunciados definitivos.** Los que quedan tras el requerimiento y su absolución (la subsanación puede añadir uno). Todos los escritos se citan con su fecha en HECHOS, en el ordinal de admisión y en el traslado («denuncia del …, subsanada…»).
 4. **Imputación cerrada.** Como imputan **las plantillas** un hecho de igual sentido y finalidad, en su forma literal (`docs/tabla_tipificacion.json` es referencial); nunca una ausente de ellas. **Una por solicitud y por cobertura** diferenciada, aunque vayan juntas; sin cobertura precisa, «coberturas» (R-206).
    - **Nunca el artículo 3** ni la frase «inducción a error».
    - Reclamos: **numeral 88.1 del artículo 88** si el proveedor es del sistema financiero; si no, **artículo 24**. **Un reclamo por imputación**. Considerativa: el hecho cierra **siempre** con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente…» (R-211)
@@ -34,7 +34,7 @@ Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de reso
    - **Solicitud de gestión** mal atendida: idoneidad (artículos 18 y 19). **Solicitud de información o de copias**: información. Si la misma carta trae ambas, **dos imputaciones separadas**.
    - Cláusulas abusivas: **siempre** «numeral 49.1 del artículo 49 y al literal x) del artículo 50» (ineficacia absoluta) o «… del artículo 51» (ineficacia relativa).
    - Si no hay imputación así en las plantillas, **se eleva al instructor**.
-5. **Uno o varios denunciados** (el número real es el de alias entre paréntesis del encabezado DENUNCIADO(S)):
+5. **Uno o varios denunciados** (el número real es el de alias del encabezado DENUNCIADO(S)):
    - Cada imputación dice **a quién** se atribuye, **idéntica** en considerativa y resolutivo (R-97, R-188):
      - la denunciante, con su **nombre completo** o «la denunciante», nunca la tratativa corta ni «la parte denunciante» (R-205);
      - aseguradora **única**: «**la compañía aseguradora**»; nunca «aseguradora» a secas (R-201);
@@ -56,7 +56,7 @@ Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de reso
    - Moneda: `S/ 1 234,56` y `US$ 1 234,56`.
 
 ## 3. Traslado y descargos (R-155) — literal
-- La fórmula se copia **literal** de la skill `partes-y-notificacion` (artículo 26 del Decreto Legislativo 807; artículo 223 del TUO de la Ley 27444, «merituadas»). Inicia «correr traslado de la denuncia del …[, subsanada …] a …» (cita del PRIMERO), nunca «de la presente resolución» (R-212).
+- La fórmula se copia **literal** de la skill `partes-y-notificacion` (artículo 26 del Decreto Legislativo 807; artículo 223 del TUO de la Ley 27444, «merituadas»). Inicia «correr traslado de la denuncia del …[, subsanada …] a …»: cita completa del ordinal de admisión (subsanaciones y complementos); nunca «de la presente resolución» (R-212). La admisión puede estar en SEGUNDO o TERCERO: conserva los ordinales previos.
 - **1 denunciado**: «presente» y «al denunciado que no lo hubiera presentado». **2 o más**: «presenten» y «a los denunciados que no lo hubieran presentado».
 - Destinatario: razón social completa en «S.A.», con su artículo («al Banco …», «a Rímac …»).
 - Sus **dos notas al pie** (art. 26 y art. 223) ya están en toda plantilla: no se borran, mueven ni reescriben (R-173).
@@ -68,7 +68,7 @@ Nombre del entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de reso
 
 ## 5. Nota al pie 1 y plazo
 - **Nota del Código**: tras «Código de Protección y Defensa del Consumidor» en la apertura de HECHOS, nunca tras «señalando lo siguiente:» (R-184).
-- Denuncia **derivada** (MEMORANDUM, Documento u Hoja de Traslado) con el documento entregado: la nota 1, tras la fecha del escrito («Mediante el escrito del …¹»), dice «Denuncia remitida a esta Comisión mediante [documento] de fecha [emisión], recibida el [recepción en CC1].» Desacumulada: forma de las plantillas. Nunca inventes esos datos.
+- Denuncia **derivada** (MEMORANDUM, Documento u Hoja de Traslado) con el documento entregado: la nota 1, tras la fecha del escrito («Mediante el escrito del …¹»), dice «Denuncia remitida a esta Comisión mediante [documento] de fecha [emisión], recibida el [recepción en CC1].» Desacumulada: forma de las plantillas; no inventes esos datos.
 - Presentada en CC1: **ninguna nota sobre la denuncia**; `traslado` en `_CASO.json`: null o el documento.
 - **Plazo de 20 días hábiles**: `python scripts/plazos.py --desde DD/MM/AAAA`; se informa y **no va en la resolución**.
 

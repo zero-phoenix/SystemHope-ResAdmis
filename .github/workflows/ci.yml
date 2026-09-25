@@ -63,6 +63,9 @@ jobs:
         # que no se esta ejecutando. Se le da un documento que DEBE rechazar.
         run: python scripts/prueba_verificador.py
 
+      - name: Traslado completo y conservacion de ordinales especiales
+        run: python scripts/prueba_traslado.py --corpus
+
       - name: Paquete portatil (se construye y se prueba; no se publica)
         shell: pwsh
         env:

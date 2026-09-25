@@ -6,7 +6,7 @@ description: Identificar y nombrar correctamente a denunciantes (varón, mujer, 
 # Partes y notificación
 
 ## Denunciantes: cómo se nombran (medido en 574 plantillas)
-| Clase | Encabezado | HECHOS | Imputaciones y PRIMERO («interpuesta por …») |
+| Clase | Encabezado | HECHOS | Imputaciones y ordinal de admisión («interpuesta por …») |
 |---|---|---|---|
 | Varón (321) | `DENUNCIANTE: NOMBRE (SEÑOR APELLIDO)` | «el señor Apellido» | «el señor Nombre Completo» |
 | Mujer (199) | `(SEÑORA APELLIDO)` | «la señora Apellido» | «la señora Nombre Completo» |
@@ -34,7 +34,7 @@ description: Identificar y nombrar correctamente a denunciantes (varón, mujer, 
 
 ## Traslado (literal; R-155 y R-212)
 «correr traslado de la denuncia del [FECHA][, subsanada mediante escrito del [FECHA]] a [DENUNCIADO(S)] para que, de conformidad con lo dispuesto por el artículo 26 de la Ley sobre Facultades, Normas y Organización del Indecopi, aprobada por Decreto Legislativo 807, presente[n] sus descargos sobre la imputación de cargos realizada en un plazo no mayor a cinco (5) días hábiles contado a partir del día siguiente de la notificación de la presente resolución, vencido el cual, el Secretario Técnico declarará en rebeldía [al denunciado que no lo hubiera presentado | a los denunciados que no lo hubieran presentado]. Debe precisarse que de conformidad con lo establecido por el artículo 223 del Texto Único Ordenado de la Ley 27444, Ley del Procedimiento Administrativo General, las alegaciones y los hechos relevantes de la reclamación, salvo que hayan sido específicamente negadas en la contestación, se tendrán por aceptadas o merituadas como ciertas.»
-- La cita de la denuncia es **la misma del artículo que la admite** (PRIMERO): denuncia, subsanaciones y complementos, con sus fechas. Nunca «de la presente resolución» (v3.5, instructor 24/09/2026). El constructor la sincroniza con la del PRIMERO y el verificador rechaza la que difiera.
+- La cita de la denuncia es **idéntica y completa respecto del ordinal que la admite**: denuncia, subsanaciones y complementos, con sus fechas. Nunca «de la presente resolución» (R-212). El constructor la sincroniza y el verificador rechaza omisiones, añadidos o fechas diferentes. La admisión está en PRIMERO en 516 plantillas, SEGUNDO en 57 y TERCERO en 1; se identifica por «admitir a trámite», conservando los ordinales previos de inadmisibilidad, confidencialidad o incorporación de partes.
 
 ## Vía de notificación
 - **La cédula manda.** Sin cédula, se **repite la vía con la que ese proveedor se notificó siempre**, según `docs/directorio_proveedores_domicilios.json` y el campo `denunciados.detalle[].via` del índice:

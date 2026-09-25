@@ -77,6 +77,12 @@ Utilidades:
 
 Por contenido (índice v3): 457 con 1 denunciado, 102 con 2, 15 con 3 o más; 23 con confidencialidad; 336 aptas como base (0 falsadores).
 
+## Novedades v3.5.1 (24/09/2026)
+
+- **R-212 compara la cita completa**: omitir una subsanación o cambiar su fecha ya no puede pasar por coincidencia parcial.
+- Admisión identificada por su función, también en `entregar`: 516 plantillas admiten en PRIMERO, 57 en SEGUNDO y 1 en TERCERO. Se conservan los ordinales previos de inadmisibilidad y confidencialidad.
+- Medición reproducible y regresiones de conservación/idempotencia: `python scripts/prueba_traslado.py --corpus` (supervisión y CI). De 574 plantillas, 252 tienen citas compuestas. El verificador tiene 57 mutaciones y 14 casos ficticios.
+
 ## Novedades v3.5 (24/09/2026)
 
 Estas son las correcciones definitivas de la revisión del Exp. 2889-2026, generalizadas a todo el sistema:
@@ -84,10 +90,10 @@ Estas son las correcciones definitivas de la revisión del Exp. 2889-2026, gener
 | Mandato | Regla |
 |---|---|
 | Reclamos (numeral 88.1 del artículo 88 o artículo 24): en la considerativa, el hecho cierra con «; involucraría una presunta afectación a su derecho de recibir respuestas adecuadas a los reclamos formulados. Por consiguiente, …». Nunca la frase de «expectativas» | R-211 (109 plantillas, 167 párrafos) |
-| Traslado: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita del PRIMERO; nunca «de la presente resolución» | R-212 (574 plantillas) |
+| Traslado: «correr traslado de la denuncia del …[, subsanada mediante escrito del …] a …», con la cita completa del ordinal de admisión; nunca «de la presente resolución» | R-212 (574 plantillas) |
 | Prima o condiciones cambiadas sin consentimiento: «literal c) del artículo 56» (nunca «numeral 56.1»), métodos comerciales coercitivos; no idoneidad | R-213 |
 
-El constructor aplica R-211 y R-212, y sincroniza la cita del traslado con el PRIMERO del caso. El verificador las exige, con 53 mutaciones y 14 casos ficticios en CI. Migraciones: `scripts/migraciones/afectacion_derecho_reclamos.py` y `traslado_denuncia.py`.
+El constructor aplica R-211 y R-212, y sincroniza la cita del traslado con el ordinal de admisión del caso. El verificador las exige; las mutaciones, 14 casos ficticios y regresiones de traslado se ejecutan en CI. Migraciones: `scripts/migraciones/afectacion_derecho_reclamos.py` y `traslado_denuncia.py`.
 
 ## Novedades v3.4 (24/09/2026)
 
