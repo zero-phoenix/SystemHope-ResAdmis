@@ -128,6 +128,16 @@ class Traslado(unittest.TestCase):
                 self.assertEqual(len(errores), 2)
                 self.assertTrue(all("ordinal de admision" in e for e in errores))
 
+    def test_setiembre_y_septiembre_son_la_misma_fecha(self):
+        caso = {"escritos": [{"tipo": "subsanacion", "fecha": "4 de setiembre de 2026"}]}
+        ps = [
+            "Mediante el escrito del 29 de julio de 2026, subsanado mediante escrito del"
+            " 4 de septiembre de 2026, el señor Prueba denunció.",
+            "PRIMERO: admitir a trámite la denuncia del 29 de julio de 2026, subsanada"
+            " mediante escrito del 4 de septiembre de 2026, interpuesta por el señor Prueba.",
+        ]
+        self.assertEqual(admisorio._control_fechas_escritos(caso, ps), [])
+
 
 def medir_corpus():
     conteos, ordinales = Counter(), Counter()

@@ -4,6 +4,15 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.5.3] - 2026-09-25 (EL ENUMERADOR LITERAL DEL CASO ES MAQUETACIÓN)
+
+### Fixed
+- **`entregar` (`_control_fechas_escritos`)**: cuando la apertura de HECHOS empieza con enumerador literal («1. Mediante…»), la comprobación no encontraba el párrafo y marcaba los escritos como no citados (Exp. 2958-2026). El enumerador se ignora antes de identificar la apertura y «setiembre»/«septiembre» se comparan como la misma fecha.
+- **R-184 (`anclas_incumplidas`)**: el ancla canónica de nota al pie precedida por enumerador literal («1. Mediante…») se daba por incumplida (Exp. 2958-2026 y 3 plantillas). Se ignora el enumerador antes de comparar.
+
+### Added
+- `scripts/prueba_traslado.py`: falsador de setiembre/septiembre (el caso con «septiembre» y el texto con «setiembre» no debe fallar).
+
 ## [3.5.2] - 2026-09-25 (CITA COMPLETA: «ESCRITO PRESENTADO EL …»)
 
 ### Fixed

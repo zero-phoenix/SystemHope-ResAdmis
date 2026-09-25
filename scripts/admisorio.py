@@ -437,15 +437,27 @@ def _copiar_a_origen(docx: Path) -> None:
     print("  Copiado a la carpeta del usuario: %s" % (d / docx.name))
 
 
+def _norm_fecha(t: str) -> str:
+    """«setiembre» y «septiembre» son la misma fecha (R-161)."""
+    return t.replace("septiembre", "setiembre")
+
+
+def _sin_enumerador(t: str) -> str:
+    """El enumerador literal del parrafo («1.», «2)») es maquetacion, no texto."""
+    return re.sub(r"^\s*\d+[.)]\s*", "", t)
+
+
 def _control_fechas_escritos(caso: dict, textos: list[str]) -> list[str]:
     """Las fechas van en HECHOS y en la admision, cualquiera sea su ordinal."""
     from migraciones.traslado_denuncia import cita_admision
 
-    apertura = next((t for t in textos if t.strip().startswith("Mediante")), "")
-    admision = next((c for t in textos if (c := cita_admision(t))), "")
+    apertura = _norm_fecha(
+        next((t for t in textos if _sin_enumerador(t).strip().startswith("Mediante")), "")
+    )
+    admision = _norm_fecha(next((c for t in textos if (c := cita_admision(t))), ""))
     fallos = []
     for e in caso.get("escritos", []):
-        f = e.get("fecha", "")
+        f = _norm_fecha(e.get("fecha", ""))
         if f and f not in apertura:
             fallos.append(
                 "el escrito '%s' del %s no se cita en la apertura de HECHOS"

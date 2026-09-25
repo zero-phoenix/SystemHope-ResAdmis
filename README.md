@@ -77,6 +77,11 @@ Utilidades:
 
 Por contenido (índice v3): 457 con 1 denunciado, 102 con 2, 15 con 3 o más; 23 con confidencialidad; 336 aptas como base (0 falsadores).
 
+## Novedades v3.5.3 (25/09/2026)
+
+- **El enumerador literal («1.», «2)») es maquetación, no texto**: el control de fechas de la apertura de HECHOS y las anclas de notas al pie ya no fallan cuando el párrafo empieza con enumerador escrito a mano (Exp. 2958-2026 de la remesa R3).
+- «setiembre» y «septiembre» se comparan como la misma fecha en el control de escritos.
+
 ## Novedades v3.5.2 (25/09/2026)
 
 - **R-212 conserva la cita completa cuando el escrito se cita como «presentado el [fecha]»**: el terminador ya exige «por»; una cita de traslado truncada se rechaza (Exp. 3110-2026).
