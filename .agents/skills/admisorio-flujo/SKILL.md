@@ -122,3 +122,16 @@ Remesa de 11 admisorios corregidos y el Exp. 3092-2026 rehecho sobre su expedien
 - **Nota sobre la presentación de la denuncia en CC1** (prohibida, R-167): el constructor la quita y renumera.
 - **Vista**: `previsualizar` usa solo ONLYOFFICE Document Builder. Nunca LibreOffice (instructor, 01/10/2026).
 - **Anclaje de fechas**: `entregar` reconoce la misma fecha escrita «10 de setiembre de 2026», «10 de septiembre de 2026» o «10/09/2026». `pdftotext` extrae en UTF-8; antes se perdían las tildes («falleci�»).
+
+## Reglas máximas (proposiciones; instructor, 01/10/2026)
+Estructura del *Tractatus*: cada proposición decimal precisa a la que la contiene. Cada regla trae su **falsador** popperiano: el hecho observable que la refuta en un caso concreto. Una entrega en la que aparece un falsador es inválida.
+
+1. La vista de un Word se obtiene solo con ONLYOFFICE.
+   1.1 LibreOffice no se usa nunca: ni como motor de vista, ni como respaldo, ni para convertir documentos.
+   1.2 Si ONLYOFFICE Document Builder no está instalado, se instala; la falta de motor no autoriza a usar LibreOffice.
+   1.3 **Falsador:** una vista, imagen o PDF producido por LibreOffice (`soffice`, rótulo «VISTA APROXIMADA (LibreOffice)») en el trabajo de un caso.
+2. La fecha de recepción en CC1 de una denuncia que proviene de otra área se toma de la constancia.
+   2.1 La fuente es la «CONSTANCIA DE RECEPCION DE TRASLADO DE EXPEDIENTE» cuyo órgano que recibe es la CC1, campo «Fecha de recepción».
+   2.2 Esa fecha es la de «recibida el …» en la nota 1 y la de `--recepcion` en `entregar`.
+   2.3 No es la fecha del documento de traslado ni la de una constancia dirigida a otro órgano.
+   2.4 **Falsador:** una «recibida el …» o un `--recepcion` distinto de la «Fecha de recepción» de esa constancia.
