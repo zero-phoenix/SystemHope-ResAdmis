@@ -70,6 +70,7 @@ Entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de resolución que
 - **Nota del Código**: tras «Código de Protección y Defensa del Consumidor» en la apertura de HECHOS, nunca tras «señalando lo siguiente:» (R-184).
 - Denuncia **derivada** (MEMORANDUM, Documento u Hoja de Traslado) con el documento entregado: la nota 1, tras la fecha del escrito («Mediante el escrito del …¹»), dice «Denuncia remitida a esta Comisión mediante [documento] de fecha [emisión], recibida el [recepción en CC1].» Desacumulada: forma de las plantillas; no inventes esos datos.
 - Presentada en CC1: **ninguna nota sobre la denuncia**; `traslado` en `_CASO.json`: null o el documento.
+- **Fecha de recepción en CC1** (denuncia que proviene de otra área u órgano): se toma **siempre** de la «CONSTANCIA DE RECEPCION DE TRASLADO DE EXPEDIENTE» cuyo órgano que recibe es la CC1 (campo «Fecha de recepción»). Es la «recibida el …» de la nota 1 y el `--recepcion` de `entregar`. Nunca la fecha del documento de traslado ni la de otra constancia (instructor, 01/10/2026).
 - **Plazo de 20 días hábiles**: `python scripts/plazos.py --desde DD/MM/AAAA`; se informa y **no va en la resolución**.
 
 ## 6. Firma y fecha (`config/`)
@@ -86,5 +87,6 @@ Entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de resolución que
 - Núcleo de cada imputación idéntico en considerativa y resolutivo, **mismo orden y mismo artículo**.
 
 ## 8. Control y consulta
+- **Vista del Word: solo ONLYOFFICE.** Nunca LibreOffice, ni como respaldo (regla máxima del instructor, 01/10/2026).
 - **El control aprobado manda** en ordinal, fecha, imputaciones y requerimientos, sin copiar sus erratas; si contradice al expediente, se eleva.
 - **No usar** `automatizacion_antigravity/modelos/`. La base es una plantilla del índice, preferentemente **APTA**; el número de denunciados, `denunciados.n`, no la carpeta. Confidencialidad: skill `confidencialidad`.

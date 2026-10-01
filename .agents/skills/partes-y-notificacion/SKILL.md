@@ -59,6 +59,7 @@ description: Identificar y nombrar correctamente a denunciantes (varón, mujer, 
 - Denuncia **desacumulada** de un expediente previo (caso particular): la forma de las plantillas, p. ej. «Denuncia desacumulada mediante Resolución 0155-2026/CC1-ST de fecha 29 de abril de 2026, recibida el 30 de abril de 2026.» En `_CASO.json`: `traslado.nota` con ese texto literal, más `documento`, `fecha` y `recibida`.
 - Siempre «recibida», nunca «recepcionada». Siempre «de 2026», nunca «del 2026». Sin «N°».
 - Si la denuncia se presentó directamente en CC1: **ninguna** nota sobre la denuncia. Prohibido «Denuncia presentada el …», «ante la Mesa de Partes …» o cualquier variante (R-167). La primera nota es la del Código.
+- La fecha de «recibida el …» es la «Fecha de recepción» de la «CONSTANCIA DE RECEPCION DE TRASLADO DE EXPEDIENTE» emitida a la CC1 (si hay varias constancias, la que tiene a la CC1 como órgano que recibe).
 - Nunca inventes número, fecha de emisión ni fecha de recibido: si el usuario no entregó el documento, no hay nota.
 
 ## Notas del traslado (parte resolutiva)

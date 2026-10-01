@@ -20,7 +20,7 @@ Un `ADM <EXP> R<N>.docx` que el verificador declare **APTO** y `entregar` declar
 6. **Anclar los datos** de cada documento (escrito de parte = fecha de su FIRMA DIGITAL; documento de Indecopi = fecha de emisión del texto):
    - denuncia: fecha y hechos;
    - subsanación o escritos complementarios: fecha;
-   - memorándum o documento de traslado: número, fecha de emisión y fecha de recepción en CC1;
+   - memorándum o documento de traslado: número y fecha de emisión; la fecha de recepción en CC1 sale **siempre** de la «CONSTANCIA DE RECEPCION DE TRASLADO DE EXPEDIENTE» cuyo órgano que recibe es la CC1;
    - cédula: partes, vía de cada parte y número de resolución;
    - resolución de programación de audiencia de conciliación: es anterior y no se cita como hecho.
 7. **Redactar el mapa** (`mapa.json`, en la carpeta del caso) sobre la plantilla y construir con `scripts/construir_admisorio.py --mapa`. Las claves son texto de la **plantilla**. El constructor aplica solo las reglas generales v3.1: quita notas huérfanas y renumera, lleva cada nota canónica a su ancla, pone a cada calificación la nota de SU norma, deja una tabulación tras cada llamada, quita dobles espacios y líneas en blanco de más, deja en negrita solo el rótulo de cada ordinal, quita el subrayado fuera del rótulo del requerimiento, fija la firma según `config/firmas.json` con «Firmado digitalmente por». Lo que imprime en «NORMALIZACION v3.1» es informativo.
@@ -120,5 +120,5 @@ Remesa de 11 admisorios corregidos y el Exp. 3092-2026 rehecho sobre su expedien
 - **Hechos**: «adquirió» el seguro (R-204); nada valorativo como «únicamente» (R-203); solo lo que sustenta las imputaciones, sin perder el contexto.
 - **Inadmisibilidad dejada sin efecto**: si el Word o el expediente la traen, se conservan el apartado «DE LA INADMISIBILIDAD» y el ordinal que la deja sin efecto.
 - **Nota sobre la presentación de la denuncia en CC1** (prohibida, R-167): el constructor la quita y renumera.
-- **Vista**: `previsualizar` usa ONLYOFFICE Document Builder si está instalado; si es LibreOffice, rotula «VISTA APROXIMADA».
+- **Vista**: `previsualizar` usa solo ONLYOFFICE Document Builder. Nunca LibreOffice (instructor, 01/10/2026).
 - **Anclaje de fechas**: `entregar` reconoce la misma fecha escrita «10 de setiembre de 2026», «10 de septiembre de 2026» o «10/09/2026». `pdftotext` extrae en UTF-8; antes se perdían las tildes («falleci�»).

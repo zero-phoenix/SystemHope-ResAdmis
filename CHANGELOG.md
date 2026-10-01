@@ -4,6 +4,12 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.5.3] - 2026-10-01 (SOLO ONLYOFFICE; RECEPCIÓN DESDE LA CONSTANCIA)
+
+### Changed
+- **Vista del Word: solo ONLYOFFICE** (regla máxima del instructor, 01/10/2026). `scripts/previsualizar.py` ya no recurre a LibreOffice ni como respaldo; sin ONLYOFFICE Document Builder no hay vista y se pide instalarlo. Actualizados `AGENTS.md` §8, `ARRANQUE.md` y la skill `admisorio-flujo`.
+- **Fecha de recepción en CC1** de una denuncia derivada de otra área: se toma siempre de la «CONSTANCIA DE RECEPCION DE TRASLADO DE EXPEDIENTE» cuyo órgano receptor es la CC1 (Exp. 3075-2026: 28/08/2026). Es la «recibida el …» de la nota 1 y el `--recepcion` de `entregar`. `AGENTS.md` §5 y skills `admisorio-flujo` y `partes-y-notificacion`.
+
 ## [3.5.2] - 2026-09-25 (CITA COMPLETA: «ESCRITO PRESENTADO EL …»)
 
 ### Fixed
