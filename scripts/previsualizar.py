@@ -7,22 +7,21 @@ negritas, subrayados, firma) no se ven leyendo XML, se ven MIRANDO la pagina.
 Este comando deja en `<carpeta>/_vista/` una imagen por pagina del Word y, con
 `--contra`, la misma pagina de la plantilla a su lado.
 
-Sin Word ni win32com (prohibidos). Motor, por orden de fidelidad a Word:
+Sin Word ni win32com (prohibidos). Motor UNICO (regla maxima del instructor,
+01/10/2026: «nunca mas usar LibreOffice, usar en su lugar ONLYOFFICE»):
 
-1. **ONLYOFFICE Document Builder** (gratuito; su motor de maquetacion imita el
-   de Microsoft Word). Medido en el 9998-2026: dibuja las notas al pie como
-   Word (llamada a 0, texto a 1 cm) con el Word tal cual.
-2. **LibreOffice** sin ventana, solo si ONLYOFFICE no esta. Se come la primera
-   tabulacion de cada nota; para que la vista no engañe, en la COPIA temporal
-   esa tabulacion se dibuja como un espacio fijo hasta 1 cm. Las imagenes llevan
-   el rotulo «VISTA APROXIMADA (LibreOffice)».
+- **ONLYOFFICE Document Builder** (gratuito; su motor de maquetacion imita el
+  de Microsoft Word). Medido en el 9998-2026: dibuja las notas al pie como
+  Word (llamada a 0, texto a 1 cm) con el Word tal cual.
+
+LibreOffice queda PROHIBIDO como motor de vista, tambien como respaldo: se come
+la primera tabulacion de cada nota y su vista engaña. Si ONLYOFFICE no esta
+instalado, no hay vista: se instala ONLYOFFICE (no se recurre a LibreOffice).
 
 El Word del caso nunca se toca: se convierte una copia a un PDF TEMPORAL fuera
 de la carpeta del caso (R-125), PyMuPDF lo pasa a imagenes y todo se borra.
 Si la letra del documento no esta instalada y el motor la sustituye por otra de
 distinta metrica, se avisa: la paginacion de la vista podria no ser la de Word.
-
-`PREVISUALIZAR_MOTOR=libreoffice` fuerza el respaldo (para comparar).
 
 Uso (lo llama `admisorio.py previsualizar`):
     python scripts/previsualizar.py <admisorio.docx> [--contra <plantilla.docx>]
@@ -160,16 +159,9 @@ def _pdf_libreoffice(exe: str, copia: Path, tmp: Path) -> Path:
 
 def motores() -> list[tuple[str, str]]:
     """(nombre, ejecutable) en orden de fidelidad; PREVISUALIZAR_MOTOR fuerza uno."""
-    lista = []
-    ob, lo = docbuilder(), soffice()
-    if ob:
-        lista.append(("ONLYOFFICE", ob))
-    if lo:
-        lista.append(("LibreOffice", lo))
-    forzado = os.environ.get("PREVISUALIZAR_MOTOR", "").lower()
-    if forzado:
-        lista = [m for m in lista if m[0].lower() == forzado] or lista
-    return lista
+    # Solo ONLYOFFICE (instructor, 01/10/2026): LibreOffice nunca, ni de respaldo.
+    ob = docbuilder()
+    return [("ONLYOFFICE", ob)] if ob else []
 
 
 def letras_sustituidas(pdf: Path) -> list[str]:
@@ -198,7 +190,7 @@ def paginas_png(docx: Path, destino: Path, prefijo: str, dpi: int = 100) -> tupl
     candidatos = motores()
     if not candidatos:
         raise FileNotFoundError(
-            "no hay motor de vista: instala ONLYOFFICE Document Builder (recomendado) o LibreOffice"
+            "no hay motor de vista: instala ONLYOFFICE Document Builder (LibreOffice esta prohibido)"
         )
     with tempfile.TemporaryDirectory(prefix="vista_") as t:
         tmp = Path(t)

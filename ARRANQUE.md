@@ -26,7 +26,7 @@ Desde aquí, **todo comando** se ejecuta así (define las variables una vez por 
 $SH="$env:USERPROFILE\SystemHope"; Set-Location "$SH\repo"; & "$SH\python\python.exe" scripts\<script>.py <argumentos>
 ```
 
-**Vista fiel a Word (opcional, una sola vez por PC):** `previsualizar` usa **ONLYOFFICE Document Builder** (gratuito) si está instalado; si no, LibreOffice como vista aproximada. Si el diagnóstico muestra `Vista : sin motor` o solo `LibreOffice`, sugiere al usuario instalarlo desde la página oficial de ONLYOFFICE (Document Builder). Nunca uses Word ni win32com para ver el documento.
+**Vista fiel a Word (opcional, una sola vez por PC):** `previsualizar` usa **solo ONLYOFFICE Document Builder** (gratuito). **Nunca LibreOffice**, ni como respaldo (regla máxima del instructor, 01/10/2026). Si el diagnóstico muestra `Vista : sin motor`, pide al usuario instalar ONLYOFFICE Document Builder desde su página oficial. Nunca uses Word ni win32com para ver el documento.
 
 ## 2. Leer las reglas (obligatorio, antes de redactar)
 Lee **completos**:
@@ -57,7 +57,7 @@ Sigue el flujo de `AGENTS.md` §1:
    - Denunciados: los **definitivos** tras la resolución de requerimiento y su absolución.
 3. **OBLIGATORIO: las 10 plantillas más similares.** Escribe `_CASO.json` y ejecuta `similares.py <carpeta>`. Completa el «Por qué» de las 10 en `_SIMILARES.md`, con detalle técnico de las imputaciones. Muéstraselo al usuario. **Nunca** cites una plantilla que el script no listó.
 4. `construir_admisorio.py --mapa <mapa.json>`: el mapa va en la carpeta del caso y la base es una de las 10.
-4b. `admisorio.py previsualizar "<carpeta>\ADM <EXP> R<N>.docx" --contra "<plantilla base>"`: mira **todas** las imágenes de `_vista\` en una vuelta (notas en su sitio y con su norma, huecos, negritas, subrayados, firma). Si dice «VISTA APROXIMADA (LibreOffice)», las notas se juzgan con cautela; si dice «sin motor», sigue sin vista.
+4b. `admisorio.py previsualizar "<carpeta>\ADM <EXP> R<N>.docx" --contra "<plantilla base>"`: mira **todas** las imágenes de `_vista\` en una vuelta (notas en su sitio y con su norma, huecos, negritas, subrayados, firma). Si dice «sin motor», instala ONLYOFFICE Document Builder; nunca LibreOffice.
 5. `admisorio.py entregar "<carpeta>\ADM <EXP> R<N>.docx" --recepcion DD/MM/AAAA`. Si es ENTREGABLE, copia el Word a la carpeta donde el usuario tiene los documentos (`carpeta_origen` de `_CASO.json`).
 
 Solo está entregado si la salida dice **ENTREGABLE** y el verificador **APTO**. Pega esa salida

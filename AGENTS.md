@@ -70,6 +70,7 @@ Entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de resolución que
 - **Nota del Código**: tras «Código de Protección y Defensa del Consumidor» en la apertura de HECHOS, nunca tras «señalando lo siguiente:» (R-184).
 - Denuncia **derivada** (MEMORANDUM, Documento u Hoja de Traslado) con el documento entregado: la nota 1, tras la fecha del escrito («Mediante el escrito del …¹»), dice «Denuncia remitida a esta Comisión mediante [documento] de fecha [emisión], recibida el [recepción en CC1].» Desacumulada: forma de las plantillas; no inventes esos datos.
 - Presentada en CC1: **ninguna nota sobre la denuncia**; `traslado` en `_CASO.json`: null o el documento.
+- **Fecha de recepción en CC1** (denuncia que proviene de otra área u órgano): se toma **siempre** de la «CONSTANCIA DE RECEPCION DE TRASLADO DE EXPEDIENTE» cuyo órgano que recibe es la CC1 (campo «Fecha de recepción»). Es la «recibida el …» de la nota 1 y el `--recepcion` de `entregar`. Nunca la fecha del documento de traslado ni la de otra constancia (instructor, 01/10/2026).
 - **Plazo de 20 días hábiles**: `python scripts/plazos.py --desde DD/MM/AAAA`; se informa y **no va en la resolución**.
 
 ## 6. Firma y fecha (`config/`)
@@ -86,5 +87,19 @@ Entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de resolución que
 - Núcleo de cada imputación idéntico en considerativa y resolutivo, **mismo orden y mismo artículo**.
 
 ## 8. Control y consulta
+- **Vista del Word: solo ONLYOFFICE.** Nunca LibreOffice, ni como respaldo (regla máxima del instructor, 01/10/2026).
 - **El control aprobado manda** en ordinal, fecha, imputaciones y requerimientos, sin copiar sus erratas; si contradice al expediente, se eleva.
 - **No usar** `automatizacion_antigravity/modelos/`. La base es una plantilla del índice, preferentemente **APTA**; el número de denunciados, `denunciados.n`, no la carpeta. Confidencialidad: skill `confidencialidad`.
+
+## 9. Reglas máximas (proposiciones; instructor, 01/10/2026)
+Estructura del *Tractatus*: cada proposición decimal precisa a la que la contiene. Cada regla trae su **falsador** popperiano: el hecho observable que la refuta en un caso concreto. Una entrega en la que aparece un falsador es inválida.
+
+1. La vista de un Word se obtiene solo con ONLYOFFICE.
+   1.1 LibreOffice no se usa nunca: ni como motor de vista, ni como respaldo, ni para convertir documentos.
+   1.2 Si ONLYOFFICE Document Builder no está instalado, se instala; la falta de motor no autoriza a usar LibreOffice.
+   1.3 **Falsador:** una vista, imagen o PDF producido por LibreOffice (`soffice`, rótulo «VISTA APROXIMADA (LibreOffice)») en el trabajo de un caso.
+2. La fecha de recepción en CC1 de una denuncia que proviene de otra área se toma de la constancia.
+   2.1 La fuente es la «CONSTANCIA DE RECEPCION DE TRASLADO DE EXPEDIENTE» cuyo órgano que recibe es la CC1, campo «Fecha de recepción».
+   2.2 Esa fecha es la de «recibida el …» en la nota 1 y la de `--recepcion` en `entregar`.
+   2.3 No es la fecha del documento de traslado ni la de una constancia dirigida a otro órgano.
+   2.4 **Falsador:** una «recibida el …» o un `--recepcion` distinto de la «Fecha de recepción» de esa constancia.
