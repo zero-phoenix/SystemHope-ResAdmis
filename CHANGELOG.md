@@ -4,6 +4,11 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.5.4] - 2026-10-01 (AGENTS.MD VUELVE A CABER EN ANTIGRAVITY)
+
+### Fixed
+- La v3.5.3 dejó `AGENTS.md` en 13 766 caracteres, por encima del límite de 12 000 que lee Antigravity (`autocomprobacion.py` fallaba). Las «Reglas máximas» en proposiciones con falsador pasan a la skill `admisorio-flujo`. `AGENTS.md` (11 997 caracteres) conserva las dos reglas en §1 3b (vista solo con ONLYOFFICE) y §5 (recibida el … = «Fecha de recepción» de la constancia de traslado), con el mismo sentido.
+
 ## [3.5.3] - 2026-10-01 (SOLO ONLYOFFICE; RECEPCIÓN DESDE LA CONSTANCIA)
 
 ### Changed

@@ -1,23 +1,22 @@
 # AGENTS.md — Admisorios CC1 Indecopi (seguros). Reglas vigentes v3.5
 
-Única fuente de reglas vigentes.
-Redactor: **Google Antigravity con el modelo de `config/modelo.json`** (Gemini 3.8 Flash High o más).
+Única fuente de reglas. Redactor: **Google Antigravity con el modelo de `config/modelo.json`** (Gemini 3.8 Flash High o más).
 
 ## 0. Arranque
 0. **En otra computadora**: sigue `ARRANQUE.md`.
-   Lee las skills de `.agents/skills/`: `admisorio-flujo`, `imputaciones` y `partes-y-notificacion`; y `confidencialidad` si la tiene.
+   Skills de `.agents/skills/`: `admisorio-flujo`, `imputaciones` y `partes-y-notificacion`; y `confidencialidad` si la tiene.
 1. Trabaja desde la **raíz del repositorio**. Primer comando: `python scripts/comprobar_anclaje.py`. Si falla, para.
 2. Fecha de emisión: `python scripts/config_sistema.py`. Si dice «sin fijar», **pregúntala al instructor**.
 3. Si el caso trae `_ORDEN_DE_TRABAJO.md`, manda para ese caso. Si trae `_ESTADO.md` con «CASO CERRADO», no generes nada.
 4. **Haz solo lo que se hace.** Únicos comandos: `comprobar_anclaje`, `config_sistema`, `admisorio.py preparar|previsualizar|entregar`, `similares`, `construir_admisorio`, `inspeccionar_docx`, `plazos`. Prohibido lo demás (`editar_cedulas`, `python -c`, scripts propios, Word, borradores). En la carpeta del caso: originales, lo generado y un único `ADM <EXP> R<N>.docx`; `entregar` rechaza el resto.
 
-## 1. Los pasos (≤ 12 llamadas en un expediente corto)
-1. `python scripts/admisorio.py preparar <carpeta>` — capturas, `_LECTURA.md`, `_FORMATO.md` y **`_FICHA.md`** (comandos, firmas digitales, proveedores y vías, tipificación). **Ritmo**: sin `-h` ni leer scripts o JSON; `_hojas/` en una vuelta; `WaitMsBeforeAsync` 120000.
+## 1. Los pasos (≤ 12 llamadas si es corto)
+1. `python scripts/admisorio.py preparar <carpeta>` — capturas, `_LECTURA.md`, `_FORMATO.md` y **`_FICHA.md`** (comandos, firmas digitales, proveedores y vías, tipificación). **Ritmo**: sin `-h`, scripts ni JSON; `_hojas/` en una vuelta; `WaitMsBeforeAsync` 120000.
 2. **Lectura visual** de `_hojas/` (dos páginas por imagen): una fila por página en `_LECTURA.md`, con «Lo que vi» y «Formato que vi» (medidas en `_FORMATO.md`, cero OCR). Si el texto discrepa, manda la imagen.
 2b. **OBLIGATORIO: las 10 plantillas más similares.** `_CASO.json` (`resolucion`, `carpeta_origen`, `traslado`, escritos con fecha, denunciados DEFINITIVOS, conductas y norma) y `python scripts/similares.py <carpeta>`. `_SIMILARES.md`: el «Por qué» de las 10; la base sale de ellas.
 3. `python scripts/construir_admisorio.py --mapa <mapa.json>` (para corregir un Word, él es la plantilla). Claves = **texto de la plantilla**; `"parrafos"` sustituye un párrafo entero por su inicio. El constructor sanea solo. Sin Word, win32com ni PDF.
-3b. `python scripts/admisorio.py previsualizar "<docx>" --contra "<plantilla>"` — `_vista/` con cada página junto a la de la plantilla. **Míralas todas en una vuelta**.
-4. `python scripts/admisorio.py entregar "<carpeta>/ADM <EXP> R<N>.docx" --recepcion DD/MM/AAAA` — debe decir **ENTREGABLE** y el verificador **APTO**; copia el Word a `carpeta_origen`. Pega la salida literal.
+3b. `python scripts/admisorio.py previsualizar "<docx>" --contra "<plantilla>"` — `_vista/` (solo ONLYOFFICE, no LibreOffice): cada página junto a la de la plantilla. **Míralas todas**.
+4. `python scripts/admisorio.py entregar "<carpeta>/ADM <EXP> R<N>.docx" --recepcion DD/MM/AAAA` — **ENTREGABLE** y verificador **APTO**; copia el Word a `carpeta_origen`. Pega la salida literal.
 
 Entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de resolución que fija la cédula. Nunca PDF.
 
@@ -68,9 +67,8 @@ Entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de resolución que
 
 ## 5. Nota al pie 1 y plazo
 - **Nota del Código**: tras «Código de Protección y Defensa del Consumidor» en la apertura de HECHOS, nunca tras «señalando lo siguiente:» (R-184).
-- Denuncia **derivada** (MEMORANDUM, Documento u Hoja de Traslado) con el documento entregado: la nota 1, tras la fecha del escrito («Mediante el escrito del …¹»), dice «Denuncia remitida a esta Comisión mediante [documento] de fecha [emisión], recibida el [recepción en CC1].» Desacumulada: forma de las plantillas; no inventes esos datos.
+- Denuncia **derivada** (MEMORANDUM, Documento u Hoja de Traslado) con el documento entregado: la nota 1, tras la fecha del escrito («Mediante el escrito del …¹»), dice «Denuncia remitida a esta Comisión mediante [documento] de fecha [emisión], recibida el [«Fecha de recepción» de la constancia de traslado].» Desacumulada: forma de las plantillas; no inventes esos datos.
 - Presentada en CC1: **ninguna nota sobre la denuncia**; `traslado` en `_CASO.json`: null o el documento.
-- **Fecha de recepción en CC1** (denuncia que proviene de otra área u órgano): se toma **siempre** de la «CONSTANCIA DE RECEPCION DE TRASLADO DE EXPEDIENTE» cuyo órgano que recibe es la CC1 (campo «Fecha de recepción»). Es la «recibida el …» de la nota 1 y el `--recepcion` de `entregar`. Nunca la fecha del documento de traslado ni la de otra constancia (instructor, 01/10/2026).
 - **Plazo de 20 días hábiles**: `python scripts/plazos.py --desde DD/MM/AAAA`; se informa y **no va en la resolución**.
 
 ## 6. Firma y fecha (`config/`)
@@ -87,19 +85,5 @@ Entregable: `ADM <EXPEDIENTE> R<N>.docx`; `<N>` es el número de resolución que
 - Núcleo de cada imputación idéntico en considerativa y resolutivo, **mismo orden y mismo artículo**.
 
 ## 8. Control y consulta
-- **Vista del Word: solo ONLYOFFICE.** Nunca LibreOffice, ni como respaldo (regla máxima del instructor, 01/10/2026).
 - **El control aprobado manda** en ordinal, fecha, imputaciones y requerimientos, sin copiar sus erratas; si contradice al expediente, se eleva.
 - **No usar** `automatizacion_antigravity/modelos/`. La base es una plantilla del índice, preferentemente **APTA**; el número de denunciados, `denunciados.n`, no la carpeta. Confidencialidad: skill `confidencialidad`.
-
-## 9. Reglas máximas (proposiciones; instructor, 01/10/2026)
-Estructura del *Tractatus*: cada proposición decimal precisa a la que la contiene. Cada regla trae su **falsador** popperiano: el hecho observable que la refuta en un caso concreto. Una entrega en la que aparece un falsador es inválida.
-
-1. La vista de un Word se obtiene solo con ONLYOFFICE.
-   1.1 LibreOffice no se usa nunca: ni como motor de vista, ni como respaldo, ni para convertir documentos.
-   1.2 Si ONLYOFFICE Document Builder no está instalado, se instala; la falta de motor no autoriza a usar LibreOffice.
-   1.3 **Falsador:** una vista, imagen o PDF producido por LibreOffice (`soffice`, rótulo «VISTA APROXIMADA (LibreOffice)») en el trabajo de un caso.
-2. La fecha de recepción en CC1 de una denuncia que proviene de otra área se toma de la constancia.
-   2.1 La fuente es la «CONSTANCIA DE RECEPCION DE TRASLADO DE EXPEDIENTE» cuyo órgano que recibe es la CC1, campo «Fecha de recepción».
-   2.2 Esa fecha es la de «recibida el …» en la nota 1 y la de `--recepcion` en `entregar`.
-   2.3 No es la fecha del documento de traslado ni la de una constancia dirigida a otro órgano.
-   2.4 **Falsador:** una «recibida el …» o un `--recepcion` distinto de la «Fecha de recepción» de esa constancia.
