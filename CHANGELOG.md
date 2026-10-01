@@ -4,6 +4,14 @@ Todos los cambios notables en este proyecto se documentarán en este archivo.
 
 El formato se basa en [Keep a Changelog](https://keepachangelog.com/) y este proyecto adhiere a [Semantic Versioning](https://semver.org/).
 
+## [3.5.3] - 2026-10-01 (NOTA DEL ARTÍCULO 24 Y LLAMADA ANTES DEL PUNTO)
+
+### Added
+- **Nota del artículo 24** en `docs/notas_normas.json` (clave «artículo 24»): transcribe el numeral 24.1 vigente según la Ley 31435 («…en un plazo no mayor de quince (15) días hábiles improrrogables»), tomado de `normas/codigo proteccion consumidor.pdf`. AGENTS manda imputar por el artículo 24 el reclamo ante un proveedor no regulado por el sistema financiero, pero el catálogo no tenía su nota, así que `insertar_despues` no podía anclarla (Exp. 3057-2026: reclamo en el Libro de Reclamaciones de una EAFC supervisada por la SMV; el instructor confirmó el artículo 24).
+
+### Fixed
+- **`insertar_despues` con `nota`** pegaba la llamada detrás del punto final («… del Código.¹»). El corpus la escribe antes del punto en 1055 calificaciones y después solo en 5. Ahora, si el párrafo termina en punto, la llamada va antes y el punto conserva el formato de su tramo (Exp. 3057-2026).
+
 ## [3.5.2] - 2026-09-25 (CITA COMPLETA: «ESCRITO PRESENTADO EL …»)
 
 ### Fixed
