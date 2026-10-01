@@ -400,6 +400,28 @@ def fijar_firma(xml: str) -> str:
     return xml
 
 
+def _anclar_llamada_final(parrafo: str, run_nota: str) -> str:
+    """Pone la llamada de nota al final del parrafo, ANTES del punto final.
+
+    El corpus escribe «… del Código¹.» (1055 calificaciones) y casi nunca
+    «… del Código.¹» (5). Antes la llamada se pegaba detras del punto (Exp.
+    3057-2026, 01/10/2026). Si el ultimo tramo de texto termina en punto, se le
+    quita, va la llamada y despues un run con el punto y el mismo formato."""
+    cierre = parrafo.rindex("</w:p>")
+    trozos = list(RE_TEXTO.finditer(parrafo))
+    if not trozos or not trozos[-1].group(2).endswith("."):
+        return parrafo[:cierre] + run_nota + parrafo[cierre:]
+    t = trozos[-1]
+    run_ini = parrafo.rfind("<w:r>", 0, t.start())
+    run_ini = max(run_ini, parrafo.rfind("<w:r ", 0, t.start()))
+    run_fin = parrafo.index("</w:r>", t.end()) + len("</w:r>")
+    rpr = re.search(r"<w:rPr>.*?</w:rPr>", parrafo[run_ini:t.start()], re.S)
+    punto = '<w:r>%s<w:t>.</w:t></w:r>' % (rpr.group(0) if rpr else "")
+    sin_punto = parrafo[: t.start(2)] + t.group(2)[:-1] + parrafo[t.end(2):]
+    run_fin -= 1
+    return sin_punto[:run_fin] + run_nota + punto + sin_punto[run_fin:]
+
+
 def insertar_despues(
     xml: str, fx: str, inserciones: dict
 ) -> tuple[str, str, list[str]]:
@@ -480,7 +502,7 @@ def insertar_despues(
                     ref_modelo.group(0),
                     count=1,
                 )
-                clon = clon[: clon.rindex("</w:p>")] + run + "</w:p>"
+                clon = _anclar_llamada_final(clon, run)
                 fx = fx.replace(
                     "</w:footnotes>",
                     '<w:footnote w:id="%d">%s</w:footnote></w:footnotes>'
