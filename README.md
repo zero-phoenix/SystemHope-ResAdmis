@@ -11,6 +11,7 @@ de la Comisión.
 - **Redactor**: Google Antigravity con Gemini 3.8 Flash High o el modelo superior vigente.
 - **Cualquier PC**: en una conversación nueva de Antigravity, pega `https://github.com/zero-phoenix/SystemHope-ResAdmis/blob/main/ARRANQUE.md` y adjunta los PDF del expediente. [`ARRANQUE.md`](ARRANQUE.md) instala Python y Git portátiles en `%USERPROFILE%\SystemHope\` (sin administrador) y guía al agente.
 - **Skills de Antigravity**: `.agents/skills/` (flujo, imputaciones, partes y notificación, confidencialidad).
+- **Vista ONLYOFFICE** (único motor de `previsualizar`): Linux `bash scripts/hooks/instalar_onlyoffice.sh`; Windows, `arranque/instalar.ps1` vía `winget`; CI, `.github/actions/onlyoffice` (job «Vista ONLYOFFICE»).
 
 ## Uso (desde la raíz del repositorio)
 

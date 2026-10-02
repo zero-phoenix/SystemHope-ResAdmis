@@ -26,7 +26,7 @@ Desde aquí, **todo comando** se ejecuta así (define las variables una vez por 
 $SH="$env:USERPROFILE\SystemHope"; Set-Location "$SH\repo"; & "$SH\python\python.exe" scripts\<script>.py <argumentos>
 ```
 
-**Vista fiel a Word (opcional, una sola vez por PC):** `previsualizar` usa **solo ONLYOFFICE Document Builder** (gratuito). **Nunca LibreOffice**, ni como respaldo (regla máxima del instructor, 01/10/2026). Si el diagnóstico muestra `Vista : sin motor`, pide al usuario instalar ONLYOFFICE Document Builder desde su página oficial. Nunca uses Word ni win32com para ver el documento.
+**Vista fiel a Word (opcional, una sola vez por PC):** `previsualizar` usa **solo ONLYOFFICE Document Builder** (gratuito). **Nunca LibreOffice**, ni como respaldo (regla máxima del instructor, 01/10/2026). El paso 1 intenta instalarlo con `winget`; si el diagnóstico aún muestra `Vista : sin motor`, pide al usuario instalar ONLYOFFICE Document Builder desde su página oficial. Nunca uses Word ni win32com para ver el documento.
 
 ## 2. Leer las reglas (obligatorio, antes de redactar)
 Lee **completos**:
