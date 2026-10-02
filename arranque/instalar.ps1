@@ -80,6 +80,14 @@ if ($remota -and $remota -ne $local) {
     Write-Host "SystemHope $local ya esta al dia."
 }
 
+# Motor de vista de `previsualizar` (LibreOffice prohibido). Sin administrador
+# puede fallar: no se detiene la instalacion; el diagnostico dira «Vista: sin motor».
+$docbuilder = @("$env:ProgramFiles\ONLYOFFICE\DocumentBuilder\docbuilder.exe", "${env:ProgramFiles(x86)}\ONLYOFFICE\DocumentBuilder\docbuilder.exe") | Where-Object { Test-Path $_ }
+if (-not $docbuilder -and (Get-Command winget -ErrorAction SilentlyContinue)) {
+    Write-Host "Instalando ONLYOFFICE Document Builder (winget)..."
+    winget install --id ONLYOFFICE.DocumentBuilder -e --silent --accept-package-agreements --accept-source-agreements | Out-Null
+}
+
 $py = Join-Path $Base 'python\python.exe'
 Set-Location (Join-Path $Base 'repo')
 & $py 'scripts\comprobar_entorno.py'

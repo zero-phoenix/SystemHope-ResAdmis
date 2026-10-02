@@ -71,3 +71,34 @@ jobs:
         env:
           GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: ./arranque/construir_portable.ps1 -Version "ci-${{ github.run_number }}"
+
+  vista:
+    # La vista fiel a Word (paso 3b de AGENTS.md) solo existe con ONLYOFFICE
+    # Document Builder; LibreOffice esta prohibido. Si el motor deja de
+    # instalarse o de producir paginas, este job falla.
+    name: Vista ONLYOFFICE (motor de previsualizar)
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout del codigo
+        uses: actions/checkout@v4
+
+      - name: Configurar Python 3.11
+        uses: actions/setup-python@v5
+        with:
+          python-version: "3.11"
+
+      - name: Instalar dependencias minimas
+        run: pip install -r requirements.txt
+
+      - name: Instalar ONLYOFFICE Document Builder
+        uses: ./.github/actions/onlyoffice
+
+      - name: Previsualizar una plantilla con ONLYOFFICE
+        run: |
+          set -e
+          mkdir -p "$RUNNER_TEMP/vista"
+          P=$(find plantillas_maestras -name 'TPL_2111_2025_*.docx' | head -1)
+          cp "$P" "$RUNNER_TEMP/vista/prueba.docx"
+          python scripts/previsualizar.py "$RUNNER_TEMP/vista/prueba.docx" --contra "$P" | tee "$RUNNER_TEMP/vista.log"
+          grep -q "Motor: ONLYOFFICE" "$RUNNER_TEMP/vista.log"
+          ls "$RUNNER_TEMP/vista/_vista/"*.png
